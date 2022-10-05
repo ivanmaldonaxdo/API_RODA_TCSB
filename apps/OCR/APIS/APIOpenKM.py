@@ -18,26 +18,18 @@ class OpenKm():
         response = requests.get(_url,headers =_headers, auth = self.auth_creds, params = _params )
         return response
 
-#AGU - ELE - GAS
-# url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_query) //URL BASE
-    def get_docs(self, _nombre = None ,_serv = None):
-        _prop_base, _operation  = 'okp:encCobro.','search/find'
-        # _params =  {'property':'{}{}={}' .format(_prop_base,'tipo_servicio','AGU')}
-        # _params =  {'property':'{}{}={}' .format(_prop_base,'folio',_nombre)}
-        # _params =  {'folio':_nombre, 'tipo_servicio':_serv} 
-        # url = "{}{}" .format(self.end_point_base,_operation)
-        # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_nombre)
+    #AGU - ELE - GAS
+    def get_docs(self, _folio = None ,_serv = None):
+        # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
         url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
         response = self.get_response(url)
         status_code = response.status_code
         if (status_code in range(200,399)):
-            print("Codigo de estado es aceptable") 
+            print("Codigo de estado {}" .format(status_code)) 
             print("")
             data = response.json()
             print("")
             # print(data['queryResult'])
-            print("")
-            # print( "TIPO DATO => {}".format(type(data['queryResult'])))
             tipo_dato = type(data['queryResult'])
             nodo ,uuid= "",""
             is_lista = isinstance(data['queryResult'], list) #evalua si es una lista de varias boletas
@@ -45,7 +37,6 @@ class OpenKm():
             if is_lista:
                 print("**********TEST MUCHAS BOLETAS*********")
                 print("")
-                # print(data['queryResult'].keys())
                 cantidad = 0
                 boletas = []
                 for d in data['queryResult']:
@@ -53,7 +44,6 @@ class OpenKm():
                     uuid = nodo["uuid"]
                     path_doc = nodo["path"]
                     cantidad+=1
-                    # ruta_sep = path_doc.split('/')[-2:-1]
                     nom_doc = path_doc.split('/')
                     nom_doc = nom_doc[-1]
                     # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
@@ -71,7 +61,6 @@ class OpenKm():
                 path,uuid = data_node['path'],data_node['uuid']
                 nom_doc = path.split('/')
                 nom_doc = nom_doc[-1]
-
                 print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
                 print("")
                 boleta = dict(
@@ -101,7 +90,6 @@ class OpenKm():
         _prop_base = 'okp:encCobro.'
         _params =  {'property':'{}{}={}' .format(_prop_base,_metadata,_query)}
         url = "{}{}" .format(self.end_point_base,'search/find')
-        # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_query)
         response = self.get_response(url,_params=_params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -119,14 +107,10 @@ class OpenKm():
             data_node = data['queryResult']['node']
             path,uuid = data_node['path'],data_node['uuid']
             print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
-            # return data
-
             return uuid
 
         else:
             return "ERROR "    
-
-
 
 # print("")
 # print("datatype of RESPONSE")
@@ -141,11 +125,7 @@ class OpenKm():
 #     'anio_doc':'2020'
 # }
 
-# # http://65.21.188.116:8080/OpenKM/services/rest/search/find?property=okp:encCobro.folio=5293130/&mimeType=application/pdf
-
-# # openkm.get_doc_by_folio(5293130)
-#https://www.openkm.com/wiki/index.php/RESTful_Guide#Search
-
-
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
+#https://www.openkm.com/wiki/index.php/RESTful_Guide#Search
+#http://65.21.188.116:8080/OpenKM/services/rest/api-docs?url=/OpenKM/services/rest/swagger.json#/search-service/find
