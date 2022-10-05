@@ -1,4 +1,5 @@
 from django.db import models
+from apps.management.models import Sistema
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from rest_framework.authtoken.models import Token
 # Create your models here.
@@ -42,6 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField('Nombre', max_length = 255, blank = True, null = True)
     telefono = models.CharField('Telefono', max_length= 15, blank=True, null = True)
     role =  models.ForeignKey(Rol, on_delete=models.CASCADE, null=True, default=None)
+    sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
     is_active = models.BooleanField(default = True)
     is_staff = models.BooleanField(default = False)
     objects = UserManager()
@@ -58,7 +60,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'{self.name}'   
-
-    def get_my_token(self):
-        return Token.objects.get(user=self)
-    my_token = property(get_my_token)
