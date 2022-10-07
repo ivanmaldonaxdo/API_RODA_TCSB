@@ -19,16 +19,20 @@ class OpenKm():
         return response
 
     #AGU - ELE - GAS
-    def get_docs(self, _folio = None ,_serv = None):
+    def get_docs(self, _folio = None ,_serv = None , _path = None):
         # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
+        # params = {'path':_path}
+        # url = "{}{}" .format(self.end_point_base,'search/find')
         url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
         response = self.get_response(url)
+
+        # response = self.get_response(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("Codigo de estado {}" .format(status_code)) 
             print("")
             data = response.json()
-            print("")
+            # print(data['queryResult'])
             # print(data['queryResult'])
             tipo_dato = type(data['queryResult'])
             nodo ,uuid= "",""
@@ -42,17 +46,20 @@ class OpenKm():
                 for d in data['queryResult']:
                     nodo = d["node"]
                     uuid = nodo["uuid"]
-                    path_doc = nodo["path"]
+                    path = nodo["path"]
                     cantidad+=1
-                    nom_doc = path_doc.split('/')
+                    nom_doc = path.split('/')
                     nom_doc = nom_doc[-1]
                     # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
+
+                    #if responsew ==False:
                     boletas.append(dict(
-                        {'path':path_doc, 
+                        {'path':path, 
                         'uuid':uuid,
                         'nomDoc':nom_doc
                         }
                     ))
+
                 print("TOTAL BOLETAS => {}" .format(cantidad))
                 return boletas
             else:
@@ -111,6 +118,7 @@ class OpenKm():
 
         else:
             return "ERROR "    
+# url = "{}{}={}{}" .format(self.end_point_base,'propertyGroup/hasGroup?nodeId',path,'&grpName=okg:encCobro')
 
 # print("")
 # print("datatype of RESPONSE")
