@@ -22,72 +22,77 @@ class OpenKm():
     def get_docs(self, _folio = None ,_serv = None , _path = None, _anio= None):
         # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
         # params = {'path':_path}
-        # url = "{}{}" .format(self.end_point_base,'search/find')
+        url = "{}{}" .format(self.end_point_base,'search/find')
+        # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
         list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio)]
-        json_params = []
+        properties = []
         for l in list_params:
             # print("PARAM > {}" .format(l))
             if l[1] is not None:
                 print()
-                print("PARAM > {}" .format('okp:encCobro.{}={}'.format(l[0],l[1])))
-                # json_params.append()
-        # params = {'property':json_params}
-        url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
-        response = self.get_response(url)
-
-        # response = self.get_response(url,params)
+                # print("PARAM > {}" .format('okp:encCobro.{}={}'.format(l[0],l[1])))
+                prop = 'okp:encCobro.{}={}'.format(l[0],l[1])
+                properties.append(prop)
+        params = {'property':properties}
+        print(properties)
+        # response = self.get_response(url)
+        response = self.get_response(url,params)
+        # is_vacio = True if len(response.json())==0 else False
+        # print(len(response.json()))
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("Codigo de estado {}" .format(status_code)) 
             print("")
             data = response.json()
-            # print(data['queryResult'])
-            # print(data['queryResult'])
-            tipo_dato = type(data['queryResult'])
-            nodo ,uuid= "",""
-            is_lista = isinstance(data['queryResult'], list) #evalua si es una lista de varias boletas
-            print("ES LISTA? : {} " .format(isinstance(data['queryResult'], list)))
-            if is_lista:
-                print("**********TEST MUCHAS BOLETAS*********")
-                print("")
-                cantidad = 0
-                boletas = []
-                for d in data['queryResult']:
-                    nodo = d["node"]
-                    uuid = nodo["uuid"]
-                    path = nodo["path"]
-                    cantidad+=1
+            try:
+                tipo_dato = type(data['queryResult'])
+                nodo ,uuid= "",""
+                is_lista = isinstance(data['queryResult'], list) #evalua si es una lista de varias boletas
+                print("ES LISTA? : {} " .format(isinstance(data['queryResult'], list)))
+                if is_lista:
+                    print("**********TEST MUCHAS BOLETAS*********")
+                    print("")
+                    cantidad = 0
+                    boletas = []
+                    for d in data['queryResult']:
+                        nodo = d["node"]
+                        uuid = nodo["uuid"]
+                        path = nodo["path"]
+                        cantidad+=1
+                        nom_doc = path.split('/')
+                        nom_doc = nom_doc[-1]
+                        # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
+
+                        #if responsew ==False:
+                        boletas.append(dict(
+                            {'path':path, 
+                            'uuid':uuid,
+                            'nomDoc':nom_doc
+                            }
+                        ))
+
+                    print("TOTAL BOLETAS => {}" .format(cantidad))
+                    return boletas
+                else:
+                    print("**********TEST UNA BOLETA*********")
+                    data_node = data['queryResult']['node']
+                    path,uuid = data_node['path'],data_node['uuid']
                     nom_doc = path.split('/')
                     nom_doc = nom_doc[-1]
-                    # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
-
-                    #if responsew ==False:
-                    boletas.append(dict(
-                        {'path':path, 
-                        'uuid':uuid,
-                        'nomDoc':nom_doc
-                        }
-                    ))
-
-                print("TOTAL BOLETAS => {}" .format(cantidad))
-                return boletas
-            else:
-                print("**********TEST UNA BOLETA*********")
-                data_node = data['queryResult']['node']
-                path,uuid = data_node['path'],data_node['uuid']
-                nom_doc = path.split('/')
-                nom_doc = nom_doc[-1]
-                print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
-                print("")
-                boleta = dict(
-                        {'path':path, 
-                        'uuid':uuid,
-                        'nomDoc':nom_doc
-                        }
-                    )
-                return boleta
+                    print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
+                    print("")
+                    boleta = dict(
+                            {'path':path, 
+                            'uuid':uuid,
+                            'nomDoc':nom_doc
+                            })
+                    return boleta
+            except:
+                print("NO EXISTEN OCURREENCIAS")
+                return {}
         else:
-            return "ERROR => STATUS_CODE: {} | URL: {}" .format(status_code, response.url)
+            print("ERROR => STATUS_CODE: {} | URL: {}" .format(status_code, response.url))
+            return {}
 
     #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
     def get_content_doc(self,uuid = None):
@@ -112,7 +117,7 @@ class OpenKm():
             print("Codigo de estado es aceptable") 
             print("")
             data = response.json()  
-            # print(len(data['queryResult']))
+
             print(data)
             cantidad = 0
             for f in data:

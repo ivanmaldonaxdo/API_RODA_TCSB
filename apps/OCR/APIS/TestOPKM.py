@@ -20,8 +20,11 @@ if isinstance(response, list):
         print("**********PDF SUBIDO**********")
         print("")
 else:
-    resp_cont = openkm.get_content_doc(response['uuid'])
-    print(response['nomDoc'])
-    # resultado = subir_archivo(resp_cont.content,'rodatest-bucket', nomDoc = response['nomDoc'])
-    print("**********PDF SUBIDO**********")
+    try:
+        resp_cont = openkm.get_content_doc(response['uuid'])
+        print(response['nomDoc'])
+        # resultado = subir_archivo(resp_cont.content,'rodatest-bucket', nomDoc = response['nomDoc'])
+        print("**********PDF SUBIDO**********")
+    except:
+        print("ERROR EN SUBIR CONTENIDO")
 
