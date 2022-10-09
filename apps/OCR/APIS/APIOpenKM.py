@@ -15,24 +15,16 @@ class OpenKm():
         headers = _headers
         response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
-
+        
+    #region GET_DOCS
     #AGU - ELE - GAS
     def get_docs(self, _folio = None ,_serv = None , _path = None, _anio= None):
-        # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
         # params = {'path':_path}
-        # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
         url = "{}{}" .format(self.end_point_base,'search/find')
         list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio)]
-        properties = []
-        for l in list_params:
-            # print("PARAM > {}" .format(l))
-            if l[1] is not None:
-                print()
-                # print("PARAM > {}" .format('okp:encCobro.{}={}'.format(l[0],l[1])))
-                prop = 'okp:encCobro.{}={}'.format(l[0],l[1])
-                properties.append(prop)
+        properties = self.get_list_params(list_params)
+        print("Propiedades => {}" .format(properties))
         params = {'property':properties}
-        print(properties)
         response = self.get_response(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -62,7 +54,6 @@ class OpenKm():
                             'nomDoc':nom_doc
                             }
                         ))
-
                     print("TOTAL BOLETAS => {}" .format(cantidad))
                     return boletas
                 else:
@@ -85,6 +76,7 @@ class OpenKm():
         else:
             print("ERROR => STATUS_CODE: {} | URL: {}" .format(status_code, response.url))
             return {}
+    #endregion GET_DOCS
 
     #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
     def get_content_doc(self,uuid = None):
@@ -98,6 +90,15 @@ class OpenKm():
         else:
             return "ERROR EN CODIGO ESTADO => {} ".format(status_code)
 
+    def get_list_params(self,_list_params,_prop_base = None):
+        queries = []
+        for l in _list_params:
+            # print("PARAM > {}" .format(l))
+            if l[1] is not None:
+                # print("PARAM > {}" .format('okp:encCobro.{}={}'.format(l[0],l[1])))
+                query = 'okp:encCobro.{}={}'.format(l[0],l[1])
+                queries.append(query)
+        return queries
     ##PETICION PARA OBTENER METADATA DE ARCHIVOS EJ:      
     def get_doc_by_folio(self,_query = None):
         _metadata = 'folio'
@@ -125,7 +126,6 @@ class OpenKm():
 
         else:
             return "ERROR"
-    
 # url = "{}{}={}{}" .format(self.end_point_base,'propertyGroup/hasGroup?nodeId',path,'&grpName=okg:encCobro')
 
 # print("")
