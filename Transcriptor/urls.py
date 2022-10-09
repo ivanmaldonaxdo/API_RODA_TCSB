@@ -19,6 +19,6 @@ from apps.users.usuarios.Token import CustomAuthToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', CustomAuthToken.as_view()),
+    path('auth-user/', CustomAuthToken.as_view()),
     path('usuarios/', include('apps.users.usuarios.routers'))
 ]

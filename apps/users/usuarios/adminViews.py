@@ -6,6 +6,8 @@ from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from apps.permissions import IsOperador, IsAdministrador
+from rest_framework.decorators import action
 
 
 from rest_framework import viewsets
@@ -15,6 +17,7 @@ from rest_framework import status
 
 
 class UserViewSet(viewsets.GenericViewSet):
+    permission_classes = [IsAdministrador]
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model=User
@@ -60,7 +63,7 @@ class UserViewSet(viewsets.GenericViewSet):
                 'contraseña':user_serializer.validated_data['password']
             }, status=status.HTTP_201_CREATED)
         return Response({
-            'message':'Error en el registro',
+            'message':'Error en el registro, verifique los campos',
             'errors': user_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
         
@@ -83,6 +86,48 @@ class UserViewSet(viewsets.GenericViewSet):
         user = self.get_object(pk)
         user_serializer = self.serializer_class(user)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
+
+    
+    def destroy(self, request, pk=None):
+        user = self.get_object(pk)
+        if user.delete():
+            return Response({
+                'message': 'Usuario Eliminado'
+            }, status=status.HTTP_200_OK)
+        return Response({
+            'message':'La ID ingresada no coincide con ningun usuario'
+        }, status= status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+    #Metodo para activar o desactivar usuarios
+    @action(methods=['put'], detail=True)
+    def user_state(self, request, pk=None):
+        user = self.get_object(pk)
+        if user.is_active == True:
+            user.is_active=False
+            user.save()
+            token = Token.objects.filter(user=user)
+            if token:
+                token.delete()
+                message = 'Token eliminado'
+            return Response({
+                'message': 'Usuario desactivado',
+                'Token-status': message
+            }, status=status.HTTP_200_OK)
+        elif user.is_active == False:
+            user.is_active=True
+            user.save()
+            return Response({
+                'message': 'Usuario activado'
+            }, status=status.HTTP_200_OK)
+        return Response({
+            'message':'La ID ingresada no coincide con ningun usuario'
+        }, status= status.HTTP_404_NOT_FOUND)
+
+
     
     
         
