@@ -19,7 +19,7 @@ class OpenKm():
         return response
 
     #AGU - ELE - GAS
-    def get_docs(self, _folio = None ,_serv = None , _path = None):
+    def get_docs(self, _folio = None ,_serv = None , _path = None, _anio= None):
         # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
         # params = {'path':_path}
         # url = "{}{}" .format(self.end_point_base,'search/find')
