@@ -23,6 +23,15 @@ class OpenKm():
         # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
         # params = {'path':_path}
         # url = "{}{}" .format(self.end_point_base,'search/find')
+        list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio)]
+        json_params = []
+        for l in list_params:
+            # print("PARAM > {}" .format(l))
+            if l[1] is not None:
+                print()
+                print("PARAM > {}" .format('okp:encCobro.{}={}'.format(l[0],l[1])))
+                # json_params.append()
+        # params = {'property':json_params}
         url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
         response = self.get_response(url)
 

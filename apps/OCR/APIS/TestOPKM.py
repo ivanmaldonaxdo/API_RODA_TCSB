@@ -16,12 +16,12 @@ if isinstance(response, list):
         uuid = r['uuid']
         resp = openkm.get_content_doc(r['uuid'])
         print(r['nomDoc'])
-        resultado =  subir_archivo(resp.content,'rodatest-bucket', nomDoc = r['nomDoc'])
+        # resultado =  subir_archivo(resp.content,'rodatest-bucket', nomDoc = r['nomDoc'])
         print("**********PDF SUBIDO**********")
         print("")
 else:
     resp_cont = openkm.get_content_doc(response['uuid'])
     print(response['nomDoc'])
-    resultado = subir_archivo(resp_cont.content,'rodatest-bucket', nomDoc = response['nomDoc'])
+    # resultado = subir_archivo(resp_cont.content,'rodatest-bucket', nomDoc = response['nomDoc'])
     print("**********PDF SUBIDO**********")
 
