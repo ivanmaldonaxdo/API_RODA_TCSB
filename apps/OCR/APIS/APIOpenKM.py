@@ -11,19 +11,17 @@ class OpenKm():
         self.auth_creds = HTTPBasicAuth(username, password)
         self.end_point_base = url
 
-    def get_response(self,_url,_params = None):
-        _headers = {
-            'Accept': 'application/json',
-        }
-        response = requests.get(_url,headers =_headers, auth = self.auth_creds, params = _params )
+    def get_response(self,_url,_params = None, _headers = {'Accept': 'application/json'}):
+        headers = _headers
+        response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
 
     #AGU - ELE - GAS
     def get_docs(self, _folio = None ,_serv = None , _path = None, _anio= None):
         # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.folio',_folio)
         # params = {'path':_path}
-        url = "{}{}" .format(self.end_point_base,'search/find')
         # url = "{}{}={}" .format(self.end_point_base,'search/find?property=okp:encCobro.tipo_servicio',_serv)
+        url = "{}{}" .format(self.end_point_base,'search/find')
         list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio)]
         properties = []
         for l in list_params:
@@ -35,14 +33,10 @@ class OpenKm():
                 properties.append(prop)
         params = {'property':properties}
         print(properties)
-        # response = self.get_response(url)
         response = self.get_response(url,params)
-        # is_vacio = True if len(response.json())==0 else False
-        # print(len(response.json()))
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("Codigo de estado {}" .format(status_code)) 
-            print("")
             data = response.json()
             try:
                 tipo_dato = type(data['queryResult'])
@@ -62,8 +56,6 @@ class OpenKm():
                         nom_doc = path.split('/')
                         nom_doc = nom_doc[-1]
                         # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
-
-                        #if responsew ==False:
                         boletas.append(dict(
                             {'path':path, 
                             'uuid':uuid,
@@ -96,8 +88,9 @@ class OpenKm():
 
     #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
     def get_content_doc(self,uuid = None):
-        url = "http://65.21.188.116:8080/OpenKM/services/rest/document/getContent?docId={}" .format(uuid)
-        response = requests.get(url, auth = self.auth_creds)
+        url = "{}{}" .format(self.end_point_base,'document/getContent')
+        params = {'docId':uuid}
+        response = self.get_response(url,_params = params, _headers = None)
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("OBTENCION CORRECTA DE CONTENIDO")
@@ -131,7 +124,8 @@ class OpenKm():
             return uuid
 
         else:
-            return "ERROR "    
+            return "ERROR"
+    
 # url = "{}{}={}{}" .format(self.end_point_base,'propertyGroup/hasGroup?nodeId',path,'&grpName=okg:encCobro')
 
 # print("")
