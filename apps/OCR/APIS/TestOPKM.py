@@ -15,14 +15,14 @@ if isinstance(response, list):
         archivo = openkm.get_content_doc(uuid)
         print(r['nomDoc'])
         # print(archivo)
-        # resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
+        resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
         print("**********PDF SUBIDO**********")
         print("")
 else:
     try:
         archivo = openkm.get_content_doc(response['uuid'])
         print(response['nomDoc'])
-        # resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
+        resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
     except:
         print("ERROR EN SUBIR ARCHIVO A S3 AWS")
 
