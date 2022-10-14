@@ -16,7 +16,7 @@ class OpenKm():
         response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
         
-    #region GET_DOCS
+#region GET_DOCS
     #AGU - ELE - GAS
     def get_docs(self, _folio = None ,_serv = None , _path = None, _anio= None):
         # params = {'path':_path}
@@ -24,7 +24,7 @@ class OpenKm():
         list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio)]
         properties = self.get_list_params(list_params)
         print("Propiedades => {}" .format(properties))
-        params = {'property':properties}
+        params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA
         response = self.get_response(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -47,6 +47,8 @@ class OpenKm():
                         cantidad+=1
                         nom_doc = path.split('/')
                         nom_doc = nom_doc[-1]
+                        # print ("PATH  {}" .format(nodo.get("path")))
+
                         # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
                         boletas.append(dict(
                             {'path':path, 
@@ -56,10 +58,11 @@ class OpenKm():
                         ))
                     print("TOTAL BOLETAS => {}" .format(cantidad))
                     return boletas
+                    
                 else:
                     print("**********TEST UNA BOLETA*********")
-                    data_node = data['queryResult']['node']
-                    path,uuid = data_node['path'],data_node['uuid']
+                    nodo = data['queryResult']['node']
+                    path,uuid = nodo['path'],nodo['uuid']
                     nom_doc = path.split('/')
                     nom_doc = nom_doc[-1]
                     print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
@@ -71,12 +74,12 @@ class OpenKm():
                             })
                     return boleta
             except:
-                print("NO EXISTEN OCURREENCIAS")
+                print("NO EXISTEN OCURRENCIAS")
                 return {}
         else:
             print("ERROR => STATUS_CODE: {} | URL: {}" .format(status_code, response.url))
             return {}
-    #endregion GET_DOCS
+#endregion GET_DOCS
 
     #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
     def get_content_doc(self,uuid = None):
@@ -85,6 +88,7 @@ class OpenKm():
         response = self.get_response(url,_params = params, _headers = None)
         status_code = response.status_code
         if (status_code in range(200,399)):
+            print("")
             print("OBTENCION CORRECTA DE CONTENIDO")
             return response
         else:
@@ -92,13 +96,39 @@ class OpenKm():
 
     def get_list_params(self,_list_params,_prop_base = None):
         queries = []
-        for l in _list_params:
+        for param in _list_params:
+            key,value = param[0],param[1]
             # print("PARAM > {}" .format(l))
-            if l[1] is not None:
-                # print("PARAM > {}" .format('okp:encCobro.{}={}'.format(l[0],l[1])))
-                query = 'okp:encCobro.{}={}'.format(l[0],l[1])
+            if value is not None:
+                print("PARAM > {}" .format('okp:encCobro.{}={}'.format( key,value )))
+                query = 'okp:encCobro.{}={}'.format(param[0],param[1])
                 queries.append(query)
         return queries
+
+    def get_metadata(self,uuid):
+        grpName = 'okg:encCobro'#GRUPO DE METADATAS
+        url = "{}{}" .format(self.end_point_base,'propertyGroup/getProperties')
+        params = {'nodeId':uuid,'grpName':grpName}
+        response = self.get_response(url,_params = params)
+        status_code = response.status_code
+        if (status_code in range(200,399)):
+            print("OBTENCION CORRECTA DE METADATA")
+            # print("JSON PROPS => {}" .format(json.dumps(response.json(),indent = 2)))
+            metadata = response.json()
+            print("")
+            print("PROPIEDADES METADATA")
+            #LABEL ES EL NOMBRE DE LA PROPIEDAD Y SU VALUE
+            propiedades = dict(map(lambda x:(x['label'], x['value']),metadata['formElementComplex']))
+            print(propiedades)
+            print("")
+            return propiedades
+        else:
+            return "ERROR EN CODIGO ESTADO => {} ".format(status_code)
+
+
+
+
+
     ##PETICION PARA OBTENER METADATA DE ARCHIVOS EJ:      
     def get_doc_by_folio(self,_query = None):
         _metadata = 'folio'
