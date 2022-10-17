@@ -1,5 +1,3 @@
-import email
-from rest_framework import generics
 from apps.users.models import User
 from apps.users.usuarios.serializers import UserSerializer, UpdateSerializer
 from rest_framework import filters
