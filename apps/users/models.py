@@ -12,6 +12,9 @@ class Rol(models.Model):
 
     def __str__(self):
         return self.role
+    
+    class Meta:
+        verbose_name_plural = "Roles de usuario"
 
 
 
