@@ -117,7 +117,7 @@ class OpenKm():
             metadata = response.json()
             print("")
             print("PROPIEDADES METADATA")
-            #LABEL ES EL NOMBRE DE LA PROPIEDAD Y SU VALUE
+            #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
             propiedades = dict(map(lambda x:(x['label'], x['value']),metadata['formElementComplex']))
             print(propiedades)
             print("")
@@ -126,7 +126,16 @@ class OpenKm():
             return "ERROR EN CODIGO ESTADO => {} ".format(status_code)
 
 
-
+    def is_processed_doc(self,uuid):
+        metadata = self.get_metadata(uuid)
+        is_processed = True
+        try:
+            proceso_ocr = metadata.get('proceso_ocr')
+            is_processed = (False if proceso_ocr == "" else True)
+            print("PROCESADO??? = {}" .format(is_processed) )
+        except:
+            print("PROBLEMAS PARA ACCEDER A ESA PROPIEDAD")
+        return is_processed
 
 
     ##PETICION PARA OBTENER METADATA DE ARCHIVOS EJ:      
@@ -156,20 +165,7 @@ class OpenKm():
 
         else:
             return "ERROR"
-# url = "{}{}={}{}" .format(self.end_point_base,'propertyGroup/hasGroup?nodeId',path,'&grpName=okg:encCobro')
 
-# print("")
-# print("datatype of RESPONSE")
-
-# print(type(response.content))
-# now = time.localtime(time.time())
-# fecha = time.strftime("%Y_%m_%d", now)
-# print(fecha)
-# with open("boleta_{}.pdf" .format(fecha), "wb") as pdf:
-#     pdf.write(response.content)
-# query = {
-#     'anio_doc':'2020'
-# }
 
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
