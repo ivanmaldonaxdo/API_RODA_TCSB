@@ -50,7 +50,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     telefono = models.CharField('Telefono', max_length= 15, blank=True, null = True)
     role =  models.ForeignKey(Rol, on_delete=models.CASCADE, null=True, default=None)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
-    is_active = models.BooleanField(default = True)
+    ESTADOS = (
+        (True, 'Activado'),
+        (False, 'Desactivado'),
+    )
+    is_active = models.BooleanField(default = True, choices=ESTADOS)
     is_staff = models.BooleanField(default = False)
     objects = UserManager()
     

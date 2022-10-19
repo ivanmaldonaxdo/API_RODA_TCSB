@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate
 from apps.permissions import IsOperador, IsAdministrador
 from rest_framework.decorators import action
 from django.http import Http404
-
+from django_filters import FilterSet
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -19,8 +20,9 @@ class UserViewSet(viewsets.GenericViewSet):
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model=User
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['=name', '=email']
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['name', 'email']
+    filterset_fields = ['is_active']
 
     
     def get_queryset(self):

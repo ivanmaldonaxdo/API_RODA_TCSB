@@ -9,17 +9,25 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import FilterSet
 
 #Libreria
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 
+class ProvFilter(FilterSet):
+    class Meta:
+        model = Proveedor
+        fields = {
+            'nom_proveedor': ['contains'],
+            'rut_proveedor': ['exact'],
+        }
 
 class ProveedorViewSets(viewsets.GenericViewSet):
     serializer_class = ProveedorSerializer
     update_serializer_class = UpdateSerializer
     model = Proveedor
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['nom_proveedor', 'rut_proveedor',]
+    filterset_fields = ProvFilter.Meta.fields
 
     def get_queryset(self):
         queryset= self.filter_queryset(Proveedor.objects.all())

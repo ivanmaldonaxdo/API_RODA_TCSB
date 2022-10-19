@@ -16,7 +16,7 @@ from django_filters import FilterSet
 #Libreria
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 
-class UserFilter(FilterSet):
+class ClienteFilter(FilterSet):
     class Meta:
         model = Cliente
         fields = {
@@ -29,7 +29,7 @@ class ClienteViewSets(viewsets.GenericViewSet):
     update_serializer_class = UpdateSerializer
     model = Cliente
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = UserFilter.Meta.fields
+    filterset_fields = ClienteFilter.Meta.fields
 
     def get_queryset(self):
         queryset= self.filter_queryset(Cliente.objects.all())

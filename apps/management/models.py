@@ -38,11 +38,11 @@ class Cliente(models.Model):
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
-    contacto = models.CharField('Contacto', max_length=255, blank=False)
+    contacto = models.CharField('Contacto', max_length=255, blank=True)
     SERVICIOS = (
-        (1, 'Luz'),
-        (2, 'Agua'),
-        (3, 'Gas'),
+        ('1', 'Luz'),
+        ('2', 'Agua'),
+        ('3', 'Gas'),
     )
     servicio = models.CharField('Tipo Servicio', max_length=255, choices=SERVICIOS)
 
