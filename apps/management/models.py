@@ -2,25 +2,27 @@ from datetime import datetime
 from email.policy import default
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from solo.models import SingletonModel
 
 
 
 
 #SISTEMA
 class Sistema(models.Model):
+    #singleton_instance_id = 1
     credencial = models.CharField('Credencial',max_length=255,unique = True,blank = True)
     name_sis = models.CharField('Nombre de Sistema',max_length=255,unique = True, blank = True)
     url = models.CharField('Url',max_length=255,unique = True, blank = True)
 
     def __str__(self):
-        return f'{self.name_sis}'
+        return "Sistema"
 
     class Meta:
-        verbose_name_plural = "Sistema"
+        verbose_name = "Configuracion del sistema"
 
 class Cliente(models.Model):
     nom_cli = models.CharField('Nombre cliente', max_length=255, blank=True, null=True)
-    rut_cliente = models.CharField('Rut Cliente', max_length=10, unique=True, blank=True, null=True)
+    rut_cliente = models.CharField('Rut Cliente', max_length=10, unique=True, default='Sin Rut')
     razon_social = models.CharField('Razon social', max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default = True)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
@@ -33,12 +35,12 @@ class Cliente(models.Model):
 
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
-    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False)
+    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
     contacto = models.CharField('Contacto', max_length=255, blank=False)
     SERVICIOS = (
-        ('L', 'Luz'),
-        ('A', 'Agua'),
-        ('G', 'Gas'),
+        (1, 'Luz'),
+        (2, 'Agua'),
+        (3, 'Gas'),
     )
     servicio = models.CharField('Tipo Servicio', max_length=255, choices=SERVICIOS)
 
@@ -79,8 +81,8 @@ class Comuna(models.Model):
 class Sucursal(models.Model):
     proveedor = models.ManyToManyField(Proveedor, related_name='Proveedor')
     nom_sucursal = models.CharField('Nombre Unidad', max_length=255, blank=False)
-    num_cliente = models.IntegerField('Numero Cliente')
-    cod =  models.IntegerField('Codigo', blank=False)
+    num_cliente = models.IntegerField('Numero Cliente', unique=True)
+    cod =  models.IntegerField('Codigo', blank=False, unique= True)
     is_active = models.BooleanField(default = True)
     direccion = models.CharField('Direccion', max_length=255)
     comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)

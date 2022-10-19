@@ -21,6 +21,8 @@ class UserViewSet(viewsets.GenericViewSet):
     model=User
     filter_backends = [filters.SearchFilter]
     search_fields = ['=name', '=email']
+
+    
     def get_queryset(self):
         queryset= self.filter_queryset(User.objects.all())
         return queryset
@@ -43,7 +45,7 @@ class UserViewSet(viewsets.GenericViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:   
             return Response({
-                'message':'El dato ingresado no coincide con algun(os) usuario(s)',
+                'message':'La busqueda no coincide con ningun usuario',
             }, status= status.HTTP_404_NOT_FOUND)
 
     def create(self, request): #Creacion de usuario
@@ -85,24 +87,8 @@ class UserViewSet(viewsets.GenericViewSet):
         user_serializer = self.serializer_class(user)
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
-    
-    def destroy(self, request, pk=None):
-        user = self.get_object(pk)
-        if user.delete():
-            return Response({
-                'message': 'Usuario Eliminado'
-            }, status=status.HTTP_200_OK)
-        return Response({
-            'message':'La ID ingresada no coincide con ningun usuario'
-        }, status= status.HTTP_404_NOT_FOUND)
-
-
-
-
-
     #Metodo para activar o desactivar usuarios
-    @action(methods=['put'], detail=True)
-    def user_state(self, request, pk=None):
+    def destroy(self, request, pk=None):
         user = self.get_object(pk)
         if user.is_active == True:
             user.is_active=False
