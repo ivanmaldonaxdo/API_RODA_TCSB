@@ -16,11 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.users.usuarios.Token import CustomAuthToken
+from apps.OCR import cron
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth-user/', CustomAuthToken.as_view()),
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
+<<<<<<< HEAD
     path('proveedores/', include('apps.management.proveedor.routers'))
+=======
+    path('cron/', cron.dicehola)
+>>>>>>> f39bd57ae3f17ba7b2793233534c01ddd81c6751
 ]
