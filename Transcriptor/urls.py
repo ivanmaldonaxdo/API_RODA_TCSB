@@ -22,9 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth-user/', CustomAuthToken.as_view()),
     path('usuarios/', include('apps.users.usuarios.routers')),
-<<<<<<< HEAD
-    path('clientes/', include('apps.management.clientes.routers'))
-=======
+    path('clientes/', include('apps.management.clientes.routers')),
     path('cron/', cron.dicehola)
->>>>>>> juan
 ]
