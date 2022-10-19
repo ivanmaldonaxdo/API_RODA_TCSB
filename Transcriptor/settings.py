@@ -159,3 +159,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRONJOBS = [
     ('*/1 * * * *', 'apps.OCR.cron.dicehola')
 ]
+

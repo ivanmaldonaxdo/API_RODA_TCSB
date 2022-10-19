@@ -1,5 +1,6 @@
-
-
+from django.shortcuts import render
+from django.http import response
 
 def dicehola():
-    print("hola caballeros")
+    #print("hola caballeros")
+    return ("dice hola")
