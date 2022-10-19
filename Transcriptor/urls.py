@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth-user/', CustomAuthToken.as_view()),
     path('usuarios/', include('apps.users.usuarios.routers')),
-    path('clientes/', include('apps.management.clientes.routers'))
+    path('clientes/', include('apps.management.clientes.routers')),
+    path('proveedores/', include('apps.management.proveedor.routers'))
 ]
