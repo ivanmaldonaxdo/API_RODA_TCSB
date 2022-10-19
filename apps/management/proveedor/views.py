@@ -4,7 +4,7 @@ from apps.management.models import Proveedor
 from rest_framework.response import Response
 from apps.permissions import IsOperador, IsAdministrador
 
-
+from django.http import Http404
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -26,7 +26,10 @@ class ProveedorViewSets(viewsets.GenericViewSet):
         return queryset
 
     def get_object(self, pk):
-        return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        try:
+            return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        except self.model.DoesNotExist:
+            raise Http404
 
 
     def create(self, request):
@@ -47,6 +50,11 @@ class ProveedorViewSets(viewsets.GenericViewSet):
             'message':'Error en el registro',
             'errors': prov_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk = None): #Detalle de un usuario
+        proveedor  = self.get_object(pk)
+        prov_serializer = self.serializer_class(proveedor)
+        return Response(prov_serializer.data, status= status.HTTP_200_OK)
 
     def list(self, request): #Listado de usuario
         query = self.get_queryset()

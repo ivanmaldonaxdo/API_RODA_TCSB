@@ -6,30 +6,40 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from apps.permissions import IsOperador, IsAdministrador
 from rest_framework.decorators import action
-
+from django.http import Http404
 
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
-
+from django_filters import FilterSet
 #Libreria
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 
+class UserFilter(FilterSet):
+    class Meta:
+        model = Cliente
+        fields = {
+            'nom_cli': ['contains'],
+            'rut_cliente': ['exact'],
+        }
 
 class ClienteViewSets(viewsets.GenericViewSet):
     serializer_class = ClienteSerializer
     update_serializer_class = UpdateSerializer
     model = Cliente
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['nom_cli', 'rut_cliente']
+    filterset_fields = UserFilter.Meta.fields
 
     def get_queryset(self):
         queryset= self.filter_queryset(Cliente.objects.all())
         return queryset
 
     def get_object(self, pk):
-        return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        try:
+            return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        except self.model.DoesNotExist:
+            raise Http404
 
 
     def create(self, request):
@@ -50,6 +60,11 @@ class ClienteViewSets(viewsets.GenericViewSet):
             'message':'Error en el registro',
             'errors': client_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk = None): #Detalle de un usuario
+        cliente  = self.get_object(pk)
+        cliente_serializer = self.serializer_class(cliente)
+        return Response(cliente_serializer.data, status= status.HTTP_200_OK)
 
     def list(self, request): #Listado de usuario
         query = self.get_queryset()
