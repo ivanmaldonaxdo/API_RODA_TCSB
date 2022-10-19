@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-from solo.models import SingletonModelAdmin
+from solo.admin import SingletonModelAdmin
 # Register your models here.
 
 admin.site.register(Sucursal)
