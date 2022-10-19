@@ -15,7 +15,7 @@ from rest_framework import status
 
 
 class UserViewSet(viewsets.GenericViewSet):
-    permission_classes = [IsAdministrador]
+    # permission_classes = [IsAdministrador]
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model=User

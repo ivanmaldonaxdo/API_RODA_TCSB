@@ -11,11 +11,21 @@ class CustomAuthToken(ObtainAuthToken):
             user = serializer.validated_data['user']
             if user.is_active:
                 token, created = Token.objects.get_or_create(user=user)
-                return Response({
-                    'message':'Usuario Autenticado',
-                    'token': token.key,
-                    'user_id': user.pk,
-                    'email': user.email
+                if created:
+                    return Response({
+                        'message':'Usuario Autenticado',
+                        'token': token.key,
+                        'user_id': user.pk,
+                        'email': user.email
+                        }, status=status.HTTP_200_OK)
+                else:
+                    token.delete()
+                    token=Token.objects.create(user=user)
+                    return Response({
+                        'message':'Usuario Autenticado',
+                        'token': token.key,
+                        'user_id': user.pk,
+                        'email': user.email
                     }, status=status.HTTP_200_OK)
             else:
                 return Response({'error':'El usuario no se encuentra activo'}, status=status.HTTP_401_UNAUTHORIZED)
