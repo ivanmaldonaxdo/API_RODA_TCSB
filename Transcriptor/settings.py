@@ -157,5 +157,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONJOBS = [
-    ('*/5 * * * *', 'apps.OCR.cron.dicehola')
+    ('*/1 * * * *', 'apps.OCR.cron.dicehola')
 ]
