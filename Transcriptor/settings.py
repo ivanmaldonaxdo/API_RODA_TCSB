@@ -51,6 +51,7 @@ THIRD_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'rut_chile',
+    'solo'
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
