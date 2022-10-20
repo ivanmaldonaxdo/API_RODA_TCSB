@@ -6,29 +6,38 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from apps.permissions import IsOperador, IsAdministrador
 from rest_framework.decorators import action
-
-
+from django.http import Http404
+from django_filters import FilterSet
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from apps.users.authentication import ExpiringTokenAuthentication
 
 
 
 class UserViewSet(viewsets.GenericViewSet):
-    permission_classes = [IsAdministrador]
+    # permission_classes = [IsAdministrador]
+    authentication_classes=([ExpiringTokenAuthentication])
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model=User
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['=name', '=email']
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['name', 'email']
+    filterset_fields = ['is_active']
 
     
     def get_queryset(self):
         queryset= self.filter_queryset(User.objects.all())
         return queryset
 
+
+    
     def get_object(self, pk):
-        return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        try:
+            return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        except self.model.DoesNotExist:
+            raise Http404
 
 
     def authUser(self, email, password):
@@ -66,6 +75,11 @@ class UserViewSet(viewsets.GenericViewSet):
             'message':'Error en el registro, verifique los campos',
             'errors': user_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
+    
+    def retrieve(self, request, pk = None): #Detalle de un usuario
+        user  = self.get_object(pk)
+        user_serializer = self.serializer_class(user)
+        return Response(user_serializer.data, status= status.HTTP_200_OK)
         
 
     def update(self, request, pk=None):#Actualizar usuario

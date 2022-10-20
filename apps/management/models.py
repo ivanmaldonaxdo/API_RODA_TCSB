@@ -7,9 +7,10 @@ from django.core.validators import FileExtensionValidator
 
 
 
-#SISTEMA
-class Sistema(models.Model):
-    #singleton_instance_id = 1
+#Modelo SISTEMA: Mantiene las cpnfiguraciones basicas, tales como, urls, credenciales de las herramientas (Aun necesita modificaciones)
+#Solo admite 1 objecto del tipo sistema
+class Sistema(SingletonModel):
+    singleton_instance_id = 1
     credencial = models.CharField('Credencial',max_length=255,unique = True,blank = True)
     name_sis = models.CharField('Nombre de Sistema',max_length=255,unique = True, blank = True)
     url = models.CharField('Url',max_length=255,unique = True, blank = True)
@@ -19,6 +20,7 @@ class Sistema(models.Model):
 
     class Meta:
         verbose_name = "Configuracion del sistema"
+
 
 class Cliente(models.Model):
     nom_cli = models.CharField('Nombre cliente', max_length=255, blank=True, null=True)
@@ -36,11 +38,11 @@ class Cliente(models.Model):
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
-    contacto = models.CharField('Contacto', max_length=255, blank=False)
+    contacto = models.CharField('Contacto', max_length=255, blank=True)
     SERVICIOS = (
-        (1, 'Luz'),
-        (2, 'Agua'),
-        (3, 'Gas'),
+        ('1', 'Luz'),
+        ('2', 'Agua'),
+        ('3', 'Gas'),
     )
     servicio = models.CharField('Tipo Servicio', max_length=255, choices=SERVICIOS)
 

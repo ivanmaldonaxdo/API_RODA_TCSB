@@ -2,7 +2,7 @@ from rest_framework import serializers
 from apps.management.models import Proveedor
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 
-class ProveedorSerializers(serializers.ModelSerializer):
+class ProveedorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Proveedor
@@ -15,6 +15,7 @@ class ProveedorSerializers(serializers.ModelSerializer):
         return proveedor
     
 class UpdateSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Proveedor
         fields = ('nom_proveedor', 'rut_proveedor', 'contacto', 'servicio')

@@ -8,8 +8,14 @@ admin.site.register(Comuna)
 admin.site.register(Region)
 admin.site.register(Zona)
 admin.site.register(Cliente)
-admin.site.register(Sistema)
+admin.site.register(Sistema, SingletonModelAdmin)
 admin.site.register(Documento)
+
+
+config = Sistema.objects.get()
+
+# get_solo will create the item if it does not already exist
+config = Sistema.get_solo()
 
 
 

@@ -18,23 +18,26 @@ class OpenKm():
         
 #region GET_DOCS
     #AGU - ELE - GAS
-    def get_docs(self, _folio = None ,_serv = None , _path = None, _anio= None):
-        # params = {'path':_path}
+    def get_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
         url = "{}{}" .format(self.end_point_base,'search/find')
-        list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio)]
+        list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio),('rut_receptor',_rutCli)]
         properties = self.get_list_params(list_params)
+        print("")
         print("Propiedades => {}" .format(properties))
         params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA
         response = self.get_response(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
+            print("")
             print("Codigo de estado {}" .format(status_code)) 
             data = response.json()
             try:
                 tipo_dato = type(data['queryResult'])
                 nodo ,uuid= "",""
                 is_lista = isinstance(data['queryResult'], list) #evalua si es una lista de varias boletas
-                print("ES LISTA? : {} " .format(isinstance(data['queryResult'], list)))
+                # print("ES LISTA? : {} " .format(isinstance(data['queryResult'], list)))
+                print("")
+                print("BUSQUEDA DE DOCUMENTOS NO PROCESADOS")
                 if is_lista:
                     print("**********TEST MUCHAS BOLETAS*********")
                     print("")
@@ -44,20 +47,23 @@ class OpenKm():
                         nodo = d["node"]
                         uuid = nodo["uuid"]
                         path = nodo["path"]
-                        cantidad+=1
                         nom_doc = path.split('/')
                         nom_doc = nom_doc[-1]
-                        # print ("PATH  {}" .format(nodo.get("path")))
-
-                        # print("BOLETA N° {} - UUID: {}".format(cantidad,uuid))
+                        # print("Doc {0} {1}" .format(nom_doc,self.is_in_group_metadata(uuid)))
                         boletas.append(dict(
                             {'path':path, 
                             'uuid':uuid,
                             'nomDoc':nom_doc
                             }
                         ))
-                    print("TOTAL BOLETAS => {}" .format(cantidad))
+                        # if (not self.is_processed_doc(uuid)):
+                        #     print("No ha sido Procesado {}" .format(nom_doc))
+                        cantidad+=1
+                    print("cantidad => {}" .format(cantidad))
+                    # print("TOTAL BOLETAS => {}" .format(cantidad))
                     return boletas
+
+                    # return boletas if cantidad >= 1 else {}
                     
                 else:
                     print("**********TEST UNA BOLETA*********")
@@ -74,6 +80,7 @@ class OpenKm():
                             })
                     return boleta
             except:
+                print(cantidad)
                 print("NO EXISTEN OCURRENCIAS")
                 return {}
         else:
@@ -88,7 +95,6 @@ class OpenKm():
         response = self.get_response(url,_params = params, _headers = None)
         status_code = response.status_code
         if (status_code in range(200,399)):
-            print("")
             print("OBTENCION CORRECTA DE CONTENIDO")
             return response
         else:
@@ -100,7 +106,7 @@ class OpenKm():
             key,value = param[0],param[1]
             # print("PARAM > {}" .format(l))
             if value is not None:
-                print("PARAM > {}" .format('okp:encCobro.{}={}'.format( key,value )))
+                # print("PARAM > {}" .format('okp:encCobro.{}={}'.format( key,value )))
                 query = 'okp:encCobro.{}={}'.format(param[0],param[1])
                 queries.append(query)
         return queries
@@ -109,25 +115,44 @@ class OpenKm():
         grpName = 'okg:encCobro'#GRUPO DE METADATAS
         url = "{}{}" .format(self.end_point_base,'propertyGroup/getProperties')
         params = {'nodeId':uuid,'grpName':grpName}
-        response = self.get_response(url,_params = params)
+        response = self.get_response(url,_params = params,)
         status_code = response.status_code
         if (status_code in range(200,399)):
-            print("OBTENCION CORRECTA DE METADATA")
-            # print("JSON PROPS => {}" .format(json.dumps(response.json(),indent = 2)))
             metadata = response.json()
-            print("")
-            print("PROPIEDADES METADATA")
-            #LABEL ES EL NOMBRE DE LA PROPIEDAD Y SU VALUE
+            #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
             propiedades = dict(map(lambda x:(x['label'], x['value']),metadata['formElementComplex']))
-            print(propiedades)
-            print("")
+            # print("OBTENCION CORRECTA DE METADATA")
             return propiedades
         else:
-            return "ERROR EN CODIGO ESTADO => {} ".format(status_code)
+            print("ERROR EN CODIGO ESTADO => {} ".format(status_code))
+            return []
 
+    def is_processed_doc(self,_uuid):
+        uuid = _uuid
+        metadata = self.get_metadata(_uuid)
+        is_processed = True
+        try:
+            proceso_ocr = metadata.get('proceso_ocr')
+            is_processed = (False if proceso_ocr == "" else True)
+        except:
+            print("PROBLEMAS PARA ACCEDER A ESA PROPIEDAD")
+        return is_processed
 
-
-
+    def is_in_group_metadata(self,uuid):
+        grpName = 'okg:encCobro'#GRUPO DE METADATAS
+        url = "{}{}" .format(self.end_point_base,'propertyGroup/hasGroup')
+        params = {'nodeId':uuid,'grpName':grpName}
+        response = self.get_response(url,_params = params, _headers = None)
+        status_code = response.status_code
+        if (status_code in range(200,399)):
+            print(response)
+            has_group = response.json()
+            print("tiene grupo ? = ",has_group)
+            #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
+            return has_group
+        else:
+            print("group_metadata - ERROR EN CODIGO ESTADO => {} ".format(status_code))
+            return False
 
     ##PETICION PARA OBTENER METADATA DE ARCHIVOS EJ:      
     def get_doc_by_folio(self,_query = None):
@@ -141,7 +166,6 @@ class OpenKm():
             print("Codigo de estado es aceptable") 
             print("")
             data = response.json()  
-
             print(data)
             cantidad = 0
             for f in data:
@@ -156,20 +180,7 @@ class OpenKm():
 
         else:
             return "ERROR"
-# url = "{}{}={}{}" .format(self.end_point_base,'propertyGroup/hasGroup?nodeId',path,'&grpName=okg:encCobro')
 
-# print("")
-# print("datatype of RESPONSE")
-
-# print(type(response.content))
-# now = time.localtime(time.time())
-# fecha = time.strftime("%Y_%m_%d", now)
-# print(fecha)
-# with open("boleta_{}.pdf" .format(fecha), "wb") as pdf:
-#     pdf.write(response.content)
-# query = {
-#     'anio_doc':'2020'
-# }
 
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
