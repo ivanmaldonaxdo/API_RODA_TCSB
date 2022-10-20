@@ -1,6 +1,6 @@
 from apps.management.clientes.serializers import ClienteSerializer, UpdateSerializer
 from apps.management.models import Cliente
-
+from apps.users.authentication import ExpiringTokenAuthentication
 from rest_framework import filters
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -25,6 +25,7 @@ class ClienteFilter(FilterSet):
         }
 
 class ClienteViewSets(viewsets.GenericViewSet):
+    authentication_classes=([ExpiringTokenAuthentication])
     serializer_class = ClienteSerializer
     update_serializer_class = UpdateSerializer
     model = Cliente
