@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.users.usuarios.Token import CustomAuthToken
+from apps.users.views import Login
 from apps.OCR import cron
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth-user/', CustomAuthToken.as_view()),
+    path('login/', Login.as_view(), name='Login'),
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),

@@ -12,11 +12,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from apps.users.authentication import ExpiringTokenAuthentication
 
 
 
 class UserViewSet(viewsets.GenericViewSet):
     # permission_classes = [IsAdministrador]
+    authentication_classes=([ExpiringTokenAuthentication])
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model=User
