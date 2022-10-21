@@ -47,6 +47,11 @@ class UserViewSet(viewsets.GenericViewSet):
             )
         return user
     
+
+
+    #http://localhost:8000/usuarios/?search=Carlos
+    #http://localhost:8000/usuarios/?is_active=True
+
     def list(self, request): #Listado de usuario
         query = self.get_queryset()
         if query:

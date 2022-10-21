@@ -11,7 +11,7 @@ admin.site.register(Zona)
 admin.site.register(Cliente)
 admin.site.register(Sistema, SingletonModelAdmin)
 admin.site.register(Documento)
-
+admin.site.register(Contrato_servicio)
 
 config = Sistema.objects.get()
 

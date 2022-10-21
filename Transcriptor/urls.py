@@ -24,5 +24,6 @@ urlpatterns = [
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),
+    path('sucursales/', include('apps.management.sucursales.routers')),
     path('cron/', cron.dicehola)
 ]

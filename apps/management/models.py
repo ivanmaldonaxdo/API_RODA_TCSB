@@ -1,9 +1,10 @@
+from asyncio.windows_events import NULL
 from datetime import datetime
 from email.policy import default
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
-
+from django.utils import timezone
 
 
 
@@ -81,9 +82,7 @@ class Comuna(models.Model):
 
 
 class Sucursal(models.Model):
-    proveedor = models.ManyToManyField(Proveedor, related_name='Proveedor')
-    nom_sucursal = models.CharField('Nombre Unidad', max_length=255, blank=False)
-    num_cliente = models.IntegerField('Numero Cliente', unique=True)
+    nom_sucursal = models.CharField('Nombre Unidad', max_length=255, blank=False, null=True)
     cod =  models.IntegerField('Codigo', blank=False, unique= True)
     is_active = models.BooleanField(default = True)
     direccion = models.CharField('Direccion', max_length=255)
@@ -91,7 +90,7 @@ class Sucursal(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.num_cliente)
+        return str(self.cod) +' - '+ str(self.nom_sucursal)
     
     class Meta:
         verbose_name_plural = "Sucursales"
@@ -101,8 +100,8 @@ class Sucursal(models.Model):
 class Documento(models.Model):
     nom_doc = models.CharField('Documento',max_length=255, default='Documento')
     folio = models.CharField('Folio',max_length=255, blank=False)
-    fecha_procesado = models.DateTimeField(datetime.now())
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha_procesado = models.DateTimeField(default=timezone.now)
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
     procesado = models.BooleanField(default = False)
     documento = models.FileField(validators=[
         FileExtensionValidator(allowed_extensions=['json', 'pdf'])
@@ -111,3 +110,10 @@ class Documento(models.Model):
     def __str__(self):
         return self.nom_doc
 
+class Contrato_servicio(models.Model):
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default=None)
+    num_cliente = models.IntegerField('Numero Cliente', default=None, unique=True, blank=False)
+
+    def __str__(self):
+        return str(self.id)
