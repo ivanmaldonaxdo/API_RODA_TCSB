@@ -178,6 +178,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #funcion para el proceso automatico 
 CRONJOBS = [
-    ('* * * * *', 'apps.OCR.cron.dicehola')
+    ('* * * * *', 'apps.OCR.cron.dicehola'),
+    ('* 23 * * *', 'apps.OCR.cron.subirdocaws')
 ]
 

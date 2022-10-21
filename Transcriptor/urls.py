@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.users.views import Login
 from apps.OCR import cron
+from apps.OCR.APIS.APIOpenKM import OpenKm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +25,7 @@ urlpatterns = [
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),
-    path('cron/', cron.dicehola)
+    path('cron/', cron.dicehola),
+    path('procesoauto/', cron.subirdocaws),
+    path('descargapdfokm/', cron.descargaopenokm),
 ]
