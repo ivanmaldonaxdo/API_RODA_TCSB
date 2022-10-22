@@ -20,7 +20,7 @@ class OpenKm():
     #AGU - ELE - GAS
     def get_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
         url = "{}{}" .format(self.end_point_base,'search/find')
-        list_params = [('folio',_folio),('tipo_servicio',_serv),('anio_doc',_anio),('rut_receptor',_rutCli)]
+        list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('anio_doc',_anio)]
         properties = self.get_list_params(list_params)
         print("")
         print("Propiedades => {}" .format(properties))
@@ -41,46 +41,20 @@ class OpenKm():
                 if is_lista:
                     print("**********TEST MUCHAS BOLETAS*********")
                     print("")
-                    cantidad = 0
-                    boletas = []
-                    for d in data['queryResult']:
-                        nodo = d["node"]
-                        uuid = nodo["uuid"]
-                        path = nodo["path"]
-                        nom_doc = path.split('/')
-                        nom_doc = nom_doc[-1]
-                        # print("Doc {0} {1}" .format(nom_doc,self.is_in_group_metadata(uuid)))
-                        boletas.append(dict(
-                            {'path':path, 
-                            'uuid':uuid,
-                            'nomDoc':nom_doc
-                            }
-                        ))
-                        # if (not self.is_processed_doc(uuid)):
-                        #     print("No ha sido Procesado {}" .format(nom_doc))
-                        cantidad+=1
-                    print("cantidad => {}" .format(cantidad))
-                    # print("TOTAL BOLETAS => {}" .format(cantidad))
+                    # boletas = []
+                    boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
+                    print("BOLETILLAS")
+                    print(json.dumps(boletas,indent = 2))
+                    print("")
+                    print(f"Cantidad de boletas : {len(boletas)}")
                     return boletas
-
-                    # return boletas if cantidad >= 1 else {}
-                    
                 else:
                     print("**********TEST UNA BOLETA*********")
-                    nodo = data['queryResult']['node']
-                    path,uuid = nodo['path'],nodo['uuid']
-                    nom_doc = path.split('/')
-                    nom_doc = nom_doc[-1]
-                    print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
-                    print("")
-                    boleta = dict(
-                            {'path':path, 
-                            'uuid':uuid,
-                            'nomDoc':nom_doc
-                            })
+                    boleta = self.get_q_result_formatted(data['queryResult'])
+                    print(json.dumps(boleta,indent = 2))
+
                     return boleta
             except:
-                print(cantidad)
                 print("NO EXISTEN OCURRENCIAS")
                 return {}
         else:
@@ -145,41 +119,32 @@ class OpenKm():
         response = self.get_response(url,_params = params, _headers = None)
         status_code = response.status_code
         if (status_code in range(200,399)):
-            print(response)
+            # print(response)
             has_group = response.json()
-            print("tiene grupo ? = ",has_group)
+            # print("tiene grupo ? = ",has_group)
             #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
             return has_group
         else:
             print("group_metadata - ERROR EN CODIGO ESTADO => {} ".format(status_code))
             return False
+    
+    def get_q_result_formatted(self,_qresult):
+        nodo = _qresult['node']
+        path,uuid = nodo['path'], nodo['uuid']
+        nom_doc = path.split('/')
+        nom_doc = nom_doc[-1]
+        print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
+        print("")
+        objectOPK = dict(
+                {'path':path, 
+                'uuid':uuid,
+                'nomDoc':nom_doc
+                })
+        print("Se ha procesado ??? {}" .format( self.is_processed_doc(uuid)))
+        print("Tiene grupo de propiedad ??? {}" .format(self.is_in_group_metadata(uuid)))       
+        print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
+        return objectOPK if not self.is_processed_doc(uuid) else {}
 
-    ##PETICION PARA OBTENER METADATA DE ARCHIVOS EJ:      
-    def get_doc_by_folio(self,_query = None):
-        _metadata = 'folio'
-        _prop_base = 'okp:encCobro.'
-        _params =  {'property':'{}{}={}' .format(_prop_base,_metadata,_query)}
-        url = "{}{}" .format(self.end_point_base,'search/find')
-        response = self.get_response(url,_params=_params)
-        status_code = response.status_code
-        if (status_code in range(200,399)):
-            print("Codigo de estado es aceptable") 
-            print("")
-            data = response.json()  
-            print(data)
-            cantidad = 0
-            for f in data:
-                cantidad+=1
-            print("")
-            print( "Cantidad DATA => {}".format(len(data)))
-            print(data['queryResult'].keys())
-            data_node = data['queryResult']['node']
-            path,uuid = data_node['path'],data_node['uuid']
-            print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
-            return uuid
-
-        else:
-            return "ERROR"
 
 
 #REFERENCIAS 

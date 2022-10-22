@@ -13,7 +13,7 @@ openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/servi
 response = openkm.get_docs(_folio='11419589')
 # response = openkm.get_docs(_serv='ELE')
 
-response = openkm.get_docs()
+# response = openkm.get_docs()
 
 
 print("")
@@ -25,27 +25,36 @@ if isinstance(response, list):
         uuid = r['uuid']
         print("*"*153)
         archivo = openkm.get_content_doc(uuid)
-        # print(archivo)
         # resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
         print("SE HA SUBIDO EL PDF - {}".format(r['nomDoc']))
         print("")
         metadata = openkm.get_metadata(uuid)
+        # print(metadata)
+        # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
+        # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
+        # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
+
         # print(meta)
         # openkm.is_processed_doc(uuid)
-        print("JSON PROPS => {}" .format(json.dumps(metadata,indent = 2)))
+        # print("JSON PROPS => {}" .format(json.dumps(metadata,indent = 2)))
 
         # print(metadata.get('folio'))
-    
+
 else:
     try:
-        archivo = openkm.get_content_doc(response['uuid'])
-        print(response['nomDoc'])
+        uuid = response['uuid']
+        print("*"*153)
+        archivo = openkm.get_content_doc(uuid)
         # resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
+        print("SE HA SUBIDO EL PDF - {}".format(response['nomDoc']))
         print("")
-        print("PDF SUBIDO")
-        print("")
-        print("METADATA")
-        metadata = openkm.get_metadata(response['uuid'])
+        metadata = openkm.get_metadata(uuid)
+        # print(metadata)
+        # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
+        # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
+        # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
+        # print(metadata.get('folio'))
+
     except:
         print("ERROR EN SUBIR/PROCESAR ARCHIVO A S3 AWS")
 
