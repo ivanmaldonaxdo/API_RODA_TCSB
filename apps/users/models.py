@@ -1,20 +1,10 @@
+from random import choices
+from secrets import choice
 from django.db import models
 from apps.management.models import Sistema
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from rest_framework.authtoken.models import Token
 # Create your models here.
-
-
-
-#ROLES
-class Rol(models.Model):
-    role = models.CharField('Rol', max_length=30, default=None, blank=True, null=True)
-
-    def __str__(self):
-        return self.role
-    
-    class Meta:
-        verbose_name_plural = "Roles de usuario"
 
 
 
@@ -34,11 +24,24 @@ class UserManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
-    def create_user(self, email, name, telefono, password=None, **extra_fields):
-        return self._create_user(email, name, telefono,1, password, False, False, **extra_fields)
+    def create_user(self, email, name, telefono, role, password=None, **extra_fields):
+        return self._create_user(email, name, telefono, role, password, False, False, **extra_fields)
 
     def create_superuser(self, email, name, telefono, role=None , password=None, **extra_fields):
         return self._create_user(email, name, telefono, role,password, True, True, **extra_fields)
+
+
+#ROLES
+class Rol(models.Model):
+    
+    role = models.CharField('Rol', max_length=30)
+
+    def __str__(self):
+        return self.role
+    
+    class Meta:
+        verbose_name_plural = "Roles de usuario"
+
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -47,7 +50,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     telefono = models.CharField('Telefono', max_length= 15, blank=True, null = True)
     role =  models.ForeignKey(Rol, on_delete=models.CASCADE, null=True, default=None)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
-    is_active = models.BooleanField(default = True)
+    ESTADOS = (
+        (True, 'Activado'),
+        (False, 'Desactivado'),
+    )
+    is_active = models.BooleanField(default = True, choices=ESTADOS)
     is_staff = models.BooleanField(default = False)
     objects = UserManager()
     

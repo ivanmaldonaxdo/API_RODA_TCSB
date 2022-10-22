@@ -1,15 +1,17 @@
+from asyncio.windows_events import NULL
 from datetime import datetime
 from email.policy import default
 from django.db import models
 from django.core.validators import FileExtensionValidator
-# from solo.models import SingletonModel
+from solo.models import SingletonModel
+from django.utils import timezone
 
 
 
-
-#SISTEMA
-class Sistema(models.Model):
-    #singleton_instance_id = 1
+#Modelo SISTEMA: Mantiene las cpnfiguraciones basicas, tales como, urls, credenciales de las herramientas (Aun necesita modificaciones)
+#Solo admite 1 objecto del tipo sistema
+class Sistema(SingletonModel):
+    singleton_instance_id = 1
     credencial = models.CharField('Credencial',max_length=255,unique = True,blank = True)
     name_sis = models.CharField('Nombre de Sistema',max_length=255,unique = True, blank = True)
     url = models.CharField('Url',max_length=255,unique = True, blank = True)
@@ -19,6 +21,7 @@ class Sistema(models.Model):
 
     class Meta:
         verbose_name = "Configuracion del sistema"
+
 
 class Cliente(models.Model):
     nom_cli = models.CharField('Nombre cliente', max_length=255, blank=True, null=True)
@@ -36,11 +39,11 @@ class Cliente(models.Model):
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
-    contacto = models.CharField('Contacto', max_length=255, blank=False)
+    contacto = models.CharField('Contacto', max_length=255, blank=True)
     SERVICIOS = (
-        (1, 'Luz'),
-        (2, 'Agua'),
-        (3, 'Gas'),
+        ('1', 'Luz'),
+        ('2', 'Agua'),
+        ('3', 'Gas'),
     )
     servicio = models.CharField('Tipo Servicio', max_length=255, choices=SERVICIOS)
 
@@ -79,9 +82,7 @@ class Comuna(models.Model):
 
 
 class Sucursal(models.Model):
-    proveedor = models.ManyToManyField(Proveedor, related_name='Proveedor')
-    nom_sucursal = models.CharField('Nombre Unidad', max_length=255, blank=False)
-    num_cliente = models.IntegerField('Numero Cliente', unique=True)
+    nom_sucursal = models.CharField('Nombre Unidad', max_length=255, blank=False, null=True)
     cod =  models.IntegerField('Codigo', blank=False, unique= True)
     is_active = models.BooleanField(default = True)
     direccion = models.CharField('Direccion', max_length=255)
@@ -89,7 +90,7 @@ class Sucursal(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.num_cliente)
+        return str(self.cod) +' - '+ str(self.nom_sucursal)
     
     class Meta:
         verbose_name_plural = "Sucursales"
@@ -99,8 +100,8 @@ class Sucursal(models.Model):
 class Documento(models.Model):
     nom_doc = models.CharField('Documento',max_length=255, default='Documento')
     folio = models.CharField('Folio',max_length=255, blank=False)
-    fecha_procesado = models.DateTimeField(datetime.now())
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha_procesado = models.DateTimeField(default=timezone.now)
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
     procesado = models.BooleanField(default = False)
     documento = models.FileField(validators=[
         FileExtensionValidator(allowed_extensions=['json', 'pdf'])
@@ -109,3 +110,10 @@ class Documento(models.Model):
     def __str__(self):
         return self.nom_doc
 
+class Contrato_servicio(models.Model):
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default=None)
+    num_cliente = models.IntegerField('Numero Cliente', default=None, unique=True, blank=False)
+
+    def __str__(self):
+        return str(self.id)
