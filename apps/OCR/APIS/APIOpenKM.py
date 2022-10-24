@@ -15,7 +15,12 @@ class OpenKm():
         headers = _headers
         response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
-        
+    
+    def put_response(self,_url,_data,_params = None, _headers = {'Accept': 'application/json'}):
+        headers = _headers
+        response = requests.put(_url,headers = headers, auth = self.auth_creds, params = _params,data = _data)
+        return response
+            
 #region GET_DOCS
     #AGU - ELE - GAS
     def get_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
@@ -63,7 +68,7 @@ class OpenKm():
 #endregion GET_DOCS
 
     #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
-    def get_content_doc(self,uuid = None):
+    def get_content_doc(self,_uuid = None):
         url = "{}{}" .format(self.end_point_base,'document/getContent')
         params = {'docId':uuid}
         response = self.get_response(url,_params = params, _headers = None)
@@ -85,7 +90,7 @@ class OpenKm():
                 queries.append(query)
         return queries
 
-    def get_metadata(self,uuid):
+    def get_metadata(self,_uuid):
         grpName = 'okg:encCobro'#GRUPO DE METADATAS
         url = "{}{}" .format(self.end_point_base,'propertyGroup/getProperties')
         params = {'nodeId':uuid,'grpName':grpName}
@@ -112,7 +117,7 @@ class OpenKm():
             print("PROBLEMAS PARA ACCEDER A ESA PROPIEDAD")
         return is_processed
 
-    def is_in_group_metadata(self,uuid):
+    def is_in_group_metadata(self,_uuid):
         grpName = 'okg:encCobro'#GRUPO DE METADATAS
         url = "{}{}" .format(self.end_point_base,'propertyGroup/hasGroup')
         params = {'nodeId':uuid,'grpName':grpName}
@@ -145,6 +150,12 @@ class OpenKm():
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
+    def set_metadata_processed(self,_uuid,_cod_processed):
+        url = "{}{}" .format(self.end_point_base,'propertyGroup/setPropertiesSimple')
+        params = {'nodeId':uuid,'grpName':grpName}
+        data = {"simplePropertyGroup": [{ "name": "okp:encCobro.proceso_ocr", "value": _cod_processed }] }
+        response = self.put_response(url, data, _params = params)
+        return True if response.status_code in (200,399) else False
 
 
 #REFERENCIAS 
