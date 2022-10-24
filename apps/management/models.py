@@ -1,6 +1,8 @@
 from asyncio.windows_events import NULL
 from datetime import datetime
 from email.policy import default
+from formatter import NullFormatter
+from xml.etree.ElementInclude import default_loader
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
@@ -72,9 +74,19 @@ class Region(models.Model):
     
     class Meta:
         verbose_name_plural = "Regiones"
+    
+class Provincia(models.Model):
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, default=None)
+    provincia = models.CharField('Provincia', max_length=255, blank=False, null=True)
+
+    def __str__(self):
+        return self.provincia
+    
+    class Meta:
+        verbose_name_plural = "Provincia"
 
 class Comuna(models.Model):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE, default=None)
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, default=None)
     comuna= models.CharField('Comuna', max_length=255, blank=False, null=True)
 
     def __str__(self):
@@ -86,7 +98,7 @@ class Sucursal(models.Model):
     cod =  models.IntegerField('Codigo', blank=False, unique= True)
     is_active = models.BooleanField(default = True)
     direccion = models.CharField('Direccion', max_length=255)
-    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+    comuna = models.ForeignKey(Comuna, on_delete=models.SET_NULL, null=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     def __str__(self):
