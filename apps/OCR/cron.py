@@ -18,10 +18,7 @@ def dicehola(request):
 #se probara en postman ingresar un 1 o 0 para la ejecucion del proceso cada ciertas horas/dias
 #con esta funcion crearemos cada 23 hora el proceso automatico deno ser asi no se ejecutara
 
-def subirdocaws(auto=0):
-    
-    if auto == 1 :
-       
+def subirdocaws():   
         openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
           # response = openkm.get_docs(_serv='ELE',_rutCli = '76242774-5' )
         esponse = openkm.get_docs(_folio='11419589')
@@ -61,5 +58,3 @@ def subirdocaws(auto=0):
                         #print("ERROR EN SUBIR/PROCESAR ARCHIVO A S3 AWS")                                                                                                                                                        
                         print("cada 2 mit")
                         return HttpResponse("error al subir los archivos a aws")
-    else:
-        return HttpResponse("no se ejecutara el proceso automatico en un dia")
