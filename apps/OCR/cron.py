@@ -11,7 +11,6 @@ import time
 
 #funcion CRON de prueba
 def dicehola(request):
-    
     return HttpResponse("nuevamente provando cron")
 
 
@@ -64,14 +63,3 @@ def subirdocaws(auto=0):
                         return HttpResponse("error al subir los archivos a aws")
     else:
         return HttpResponse("no se ejecutara el proceso automatico en un dia")
-
-#solo para probar CRON y demases
-#subirdocaws(1)
-
-#crearemos una funcion solo para descargra archivos de openKM
-
-def descargaopenokm():
-    
-    print('ses')
-
-

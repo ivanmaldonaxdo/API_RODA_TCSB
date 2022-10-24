@@ -27,5 +27,4 @@ urlpatterns = [
     path('proveedores/', include('apps.management.proveedor.routers')),
     path('cron/', cron.dicehola),
     path('procesoauto/', cron.subirdocaws),
-    path('descargapdfokm/', cron.descargaopenokm),
 ]
