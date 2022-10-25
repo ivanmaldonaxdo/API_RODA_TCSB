@@ -10,8 +10,8 @@ import time
 #******PARA EJECUTAR ESTE CODE SE DEBE ESCRIBIR EN EL TERMINAL CMD 'python TestOPKM.py'******
 openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
 # response = openkm.get_docs(_serv='ELE',_rutCli = '76242774-5' )
-response = openkm.get_docs(_folio='11419589')
-# response = openkm.get_docs(_serv='ELE')
+# response = openkm.get_docs(_folio='11419589')
+response = openkm.get_docs(_serv='ELE')
 
 # response = openkm.get_docs()
 
