@@ -144,9 +144,9 @@ class OpenKm():
         print("Tiene grupo de propiedad ??? {}" .format(self.is_in_group_metadata(uuid)))       
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         return objectOPK if not self.is_processed_doc(uuid) else {}
-
-
     
+
+
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
 #https://www.openkm.com/wiki/index.php/RESTful_Guide#Search
