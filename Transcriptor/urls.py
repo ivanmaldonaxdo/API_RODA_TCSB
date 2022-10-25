@@ -28,5 +28,4 @@ urlpatterns = [
     path('cron/', cron.dicehola),
     path('procesoauto/', cron.subirdocaws),
     path('sucursales/', include('apps.management.sucursales.routers')),
-    path('cron/', cron.dicehola)
 ]
