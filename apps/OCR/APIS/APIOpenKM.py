@@ -11,7 +11,7 @@ class OpenKm():
         self.auth_creds = HTTPBasicAuth(username, password)
         self.end_point_base = url
 
-    def get_response(self,_url,_params = None, _headers = {'Accept': 'application/json'}):
+    def get_request(self,_url,_params = None, _headers = {'Accept': 'application/json'}):
         headers = _headers
         response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
@@ -25,7 +25,7 @@ class OpenKm():
         print("")
         print("Propiedades => {}" .format(properties))
         params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA
-        response = self.get_response(url,params)
+        response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("")
@@ -63,16 +63,17 @@ class OpenKm():
 #endregion GET_DOCS
 
     #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
-    def get_content_doc(self,uuid = None):
+    def get_content_doc(self,_uuid = None):
         url = "{}{}" .format(self.end_point_base,'document/getContent')
-        params = {'docId':uuid}
-        response = self.get_response(url,_params = params, _headers = None)
+        params = {'docId':_uuid}
+        response = self.get_request(url,_params = params, _headers = None)
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("OBTENCION CORRECTA DE CONTENIDO")
             return response
         else:
-            return "ERROR EN CODIGO ESTADO => {} ".format(status_code)
+            print("ERROR EN CODIGO ESTADO => {} ".format(status_code))
+            return {}
 
     def get_list_params(self,_list_params,_prop_base = None):
         queries = []
@@ -85,11 +86,11 @@ class OpenKm():
                 queries.append(query)
         return queries
 
-    def get_metadata(self,uuid):
+    def get_metadata(self,_uuid):
         grpName = 'okg:encCobro'#GRUPO DE METADATAS
         url = "{}{}" .format(self.end_point_base,'propertyGroup/getProperties')
-        params = {'nodeId':uuid,'grpName':grpName}
-        response = self.get_response(url,_params = params,)
+        params = {'nodeId':_uuid,'grpName':grpName}
+        response = self.get_request(url,_params = params,)
         status_code = response.status_code
         if (status_code in range(200,399)):
             metadata = response.json()
@@ -112,11 +113,11 @@ class OpenKm():
             print("PROBLEMAS PARA ACCEDER A ESA PROPIEDAD")
         return is_processed
 
-    def is_in_group_metadata(self,uuid):
+    def is_in_group_metadata(self,_uuid):
         grpName = 'okg:encCobro'#GRUPO DE METADATAS
         url = "{}{}" .format(self.end_point_base,'propertyGroup/hasGroup')
-        params = {'nodeId':uuid,'grpName':grpName}
-        response = self.get_response(url,_params = params, _headers = None)
+        params = {'nodeId':_uuid,'grpName':grpName}
+        response = self.get_request(url,_params = params, _headers = None)
         status_code = response.status_code
         if (status_code in range(200,399)):
             # print(response)
@@ -145,12 +146,25 @@ class OpenKm():
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
-    def put_response(self,_url,_data,_params = None, _headers = {'Accept': 'application/json'}):
+    def put_request(self,_url,_data,_params = None, _headers = {'Accept': 'application/json','content-type': 'application/json'}):
         headers = _headers
-        response = requests.put(url =_url,headers = headers, auth = self.auth_creds, params = _params,data = _data)
+        response = requests.put(_url, json =_data,headers = headers, auth = self.auth_creds, params = _params)
         return response
 
+    def set_metadata_processed(self,_uuid,_cod_processed):
+        grpName = 'okg:encCobro' #GRUPO DE METADATAS
+        url = "{}{}" .format(self.end_point_base,'propertyGroup/setPropertiesSimple')
+        params = {'nodeId':_uuid,'grpName':grpName}
+        data = {'simplePropertyGroup': [{ 'name': 'okp:encCobro.proceso_ocr', 'value': _cod_processed }] }
+        response = self.put_request(url, data, _params = params)
+        print(data)
+        status_code = response.status_code
+        print("")
+        print("Codigo de estado {}" .format(status_code))
+        # return True if status_code in (200,399) else False
+
 #REFERENCIAS 
+
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
 #https://www.openkm.com/wiki/index.php/RESTful_Guide#Search
 #http://65.21.188.116:8080/OpenKM/services/rest/api-docs?url=/OpenKM/services/rest/swagger.json#/search-service/find
