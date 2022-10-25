@@ -72,7 +72,7 @@ class ProveedorViewSets(viewsets.GenericViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:   
             return Response({
-                'message':'La busqueda no coincide con ningun cliente',
+                'message':'La busqueda no coincide con ningun Proveedor',
             }, status= status.HTTP_404_NOT_FOUND)
 
     def update(self, request, pk=None):#Actualizar usuario
