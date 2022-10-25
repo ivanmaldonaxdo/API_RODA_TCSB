@@ -146,7 +146,7 @@ class OpenKm():
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
 
-
+    
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
 #https://www.openkm.com/wiki/index.php/RESTful_Guide#Search
