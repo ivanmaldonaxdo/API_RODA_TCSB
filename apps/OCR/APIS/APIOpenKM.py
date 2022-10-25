@@ -144,8 +144,11 @@ class OpenKm():
         print("Tiene grupo de propiedad ??? {}" .format(self.is_in_group_metadata(uuid)))       
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         return objectOPK if not self.is_processed_doc(uuid) else {}
-    
 
+    def put_response(self,_url,_data,_params = None, _headers = {'Accept': 'application/json'}):
+        headers = _headers
+        response = requests.put(url =_url,headers = headers, auth = self.auth_creds, params = _params,data = _data)
+        return response
 
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
