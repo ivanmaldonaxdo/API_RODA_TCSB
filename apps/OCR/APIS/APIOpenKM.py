@@ -149,7 +149,14 @@ class OpenKm():
         headers = _headers
         response = requests.put(url =_url,headers = headers, auth = self.auth_creds, params = _params,data = _data)
         return response
-
+        
+    def set_metadata_processed(self,_uuid,_cod_processed):
+        grpName = 'okg:encCobro'#GRUPO DE METADATAS
+        url = "{}{}" .format(self.end_point_base,'propertyGroup/setPropertiesSimple')
+        params = {'nodeId':uuid,'grpName':grpName}
+        data = {"simplePropertyGroup": [{ "name": "okp:encCobro.proceso_ocr", "value": _cod_processed }] }
+        response = self.put_response(url, data, _params = params)
+        return True if response.status_code in (200,399) else False
 #REFERENCIAS 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
 #https://www.openkm.com/wiki/index.php/RESTful_Guide#Search
