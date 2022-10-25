@@ -162,6 +162,8 @@ class OpenKm():
         print("")
         print("Codigo de estado {}" .format(status_code))
         # return True if status_code in (200,399) else False
+        return False if status_code != 204 else True
+
 
 #REFERENCIAS 
 
