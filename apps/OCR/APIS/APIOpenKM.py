@@ -18,7 +18,7 @@ class OpenKm():
         
 #region GET_DOCS
     #AGU - ELE - GAS
-    def get_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
+    def search_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
         url = "{}{}" .format(self.end_point_base,'search/find')
         list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('anio_doc',_anio)]
         properties = self.get_list_params(list_params)
