@@ -128,4 +128,4 @@ class Contrato_servicio(models.Model):
     num_cliente = models.IntegerField('Numero Cliente', default=None, unique=True, blank=False)
 
     def __str__(self):
-        return str(self.id)
+        return self.proveedor + ' - '+ str(self.num_cliente)
