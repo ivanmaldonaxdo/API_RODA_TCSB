@@ -26,7 +26,7 @@ class SucursalFilter(FilterSet):
         }
 
 class SucursalesViewSets(viewsets.GenericViewSet):
-    #authentication_classes=([ExpiringTokenAuthentication])
+    authentication_classes=([ExpiringTokenAuthentication])
     serializer_class = SucursalSerializers
     update_serializer_class = UpdateSerializer
     model = Sucursal
