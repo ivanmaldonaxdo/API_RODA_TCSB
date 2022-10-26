@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from apps.users.views import Login
+from apps.OCR import cron
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuarios/', include('apps.users.usuarios.routers'))
+    path('login/', Login.as_view(), name='Login'),
+    path('usuarios/', include('apps.users.usuarios.routers')),
+    path('clientes/', include('apps.management.clientes.routers')),
+    path('proveedores/', include('apps.management.proveedor.routers')),
+    path('sucursales/', include('apps.management.sucursales.routers')),
+    path('cron/', cron.dicehola)
 ]
