@@ -26,14 +26,11 @@ urlpatterns = [
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),
-<<<<<<< HEAD
-    path('cron/', cron.dicehola),
-    path('', include('apps.frontend.urls'))
-=======
     path('sucursales/', include('apps.management.sucursales.routers')),
     path('documentos/',include('apps.OCR.procesamiento.routers')),
-    path('cron/', cron.dicehola)
->>>>>>> f26b3d64ef28272a714da7210cc0cb37d5850d25
+    path('cron/', cron.dicehola),
+    path('', include('apps.frontend.urls'))
+
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
