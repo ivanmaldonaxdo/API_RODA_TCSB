@@ -9,12 +9,12 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from apps.users.usuarios.serializers import UserTokenSerializers
 from rest_framework.authtoken.models import Token
 import pytz
+from django.contrib.auth import login
 
 
 
 
 class UserToken(APIView):
-    #clase para refrescar el token de un usuario
     def get(self, request,*args, **kwargs):
         username = request.GET.get('username')
         try:
@@ -35,6 +35,8 @@ class Login(ObtainAuthToken): #Esta clase crea una vista normal y define el meto
         #Esta clase ya la definio ObtainAuthToken, requiere el username y password, tambien token.
         if serializer.is_valid():
             user = serializer.validated_data['user']
+            usernmae = user.email
+            password = user.password
             if user.is_active:
                 token,created = Token.objects.get_or_create(user = user)#Este metodo crea un token o lo llama si es que ya esta creado
                 user_serializer = UserTokenSerializers(user)
@@ -67,34 +69,6 @@ class Login(ObtainAuthToken): #Esta clase crea una vista normal y define el meto
         else:
             return Response({'error': 'Nombre o usuario incorrecto'}, status= status.HTTP_400_BAD_REQUEST)
 
-# class CustomAuthToken(ObtainAuthToken):
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.serializer_class(data=request.data,
-#                                            context={'request': request})
-#         if serializer.is_valid():
-#             user = serializer.validated_data['user']
-#             if user.is_active:
-#                 token, created = Token.objects.get_or_create(user=user)
-#                 if created:
-#                     return Response({
-#                         'message':'Usuario Autenticado',
-#                         'token': token.key,
-#                         'user_id': user.pk,
-#                         'email': user.email
-#                         }, status=status.HTTP_200_OK)
-#                 else:
-#                     token.delete()
-#                     token=Token.objects.create(user=user)
-#                     return Response({
-#                         'message':'Usuario Autenticado',
-#                         'token': token.key,
-#                         'user_id': user.pk,
-#                         'email': user.email
-#                     }, status=status.HTTP_200_OK)
-#             else:
-#                 return Response({'error':'El usuario no se encuentra activo'}, status=status.HTTP_401_UNAUTHORIZED)
-#         else:
-#             return Response({'error':'Las credenciales no son validas'}, status=status.HTTP_404_NOT_FOUND)
 
 class Logout(APIView):
     def post(self, request, *args, **kwargs):
