@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.users.views import Login
 from apps.OCR import cron
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +28,9 @@ urlpatterns = [
     path('proveedores/', include('apps.management.proveedor.routers')),
     path('sucursales/', include('apps.management.sucursales.routers')),
     path('documentos/',include('apps.OCR.procesamiento.routers')),
-    path('cron/', cron.dicehola)
+    path('cron/', cron.dicehola),
+    path('', include('apps.frontend.urls'))
+
 ]
+
+urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

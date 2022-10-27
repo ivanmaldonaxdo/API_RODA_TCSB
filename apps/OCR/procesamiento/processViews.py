@@ -48,9 +48,7 @@ class OpenKMViewSet(ViewSet):
                     print("")
                     metadata = self.openkm.get_metadata(uuid)
                     print(metadata)
-                    
-                    # metadata.update(r)
-                    # metadata_list.append(metadata)
+                    metadata_list.append(metadata)
                     # process_ocr = openkm.set_metadata_processed(uuid,1234)
                     # print(process_ocr)
             else:
