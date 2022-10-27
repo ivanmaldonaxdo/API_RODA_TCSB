@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
+/*vaariables login*/
 :root{
     --login-bg:#f8f3ff;
     --title-bg: #9089cc;
@@ -19,7 +20,8 @@
 nav{
     height: 80px;
     width: 100%;
-    background: #9089cc;/*cambiar color 5555555555555555555555555555555555555555555*/
+    background: #343a40;
+  
 
 
 }
