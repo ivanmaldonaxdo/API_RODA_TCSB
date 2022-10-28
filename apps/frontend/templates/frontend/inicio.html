@@ -64,15 +64,15 @@
                 <form>
                     <div class="mb-3">
                         <label for="folio" class="form-label">Folio</label>
-                        <input type="text" class="form-control" id="folio" placeholder="Folio" autofocus />
+                        <input type="search" class="form-control" id="folio" name ="folio"placeholder="Folio" autofocus />
                     </div>
                     <div class="mb-3">
                         <label for="tipo_servicio" class="form-label">Tipo servicio</label>
-                        <select id="tipo_servicio" class="form-select" aria-label="Default select example">
+                        <select id="tipo_servicio" class="form-select" name = "tipo_servicio" aria-label="Default select example">
                             <option selected>Tipo de servicio</option>
-                            <option value="1">Agua</option>
-                            <option value="2">Electricidad</option>
-                            <option value="3">Gas</option>
+                            <option value="AGU">Agua</option>
+                            <option value="ELE">Electricidad</option>
+                            <option value="GAS">Gas</option>
                         </select>
                     </div>
                     <div class="d-grid gap-2">
@@ -95,27 +95,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for  b in boletas %}
                         <tr>
-                            <td class="centrado">1</td>
-                            <td class="centrado">11111</td>
-                            <td class="centrado">agua</td>
+                            <td class="centrado"> 1 </td>
+                            <td class="centrado"> {{b.folio}} </td>
+                            <td class="centrado"> {{b.tipo_servicio}} </td>
                         </tr>
-                        <tr>
-                            <td class="centrado">2</td>
-                            <td class="centrado">11111</td>
-                            <td class="centrado">agua</td>
-                        </tr>
-                        <tr>
-                            <td class="centrado">3</td>
-                            <td class="centrado">11111</td>
-                            <td class="centrado">agua</td>
-                        </tr>
-                        <tr>
-                            <td class="centrado">4</td>
-                            <td class="centrado">11111</td>
-                            <td class="centrado">agua</td>
-                        </tr>
-
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
