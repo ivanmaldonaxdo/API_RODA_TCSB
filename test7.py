@@ -8,13 +8,15 @@ from tabulate import tabulate
 import time
 import json
 
-queries = list()
-with open(queries_csv, mode='r', encoding='utf-8-sig') as queries_csv_file:
-    reader = csv.reader(queries_csv_file)
-    for row in reader:
-        queries.append({"Text": row[0].strip(), "Alias": row[1] })
 
-def start_job(s3_bucket_name, document_name):
+
+
+def start_job(s3_bucket_name, document_name): 
+    queries = list()
+    with open(queries_csv, mode='r', encoding='utf-8-sig') as queries_csv_file:
+        reader = csv.reader(queries_csv_file)
+        for row in reader:
+            queries.append({"Text": row[0].strip(), "Alias": row[1] })
     response = client.start_document_analysis(
         DocumentLocation={
                 'S3Object': {
@@ -104,22 +106,26 @@ def get_job_results(job_id):
 if __name__ == "__main__":
     # Document
     s3_bucket_name = "rodatest-bucket"
-    document_name = "media/Clinica Santiago_271715_202103_4486.pdf"
+    document_name = "media/Clinica Antofagasta_301625_202201_6908.pdf"
     region = "us-east-1"
     client = boto3.client('textract', region_name=region)
 
     job_id = start_job(s3_bucket_name, document_name)
-    print("ID del proceso: {}".format(job_id))
+    print("Comenzando el proceso de extracción de información")
     if is_job_complete(job_id):
+        print("ID del proceso finalizado: {}".format(job_id))
         response = get_job_results(job_id)
-        # json_str = json.dumps(response)
+    else:
+        print("Error 404")
 
     # print(response)
 
-    #Print detected text
     for result_page in response:
-        d = t2.TDocumentSchema().load(response)
-        print(d)
-        # page = d.pages[0]
-        # query_answers = d.get_query_answers(page=page)
-        # print(tabulate(query_answers, tablefmt="github"))
+        for item in result_page["Blocks"]:
+            if item["BlockType"] == "QUERY":
+                print("Query info:")
+                print(item["Query"])
+        #print(block)
+            if item["BlockType"] == "QUERY_RESULT":
+                print("Query answer:")
+                print(item["Text"])
