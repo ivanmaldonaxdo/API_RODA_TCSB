@@ -8,9 +8,6 @@ from tabulate import tabulate
 import time
 import json
 
-
-
-
 def start_job(s3_bucket_name, document_name): 
     queries = list()
     with open(queries_csv, mode='r', encoding='utf-8-sig') as queries_csv_file:

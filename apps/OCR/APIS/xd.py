@@ -1,32 +1,15 @@
-import logging
-import boto3
-from botocore.exceptions import ClientError
-import os
-import requests
-import io
 import csv
 import trp.trp2 as t2
 import time
 from tabulate import tabulate
+import boto3
 
 client = boto3.client('textract', region_name='us-east-1')
+_bucket = "rodatest-bucket"
+archivo = "media/Clinica Antofagasta_301625_202201_6908.pdf"
 
-def subir_archivo(archivo,_bucket,carpeta = 'media',nomDoc = None):
-    session = boto3.Session()
-    s3 = session.resource('s3')
-    bucket = s3.Bucket(_bucket)
-    # fo = io.BytesIO(r.content)
-    # 'fac-agua/
-    result = bucket.upload_fileobj(io.BytesIO(archivo), '{}/{}'.format(carpeta,nomDoc))
-    return result
-
-def listar_buckets():
-    session = boto3.Session()
-    s3 = session.resource('s3')
-    for bucket in s3.buckets.all():
-        print(bucket.name)
-
-def textfunc(_bucket, archivo):
+# def textfunc(_bucket, carpeta = 'media',nomDoc = None):
+def start_job(_bucket, archivo):
     queries_csv = "test.csv"
     queries = list()
     with open(queries_csv, mode='r', encoding='utf-8-sig') as queries_csv_file:
@@ -120,26 +103,23 @@ def get_job_results(job_id):
 
     return pages
 
-def textract(_bucket, carpeta = 'media',nomDoc = None):
-    archivo = '{}/{}'.format(carpeta,nomDoc)
-    job_id = textfunc(_bucket, archivo)
-    print("Comenzando el proceso de extracción de información")
-    if is_job_complete(job_id):
-        print("ID del proceso finalizado: {}".format(job_id))
-        response = get_job_results(job_id)
-    else:
-        print("Error 404")
+
+job_id = start_job(_bucket, archivo)
+print("Comenzando el proceso de extracción de información")
+if is_job_complete(job_id):
+    print("ID del proceso finalizado: {}".format(job_id))
+    response = get_job_results(job_id)
+else:
+    print("Error 404")
 
     # print(response)
 
-    for result_page in response:
-        for item in result_page["Blocks"]:
-            if item["BlockType"] == "QUERY":
-                print("Query info:")
-                print(item["Query"])
+for result_page in response:
+    for item in result_page["Blocks"]:
+        if item["BlockType"] == "QUERY":
+            print("Query info:")
+            print(item["Query"])
         #print(block)
-            if item["BlockType"] == "QUERY_RESULT":
-                print("Query answer:")
-                print(item["Text"])
-
-
+        if item["BlockType"] == "QUERY_RESULT":
+            print("Query answer:")
+            print(item["Text"])
