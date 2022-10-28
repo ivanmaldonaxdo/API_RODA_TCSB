@@ -22,7 +22,7 @@ if isinstance(response, list):
         uuid = r['uuid']
         print("*"*153)
         archivo = openkm.get_content_doc(uuid)
-        # resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
+        resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
         print("SE HA SUBIDO EL PDF - {}".format(r['nomDoc']))
         print("")
         metadata = openkm.get_metadata(uuid)
@@ -42,7 +42,7 @@ else:
         uuid = response['uuid']
         print("*"*153)
         archivo = openkm.get_content_doc(uuid)
-        # resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
+        resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
         print("SE HA SUBIDO EL PDF - {}".format(response['nomDoc']))
         print("")
         metadata = openkm.get_metadata(uuid)
