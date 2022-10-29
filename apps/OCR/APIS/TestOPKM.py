@@ -2,7 +2,7 @@ import sys
 # sys.path.append('../OPKM')
 # sys.path.append('../AWSTEXTRACT')
 from APIOpenKM import OpenKm
-from AWS import subir_archivo
+from AWS import subir_archivo, textract
 import requests
 import json
 import time
@@ -26,7 +26,8 @@ if isinstance(response, list):
         print("SE HA SUBIDO EL PDF - {}".format(r['nomDoc']))
         print("")
         metadata = openkm.get_metadata(uuid)
-        print(metadata)
+        # print(metadata)
+        textract('rodatest-bucket', nomDoc = r['nomDoc'])
         # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
         # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
         # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
@@ -46,9 +47,10 @@ else:
         print("SE HA SUBIDO EL PDF - {}".format(response['nomDoc']))
         print("")
         metadata = openkm.get_metadata(uuid)
-        print(metadata)
+        # print(metadata)
+        textract('rodatest-bucket', nomDoc = response['nomDoc'])
         # process_ocr = openkm.set_metadata_processed(uuid,1234)
-        print(process_ocr)
+        # print(process_ocr)
         # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
         # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
         # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
