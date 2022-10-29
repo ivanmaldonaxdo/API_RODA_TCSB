@@ -2,6 +2,7 @@ queries_csv = "test.csv"
 
 import csv
 from http import client
+from typing import Text
 import boto3
 import trp.trp2 as t2
 from tabulate import tabulate
@@ -103,7 +104,7 @@ def get_job_results(job_id):
 if __name__ == "__main__":
     # Document
     s3_bucket_name = "rodatest-bucket"
-    document_name = "media/Clinica Antofagasta_301625_202201_6908.pdf"
+    document_name = "media/Agosto.pdf"
     region = "us-east-1"
     client = boto3.client('textract', region_name=region)
 
@@ -118,11 +119,23 @@ if __name__ == "__main__":
     # print(response)
 
     for result_page in response:
+        documento = dict()
+        alias = ""
+        respuesta = ""
         for item in result_page["Blocks"]:
             if item["BlockType"] == "QUERY":
+                alias = item["Query"]["Alias"]
                 print("Query info:")
                 print(item["Query"])
-        #print(block)
+            #print(block)
             if item["BlockType"] == "QUERY_RESULT":
+                respuesta = item["Text"]
                 print("Query answer:")
                 print(item["Text"])
+            documento.update({alias:respuesta})
+        print(documento)
+
+json_object = json.dumps(documento, indent=4)
+with open("zzz.json", "w") as outfile:
+    outfile.write(json_object)
+    
