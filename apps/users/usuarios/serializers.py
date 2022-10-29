@@ -1,7 +1,15 @@
 from rest_framework import serializers
 from apps.users.models import User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):#Clase definida por la libreria JWT
+    pass
 
 
+class CustomUserSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email', 'name')
 
 class UserTokenSerializers(serializers.ModelSerializer):
     class Meta:

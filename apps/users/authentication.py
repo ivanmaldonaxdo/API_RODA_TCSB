@@ -1,29 +1,27 @@
-import datetime
-import pytz
-from django.utils import timezone
-from django.conf import settings
-from rest_framework.authentication import get_authorization_header
-from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import BaseAuthentication
+import jwt
 from rest_framework.exceptions import AuthenticationFailed
+from apps.users.models import User
 
-from rest_framework.authtoken.models import Token
+class JWTAuthentication(BaseAuthentication):
 
+    def authenticate(self, request):
+        token = request.COOKIES.get('jwt')
 
-class ExpiringTokenAuthentication(TokenAuthentication):
-    def authenticate_credentials(self,key):
+        if not token:
+            raise AuthenticationFailed('Token no valido')
+
         try:
-            token = Token.objects.get(key=key)
-        except Token.DoesNotExist:
-            raise AuthenticationFailed('Token Invalido')
+            payload =jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Permisos expirados')
 
-        if not token.user.is_active:
-            raise AuthenticationFailed('Usuario desactivado')
+        user = User.objects.get(id=payload['id'])
 
-        utc_now=datetime.datetime.utcnow()
-        utc_now=utc_now.replace(tzinfo=pytz.utc)
-
-        if token.created < utc_now - settings.TOKEN_EXPIRED_AFTER_SECONDS:
-            raise AuthenticationFailed('Token expirado')
+        if not user:
+            raise AuthenticationFailed('Usuario no encontrado')
         
-        return token.user, token
+        if user.is_active == False:
+            raise AuthenticationFailed('Usuario deshabilitado, contacte a un administrador')
+
+        return (user, None)
