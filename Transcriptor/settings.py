@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import datetime
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +44,8 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.management',
     'apps.OCR',
-    'apps.users'
+    'apps.users',
+    'apps.frontend',
 ]
 
 THIRD_APPS = [
@@ -52,6 +54,7 @@ THIRD_APPS = [
     'django_filters',
     'rut_chile',
     'solo',
+    'drf_api_logger'
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -69,7 +72,7 @@ REST_FRAMEWORK = {
     # ),
 }
 
-TOKEN_EXPIRED_AFTER_SECONDS = datetime.timedelta(seconds=200)
+TOKEN_EXPIRED_AFTER_SECONDS = datetime.timedelta(seconds=1000)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'Transcriptor.urls'
@@ -174,10 +178,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Segundos que dura un token (establecido en 10 horas)
 
-
-
+DRF_API_LOGGER_DATABASE = True
+DRF_API_LOGGER_SIGNAL = True
+DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #funcion para el proceso automatico 
 CRONJOBS = [
     ('* * * * *', 'apps.OCR.cron.dicehola')
 ]
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

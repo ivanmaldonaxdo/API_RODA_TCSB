@@ -1,7 +1,7 @@
 from asyncio.windows_events import NULL
 from datetime import datetime
 from email.policy import default
-from formatter import NullFormatter
+# from formatter import NullFormatter
 from xml.etree.ElementInclude import default_loader
 from django.db import models
 from django.core.validators import FileExtensionValidator
@@ -128,4 +128,4 @@ class Contrato_servicio(models.Model):
     num_cliente = models.IntegerField('Numero Cliente', default=None, unique=True, blank=False)
 
     def __str__(self):
-        return str(self.id)
+        return self.proveedor + ' - '+ str(self.num_cliente)
