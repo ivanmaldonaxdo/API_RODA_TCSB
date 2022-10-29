@@ -8,6 +8,7 @@ import csv
 import trp.trp2 as t2
 import time
 from tabulate import tabulate
+import json
 
 client = boto3.client('textract', region_name='us-east-1')
 
@@ -133,13 +134,23 @@ def textract(_bucket, carpeta = 'media',nomDoc = None):
     # print(response)
 
     for result_page in response:
+        documento = dict()
+        alias = ""
+        respuesta = ""
         for item in result_page["Blocks"]:
             if item["BlockType"] == "QUERY":
+                alias = item["Query"]["Alias"]
                 print("Query info:")
                 print(item["Query"])
-        #print(block)
+            #print(block)
             if item["BlockType"] == "QUERY_RESULT":
+                respuesta = item["Text"]
                 print("Query answer:")
                 print(item["Text"])
+            documento.update({alias:respuesta})
+        print(documento)
+    json_object = json.dumps(documento, indent=4)
+    with open("zzz.json", "w") as outfile:
+        outfile.write(json_object)
 
 
