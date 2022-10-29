@@ -71,7 +71,6 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 #     #     'rest_framework.permissions.IsAuthenticated',
 #     # )
 # }
-LOGIN_REDIRECT_URL = reverse_lazy('index')
 TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
 
 MIDDLEWARE = [
