@@ -31,3 +31,7 @@ def inicio(request):
 
 def login(request):
     return render(request, 'frontend/login.html')
+
+def homeinfo(request):
+    return render(request, 'frontend/homeinfo.html')
+
