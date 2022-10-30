@@ -5,13 +5,14 @@ import json
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-def inicio(request):
+def processDocs(request):
     q_folio = request.GET.get('sfolio')
     q_tpServicio = request.GET.get('cbotipo_servicio')
+    # render_vacio = render(request, 'frontend/inicio.html')  
     print("FOLIO =>", q_folio)
     # return render(request, 'frontend/inicio.html')  
 
-    if q_folio == None or q_folio  == "" :
+    if q_folio == None or q_folio  == "" and q_tpServicio == "Tipo de servicio":
         print("Campo vacio")
         return render(request, 'frontend/inicio.html')  
     else:    
@@ -34,7 +35,7 @@ def inicio(request):
         response = requests.post(url,json = data,headers = headers)  
         print("")
         q_tpServicio = "Tipo de servicio"
-        # print(response.json())
+        print(response.content)
         return render(request, 'frontend/inicio.html', {'boletas': response.json()})  
 
 def login(request):
