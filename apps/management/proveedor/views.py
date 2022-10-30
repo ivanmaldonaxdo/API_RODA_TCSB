@@ -10,9 +10,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import FilterSet
-from apps.users.authentication import ExpiringTokenAuthentication
 #Libreria
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
+from apps.users.authentication import JWTAuthentication
 
 class ProvFilter(FilterSet):
     class Meta:
@@ -23,7 +23,7 @@ class ProvFilter(FilterSet):
         }
 
 class ProveedorViewSets(viewsets.GenericViewSet):
-    authentication_classes=([ExpiringTokenAuthentication])
+    authentication_classes=[JWTAuthentication]
     serializer_class = ProveedorSerializer
     update_serializer_class = UpdateSerializer
     model = Proveedor

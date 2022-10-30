@@ -8,3 +8,4 @@ boto3==1.24.85
 django-crontab==0.7.1
 django-solo==2.0.0
 drf-api-logger==1.1.11
+tabulate==0.9.0

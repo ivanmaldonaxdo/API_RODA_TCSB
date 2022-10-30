@@ -1,6 +1,5 @@
 from apps.management.clientes.serializers import ClienteSerializer, UpdateSerializer
 from apps.management.models import Cliente
-from apps.users.authentication import ExpiringTokenAuthentication
 from rest_framework import filters
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -15,6 +14,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import FilterSet
 #Libreria
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
+from apps.users.authentication import JWTAuthentication
 
 class ClienteFilter(FilterSet):
     class Meta:
@@ -25,7 +25,7 @@ class ClienteFilter(FilterSet):
         }
 
 class ClienteViewSets(viewsets.GenericViewSet):
-    authentication_classes=([ExpiringTokenAuthentication])
+    authentication_classes=[JWTAuthentication]
     serializer_class = ClienteSerializer
     update_serializer_class = UpdateSerializer
     model = Cliente

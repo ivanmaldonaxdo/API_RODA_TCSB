@@ -43,7 +43,7 @@ class OpenKMViewSet(ViewSet):
                     uuid = r['uuid']
                     print("*"*153)
                     archivo = self.openkm.get_content_doc(uuid)
-                    resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
+                    # resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
                     print("SE HA SUBIDO EL PDF - {}".format(r['nomDoc']))
                     print("")
                     metadata = self.openkm.get_metadata(uuid)
@@ -56,14 +56,14 @@ class OpenKMViewSet(ViewSet):
                     uuid = docs['uuid']
                     print("*"*153)
                     archivo = self.openkm.get_content_doc(uuid)
-                    resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = docs['nomDoc'])
+                    # resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = docs['nomDoc'])
                     print("SE HA SUBIDO EL PDF - {}".format(docs['nomDoc']))
                     print("")
                     metadata = self.openkm.get_metadata(uuid)
                     print(metadata)
                     # metadata.update(r)
 
-                    metadata_list.append(metadata) 
+                    metadata_list = metadata
                     # process_ocr = openkm.set_metadata_processed(uuid,1234)
 
                 except:

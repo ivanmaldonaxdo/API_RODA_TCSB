@@ -43,8 +43,6 @@ class OpenKm():
                     print("")
                     # boletas = []
                     boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
-                    print("BOLETILLAS")
-                    print(json.dumps(boletas,indent = 2))
                     print("")
                     print(f"Cantidad de boletas : {len(boletas)}")
                     return boletas
@@ -141,8 +139,6 @@ class OpenKm():
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
-        print("Se ha procesado ??? {}" .format( self.is_processed_doc(uuid)))
-        print("Tiene grupo de propiedad ??? {}" .format(self.is_in_group_metadata(uuid)))       
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
