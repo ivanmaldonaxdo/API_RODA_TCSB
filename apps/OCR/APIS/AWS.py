@@ -5,7 +5,7 @@ import os
 import requests
 import io
 import csv
-import trp.trp2 as t2
+# import trp.trp2 as t2
 import time
 from tabulate import tabulate
 import json
@@ -27,6 +27,7 @@ def listar_buckets():
     for bucket in s3.buckets.all():
         print(bucket.name)
 
+#EMPEZAR ANALISIS DE DOCUMENTO
 def textfunc(_bucket, archivo):
     queries_csv = "test.csv"
     queries = list()
@@ -49,6 +50,7 @@ def textfunc(_bucket, archivo):
         })
         return response['JobId']
 
+#VERIFIFICA SI SE HA REALIZADO ANALISIS
 def is_job_complete(job_id):
     time.sleep(1)
     response = client.get_document_analysis(JobId=job_id)
@@ -147,6 +149,7 @@ def textract(_bucket, carpeta = 'media',nomDoc = None):
                 respuesta = item["Text"]
                 print("Query answer:")
                 print(item["Text"])
+            #ALIAS ES EL NOMBRE DE <KEY> Y RESPUESTA ES EL <VALUE>
             documento.update({alias:respuesta})
         print(documento)
     json_object = json.dumps(documento, indent=4)

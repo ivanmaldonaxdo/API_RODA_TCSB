@@ -57,18 +57,18 @@
     </header>
 
 
-    <div class="bk">
-        <div class="container-form">
-            <h1 class="centrado">Busqueda de archivos a procesar</h1>
-            <div class="inputs-form-inicio">
-
-                <form action="">
-                    <div class="input-wrapper">
-                        <input class="input" name="text" placeholder="Folio" type="search" id="folio" name ="folio">
-                    </div>                    
-
-                    <div class="content-select">
-                        <select id="tipo_servicio" name = "tipo_servicio">
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 py-4 bg-white">
+                <h2>Buscador archivos procesados</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="sfolio" class="form-label">Folio</label>
+                        <input type="search" class="form-control" id="folio" name ="sfolio"placeholder="Folio" autofocus />
+                    </div>
+                    <div class="mb-3">
+                        <label for="cbotipo_servicio" class="form-label">Tipo servicio</label>
+                        <select id="tipo_servicio" class="form-select" name = "cbotipo_servicio" aria-label="Default select example">
                             <option selected>Tipo de servicio</option>
                             <option value="AGU">Agua</option>
                             <option value="ELE">Electricidad</option>
@@ -98,6 +98,8 @@
                         <tr>
                             <td class="centrado"> 1 </td>
                             <td class="centrado"> {{b.folio}} </td>
+                            <th class="centrado">Nombre archivo</th>
+
                             <td class="centrado"> {{b.tipo_servicio}} </td>
                         </tr>
                         {% endfor %}

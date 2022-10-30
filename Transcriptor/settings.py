@@ -55,6 +55,10 @@ THIRD_APPS = [
     'solo',
     'drf_api_logger',
     'django_crontab',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    "corsheaders",
+
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -80,7 +84,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS: True
 
 ROOT_URLCONF = 'Transcriptor.urls'
 
