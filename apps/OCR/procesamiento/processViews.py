@@ -61,7 +61,7 @@ class OpenKMViewSet(ViewSet):
                     print("SE HA SUBIDO EL PDF - {}".format(docs['nomDoc']))
                     print("")
                     metadata = self.openkm.get_metadata(uuid)
-                    # metadata.update({'nomDoc': docs['nomDoc']})
+                    metadata.update({'nomDoc': docs['nomDoc']})
 
                     print(metadata)
                     # metadata.update(r)
