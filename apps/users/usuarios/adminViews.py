@@ -16,7 +16,7 @@ from apps.users.authentication import JWTAuthentication
 
 
 class UserViewSet(viewsets.GenericViewSet):
-    authentication_classes = [JWTAuthentication]
+    #authentication_classes = [JWTAuthentication]
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model = User

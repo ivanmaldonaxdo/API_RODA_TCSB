@@ -63,15 +63,15 @@ THIRD_APPS = [
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
 
-# REST_FRAMEWORK = { 
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#     ),
-#     # 'DEFAULT_PERMISSION_CLASSES':(
-#     #     'rest_framework.permissions.IsAuthenticated',
-#     # )
-# }
-LOGIN_REDIRECT_URL = reverse_lazy('index')
+REST_FRAMEWORK = { 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'apps.users.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
 TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
 
 MIDDLEWARE = [
@@ -191,3 +191,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = 'login'
