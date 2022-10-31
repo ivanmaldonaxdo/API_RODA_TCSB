@@ -54,13 +54,10 @@ def login(request):
 def homeinfo(request):
     return render(request, 'frontend/homeinfo.html')
 
-<<<<<<< HEAD
 def processed(request):
     return render(request, 'frontend/processed.html')
-=======
 
 
 def test(request):
     return render(request, 'frontend/test.html')
 
->>>>>>> 12cba8db83e0903682ac4907b82219f30c8aa831
