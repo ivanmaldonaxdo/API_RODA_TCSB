@@ -40,7 +40,7 @@ def inicio(request):
 def login(request):
     return render(request, 'frontend/login.html')
 
-@login_required
+#@login_required
 def homeinfo(request):
     return render(request, 'frontend/homeinfo.html')
 
