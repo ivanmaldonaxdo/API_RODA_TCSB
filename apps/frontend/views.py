@@ -9,11 +9,9 @@ def processDocs(request):
     q_folio = request.GET.get('sfolio')
     q_tpServicio = request.GET.get('cbotipo_servicio')
     # render_vacio = render(request, 'frontend/inicio.html')  
-    print("FOLIO =>", q_folio)
-    # return render(request, 'frontend/inicio.html')  
-
-    if q_folio == None or q_folio  == "" and q_tpServicio == "Tipo de servicio":
-        print("Campo vacio")
+    q_boton = request.GET.get('btnbuscar')
+    print("FOLIO => {}| TSERVICIO => {} | Boton => {}" .format( q_folio,q_tpServicio,q_boton))
+    if q_folio == None and  q_tpServicio == "Tipo de servicio":
         return render(request, 'frontend/inicio.html')  
     else:    
         if q_tpServicio == "Tipo de servicio":
@@ -29,17 +27,25 @@ def processDocs(request):
         data = {
                 "folio":q_folio,
                 "tipo_servicio":q_tpServicio,
-                "rut_receptor":"" 
+                "rut_receptor":None
             }
+        data = dict(data)
         headers = {'Accept': 'application/json'}
         response = requests.post(url,json = data,headers = headers)
         print("")
-        print(response.content)
-        print(response.json())
-        boletas = response.json() if 'detail' not in response.json() else None
-        print(boletas)
-        q_tpServicio = "Tipo de servicio"
-        return render(request, 'frontend/inicio.html', {'boletas': response.json()})  
+        
+        # boletas = response.json() if 'detail' not in response.json() else None
+        procesados = response.json() 
+        print(type(procesados))
+        # print(boletas)
+        # q_tpServicio = "Tipo de servicio"
+        context = {
+           'procesados':procesados
+        }
+        return render(request, 'frontend/inicio.html',context)  
+
+
+    return render(request, 'frontend/inicio.html')  
 
 def login(request):
     return render(request, 'frontend/login.html')
