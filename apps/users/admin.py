@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import User, Rol
 from django.contrib.auth.models import Group
-from rest_framework.authtoken.admin import TokenAdmin
 from django.contrib.auth.admin import UserAdmin
 from django.forms import ModelForm
 
@@ -24,18 +23,17 @@ class CustomUserAdmin(UserAdmin):
     ordering = ("email",)
 
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'name', 'is_active')}),
+        (None, {'fields': ('email', 'password', 'name', 'is_active','role')}),
         )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password', 'name', 'is_staff', 'is_active')}
+            'fields': ('email', 'password', 'name', 'is_staff', 'is_active','role')}
             ),
         )
 
     filter_horizontal = ()
 
-TokenAdmin.raw_id_fields = ['user']
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Rol)
 admin.site.unregister(Group)

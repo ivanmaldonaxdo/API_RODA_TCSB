@@ -32,10 +32,13 @@ def processDocs(request):
                 "rut_receptor":"" 
             }
         headers = {'Accept': 'application/json'}
-        response = requests.post(url,json = data,headers = headers)  
+        response = requests.post(url,json = data,headers = headers)
         print("")
-        q_tpServicio = "Tipo de servicio"
         print(response.content)
+        print(response.json())
+        boletas = response.json() if 'detail' not in response.json() else None
+        print(boletas)
+        q_tpServicio = "Tipo de servicio"
         return render(request, 'frontend/inicio.html', {'boletas': response.json()})  
 
 def login(request):
