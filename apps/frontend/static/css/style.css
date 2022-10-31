@@ -191,11 +191,149 @@
 
 /*------------------------------------------------------------------------------------------------------------------*/
 
+
+/*--------------------------------- FOOTER----------------------------------------------------*/
+
+
+
+footer {
+    width: 118.......5em;
+    background: #202020;
+    color: white;
+
+}
+
+.contenedor-todo {
+    
+    max-width: 100em;
+    margin: auto;
+    padding: 40px;
+
+}
+
+.contenedor1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.colum1 {
+    max-width: 400px;
+    padding-left: 50px;
+}
+
+.colum1 h1 {
+    font-size: 20px;
+
+}
+
+.colum1 p {
+    font-size: 14px;
+    color: #c7c7c7;
+    margin-top: 20px;
+
+}
+
+.colum2 {
+    max-width: 400px;
+    padding-right: 100px;
+
+}
+
+.colum2 h1 {
+    font-size: 20px;
+}
+
+.row {
+    margin-top: 25px;
+    display: flex;
+}
+
+.row img {
+    width: 36px;
+    height: 36px;
+    
+}
+
+.row a {
+    margin-top: 15px;
+    padding-left: 20px;
+    color: #c7c7c7;
+}
+
+.row a:hover{
+    color: #c7c7c7 !important;
+    border: none;
+}
+
+
+
+.colum3 {
+    max-width: 400px;
+    padding-right: 50px;
+
+}
+
+.colum3 h1 {
+    font-size: 20px;
+}
+
+.row2 {
+    margin-top: 20px;
+    display: flex;
+}
+
+.row2 p {
+    margin-left: 10px;
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.contenedor-footer {
+    width: 100%;
+    background: #101010;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.copy {
+    color: #c7c7c7;
+}
+
+.infofooter a {
+    text-decoration: none;
+    color: #c7c7c7;
+
+}
+
+.infofooter a:hover {
+    text-decoration: none;
+    color: #c7c7c7;
+
+}
+
+@media screen and (max-width:1100px) {
+    .contendor1 {
+        flex-wrap: wrap;
+
+    }
+
+    .colum2,
+    .colum3 {
+        margin-top: 40px;
+    }
+}
+
+
+
+/* ---------------------------------------------------------FIN FOOTER----------------------------------------------*/
+/*----------------------------------------------- header------------------------------------------------------------------------*/
 nav {
     height: 80px;
     width: 100%;
-    background: #193144;
+    /*background: #193144;*/
     /*background: rgb(41, 40, 40);*/
+    background: #2c2d2e;
 
 
 
@@ -220,7 +358,7 @@ nav li {
 }
 
 nav a {
-    color: #fff !important;
+    color:  #fff!important;
     /*cambiar color  5555555555555555555555555555555555555*/
     font-size: 18px;
     text-transform: uppercase;
@@ -233,6 +371,7 @@ nav a {
 
 a.active,
 a:hover {
+    
     border: 1px solid #fff;
     transition: .5s;
 
@@ -306,29 +445,33 @@ nav #icon {
     }
 }
 
+/*-----------------------------------------------------------fin header-----------------------------------------------------------*/
 
 
-
+/*---------------------------pagina procesados------------------------------------*/
 .centrado {
     text-align: center;
     vertical-align: middle;
 }
 
 .container-form {
-    width: 50%;
+    width: 59em;
     margin: auto;
     height: 47em;
     padding-top: 28px;
+
     background: #EDEDED;
     border-radius: 30px;
+
     background: rgb(236, 236, 236);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-   
+    margin-top: 49px;
 
 
 }
 
 .container-form h1 {
+
     text-transform: capitalize;
     font-size: 36px;
     font-weight: 600;
@@ -355,8 +498,9 @@ nav #icon {
 
 .inputs-form-inicio form {
     width: 50em;
-  /*border: 1px solid red;*/
+  /*  border: 1px solid red;*/
   background: #e0e0e0;
+
   background: rgb(212, 212, 212);
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
@@ -372,6 +516,19 @@ nav #icon {
 
 }
 
+/*.btn-buscar{
+    width: 15%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #6053db;/*cambiar color asjkdnsjkadnjkasdnkasjdnjkasndjkasd
+    cursor: pointer;
+   
+    margin: 25px;
+
+    
+}*/
 
 /*--------------------------------------------  BOTON    -----------------------------------------------------*/
 .btn-buscar {
@@ -436,6 +593,8 @@ nav #icon {
     -moz-appearance: none;
 }
 
+
+/* Eliminamos la fecha que por defecto aparece en el desplegable */
 .content-select select::-ms-expand {
     display: none;
 }
@@ -477,7 +636,11 @@ padding-left: 15px;
 
 }
 
-
+/* 
+Creamos la fLecha que aparece a la izquierda del select.
+Realmente este elemento es un cuadrado que sólo tienen
+dos bordes con color y que giramos con transform: rotate(-45deg);
+*/
 .content-select i {
     position: absolute;
     right: 20px;
@@ -488,8 +651,10 @@ padding-left: 15px;
     border-left: 4px solid #8e44ad;
     border-bottom: 4px solid #8e44ad;
     transform: rotate(-45deg);
+    /* Giramos el cuadrado */
     transition: all 0.25s ease;
 }
+
 
 
 .content-select:hover i {
@@ -497,6 +662,35 @@ padding-left: 15px;
 
  
 }
+
+
+
+
+
+
+
+/*
+h1{
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  table{
+    width:100%;
+    table-layout: fixed;
+  }
+  
+  .tbl-content{
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  */
 
 .container-table {
     padding-top: 15px;
@@ -509,16 +703,21 @@ padding-left: 15px;
 }
 
 .bk {
-    height: 91.6vh;
+    height: 91.6vh;/*
     background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
-    padding-top: 2em;
 
+*/
+background:#f3f3f3 ;
+
+padding-top: 25px;
 }
+
 
 @media screen and (max-width:1600px) {
     .container-form{
-        width: 60%;
-        height: 40em;
+        width: 59em;
+        background: #193144;
+        height: 47em;
     }
 
     .bk{
@@ -526,4 +725,163 @@ padding-left: 15px;
     }
 
 
+}
+
+
+@media screen and (max-width:1500px) {
+    .container-form{
+        width: 59em;
+        background: #3db64d;
+        height: 47em;
+    }
+
+    .bk{
+        height: 98vh;
+    }
+
+
+}
+
+@media screen and (max-width:1000px){
+    .container-form{
+        width: 48em;
+        background: #922ba0;
+        height: 47em;
+    }
+
+    .bk{
+        height: 98vh;
+    }
+
+    .inputs-form-inicio form{
+        width: 40em;
+    }
+
+    .content-select{
+        width: 14em;
+    }
+
+    .input-wrapper input{
+        width: 10em;
+    }
+}
+@media screen and (max-width:850px) {
+    .container-form{
+        width: 44em;
+        background: #287d97;
+        height: 40em;
+    }
+}
+
+@media screen and (max-width:650px) {
+    .container-form{
+        width: 60%;
+        background: #c29b1a;
+        height: 40em;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .container-form{
+        width: 60%;
+        background: #c21a1a;
+        height: 40em;
+    }
+}
+
+
+
+
+/*----------------------------------------fin procesos------------------------------------------*/
+
+/*------------------------------------------------ pagina homeinfo-----------------------------------------------------------------------------------------------*/
+
+
+
+.containercentrado{
+    display: flex;
+    justify-content: center;
+}
+
+.container1{
+    width: 40em;
+   
+    height: 35em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    padding-top: 25px;
+    border-radius: 30px;
+    float: left;
+    margin-left:3em ;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+
+.cont-cliente{
+    width: 30em;
+    margin-top: 3em;
+    margin-left: 5em;
+}
+
+.infocliente{
+    margin-top: 15px;
+    padding: 0.75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    
+}
+
+.container1 h1{
+    margin-bottom: 25px;
+}
+
+.infocliente a{
+
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between !important;
+
+}
+
+.infocliente:hover{
+
+background: #c4c4c4;
+
+}
+
+.infocliente a:hover{
+    border:none
+}
+
+
+.borde0{
+    background-color: #714B67;
+    color: #fff;
+    padding: .5em 1em;  
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 10rem;
+    line-height: 1;
+}
+
+.separadorcen{
+    width: 300px;
+    height: 4px;
+    background-color: #674baf;
+
+    margin: auto;
+}
+
+.detallecuenta{
+    margin: auto;
+    margin-top: 40px;
+    width: 20em;
+    border: 1px solid red;
+}
+
+.detallecuenta i {
+    color: #674baf;
 }

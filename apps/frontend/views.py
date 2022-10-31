@@ -44,7 +44,9 @@ def processDocs(request):
 def login(request):
     return render(request, 'frontend/login.html')
 
-@login_required
+#@login_required
 def homeinfo(request):
     return render(request, 'frontend/homeinfo.html')
 
+def processed(request):
+    return render(request, 'frontend/processed.html')
