@@ -196,7 +196,6 @@
 
 
 
-
 footer {
     width: 118.......5em;
     background: #202020;
@@ -446,7 +445,6 @@ nav #icon {
     }
 }
 
-
 /*-----------------------------------------------------------fin header-----------------------------------------------------------*/
 
 
@@ -459,7 +457,7 @@ nav #icon {
 .container-form {
     width: 59em;
     margin: auto;
-    height: 40em;
+    height: 47em;
     padding-top: 28px;
 
     background: #EDEDED;
@@ -467,7 +465,7 @@ nav #icon {
 
     background: rgb(236, 236, 236);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-   
+    margin-top: 49px;
 
 
 }
@@ -705,7 +703,7 @@ h1{
 }
 
 .bk {
-    height: 80vh;/*
+    height: 91.6vh;/*
     background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
 
 */
@@ -791,6 +789,9 @@ padding-top: 25px;
     }
 }
 
+
+
+
 /*----------------------------------------fin procesos------------------------------------------*/
 
 /*------------------------------------------------ pagina homeinfo-----------------------------------------------------------------------------------------------*/
@@ -812,7 +813,9 @@ padding-top: 25px;
     border-radius: 30px;
     float: left;
     margin-left:3em ;
-
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
 }
 
@@ -827,6 +830,7 @@ padding-top: 25px;
     padding: 0.75rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.06);
+
     
 }
 
@@ -869,4 +873,15 @@ background: #c4c4c4;
     background-color: #674baf;
 
     margin: auto;
+}
+
+.detallecuenta{
+    margin: auto;
+    margin-top: 40px;
+    width: 20em;
+    border: 1px solid red;
+}
+
+.detallecuenta i {
+    color: #674baf;
 }

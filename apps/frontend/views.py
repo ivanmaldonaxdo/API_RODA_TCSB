@@ -44,3 +44,5 @@ def login(request):
 def homeinfo(request):
     return render(request, 'frontend/homeinfo.html')
 
+def processed(request):
+    return render(request, 'frontend/processed.html')

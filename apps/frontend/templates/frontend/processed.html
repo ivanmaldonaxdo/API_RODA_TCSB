@@ -4,26 +4,31 @@
 
 
 
-    <div class="bk">
+  <div class="bk">
         <div class="container-form">
-            <h1 class="centrado">Busqueda de archivos a procesar</h1>
+            <h1 class="centrado">Busqueda de archivos Procesados</h1>
             <div class="inputs-form-inicio">
 
                 <form action="">
                     <div class="input-wrapper">
-                        <input class="input" name ="sfolio" id="folio" placeholder="Folio" type="search">
+                        <input class="input" name="text" placeholder="Cliente" type="text">
                     </div>
+                    
+
+
 
                     <div class="content-select">
-                        <select id="tipo_servicio" name = "cbotipo_servicio">
-                            <option selected>Tipo de servicio</option>
-                            <option value="AGU">Agua</option>
-                            <option value="ELE">Electricidad</option>
-                            <option value="GAS">Gas</option>
+                        <select id="sucursal">
+                            <option selected>Sucursal...</option>
+                            <option value="1">Agua</option>
+                            <option value="2">Electricidad</option>
+                            <option value="3">Gas</option>
                         </select>
                         <i></i>
                     </div>
                         
+   
+
                     <button class="btn-buscar">Buscar</button>
                 </form>
 
@@ -38,17 +43,17 @@
                                 <th class="centrado">#</th>
                                 <th class="centrado">Folio</th>
                                 <th class="centrado">Nombre archivo</th>
-                                
+                                <th class="centrado">Rut cliente</th>
+                                <th class="centrado">Documento</th>
                             </tr>
                         </thead>
                         <tbody>
-                          {% for  b in boletas %}
-                        <tr>
-                            <td class="centrado"> 1 </td>
-                            <td class="centrado"> {{b.folio}} </td>
-                            <td class="centrado"> {{b.tipo_servicio}} </td>
-                        </tr>
-                        {% endfor %}
+                            <tr>
+                                <td class="centrado">1</td>
+                                <td class="centrado">11111</td>
+                                <td class="centrado">agua</td>
+                                <td class="centrado">agua</td>
+                            </tr>
 
                         </tbody>
                     </table>
@@ -61,4 +66,7 @@
 
     </div>
 
+
+
+    
 {% endblock %}
