@@ -62,11 +62,9 @@ class OpenKMViewSet(ViewSet):
                     print("")
                     metadata = self.openkm.get_metadata(uuid)
                     metadata.update({'nomDoc': docs['nomDoc']})
-
                     print(metadata)
-                    # metadata.update(r)
-
-                    metadata_list = metadata
+                    metadata_list.append(metadata)
+                    # metadata_list = metadata
                     # process_ocr = openkm.set_metadata_processed(uuid,1234)
 
                 except:

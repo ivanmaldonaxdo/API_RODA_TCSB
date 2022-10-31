@@ -76,7 +76,9 @@
                         </select>
                         <i></i>
                     </div>
-                    <button class="btn-buscar">Buscar</button>
+                    <input type="submit" class="btn-buscar" name="btnbuscar" value="Buscar" />
+
+                    {% comment %} <button class="btn-buscar" value >Buscar</button> {% endcomment %}
                 </form>
             </div>
 
@@ -86,7 +88,7 @@
                     <table class="table table-dwhite table-striped table-hover ">
                         <thead>
                             <tr>
-                                <th class="centrado">#</th>
+                                {% comment %} <th class="centrado">#</th> {% endcomment %}
                                 <th class="centrado">Folio</th>
                                 <th class="centrado">Nombre archivo</th>
                                 <th class="centrado">Rut cliente</th>
@@ -94,16 +96,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {% for  b in boletas %}
-                        <tr>
-                            <td class="centrado"> 1 </td>
-                            <td class="centrado"> {{b.folio}} </td>
-                            <th class="centrado">Nombre archivo</th>
-
-                            <td class="centrado"> {{b.tipo_servicio}} </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
+                            {% for p in procesados %}
+                            <tr>
+                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+                                <td class="centrado"> {{p.folio}} </td>
+                                <td class="centrado">{{p.nomDoc}}</th>
+                                <td class="centrado">{{p.rut_receptor}}</th>
+                                <td class="centrado"> {{p.tipo_servicio}} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
