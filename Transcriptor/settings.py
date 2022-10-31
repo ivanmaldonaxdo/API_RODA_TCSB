@@ -42,9 +42,9 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
+    'apps.users',
     'apps.management',
     'apps.OCR',
-    'apps.users',
     'apps.frontend',
 ]
 
@@ -67,6 +67,7 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 REST_FRAMEWORK = { 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.users.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES':(
         'rest_framework.permissions.IsAuthenticated',
@@ -89,6 +90,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS: True
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'Transcriptor.urls'
 
