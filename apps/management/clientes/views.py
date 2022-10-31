@@ -25,7 +25,7 @@ class ClienteFilter(FilterSet):
         }
 
 class ClienteViewSets(viewsets.GenericViewSet):
-    authentication_classes=[JWTAuthentication]
+    #authentication_classes=[JWTAuthentication]
     serializer_class = ClienteSerializer
     update_serializer_class = UpdateSerializer
     model = Cliente
