@@ -24,6 +24,8 @@
             });
         });
     </script> {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
     <title>Home</title>
 </head>
 
@@ -34,7 +36,10 @@
             <ul>
                 <li><a href="{% url 'homeinfo' %}">Inicio</a></li>
                 <li><a href="{% url 'process' %}">Procesar archivos</a></li>
-                <li><a href="#">Servicios</a></li>
+                {% comment %} <li><a href="#">Servicios</a></li> {% endcomment %}
+                <li><a href="{% url 'processed' %}">Servicios</a></li>
+                {% comment %} <li><a class="active" href="{% url 'homeinfo' %}">Inicio</a></li> {% endcomment %}
+                <li><a href="{% url 'inicio' %}">Nosotros</a></li>
                 <li><a href="#">Portafolio</a></li>
                 <li><a href="#">Cerrar sesion</a></li>
             </ul>
@@ -125,7 +130,14 @@
         </div>
     </footer>
 
+    <script>
+        $(document).ready(function () {
+            $('#icon').click(function () {
+                $('ul').toggleClass('show');
 
+            });
+        });
+    </script>
 </body>
 
 </html>

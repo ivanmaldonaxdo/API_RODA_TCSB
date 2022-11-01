@@ -5,7 +5,9 @@ import os
 import requests
 import io
 import csv
+<<<<<<< HEAD
 # import trp.trp2 as t2
+>>>>>>>>> Temporary merge branch 2
 import time
 #from tabulate import tabulate
 import json
