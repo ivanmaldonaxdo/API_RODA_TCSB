@@ -18,7 +18,7 @@ class OpenKm():
         
 #region GET_DOCS
     #AGU - ELE - GAS
-    def get_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
+    def search_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
         url = "{}{}" .format(self.end_point_base,'search/find')
         list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('anio_doc',_anio)]
         properties = self.get_list_params(list_params)
@@ -43,8 +43,6 @@ class OpenKm():
                     print("")
                     # boletas = []
                     boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
-                    print("BOLETILLAS")
-                    print(json.dumps(boletas,indent = 2))
                     print("")
                     print(f"Cantidad de boletas : {len(boletas)}")
                     return boletas
@@ -141,8 +139,6 @@ class OpenKm():
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
-        print("Se ha procesado ??? {}" .format( self.is_processed_doc(uuid)))
-        print("Tiene grupo de propiedad ??? {}" .format(self.is_in_group_metadata(uuid)))       
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         return objectOPK if not self.is_processed_doc(uuid) else {}
 

@@ -1,6 +1,5 @@
 from apps.management.sucursales.serializers import SucursalSerializers, UpdateSerializer, ContratoSerializer, SucursalModelSerializer
 from apps.management.models import Sucursal, Contrato_servicio
-from apps.users.authentication import ExpiringTokenAuthentication
 from rest_framework import filters
 from rest_framework.response import Response
 from apps.permissions import IsOperador, IsAdministrador
@@ -12,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import FilterSet
+from apps.users.authentication import JWTAuthentication
 
 class SucursalFilter(FilterSet):
     class Meta:
@@ -26,7 +26,7 @@ class SucursalFilter(FilterSet):
         }
 
 class SucursalesViewSets(viewsets.GenericViewSet):
-    #authentication_classes=([ExpiringTokenAuthentication])
+    authentication_classes=[JWTAuthentication]
     serializer_class = SucursalSerializers
     update_serializer_class = UpdateSerializer
     model = Sucursal

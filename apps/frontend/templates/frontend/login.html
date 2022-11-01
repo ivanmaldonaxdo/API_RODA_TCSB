@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>inicio sesion</title>
+</head> 
+<body>    
+    <section class="body-login">
+        <div class="login-container">
+            <div class="login-info-container">
+                <h1 class="titulo">Bienvenido</h1>
+                <div class="separador"></div>
+  
+                <!--<div class="social-login">
+                    <div class="social-login-element">
+                        <img src="img/google.svg" alt="google-image">
+                        <span>Google</span>
+                    </div>
+                    <div class="social-login-element">
+                        <img src="img/google.svg" alt="google-image">
+                        <span>Google</span>
+                    </div>
+                </div>-->   
+      
+                <form id="login" action="" method="post">
+                    {% csrf_token %}
+                    <input class="input" name="email" type="text" placeholder="Username">
+                    <!--<i class="fas fa-user"></i>-->
+                    <input class="input" name="password" type="password" placeholder="Password" >
+                    
+                    <!--<p>Restablecer contraseña<span class="span"> Click here</span></p>-->
+                    <button class="btnlogin" id="btnLogin" type="submit">Login</button>
+                   <!-- <p>¿No tienes cuenta?<span class="span">  Registrate</span></p>-->
+                </form> 
+            </div>
+            <img class="image-container" src={% static 'img/login.svg' %} alt="login">
+        </div>
+    </section>    
+    <script type="text/javascript" src="{% static 'js/token.js' %}"></script>                      
+</body>
+</html>

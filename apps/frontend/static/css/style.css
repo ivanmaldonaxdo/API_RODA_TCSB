@@ -1,0 +1,887 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/*vaariables login*/
+:root{
+    --login-bg:#f8f3ff;
+    --title-bg: #9089cc;
+    --light-pink: #e882e8;
+    --image-bg: #eadbff;
+    --button-bg: #674baf;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none !important;
+    list-style: none !important;
+
+}
+/*-----------------------------------------------  LOGIN    --------------------------------------------------------*/
+
+
+
+/*#c82548    #743695        #9A50A4  #ED4548*/
+.body-login{
+    /*100VH representaría el 100% de la altura de la ventana gráfica o la altura 
+    completa de la pantalla*/
+     height: 100vh;
+     font-family: 'Poppins', sans-serif;
+     /*background: linear-gradient(100.83deg, #443880 -0.52%, #E02030 113.57%);*/
+     /*background-image: linear-gradient(to top, #743695 0%,  #ED4548 100%);*/
+     background-image: linear-gradient(to top, #8e44ad 0%,  #c0392b 100%);
+ }
+ 
+ /*  EM: relativo al elemento padre.
+     REM: relativo al elemento raíz (etiqueta HTML y en su defecto el tamaño que tenga configurado el navegador)
+     %: relativo al elemento padre.
+     VW: relativo al ancho de la ventana gráfica.
+     VH: relativo a la altura de la ventana gráfica.*/
+ .login-container{
+     height: 43em;
+     width: 60em;
+     margin: auto;
+     padding-top: 100px;
+     display: flex;
+     justify-content: space-between;
+     overflow: hidden;
+   
+  
+ }
+ 
+ .login-info-container{
+     width: 50%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+     background-color: var(--login-bg);
+ 
+     border-radius: 10px 0 0 10px;
+ }
+ 
+ .image-container{
+     width: 50%;
+     padding: 2rem;
+     background-color: var(--image-bg);
+     box-sizing: border-box;
+     border-radius: 0px 10px 10px 0px;
+     
+ }
+ 
+ .titulo{
+     padding-top: 50PX;
+     text-transform: capitalize;
+     font-size: 36px;
+     font-weight: 600;
+     letter-spacing: 1px;
+     color: var(--title-bg);
+ }
+ 
+ 
+ .login-info-container p{
+     font-size: 20px;
+     margin-top: 1.5em;
+ }
+ 
+ .inputs-container{
+     height: 55%;
+     width: 85%;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-around;
+     align-items: center;
+ 
+ 
+ }
+ 
+ .input, .btnlogin{
+     width: 90%;
+     height: 50px;
+     font-size: 16px;
+     margin-top: 20px;
+ 
+ }
+ 
+ .input  {
+     padding-left: 20px;
+     border: none;
+     border-radius: 5px;
+     font-weight: 600;
+     letter-spacing: 1px;
+     box-sizing: border-box;
+   
+ 
+ }
+ 
+ .input:hover{
+     border: 2px solid var(--button-bg);
+ 
+ }
+ 
+ .btnlogin {
+     width: 80%;
+     letter-spacing: 1px;
+     text-transform: uppercase;
+     color: #fff;
+     border-radius: 5px;
+     background-color: var(--button-bg);
+     cursor: pointer;
+     
+ }
+ input ~ i {
+     position: relative;
+     left: 32px;
+     top: 50%;
+ 
+ }
+ 
+ .inputs-container p{
+    margin: 0;
+    
+ }
+ 
+ .span {
+     color: var(--light-pink);
+     font-weight: 600;
+     cursor: pointer;
+ 
+ }
+ 
+ .separador{
+     width: 150px;
+     height: 4px;
+     background-color: #674baf;
+     margin: 24px;
+ }
+ 
+ @media screen and (max-width:1000px){
+     .image-container{
+         display: none;
+     }
+     .login-container{
+         width: 70%;
+        /* margin-top: 3rem;*/
+         
+ 
+     }
+ 
+     .login-info-container{
+         width: 100%;
+         border-radius: 10px ;
+     }
+ }
+ 
+ @media screen and (max-width:650px) {
+     .login-container{
+         width: 90%;
+       
+     }
+ }
+ 
+ @media screen and (max-width:500px) {
+     .login-container{
+         height: 70%;
+     }
+ 
+     .login-info-container p{
+         margin: 0;
+     }
+ }
+ 
+
+/*------------------------------------------------------------------------------------------------------------------*/
+
+
+/*--------------------------------- FOOTER----------------------------------------------------*/
+
+
+
+footer {
+    width: 118.......5em;
+    background: #202020;
+    color: white;
+
+}
+
+.contenedor-todo {
+    
+    max-width: 100em;
+    margin: auto;
+    padding: 40px;
+
+}
+
+.contenedor1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.colum1 {
+    max-width: 400px;
+    padding-left: 50px;
+}
+
+.colum1 h1 {
+    font-size: 20px;
+
+}
+
+.colum1 p {
+    font-size: 14px;
+    color: #c7c7c7;
+    margin-top: 20px;
+
+}
+
+.colum2 {
+    max-width: 400px;
+    padding-right: 100px;
+
+}
+
+.colum2 h1 {
+    font-size: 20px;
+}
+
+.row {
+    margin-top: 25px;
+    display: flex;
+}
+
+.row img {
+    width: 36px;
+    height: 36px;
+    
+}
+
+.row a {
+    margin-top: 15px;
+    padding-left: 20px;
+    color: #c7c7c7;
+}
+
+.row a:hover{
+    color: #c7c7c7 !important;
+    border: none;
+}
+
+
+
+.colum3 {
+    max-width: 400px;
+    padding-right: 50px;
+
+}
+
+.colum3 h1 {
+    font-size: 20px;
+}
+
+.row2 {
+    margin-top: 20px;
+    display: flex;
+}
+
+.row2 p {
+    margin-left: 10px;
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.contenedor-footer {
+    width: 100%;
+    background: #101010;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.copy {
+    color: #c7c7c7;
+}
+
+.infofooter a {
+    text-decoration: none;
+    color: #c7c7c7;
+
+}
+
+.infofooter a:hover {
+    text-decoration: none;
+    color: #c7c7c7;
+
+}
+
+@media screen and (max-width:1100px) {
+    .contendor1 {
+        flex-wrap: wrap;
+
+    }
+
+    .colum2,
+    .colum3 {
+        margin-top: 40px;
+    }
+}
+
+
+
+/* ---------------------------------------------------------FIN FOOTER----------------------------------------------*/
+/*----------------------------------------------- header------------------------------------------------------------------------*/
+nav {
+    height: 80px;
+    width: 100%;
+    /*background: #193144;*/
+    /*background: rgb(41, 40, 40);*/
+    background: #2c2d2e;
+
+
+
+}
+
+.logo {
+    width: 250px;
+    padding-left: 60px;
+    padding-top: 10px;
+}
+
+nav ul {
+    float: right;
+    margin-right: 40px;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 8px;
+    line-height: 80px;
+
+}
+
+nav a {
+    color:  #fff!important;
+    /*cambiar color  5555555555555555555555555555555555555*/
+    font-size: 18px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    padding: 7px 10px;
+    border-radius: 3px;
+
+
+}
+
+a.active,
+a:hover {
+    
+    border: 1px solid #fff;
+    transition: .5s;
+
+
+}
+
+nav #icon {
+    color: white;
+    font-size: 30px;
+    line-height: 80px;
+    float: right;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+@media screen and (max-width: 1048px) {
+    .logo {
+        width: 250px;
+        padding-left: 60px;
+        padding-top: 10px;
+    }
+
+    nav ul {
+        margin-right: 20px;
+
+    }
+
+    nav a {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 909px) {
+    nav #icon {
+        display: block;
+    }
+
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #674baf;
+        /*cambiar color wjkansdjksnkasjdjkasdkasdksjadbskajdbk*/
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+    }
+
+    nav li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+
+    nav a {
+        font-size: 20px;
+    }
+
+    a.active,
+    a:hover {
+        border: none;
+        color: #743695 !important;
+        /*cambiar color sjkdnkasjdnjkasdnksadnaskjdkasjdnjkasdnjkasdnjkasndjkasndjkasdnjkasnd*/
+    }
+
+    nav ul.show {
+        left: 0;
+        z-index: 1;
+    }
+}
+
+/*-----------------------------------------------------------fin header-----------------------------------------------------------*/
+
+
+/*---------------------------pagina procesados------------------------------------*/
+.centrado {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.container-form {
+    width: 59em;
+    margin: auto;
+    height: 47em;
+    padding-top: 28px;
+
+    background: #EDEDED;
+    border-radius: 30px;
+
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin-top: 49px;
+
+
+}
+
+.container-form h1 {
+
+    text-transform: capitalize;
+    font-size: 36px;
+    font-weight: 600;
+
+}
+
+.inputs-form-inicio {
+   /* border: 1px solid red;*/
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 15px;
+
+
+}
+
+.inputs-form-inicio label {
+    padding-left: 15px;
+    padding-right: 10px;
+    font-size: 20px;
+
+
+}
+
+.inputs-form-inicio form {
+    width: 50em;
+  /*  border: 1px solid red;*/
+  background: #e0e0e0;
+
+  background: rgb(212, 212, 212);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+    display: flex;
+    justify-content: center;
+    
+
+}
+
+.select-search {
+    width: 150px;
+
+
+}
+
+/*.btn-buscar{
+    width: 15%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #6053db;/*cambiar color asjkdnsjkadnjkasdnkasjdnjkasndjkasd
+    cursor: pointer;
+   
+    margin: 25px;
+
+    
+}*/
+
+/*--------------------------------------------  BOTON    -----------------------------------------------------*/
+.btn-buscar {
+    padding: 1em 2em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #8e44ad;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin: 25px;
+}
+
+.btn-buscar:hover {
+    background-color: #d63248;
+    box-shadow: 0px 15px 20px rgba(224, 70, 103, 0.226);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.btn-buscar:active {
+    transform: translateY(-1px);
+}
+
+/*--------------------------INPUTS ------------------------------------------------------------*/
+.input-wrapper {
+
+    float: left;
+}
+
+.input-wrapper input {
+    background-color: #eee;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    width: 13em;
+    border-radius: 1rem;
+    color: #8e44ad;
+    box-shadow: 0 0.4rem #dfd9d9;
+    cursor: pointer;
+    outline: none;
+
+}
+
+.input-wrapper input:focus {
+    outline-color: #8e44ad;
+}
+
+/*---------------------------------- SELECT -------------------------------------------------------------------*/
+
+
+
+.content-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+/* Eliminamos la fecha que por defecto aparece en el desplegable */
+.content-select select::-ms-expand {
+    display: none;
+}
+
+.content-select {
+    width: 14em;
+    position: relative;
+    float: left;
+padding-left: 15px;
+    margin: 20px;
+}
+
+.content-select select {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 7px 10px;
+    height: 48px;
+    outline: 0;
+    border: 0;
+    border-radius: 0;
+    background: #f0f0f0;
+    color: #8e44ad;
+    font-size: 1.1em;
+ 
+    box-shadow: 0 0.4rem #dfd9d9;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.25s ease;
+
+}
+
+.content-select select:hover {
+
+        border: 2px solid #8e44ad;
+        border-radius: 12px;
+
+
+}
+
+/* 
+Creamos la fLecha que aparece a la izquierda del select.
+Realmente este elemento es un cuadrado que sólo tienen
+dos bordes con color y que giramos con transform: rotate(-45deg);
+*/
+.content-select i {
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 13px);
+    width: 16px;
+    height: 16px;
+    display: block;
+    border-left: 4px solid #8e44ad;
+    border-bottom: 4px solid #8e44ad;
+    transform: rotate(-45deg);
+    /* Giramos el cuadrado */
+    transition: all 0.25s ease;
+}
+
+
+
+.content-select:hover i {
+    margin-top: 3px;
+
+ 
+}
+
+
+
+
+
+
+
+/*
+h1{
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  table{
+    width:100%;
+    table-layout: fixed;
+  }
+  
+  .tbl-content{
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  */
+
+.container-table {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-table h2 {
+    padding-bottom: 25px;
+}
+
+.bk {
+    height: 91.6vh;/*
+    background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
+
+*/
+background:#f3f3f3 ;
+
+padding-top: 25px;
+}
+
+
+@media screen and (max-width:1600px) {
+    .container-form{
+        width: 59em;
+        background: #193144;
+        height: 47em;
+    }
+
+    .bk{
+        height: 98vh;
+    }
+
+
+}
+
+
+@media screen and (max-width:1500px) {
+    .container-form{
+        width: 59em;
+        background: #3db64d;
+        height: 47em;
+    }
+
+    .bk{
+        height: 98vh;
+    }
+
+
+}
+
+@media screen and (max-width:1000px){
+    .container-form{
+        width: 48em;
+        background: #922ba0;
+        height: 47em;
+    }
+
+    .bk{
+        height: 98vh;
+    }
+
+    .inputs-form-inicio form{
+        width: 40em;
+    }
+
+    .content-select{
+        width: 14em;
+    }
+
+    .input-wrapper input{
+        width: 10em;
+    }
+}
+@media screen and (max-width:850px) {
+    .container-form{
+        width: 44em;
+        background: #287d97;
+        height: 40em;
+    }
+}
+
+@media screen and (max-width:650px) {
+    .container-form{
+        width: 60%;
+        background: #c29b1a;
+        height: 40em;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .container-form{
+        width: 60%;
+        background: #c21a1a;
+        height: 40em;
+    }
+}
+
+
+
+
+/*----------------------------------------fin procesos------------------------------------------*/
+
+/*------------------------------------------------ pagina homeinfo-----------------------------------------------------------------------------------------------*/
+
+
+
+.containercentrado{
+    display: flex;
+    justify-content: center;
+}
+
+.container1{
+    width: 40em;
+   
+    height: 35em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    padding-top: 25px;
+    border-radius: 30px;
+    float: left;
+    margin-left:3em ;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+
+.cont-cliente{
+    width: 30em;
+    margin-top: 3em;
+    margin-left: 5em;
+}
+
+.infocliente{
+    margin-top: 15px;
+    padding: 0.75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    
+}
+
+.container1 h1{
+    margin-bottom: 25px;
+}
+
+.infocliente a{
+
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between !important;
+
+}
+
+.infocliente:hover{
+
+background: #c4c4c4;
+
+}
+
+.infocliente a:hover{
+    border:none
+}
+
+
+.borde0{
+    background-color: #714B67;
+    color: #fff;
+    padding: .5em 1em;  
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 10rem;
+    line-height: 1;
+}
+
+.separadorcen{
+    width: 300px;
+    height: 4px;
+    background-color: #674baf;
+
+    margin: auto;
+}
+
+.detallecuenta{
+    margin: auto;
+    margin-top: 40px;
+    width: 20em;
+    border: 1px solid red;
+}
+
+.detallecuenta i {
+    color: #674baf;
+}

@@ -1,0 +1,87 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+
+    <div class="bk">
+        <div class="container-form">
+            <h1 class="centrado">Busqueda de archivos a procesar</h1>
+            <div class="inputs-form-inicio">
+
+                <form action="">
+                    <div class="input-wrapper">
+                        <input class="input" name ="sfolio" id="folio" placeholder="Folio" type="search">
+                    </div>
+
+                    <div class="content-select">
+                        <select id="tipo_servicio" name = "cbotipo_servicio">
+                            <option selected>Tipo de servicio</option>
+                            <option value="AGU">Agua</option>
+                            <option value="ELE">Electricidad</option>
+                            <option value="GAS">Gas</option>
+                        </select>
+                        <i></i>
+                    </div>
+
+                    <button  id="btnBuscar" type="submit" class="btn-buscar" >Buscar</button>
+                </form>
+
+            </div>
+
+            <div class="container-table">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 py-4 ">
+                    <h2 class="centrado">Archivos procesados</h2>
+                    <table class="table table-dwhite table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                {% comment %} <th class="centrado">#</th> {% endcomment %}
+                                <th class="centrado">Folio</th>
+                                <th class="centrado">Nombre archivo</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+<<<<<<< HEAD
+                          {% for  b in boletas %}
+                        <tr>
+                            <td class="centrado"> 1 </td>
+                            <td class="centrado"> {{b.folio}} </td>
+                            <th class="centrado">Nombre archivo</th>
+
+                            <td class="centrado"> {{b.tipo_servicio}} </td>
+                        </tr>
+                        {% endfor %}
+
+=======
+                            {% for p in procesados %}
+                            <tr>
+                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+                                <td class="centrado"> {{p.folio}} </td>
+                                <td class="centrado">{{p.nomDoc}}</th>
+                                <td class="centrado">{{p.rut_receptor}}</th>
+                                <td class="centrado"> {{p.tipo_servicio}} </td>
+                            </tr>
+                            {% endfor %}
+>>>>>>> 12cba8db83e0903682ac4907b82219f30c8aa831
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+<<<<<<< HEAD
+{% endblock %}
+=======
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>   
+</body>
+
+</html>
+>>>>>>> 12cba8db83e0903682ac4907b82219f30c8aa831

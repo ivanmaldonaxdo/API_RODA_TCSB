@@ -12,16 +12,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from apps.users.authentication import ExpiringTokenAuthentication
-
+from apps.users.authentication import JWTAuthentication
 
 
 class UserViewSet(viewsets.GenericViewSet):
-    # permission_classes = [IsAdministrador]
-    authentication_classes=([ExpiringTokenAuthentication])
+    #authentication_classes = [JWTAuthentication]
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
-    model=User
+    model = User
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['name', 'email']
     filterset_fields = ['is_active']

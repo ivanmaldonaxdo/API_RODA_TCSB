@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+from audioop import reverse
 import datetime
 from pathlib import Path
-
+import os
+from django.urls import reverse_lazy
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,39 +39,45 @@ BASE_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crontab',
 ]
 
 LOCAL_APPS = [
+    'apps.users',
     'apps.management',
     'apps.OCR',
-    'apps.users'
+    'apps.frontend',
 ]
 
 THIRD_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
     'django_filters',
     'rut_chile',
+<<<<<<< HEAD
     'solo'
+=======
+    'solo',
+    'drf_api_logger',
+    'django_crontab',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    "corsheaders",
+
+>>>>>>> main
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
+REST_FRAMEWORK = { 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'apps.users.authentication.JWTAuthentication',
     ),
-    # 'DEFAULT_AUTHENTICATION_CLASSES':(
-    #     'rest_framework.authentication.TokenAuthentication',
-    # ),
     # 'DEFAULT_PERMISSION_CLASSES':(
     #     'rest_framework.permissions.IsAuthenticated',
-    # ),
+    # )
 }
 
-TOKEN_EXPIRED_AFTER_SECONDS = datetime.timedelta(seconds=200)
+TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +87,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS: True
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'Transcriptor.urls'
 
@@ -174,11 +189,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Segundos que dura un token (establecido en 10 horas)
 
-
-
+DRF_API_LOGGER_DATABASE = True
+DRF_API_LOGGER_SIGNAL = True
+DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #funcion para el proceso automatico 
 CRONJOBS = [
     ('* * * * *', 'apps.OCR.cron.dicehola'),
     ('00 23 * * *', 'apps.OCR.cron.subirdocaws') 
 ]
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = 'login'

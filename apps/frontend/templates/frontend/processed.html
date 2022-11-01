@@ -1,0 +1,72 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+
+  <div class="bk">
+        <div class="container-form">
+            <h1 class="centrado">Busqueda de archivos Procesados</h1>
+            <div class="inputs-form-inicio">
+
+                <form action="">
+                    <div class="input-wrapper">
+                        <input class="input" name="text" placeholder="Cliente" type="text">
+                    </div>
+                    
+
+
+
+                    <div class="content-select">
+                        <select id="sucursal">
+                            <option selected>Sucursal...</option>
+                            <option value="1">Agua</option>
+                            <option value="2">Electricidad</option>
+                            <option value="3">Gas</option>
+                        </select>
+                        <i></i>
+                    </div>
+                        
+   
+
+                    <button class="btn-buscar">Buscar</button>
+                </form>
+
+            </div>
+
+            <div class="container-table">
+                <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 py-4 ">
+                    <h2 class="centrado">Archivos procesados</h2>
+                    <table class="table table-dwhite table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                <th class="centrado">#</th>
+                                <th class="centrado">Folio</th>
+                                <th class="centrado">Nombre archivo</th>
+                                <th class="centrado">Rut cliente</th>
+                                <th class="centrado">Documento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="centrado">1</td>
+                                <td class="centrado">11111</td>
+                                <td class="centrado">agua</td>
+                                <td class="centrado">agua</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    
+{% endblock %}
