@@ -39,7 +39,6 @@ BASE_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crontab',
 ]
 
 LOCAL_APPS = [
@@ -51,11 +50,11 @@ LOCAL_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
     'django_filters',
     'rut_chile',
     'solo',
     'drf_api_logger',
+    'django_crontab',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
