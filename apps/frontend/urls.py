@@ -8,6 +8,6 @@ urlpatterns = [
     path('process/', processDocs, name="process"),
     path('loginfront/', login, name="login"),
     path('inicio/', homeinfo, name="homeinfo"),
-    path('processedDocs/', processed, name="processed")
+    path('processedDocs/', processed, name="processed"),
     path('test/', test, name='test')
 ]
