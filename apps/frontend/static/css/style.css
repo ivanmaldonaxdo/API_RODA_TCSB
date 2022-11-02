@@ -1,193 +1,197 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /*vaariables login*/
-:root{
-    --login-bg:#f8f3ff;
+:root {
+    --login-bg: #f8f3ff;
     --title-bg: #9089cc;
     --light-pink: #e882e8;
     --image-bg: #eadbff;
     --button-bg: #674baf;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     text-decoration: none !important;
     list-style: none !important;
 
 }
+
 /*-----------------------------------------------  LOGIN    --------------------------------------------------------*/
 
 
 
 /*#c82548    #743695        #9A50A4  #ED4548*/
-.body-login{
+.body-login {
     /*100VH representaría el 100% de la altura de la ventana gráfica o la altura 
     completa de la pantalla*/
-     height: 100vh;
-     font-family: 'Poppins', sans-serif;
-     /*background: linear-gradient(100.83deg, #443880 -0.52%, #E02030 113.57%);*/
-     /*background-image: linear-gradient(to top, #743695 0%,  #ED4548 100%);*/
-     background-image: linear-gradient(to top, #8e44ad 0%,  #c0392b 100%);
- }
- 
- /*  EM: relativo al elemento padre.
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    /*background: linear-gradient(100.83deg, #443880 -0.52%, #E02030 113.57%);*/
+    /*background-image: linear-gradient(to top, #743695 0%,  #ED4548 100%);*/
+    background-image: linear-gradient(to top, #8e44ad 0%, #c0392b 100%);
+}
+
+/*  EM: relativo al elemento padre.
      REM: relativo al elemento raíz (etiqueta HTML y en su defecto el tamaño que tenga configurado el navegador)
      %: relativo al elemento padre.
      VW: relativo al ancho de la ventana gráfica.
      VH: relativo a la altura de la ventana gráfica.*/
- .login-container{
-     height: 43em;
-     width: 60em;
-     margin: auto;
-     padding-top: 100px;
-     display: flex;
-     justify-content: space-between;
-     overflow: hidden;
-   
-  
- }
- 
- .login-info-container{
-     width: 50%;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     text-align: center;
-     background-color: var(--login-bg);
- 
-     border-radius: 10px 0 0 10px;
- }
- 
- .image-container{
-     width: 50%;
-     padding: 2rem;
-     background-color: var(--image-bg);
-     box-sizing: border-box;
-     border-radius: 0px 10px 10px 0px;
-     
- }
- 
- .titulo{
-     padding-top: 50PX;
-     text-transform: capitalize;
-     font-size: 36px;
-     font-weight: 600;
-     letter-spacing: 1px;
-     color: var(--title-bg);
- }
- 
- 
- .login-info-container p{
-     font-size: 20px;
-     margin-top: 1.5em;
- }
- 
- .inputs-container{
-     height: 55%;
-     width: 85%;
-     display: flex;
-     flex-direction: column;
-     justify-content: space-around;
-     align-items: center;
- 
- 
- }
- 
- .input, .btnlogin{
-     width: 90%;
-     height: 50px;
-     font-size: 16px;
-     margin-top: 20px;
- 
- }
- 
- .input  {
-     padding-left: 20px;
-     border: none;
-     border-radius: 5px;
-     font-weight: 600;
-     letter-spacing: 1px;
-     box-sizing: border-box;
-   
- 
- }
- 
- .input:hover{
-     border: 2px solid var(--button-bg);
- 
- }
- 
- .btnlogin {
-     width: 80%;
-     letter-spacing: 1px;
-     text-transform: uppercase;
-     color: #fff;
-     border-radius: 5px;
-     background-color: var(--button-bg);
-     cursor: pointer;
-     
- }
- input ~ i {
-     position: relative;
-     left: 32px;
-     top: 50%;
- 
- }
- 
- .inputs-container p{
+.login-container {
+    height: 43em;
+    width: 60em;
+    margin: auto;
+    padding-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+
+
+}
+
+.login-info-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--login-bg);
+
+    border-radius: 10px 0 0 10px;
+}
+
+.image-container {
+    width: 50%;
+    padding: 2rem;
+    background-color: var(--image-bg);
+    box-sizing: border-box;
+    border-radius: 0px 10px 10px 0px;
+
+}
+
+.titulo {
+    padding-top: 50PX;
+    text-transform: capitalize;
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--title-bg);
+}
+
+
+.login-info-container p {
+    font-size: 20px;
+    margin-top: 1.5em;
+}
+
+.inputs-container {
+    height: 55%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+
+}
+
+.input,
+.btnlogin {
+    width: 90%;
+    height: 50px;
+    font-size: 16px;
+    margin-top: 20px;
+
+}
+
+.input {
+    padding-left: 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-sizing: border-box;
+
+
+}
+
+.input:hover {
+    border: 2px solid var(--button-bg);
+
+}
+
+.btnlogin {
+    width: 80%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    background-color: var(--button-bg);
+    cursor: pointer;
+
+}
+
+input~i {
+    position: relative;
+    left: 32px;
+    top: 50%;
+
+}
+
+.inputs-container p {
     margin: 0;
-    
- }
- 
- .span {
-     color: var(--light-pink);
-     font-weight: 600;
-     cursor: pointer;
- 
- }
- 
- .separador{
-     width: 150px;
-     height: 4px;
-     background-color: #674baf;
-     margin: 24px;
- }
- 
- @media screen and (max-width:1000px){
-     .image-container{
-         display: none;
-     }
-     .login-container{
-         width: 70%;
+
+}
+
+.span {
+    color: var(--light-pink);
+    font-weight: 600;
+    cursor: pointer;
+
+}
+
+.separador {
+    width: 150px;
+    height: 4px;
+    background-color: #674baf;
+    margin: 24px;
+}
+
+@media screen and (max-width:1000px) {
+    .image-container {
+        display: none;
+    }
+
+    .login-container {
+        width: 70%;
         /* margin-top: 3rem;*/
-         
- 
-     }
- 
-     .login-info-container{
-         width: 100%;
-         border-radius: 10px ;
-     }
- }
- 
- @media screen and (max-width:650px) {
-     .login-container{
-         width: 90%;
-       
-     }
- }
- 
- @media screen and (max-width:500px) {
-     .login-container{
-         height: 70%;
-     }
- 
-     .login-info-container p{
-         margin: 0;
-     }
- }
- 
+
+
+    }
+
+    .login-info-container {
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width:650px) {
+    .login-container {
+        width: 90%;
+
+    }
+}
+
+@media screen and (max-width:500px) {
+    .login-container {
+        height: 70%;
+    }
+
+    .login-info-container p {
+        margin: 0;
+    }
+}
+
 
 /*------------------------------------------------------------------------------------------------------------------*/
 
@@ -204,7 +208,7 @@ footer {
 }
 
 .contenedor-todo {
-    
+
     max-width: 100em;
     margin: auto;
     padding: 40px;
@@ -251,7 +255,7 @@ footer {
 .row img {
     width: 36px;
     height: 36px;
-    
+
 }
 
 .row a {
@@ -260,7 +264,7 @@ footer {
     color: #c7c7c7;
 }
 
-.row a:hover{
+.row a:hover {
     color: #c7c7c7 !important;
     border: none;
 }
@@ -358,7 +362,7 @@ nav li {
 }
 
 nav a {
-    color:  #fff!important;
+    color: #fff !important;
     /*cambiar color  5555555555555555555555555555555555555*/
     font-size: 18px;
     text-transform: uppercase;
@@ -371,7 +375,7 @@ nav a {
 
 a.active,
 a:hover {
-    
+
     border: 1px solid #fff;
     transition: .5s;
 
@@ -414,7 +418,7 @@ nav #icon {
         position: fixed;
         width: 100%;
         height: 100vh;
-        background: #674baf;
+        background: #2c2d2e;
         /*cambiar color wjkansdjksnkasjdjkasdkasdksjadbskajdbk*/
         top: 80px;
         left: -100%;
@@ -434,8 +438,9 @@ nav #icon {
 
     a.active,
     a:hover {
-        border: none;
-        color: #743695 !important;
+        background: #fff;
+        color: #000000 !important;
+        font-size: 23px;
         /*cambiar color sjkdnkasjdnjkasdnksadnaskjdkasjdnjkasdnjkasdnjkasndjkasndjkasdnjkasnd*/
     }
 
@@ -479,7 +484,7 @@ nav #icon {
 }
 
 .inputs-form-inicio {
-   /* border: 1px solid red;*/
+    /* border: 1px solid red;*/
     padding-top: 10px;
     display: flex;
     justify-content: center;
@@ -498,15 +503,15 @@ nav #icon {
 
 .inputs-form-inicio form {
     width: 50em;
-  /*  border: 1px solid red;*/
-  background: #e0e0e0;
+    /*  border: 1px solid red;*/
+    background: #e0e0e0;
 
-  background: rgb(212, 212, 212);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    background: rgb(212, 212, 212);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     display: flex;
     justify-content: center;
-    
+
 
 }
 
@@ -603,7 +608,7 @@ nav #icon {
     width: 14em;
     position: relative;
     float: left;
-padding-left: 15px;
+    padding-left: 15px;
     margin: 20px;
 }
 
@@ -619,7 +624,7 @@ padding-left: 15px;
     background: #f0f0f0;
     color: #8e44ad;
     font-size: 1.1em;
- 
+
     box-shadow: 0 0.4rem #dfd9d9;
     border: 2px solid rgba(0, 0, 0, 0);
     border-radius: 12px;
@@ -630,8 +635,8 @@ padding-left: 15px;
 
 .content-select select:hover {
 
-        border: 2px solid #8e44ad;
-        border-radius: 12px;
+    border: 2px solid #8e44ad;
+    border-radius: 12px;
 
 
 }
@@ -660,7 +665,7 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 .content-select:hover i {
     margin-top: 3px;
 
- 
+
 }
 
 
@@ -692,6 +697,12 @@ h1{
 
   */
 
+
+
+
+/*----------------------tabla-------------------------------------------------*/
+
+
 .container-table {
     padding-top: 15px;
     display: flex;
@@ -702,90 +713,149 @@ h1{
     padding-bottom: 25px;
 }
 
+table{
+    width:100%;
+    table-layout: fixed;
+  }
+  .tbl-header{
+    background-color: rgba(139, 75, 168, 0.603);
+    width: 90%;
+    margin-left: 3em;
+   }
+  .tbl-content{
+    width: 90%;
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid rgba(91, 15, 126, 0.781);
+    margin-left: 3em;
+  }
+  th{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 16px;
+    color: #2c2d2e;
+    text-transform: uppercase;
+  }
+  td{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 400;
+    font-size: 13px;
+    color: #000000;
+    border-bottom: solid 1px rgba(255,255,255,0.1);
+  }
+
+
+tbody tr:hover{
+    background: #b9b9b979;
+}
+
+/*----------------------------------FIN TABLA  -----------------------------*/
+
+
 .bk {
-    height: 91.6vh;/*
+    height: 98vh;
+    /*
     background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
 
 */
-background:#f3f3f3 ;
+    background: #f3f3f3;
 
-padding-top: 25px;
+    padding-top: 25px;
 }
 
 
+
+
 @media screen and (max-width:1600px) {
-    .container-form{
+    .container-form {
         width: 59em;
         background: #193144;
         height: 47em;
     }
 
-    .bk{
+    .bk {
         height: 98vh;
     }
+
+
 
 
 }
 
 
 @media screen and (max-width:1500px) {
-    .container-form{
+    .container-form {
         width: 59em;
         background: #3db64d;
         height: 47em;
     }
 
-    .bk{
+    .bk {
         height: 98vh;
     }
 
 
 }
 
-@media screen and (max-width:1000px){
-    .container-form{
+@media screen and (max-width:1000px) {
+    .container-form {
         width: 48em;
         background: #922ba0;
         height: 47em;
     }
 
-    .bk{
+    .bk {
         height: 98vh;
     }
 
-    .inputs-form-inicio form{
+    .inputs-form-inicio form {
         width: 40em;
     }
 
-    .content-select{
+    .content-select {
         width: 14em;
     }
 
-    .input-wrapper input{
+    .input-wrapper input {
         width: 10em;
     }
 }
+
 @media screen and (max-width:850px) {
-    .container-form{
+    .container-form {
         width: 44em;
         background: #287d97;
-        height: 40em;
+        height: 47em;
     }
+    .bk {
+        height: 98vh;
+    }
+
 }
 
 @media screen and (max-width:650px) {
-    .container-form{
+    .container-form {
         width: 60%;
         background: #c29b1a;
-        height: 40em;
+        height: 47em;
+    }
+    .bk {
+        height: 98vh;
     }
 }
 
 @media screen and (max-width:500px) {
-    .container-form{
+    .container-form {
         width: 60%;
         background: #c21a1a;
-        height: 40em;
+        height: 47em;
+    }
+    .bk {
+        height: 98vh;
     }
 }
 
@@ -798,47 +868,47 @@ padding-top: 25px;
 
 
 
-.containercentrado{
+.containercentrado {
     display: flex;
     justify-content: center;
 }
 
-.container1{
+.container1 {
     width: 40em;
-   
+
     height: 35em;
     background: #ebe9e9;
     margin-top: 49px;
     padding-top: 25px;
     border-radius: 30px;
     float: left;
-    margin-left:3em ;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
-    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
-     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin-left: 3em;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
 }
 
-.cont-cliente{
+.cont-cliente {
     width: 30em;
     margin-top: 3em;
     margin-left: 5em;
 }
 
-.infocliente{
+.infocliente {
     margin-top: 15px;
     padding: 0.75rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.06);
 
-    
+
 }
 
-.container1 h1{
+.container1 h1 {
     margin-bottom: 25px;
 }
 
-.infocliente a{
+.infocliente a {
 
     font-weight: 600;
     display: flex;
@@ -846,28 +916,28 @@ padding-top: 25px;
 
 }
 
-.infocliente:hover{
+.infocliente:hover {
 
-background: #c4c4c4;
+    background: #c4c4c4;
 
 }
 
-.infocliente a:hover{
-    border:none
+.infocliente a:hover {
+    border: none
 }
 
 
-.borde0{
+.borde0 {
     background-color: #714B67;
     color: #fff;
-    padding: .5em 1em;  
+    padding: .5em 1em;
     font-size: 0.75rem;
     font-weight: 600;
     border-radius: 10rem;
     line-height: 1;
 }
 
-.separadorcen{
+.separadorcen {
     width: 300px;
     height: 4px;
     background-color: #674baf;
@@ -875,13 +945,32 @@ background: #c4c4c4;
     margin: auto;
 }
 
-.detallecuenta{
+.detallecuenta {
     margin: auto;
     margin-top: 40px;
     width: 20em;
-    border: 1px solid red;
+
 }
 
 .detallecuenta i {
     color: #674baf;
+    
 }
+
+.detallecuenta button{
+    width: 20em;
+    height: 3em;
+    font-size: 17px;
+    font-weight: 600;
+    background: #ffffff;
+}
+
+.detallecuenta button:hover{
+   background: linear-gradient(to left, #8e44ad 0%, #c0392b 100%);
+    
+    color: #fff;
+}
+
+
+
+
