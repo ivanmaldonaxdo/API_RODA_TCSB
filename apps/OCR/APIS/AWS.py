@@ -5,9 +5,6 @@ import os
 import requests
 import io
 import csv
-<<<<<<< HEAD
-# import trp.trp2 as t2
->>>>>>>>> Temporary merge branch 2
 import time
 #from tabulate import tabulate
 import json
@@ -125,6 +122,7 @@ def get_job_results(job_id):
 
     return pages
 
+#ESTA FUNCION LLAMA AFUNCION TEXTFUNC EN EL CUAL SE DEVUELVE UN JOBID
 def textract(_bucket, carpeta = 'media',nomDoc = None):
     archivo = '{}/{}'.format(carpeta,nomDoc)
     job_id = textfunc(_bucket, archivo)
