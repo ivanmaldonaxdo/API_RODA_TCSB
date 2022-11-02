@@ -5,6 +5,7 @@ from solo.admin import SingletonModelAdmin
 
 admin.site.register(Sucursal)
 admin.site.register(Proveedor)
+admin.site.register(Servicio)
 admin.site.register(Comuna)
 admin.site.register(Region)
 admin.site.register(Zona)
