@@ -13,10 +13,11 @@ from django.utils import timezone
 #Modelo SISTEMA: Mantiene las cpnfiguraciones basicas, tales como, urls, credenciales de las herramientas (Aun necesita modificaciones)
 #Solo admite 1 objecto del tipo sistema
 class Sistema(SingletonModel):
-    singleton_instance_id = 1
-    credencial = models.CharField('Credencial',max_length=255,unique = True,blank = True)
+    ingleton_instance_id = 1
     name_sis = models.CharField('Nombre de Sistema',max_length=255,unique = True, blank = True)
-    url = models.CharField('Url',max_length=255,unique = True, blank = True)
+    credencial = models.FileField(validators=[
+        FileExtensionValidator(allowed_extensions=['json'])
+    ])
 
     def __str__(self):
         return "Sistema"
