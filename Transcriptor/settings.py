@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-82e32v=_md3-ydr+ic4@f=pbi4yxe@zf@p_$4by5npv+w@3(41
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['52.201.38.209']
 
 
 # Application definition
@@ -200,3 +200,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'login'
+
+STATIC_ROOT = '/var/www/Trans-site/assets/'
