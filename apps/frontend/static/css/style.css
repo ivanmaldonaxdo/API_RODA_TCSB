@@ -200,18 +200,12 @@ input~i {
 
 
 
-footer {
-    width: 118.......5em;
+.contenedor-todo {
     background: #202020;
     color: white;
-
-}
-
-.contenedor-todo {
-
-    max-width: 100em;
     margin: auto;
     padding: 40px;
+
 
 }
 
@@ -293,7 +287,7 @@ footer {
 }
 
 .contenedor-footer {
-    width: 100%;
+    
     background: #101010;
     display: flex;
     justify-content: space-between;
@@ -757,7 +751,7 @@ tbody tr:hover{
 
 
 .bk {
-    height: 98vh;
+    height: 100vh;
     /*
     background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
 
@@ -765,6 +759,7 @@ tbody tr:hover{
     background: #f3f3f3;
 
     padding-top: 25px;
+    padding-bottom: 2em;
 }
 
 
@@ -773,9 +768,14 @@ tbody tr:hover{
 @media screen and (max-width:1600px) {
     .container-form {
         width: 59em;
-        
         height: 42em;
         margin-top: 5px;
+       
+    }
+
+    .bk{
+        height: 50em;
+
     }
 
 }
@@ -788,6 +788,11 @@ tbody tr:hover{
         height: 42em;
         margin-top: 5px;
     }
+    
+    .bk{
+        height: 50em;
+
+    }
 }
 
 @media screen and (max-width:1000px) {
@@ -797,8 +802,10 @@ tbody tr:hover{
         margin-top: 5px;
     }
 
-    .bk {
-        height: 98vh;
+   
+    .bk{
+        height: 50em;
+
     }
 
     .inputs-form-inicio form {
@@ -817,35 +824,111 @@ tbody tr:hover{
 @media screen and (max-width:850px) {
     .container-form {
         width: 44em;
-        background: #287d97;
         height: 47em;
     }
     .bk {
-        height: 98vh;
+        height: 54em;
     }
 
 }
 
 @media screen and (max-width:650px) {
     .container-form {
-        width: 60%;
-        background: #c29b1a;
-        height: 47em;
+        width: 80%;
+
+        height: 54em;
     }
     .bk {
-        height: 98vh;
+        height: 62em;
     }
+
+    .tbl-header{
+    
+    width: 80%;
+    margin-left: 3em;
+    }
+    .tbl-content{
+    width: 80%;
+   
+
+    margin-left: 3em;
+    }
+    .inputs-form-inicio form {
+        width: 18em;
+        height: 15em;
+        display: inline-block;
+        
+        
+    }
+
+    .content-select {
+        width: 14em;
+        padding-left: 25px;
+        
+        
+    }
+    .inputs-form-inicio .btn-buscar{
+        margin: auto;
+        margin-left: 7em;
+    }
+
+    .input-wrapper input {
+        width: 10em;
+        margin-left: 3em;
+       
+    }
+
+
 }
+
 
 @media screen and (max-width:500px) {
     .container-form {
-        width: 60%;
-        background: #c21a1a;
-        height: 47em;
+        width: 90%;
+
+        height: 56em;
     }
     .bk {
-        height: 98vh;
+        height: 65em;
     }
+
+    .tbl-header{
+    
+    width: 90%;
+    margin-left: 1em;
+    }
+    .tbl-content{
+    width: 90%;
+   
+
+    margin-left: 1em;
+    }
+    .inputs-form-inicio form {
+        width: 18em;
+        height: 15em;
+        display: inline-block;
+        
+        
+    }
+
+    .content-select {
+        width: 14em;
+        padding-left: 25px;
+        
+        
+    }
+    .inputs-form-inicio .btn-buscar{
+        margin: auto;
+        margin-left: 7em;
+    }
+
+    .input-wrapper input {
+        width: 10em;
+        margin-left: 3em;
+       
+    }
+
+
 }
 
 
