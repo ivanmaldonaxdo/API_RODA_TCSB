@@ -40,6 +40,8 @@
                                 <th class="centrado">Nombre archivo</th>
                                 <th class="centrado">Rut cliente</th>
                                 <th class="centrado">Tipo Servicio</th>
+                                <th class="centrado">Accion</th>
+
                             </tr>
                           </thead>
                         </table>
@@ -54,6 +56,8 @@
                                 <td class="centrado">{{p.nomDoc}}</th>
                                 <td class="centrado">{{p.rut_receptor}}</th>
                                 <td class="centrado"> {{p.tipo_servicio}} </td>
+                                <td class="centrado"><button class="buttonDownload">Procesar</button> </td>
+
                             </tr>
                             {% endfor %}
                             </tbody>

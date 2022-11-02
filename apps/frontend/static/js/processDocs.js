@@ -60,20 +60,22 @@ function getDocs(folio,tpServicio, rutCli = null ) {
     })
     .then((response) => {
         response.json().then(docs => {
-            let body = ''
+            let body = '';
+            let clase = "centrado",
+                cssButton = "buttonDownload";
             docs.map((doc) => {
-                let tdfolio = `<td class = "centrado">${doc.folio}</td>`,
-                    tdnomDoc = `<td class = "centrado">${doc.nomDoc}</td>`,
-                    tdRutReceptor = `<td class = "centrado">${doc.rut_receptor}</td>`,
-                    tdTpServicio = `<td class = "centrado">${doc.tipo_servicio}</td>`;
-                    // let elem = document.createElement('td')
-                    // elem.appendChild(document.createTextNode(`${doc.folio}`))
-                    // tr.appendChild(elem)
-                body += `<tr>${tdfolio}${tdnomDoc}${tdRutReceptor}${tdTpServicio}</tr>`;
+                let button = `<button class="${cssButton}">Procesar</button>`
+                let tdfolio = `<td class = "${clase}">${doc.folio}</td>`,
+                    tdnomDoc = `<td class = "${clase}">${doc.nomDoc}</td>`,
+                    tdRutReceptor = `<td class = "${clase}">${doc.rut_receptor}</td>`,
+                    tdTpServicio = `<td class = "${clase}">${doc.tipo_servicio}</td>`,
+                    tdProcesar = `<td class = "${clase}" id ="#procesar">${button}</td>`;
+
+                body += `<tr>${tdfolio}${tdnomDoc}${tdRutReceptor}${tdTpServicio}${tdProcesar}</tr>`;
                 tbody.innerHTML += body;
-            }
-            );
-            
+    
+            });
+ 
         })
     });
 }
