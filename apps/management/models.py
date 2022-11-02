@@ -1,8 +1,3 @@
-from asyncio.windows_events import NULL
-from datetime import datetime
-from email.policy import default
-# from formatter import NullFormatter
-from xml.etree.ElementInclude import default_loader
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
@@ -14,9 +9,10 @@ from django.utils import timezone
 #Solo admite 1 objecto del tipo sistema
 class Sistema(SingletonModel):
     singleton_instance_id = 1
-    credencial = models.CharField('Credencial',max_length=255,unique = True,blank = True)
     name_sis = models.CharField('Nombre de Sistema',max_length=255,unique = True, blank = True)
-    url = models.CharField('Url',max_length=255,unique = True, blank = True)
+    credencial = models.FileField(validators=[
+        FileExtensionValidator(allowed_extensions=['json'])
+    ])
 
     def __str__(self):
         return "Sistema"
@@ -42,18 +38,24 @@ class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
     contacto = models.CharField('Contacto', max_length=255, blank=True)
-    SERVICIOS = (
-        ('1', 'Luz'),
-        ('2', 'Agua'),
-        ('3', 'Gas'),
-    )
-    servicio = models.CharField('Tipo Servicio', max_length=255, choices=SERVICIOS)
 
     def __str__(self):
         return self.nom_proveedor
     
     class Meta:
         verbose_name_plural = "Proveedores"
+
+
+
+class Servicio(models.Model):
+    servicio= models.CharField('Servicio', max_length=255, blank=False, null=True)
+
+    def __str__(self):
+        return self.servicio
+    
+    class Meta:
+        verbose_name_plural = "Servicios"
+
 
 
 class Zona(models.Model):
