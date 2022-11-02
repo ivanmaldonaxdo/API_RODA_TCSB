@@ -5,11 +5,9 @@ import os
 import requests
 import io
 import csv
-<<<<<<< HEAD
 # import trp.trp2 as t2
-=======
 #import trp.trp2 as t2
->>>>>>> monse
+
 import time
 #from tabulate import tabulate
 import json
