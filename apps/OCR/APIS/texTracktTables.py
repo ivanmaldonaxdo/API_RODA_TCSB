@@ -241,15 +241,4 @@ print(diccionario)
 #     except:
 #         XD = none
 
-# with open("./DOC.csv", 'rb') as file:
-#   csvreader = csv.reader(file)
-#   for row in csvreader:
-#     try:
-#         print(row[0])
-#     except:
-#         XD = none
-# df = pd.read_csv(csv_path,on_bad_lines='skip')
-# print(df)
-# df2 = df.to_json(json_path)
-# print(df2)
 # PROCESO get_table_csv_results LLAMA A generate_table_csv()
