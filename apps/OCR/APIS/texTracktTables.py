@@ -89,7 +89,9 @@ def generate_table_csv(table_result, blocks_map, table_index,list_tablas):
     # print("Filas ",rows)
     table_id = 'Table_' + str(table_index)
     if table_id in list_tablas:
-        csv = 'Table: {0}\n\n'.format(table_id)
+        # csv = 'Table: {0}\n\n'.format(table_id)
+
+        csv = '{0}\n\n'.format(table_id)
     tabla_object = dict()
     for row_index, cols in rows.items():
         # print("Columnas" ,cols)
@@ -121,7 +123,7 @@ def generate_table_csv(table_result, blocks_map, table_index,list_tablas):
     
 def generate_table_json(table_result, blocks_map, table_index,list_tablas):
     # rows = get_rows_columns_map(table_result, blocks_map)
-    print("Filas ",rows)
+    # print("Filas ",rows)
     table_id = 'Table_' + str(table_index)
     
     # get cells.
@@ -136,41 +138,44 @@ def generate_table_json(table_result, blocks_map, table_index,list_tablas):
     return csv
 
 def format_key_value(text):
-    if text =="":
+    if text !="":
         texto = text
-        texto = texto.replace(" ","_")
-        # print(texto)
-        texto = texto.strip()
-        array_texto = texto.split("__")
+        pattern_split = "  +"
+        array_texto = re.split(pattern_split, texto.strip())
         # print(array_texto)
+
         item_final = str(array_texto[-1:][-1])
 
         # print("Ultimo item ",item_final)
         clave =""
-        query = dict()
         if len(array_texto)>2:
-            index = array_texto.index(item_final)
-            # print(index)
+            index_final = array_texto.index(item_final)
+            # print(index_final)
+            
             for i in range (len(array_texto)):
                 item = array_texto[i]
-                # print(array_texto[i])
-                if index!= i:
+            
+                if index_final!= i:
                     if i==0:
-                        clave +="  "+item
+                        clave +=" "+item
                     else:
-                        clave +=" - "+item
-
-                    # print("Ultimo Item")
+                        clave +="  "+item
+                    # print(array_texto[i])
+                    # print("No es Ultimo Item")
                     #print("Ultimo item ",array_texto[-1:])
+        elif len(array_texto)==1:
+            clave = array_texto[0]   
+            item_final = " "
         else:
-            clave = array_texto[0]
-            valor = item_final
-        clave = clave.strip().replace(" -", " ").strip()
-        valor = item_final
-        query.update({clave:item_final})         
-        print("KEY ",clave.strip())
-        print("VALUE ",valor)
-        return query
+            clave = array_texto[0]      
+            
+        # print(clave.strip())
+        # print(item_final)
+        # if clave == "Table:":
+        propiedad = {clave.strip():item_final}
+        return propiedad
+        # print("Diccionario Final:",propiedad)
+            
 
     
 # print(format_key_value("CARGO POR DEMANDA EN H.P.  6.457,8  1.868  12.063.170"))
@@ -184,13 +189,35 @@ def format_key_value(text):
 # if some_table in tablas:
 #     print("Se encuentra {}" .format(some_table)) 
 
-tablas = ["Table_1","Table_2"]
+tablas = ["Table_1","Table_2","Table_3","Table_4"]
 print("Tablas especificas a extraer data",tablas)
 
 table_csv = get_table_csv_results(archivo,list_tablas=tablas)
+print("Lineas")
+print("")
 print(table_csv)
-with open("DOC.csv", "wt") as fout:
-    fout.write(table_csv)
+diccionario = dict()
+for line in table_csv.splitlines():
+    print(line)
+    # print()
+    # prop = dict()
+    
+    if line!="":
+        # pattern = ' :'
+        # replace = ""
+        # result = re.sub(pattern, replace, line).strip()
+        # print(result)
+        propiedad = format_key_value(line)
+        if propiedad is not None :
+            diccionario.update(propiedad)
+            # print(propiedad)
+        # diccionario.update(propiedad)
+    # print(propiedad)
+print(diccionario)
+
+# print(table_csv)
+# with open("DOC.csv", "wt") as fout:
+#     fout.write(table_csv)
 
 # path = p('DOC.csv').re
 # print(path)
