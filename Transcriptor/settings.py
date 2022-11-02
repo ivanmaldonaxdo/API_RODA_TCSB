@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-82e32v=_md3-ydr+ic4@f=pbi4yxe@zf@p_$4by5npv+w@3(41
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['52.201.38.209']
 
 
 # Application definition
@@ -39,25 +39,26 @@ BASE_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crontab',
 ]
 
 LOCAL_APPS = [
+    'apps.users',
     'apps.management',
     'apps.OCR',
-    'apps.users',
     'apps.frontend',
 ]
 
 THIRD_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
     'django_filters',
     'rut_chile',
     'solo',
     'drf_api_logger',
+    'django_crontab',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    "corsheaders",
+
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
@@ -67,9 +68,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.users.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES':(
-        'rest_framework.permissions.IsAuthenticated',
-    )
+    # 'DEFAULT_PERMISSION_CLASSES':(
+    #     'rest_framework.permissions.IsAuthenticated',
+    # )
 }
 
 TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
@@ -83,7 +84,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS: True
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'Transcriptor.urls'
 
@@ -193,3 +200,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'login'
+
+STATIC_ROOT = '/var/www/Trans-site/assets/'
