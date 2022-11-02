@@ -63,9 +63,9 @@ function getDocs(folio,tpServicio, rutCli = null ) {
             let body = ''
             docs.map((doc) => {
                 let tdfolio = `<td class = "centrado">${doc.folio}</td>`,
-                    tdnomDoc = `<td>${doc.nomDoc}</td>`,
-                    tdRutReceptor = `<td>${doc.rut_receptor}</td>`,
-                    tdTpServicio = `<td>${doc.tipo_servicio}</td>`;
+                    tdnomDoc = `<td class = "centrado">${doc.nomDoc}</td>`,
+                    tdRutReceptor = `<td class = "centrado">${doc.rut_receptor}</td>`,
+                    tdTpServicio = `<td class = "centrado">${doc.tipo_servicio}</td>`;
                     // let elem = document.createElement('td')
                     // elem.appendChild(document.createTextNode(`${doc.folio}`))
                     // tr.appendChild(elem)
