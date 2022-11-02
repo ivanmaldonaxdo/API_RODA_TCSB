@@ -773,16 +773,10 @@ tbody tr:hover{
 @media screen and (max-width:1600px) {
     .container-form {
         width: 59em;
-        background: #193144;
-        height: 47em;
+        
+        height: 42em;
+        margin-top: 5px;
     }
-
-    .bk {
-        height: 98vh;
-    }
-
-
-
 
 }
 
@@ -790,22 +784,17 @@ tbody tr:hover{
 @media screen and (max-width:1500px) {
     .container-form {
         width: 59em;
-        background: #3db64d;
-        height: 47em;
+        
+        height: 42em;
+        margin-top: 5px;
     }
-
-    .bk {
-        height: 98vh;
-    }
-
-
 }
 
 @media screen and (max-width:1000px) {
     .container-form {
         width: 48em;
-        background: #922ba0;
-        height: 47em;
+        height: 42em;
+        margin-top: 5px;
     }
 
     .bk {
