@@ -20,7 +20,7 @@ class OpenKMViewSet(ViewSet):
         print("Filtros {} -".format(filtros))
         return filtros
     
-    @action(detail=False,methods = ['POST'])
+    @action(detail=False,methods = ['POST'],url_name="search_docs")
     # @action(detail = False, methods = ['post'])
     def search_docs(self,request):
         filtros = dict(request.data)
@@ -40,6 +40,24 @@ class OpenKMViewSet(ViewSet):
             # print("IS LISTA?? -", isinstance(response, list),"- " ,type(response))
             print(docs)
             return Response(data = docs, status=status.HTTP_200_OK)
+        else:   
+            return Response({
+                'message':'La busqueda no coincide con ningun documento',
+            }, status= status.HTTP_404_NOT_FOUND)
+
+
+    @action(detail=False,methods = ['POST'],url_name="process_docs")
+    def process_docs(self,request):
+        data = dict(request.data)
+        contenido = self.openkm.get_content_doc(
+            _uuid = data.get("uuid")
+        )
+        # {"message: Data encontrada"},
+        if contenido:
+            print("HAY ARCHIVOS")
+            print("cantidad => {}" .format(len(docs)))
+            print(contenido)
+            return Response(data = contenido, status=status.HTTP_200_OK)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
