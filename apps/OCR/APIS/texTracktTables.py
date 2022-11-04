@@ -189,7 +189,7 @@ def format_key_value(text):
 # if some_table in tablas:
 #     print("Se encuentra {}" .format(some_table)) 
 
-tablas = ["Table_1","Table_2","Table_3","Table_4"]
+tablas = ["Table_1","Table_2","Table_4"]
 print("Tablas especificas a extraer data",tablas)
 
 table_csv = get_table_csv_results(archivo,list_tablas=tablas)
@@ -216,8 +216,8 @@ for line in table_csv.splitlines():
 print(diccionario)
 
 # print(table_csv)
-# with open("DOC.csv", "wt") as fout:
-#     fout.write(table_csv)
+with open("json_como_le-dicen.json", "wt",encoding='utf-8') as fout:
+    fout.write(json.dumps(diccionario,indent=4))
 
 # path = p('DOC.csv').re
 # print(path)
@@ -241,4 +241,6 @@ print(diccionario)
 #     except:
 #         XD = none
 
-# PROCESO get_table_csv_results LLAMA A generate_table_csv()
+# PROCESO get_table_csv_results LLAMA A generate_table_csv() en el cual se obtienen las tablas 
+
+

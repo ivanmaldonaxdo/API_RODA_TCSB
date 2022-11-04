@@ -140,6 +140,10 @@ class OpenKm():
                 'nomDoc':nom_doc
                 })
         print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
+        metadata = self.get_metadata(uuid)
+        objectOPK.update(metadata)
+        print(objectOPK)
+        # print(self.get_metadata(uuid))
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
     def put_request(self,_url,_data,_params = None, _headers = {'Accept': 'application/json','content-type': 'application/json'}):
