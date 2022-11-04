@@ -34,10 +34,21 @@ class Cliente(models.Model):
     class Meta:
         verbose_name_plural = "Clientes"
 
+class Servicio(models.Model):
+    servicio= models.CharField('Servicio', max_length=255, blank=False, null=True)
+
+    def __str__(self):
+        return self.servicio
+    
+    class Meta:
+        verbose_name_plural = "Servicios"
+
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
     contacto = models.CharField('Contacto', max_length=255, blank=True)
+    is_active = models.BooleanField(default = True)
+    servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, default=None)
 
     def __str__(self):
         return self.nom_proveedor
@@ -53,21 +64,11 @@ class Plantilla(models.Model):
         FileExtensionValidator(allowed_extensions=['csv'])
     ])
     tablas_config = models.FileField(null=True, validators=[
-        FileExtensionValidator(allowed_extensions=['csv'])
+        FileExtensionValidator(allowed_extensions=['json'])
     ])
     fecha_creacion = models.DateTimeField(default=timezone.now)
     proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE,null=True, default=None)
     
-
-
-class Servicio(models.Model):
-    servicio= models.CharField('Servicio', max_length=255, blank=False, null=True)
-
-    def __str__(self):
-        return self.servicio
-    
-    class Meta:
-        verbose_name_plural = "Servicios"
 
 
 

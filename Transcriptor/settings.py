@@ -29,7 +29,7 @@ DEBUG = True
 
 #ALLOWED_HOSTS = ['52.201.38.209','127.0.0.1','localhost']
 #ALLOWED_HOSTS = ['52.201.38.209']
-ALLOWED_HOSTS = ['54.196.242.99']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -56,8 +56,6 @@ THIRD_APPS = [
     'solo',
     'drf_api_logger',
     'django_crontab',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
 
 ]
@@ -69,9 +67,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.users.authentication.JWTAuthentication',
     ),
-    # 'DEFAULT_PERMISSION_CLASSES':(
-    #     'rest_framework.permissions.IsAuthenticated',
-    # )
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
@@ -142,7 +140,7 @@ DATABASES = {
         'NAME': 'API_DB',
         'USER': 'postgres',
         'PASSWORD':'API_DB_PASSWORD',
-        'HOST':'54.196.242.99',
+        'HOST':'54.160.143.91',
         'PORT':'5432'
     }
 }

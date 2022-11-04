@@ -15,7 +15,7 @@ class ProveedorSerializer(serializers.ModelSerializer):
         return proveedor
     
 class UpdateSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = Proveedor
         fields = ('nom_proveedor', 'rut_proveedor', 'contacto', 'servicio')

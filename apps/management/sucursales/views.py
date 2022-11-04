@@ -1,8 +1,8 @@
-from apps.management.sucursales.serializers import SucursalSerializers, UpdateSerializer, ContratoSerializer, SucursalModelSerializer
+from apps.management.sucursales.serializers import SucursalSerializers, UpdateSerializer, ContratoSerializer, SucursalModelSerializer, ContratoServiciosSerializer
 from apps.management.models import Sucursal, Contrato_servicio
 from rest_framework import filters
 from rest_framework.response import Response
-from apps.permissions import IsOperador, IsAdministrador
+from apps.permissions import IsOperador, IsAdministrador, SucursalPermission
 from rest_framework.decorators import action
 from django.http import Http404
 
@@ -26,12 +26,12 @@ class SucursalFilter(FilterSet):
         }
 
 class SucursalesViewSets(viewsets.GenericViewSet):
-    authentication_classes=[JWTAuthentication]
     serializer_class = SucursalSerializers
     update_serializer_class = UpdateSerializer
     model = Sucursal
     filter_backends = [DjangoFilterBackend]
     filterset_fields = SucursalFilter.Meta.fields
+    permission_classes = (SucursalPermission, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Sucursal.objects.all())
@@ -58,7 +58,7 @@ class SucursalesViewSets(viewsets.GenericViewSet):
 
     def retrieve(self, request, pk = None): #Detalle de un usuario
         sucursal  = self.get_object(pk)
-        sucursal_serializer = self.serializer_class(sucursal)
+        sucursal_serializer = SucursalModelSerializer(sucursal)
         return Response(sucursal_serializer.data, status= status.HTTP_200_OK)
 
     def list(self, request): #Listado de usuario
@@ -108,7 +108,7 @@ class SucursalesViewSets(viewsets.GenericViewSet):
  
 
 class Contrato(viewsets.GenericViewSet):
-    serializer_class = ContratoSerializer
+    serializer_class = ContratoServiciosSerializer
     model = Contrato_servicio
 
 
@@ -124,3 +124,16 @@ class Contrato(viewsets.GenericViewSet):
             'message':'Error en el registro',
             'errors': contrato_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
+
+    # @action(detail=False, methods=['post'])
+    # def create_contract(self, request):
+    #     contrato_serializer = self.serializer_class(data=request.data)
+    #     if contrato_serializer.is_valid():
+    #         contrato_serializer.save()
+    #         return Response({
+    #             'message': 'Servicio registrado correctamente'
+    #         }, status=status.HTTP_201_CREATED)
+    #     return Response({
+    #         'message':'Error en el registro',
+    #         'errors': contrato_serializer.errors
+    #     }, status= status.HTTP_400_BAD_REQUEST)
