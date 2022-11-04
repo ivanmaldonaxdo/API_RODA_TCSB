@@ -2,7 +2,7 @@ from apps.management.proveedor.serializers import ProveedorSerializer, UpdateSer
 from apps.management.models import Proveedor
 
 from rest_framework.response import Response
-from apps.permissions import IsOperador, IsAdministrador
+from apps.permissions import IsOperador, IsAdministrador, ProveedoresPermission
 
 from django.http import Http404
 from rest_framework import viewsets
@@ -23,12 +23,12 @@ class ProvFilter(FilterSet):
         }
 
 class ProveedorViewSets(viewsets.GenericViewSet):
-    authentication_classes=[JWTAuthentication]
     serializer_class = ProveedorSerializer
     update_serializer_class = UpdateSerializer
     model = Proveedor
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ProvFilter.Meta.fields
+    permission_classes= (ProveedoresPermission, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Proveedor.objects.all())

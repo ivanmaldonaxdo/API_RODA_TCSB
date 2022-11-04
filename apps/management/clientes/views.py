@@ -3,8 +3,8 @@ from apps.management.models import Cliente
 from rest_framework import filters
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
-from apps.permissions import IsOperador, IsAdministrador
-from rest_framework.decorators import action
+from apps.permissions import ClientesPermission
+from rest_framework.decorators import permission_classes, action
 from django.http import Http404
 
 from rest_framework import viewsets
@@ -25,12 +25,13 @@ class ClienteFilter(FilterSet):
         }
 
 class ClienteViewSets(viewsets.GenericViewSet):
-    #authentication_classes=[JWTAuthentication]
+    
     serializer_class = ClienteSerializer
     update_serializer_class = UpdateSerializer
     model = Cliente
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ClienteFilter.Meta.fields
+    permission_classes = (ClientesPermission,)
 
     def get_queryset(self):
         queryset= self.filter_queryset(Cliente.objects.all())
@@ -61,6 +62,7 @@ class ClienteViewSets(viewsets.GenericViewSet):
             'message':'Error en el registro',
             'errors': client_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
+
 
     def retrieve(self, request, pk = None): #Detalle de un usuario
         cliente  = self.get_object(pk)

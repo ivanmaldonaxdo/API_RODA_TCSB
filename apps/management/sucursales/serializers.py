@@ -18,7 +18,7 @@ class SucursalSerializers(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sucursal 
-        fields = ('proveedor', 'nom_sucursal', 'num_cliente', 'cod', 'direccion', 'comuna', 'cliente')
+        fields = ('nom_sucursal', 'cod', 'direccion', 'comuna', 'cliente')
     
     def update(self, instance, validated_data):
         sucursal = super().update(instance, validated_data)
@@ -39,3 +39,8 @@ class SucursalModelSerializer(serializers.ModelSerializer):
         model=Sucursal
         fields= '__all__'
 
+class ContratoServiciosSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model= Contrato_servicio
+        fields='__all__'
