@@ -29,13 +29,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = ['52.201.38.209','127.0.0.1','localhost']
 
-<<<<<<< HEAD
-=======
-#ALLOWED_HOSTS = ['52.201.38.209','127.0.0.1','localhost']
-#ALLOWED_HOSTS = ['52.201.38.209']
-ALLOWED_HOSTS = []
->>>>>>> main
-
 # Application definition
 
 BASE_APPS = [
