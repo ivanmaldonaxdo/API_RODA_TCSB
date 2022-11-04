@@ -46,6 +46,19 @@ class Proveedor(models.Model):
         verbose_name_plural = "Proveedores"
 
 
+class Plantilla(models.Model):
+    nom_doc= models.CharField('Nombre Distribuidor', max_length=255, blank=False)
+    version = models.CharField('Version plantilla', max_length=255, blank=False)
+    queries_config = models.FileField(null=True, validators=[
+        FileExtensionValidator(allowed_extensions=['csv'])
+    ])
+    tablas_config = models.FileField(null=True, validators=[
+        FileExtensionValidator(allowed_extensions=['csv'])
+    ])
+    fecha_creacion = models.DateTimeField(default=timezone.now)
+    proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE,null=True, default=None)
+    
+
 
 class Servicio(models.Model):
     servicio= models.CharField('Servicio', max_length=255, blank=False, null=True)

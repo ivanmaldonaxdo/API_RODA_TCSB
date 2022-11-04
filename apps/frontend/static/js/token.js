@@ -25,8 +25,8 @@ document.getElementById('btnLogin').addEventListener('click', function(e){
 loginUser()
 })
 
-// var url = 'http://54.160.143.91/auth-user/'
-var url = 'http://54.160.143.91/auth-user/'??'http://localhost:8000/auth-user/' 
+// var url ='http://54.160.143.91/auth-user/''
+var url = 'http://localhost:8000/auth-user/' 
 
 function loginUser(){
     fetch(url,{
@@ -40,8 +40,7 @@ function loginUser(){
 })
 .then((response) => {response.json().then(data => {                  
 if(response.ok){         
-    window.location.replace("http://localhost:8000/inicio/");
-    // window.location.replace("http://52.201.38.209/inicio/");
+    window.location.replace("http://54.196.242.99/inicio/");
     } 
 else{
     console.log(response.data)

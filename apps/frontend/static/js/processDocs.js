@@ -41,8 +41,8 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 })
 
 
-// let tbody_respaldo = "" 
-var url = 'http://localhost:8000/documentos/search_docs/'
+
+var url = 'http://54.196.242.99/documentos/search_docs/'
 function getDocs(folio,tpServicio, rutCli = null ) {
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
