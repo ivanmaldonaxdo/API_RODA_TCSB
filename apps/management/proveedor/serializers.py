@@ -25,5 +25,4 @@ class UpdateSerializer(serializers.ModelSerializer):
         proveedor.save()
         return proveedor
 
-
     

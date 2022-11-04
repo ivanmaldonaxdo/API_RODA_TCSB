@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
 from django.utils import timezone
+from drf_api_logger.models import APILogsModel
 
 
 
@@ -145,3 +146,4 @@ class Contrato_servicio(models.Model):
 
     def __str__(self):
         return self.proveedor + ' - '+ str(self.num_cliente)
+
