@@ -41,7 +41,7 @@
     height: 43em;
     width: 60em;
     margin: auto;
-    padding-top: 100px;
+    padding-top: 1em;
     display: flex;
     justify-content: space-between;
     overflow: hidden;
@@ -200,18 +200,12 @@ input~i {
 
 
 
-footer {
-    width: 118.......5em;
+.contenedor-todo {
     background: #202020;
     color: white;
-
-}
-
-.contenedor-todo {
-
-    max-width: 100em;
     margin: auto;
     padding: 40px;
+
 
 }
 
@@ -283,7 +277,7 @@ footer {
 
 .row2 {
     margin-top: 20px;
-    display: flex;
+  
 }
 
 .row2 p {
@@ -293,7 +287,7 @@ footer {
 }
 
 .contenedor-footer {
-    width: 100%;
+    
     background: #101010;
     display: flex;
     justify-content: space-between;
@@ -316,19 +310,56 @@ footer {
 
 }
 
-@media screen and (max-width:1100px) {
-    .contendor1 {
-        flex-wrap: wrap;
 
+@media screen and (max-width:1600px) {
+
+    .infofooter a:hover {
+    color: #c7c7c7 !important;
+    border: none !important;
+    background: transparent;
+    font-size: 16px;
     }
 
-    .colum2,
-    .colum3 {
-        margin-top: 40px;
+}
+
+@media screen and (max-width:1158px) {
+    .colum2{
+    padding-right: 0px;
     }
+    .infofooter a:hover {
+    color: #c7c7c7 !important;
+    border: none !important;
+    background: transparent;
+    font-size: 16px;
+    }
+
 }
 
 
+@media screen and (max-width:1100px) {
+    .contenedor1{
+       display: inline-block;
+    }
+
+    .colum2,
+    .colum3{
+        margin-left: 3em;
+        margin-top: 3em;
+    }
+    .row a:hover {
+        color: #c7c7c7 !important;
+        border: none !important;
+        background: transparent;
+        font-size: 16px;
+    }
+    .infofooter a:hover {
+        color: #c7c7c7 !important;
+        border: none !important;
+        background: transparent;
+        font-size: 16px;
+    }
+   
+}
 
 /* ---------------------------------------------------------FIN FOOTER----------------------------------------------*/
 /*----------------------------------------------- header------------------------------------------------------------------------*/
@@ -400,7 +431,7 @@ nav #icon {
     }
 
     nav ul {
-        margin-right: 20px;
+        margin-right: 5px;
 
     }
 
@@ -669,37 +700,6 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 }
 
 
-
-
-
-
-
-/*
-h1{
-    font-size: 30px;
-    color: rgb(0, 0, 0);
-    text-transform: uppercase;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  table{
-    width:100%;
-    table-layout: fixed;
-  }
-  
-  .tbl-content{
-    height:300px;
-    overflow-x:auto;
-    margin-top: 0px;
-    border: 1px solid rgba(255,255,255,0.3);
-  }
-
-  */
-
-
-
-
 /*----------------------tabla-------------------------------------------------*/
 
 
@@ -833,7 +833,7 @@ tbody tr:hover{
 
 
 .bk {
-    height: 98vh;
+    height: 100vh;
     /*
     background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
 
@@ -841,6 +841,7 @@ tbody tr:hover{
     background: #f3f3f3;
 
     padding-top: 25px;
+    padding-bottom: 2em;
 }
 
 
@@ -849,16 +850,15 @@ tbody tr:hover{
 @media screen and (max-width:1600px) {
     .container-form {
         width: 59em;
-        background: #193144;
-        height: 47em;
+        height: 42em;
+        margin-top: 5px;
+       
     }
 
-    .bk {
-        height: 98vh;
+    .bk{
+        height: 50em;
+
     }
-
-
-
 
 }
 
@@ -866,26 +866,28 @@ tbody tr:hover{
 @media screen and (max-width:1500px) {
     .container-form {
         width: 59em;
-        background: #3db64d;
-        height: 47em;
+        
+        height: 42em;
+        margin-top: 5px;
     }
+    
+    .bk{
+        height: 50em;
 
-    .bk {
-        height: 98vh;
     }
-
-
 }
 
 @media screen and (max-width:1000px) {
     .container-form {
         width: 48em;
-        background: #922ba0;
-        height: 47em;
+        height: 42em;
+        margin-top: 5px;
     }
 
-    .bk {
-        height: 98vh;
+   
+    .bk{
+        height: 50em;
+
     }
 
     .inputs-form-inicio form {
@@ -904,39 +906,112 @@ tbody tr:hover{
 @media screen and (max-width:850px) {
     .container-form {
         width: 44em;
-        background: #287d97;
         height: 47em;
     }
     .bk {
-        height: 98vh;
+        height: 54em;
     }
 
 }
 
 @media screen and (max-width:650px) {
     .container-form {
-        width: 60%;
-        background: #c29b1a;
-        height: 47em;
+        width: 80%;
+
+        height: 54em;
     }
     .bk {
-        height: 98vh;
+        height: 62em;
     }
+
+    .tbl-header{
+    
+    width: 80%;
+    margin-left: 3em;
+    }
+    .tbl-content{
+    width: 80%;
+   
+
+    margin-left: 3em;
+    }
+    .inputs-form-inicio form {
+        width: 18em;
+        height: 15em;
+        display: inline-block;
+        
+        
+    }
+
+    .content-select {
+        width: 14em;
+        padding-left: 25px;
+        
+        
+    }
+    .inputs-form-inicio .btn-buscar{
+        margin: auto;
+        margin-left: 7em;
+    }
+
+    .input-wrapper input {
+        width: 10em;
+        margin-left: 3em;
+       
+    }
+
+
 }
+
 
 @media screen and (max-width:500px) {
     .container-form {
-        width: 60%;
-        background: #c21a1a;
-        height: 47em;
+        width: 90%;
+
+        height: 56em;
     }
     .bk {
-        height: 98vh;
+        height: 65em;
     }
+
+    .tbl-header{
+    
+    width: 90%;
+    margin-left: 1em;
+    }
+    .tbl-content{
+    width: 90%;
+   
+
+    margin-left: 1em;
+    }
+    .inputs-form-inicio form {
+        width: 18em;
+        height: 15em;
+        display: inline-block;
+        
+        
+    }
+
+    .content-select {
+        width: 14em;
+        padding-left: 25px;
+        
+        
+    }
+    .inputs-form-inicio .btn-buscar{
+        margin: auto;
+        margin-left: 7em;
+    }
+
+    .input-wrapper input {
+        width: 10em;
+        margin-left: 3em;
+       
+    }
+
+
 }
-
-
-
 
 /*----------------------------------------fin procesos------------------------------------------*/
 
@@ -947,11 +1022,11 @@ tbody tr:hover{
 .containercentrado {
     display: flex;
     justify-content: center;
+    padding-bottom: 15em;
 }
 
 .container1 {
     width: 40em;
-
     height: 35em;
     background: #ebe9e9;
     margin-top: 49px;
@@ -962,7 +1037,6 @@ tbody tr:hover{
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-
 }
 
 .cont-cliente {
@@ -1049,4 +1123,132 @@ tbody tr:hover{
 
 
 
+
+
+@media screen and (max-width:1600px) {
+    .container1{
+        width: 30em;
+    }
+
+    .cont-cliente{
+        width: 20em; 
+    }
+
+}
+
+
+@media screen and (max-width:1500px) {
+    .container1{
+        width: 25em;
+     }
+    
+    .cont-cliente{
+        width: 18em;
+        margin-left: 3em;   
+    }
+
+    .detallecuenta{
+        margin-left: 4em;
+    }
+    .detallecuenta button{
+        width: 15em;
+    }
+}
+.bkcont{
+    height: 100vh;
+    /*
+    background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
+
+*/
+    background: #f3f3f3;
+
+    padding-top: 25px;
+    padding-bottom: 2em;
+}
+
+@media screen and (max-width:1000px) {
+
+ 
+        
+    .cont-cliente{
+        width: 20em;
+        
+    }
+    
+
+}
+
+@media screen and (max-width:850px) {
+    .containercentrado{
+        padding-left: 9em;
+        display: inline-block;
+
+    }
+    .bkcont{
+        height:80em;
+    }
+    .container1{
+      
+        width: 25em;
+          
+     }
+    
+    .cont-cliente{
+        width: 18em;
+        margin-left: 3em;   
+    }
+
+    .detallecuenta{
+        margin-left: 4em;
+    }
+    .detallecuenta button{
+        width: 15em;
+    }
+
+}
+
+@media screen and (max-width:650px) {
+
+    .containercentrado{
+        padding-left: 5em;
+        
+
+    }
+}
+@media screen and (max-width:560px){
+    .containercentrado{
+        padding-left: 2em;
+       
+
+    }
+}
+
+
+@media screen and (max-width:500px) {
+    .containercentrado{
+        padding-left: 1em;
+       
+
+    }
+   
+    .container1{
+      
+        width: 20em;
+          
+     }
+    
+    .cont-cliente{
+        width: 17em;
+        margin-left: 2em;   
+    }
+
+    .detallecuenta{
+        margin-left: 2em;
+    }
+    .detallecuenta button{
+        width: 13em;
+    }
+
+
+}
 
