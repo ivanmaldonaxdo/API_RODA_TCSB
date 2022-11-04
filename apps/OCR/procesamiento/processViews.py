@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo
+from rest_framework import filters
+
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
     docs = None
@@ -45,19 +47,21 @@ class OpenKMViewSet(ViewSet):
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
 
-
+    #request debe tener el uuid,nomDoc y rutEmisor
     @action(detail=False,methods = ['POST'],url_name="process_docs")
     def process_docs(self,request):
         data = dict(request.data)
         contenido = self.openkm.get_content_doc(
-            _uuid = data.get("uuid")
-        )
+            data.get("uuid")
+        ).content
+        
         # {"message: Data encontrada"},
         if contenido:
-            print("HAY ARCHIVOS")
-            print("cantidad => {}" .format(len(docs)))
-            print(contenido)
-            return Response(data = contenido, status=status.HTTP_200_OK)
+            # print(contenido)
+            # data = contenido.decode()
+            return Response({
+                'message':'Documento Procesado',
+            }, status=status.HTTP_200_OK,headers=None)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',

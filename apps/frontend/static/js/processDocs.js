@@ -60,31 +60,13 @@ function getDocs(folio,tpServicio, rutCli = null ) {
     })
     .then((response) => {
         response.json().then(docs => {
-            // let cantidad = Object.keys(docs).length 
-            // if ( typeof(docs) == "object") {
-            //     createRowDoc(docs);
-            // } else if ( typeof(docs) == "list"){
-            //     docs.map((doc) => {
-            //         createRowDoc(doc);
-            //     });
-            // }
             Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
-
-            // docs.forEach(doc => {
-            //     createRowDoc(doc);
-            // });
-            // docs.map((doc) => {
-            //     createRowDoc(doc);
-            // });
         })
     });
 
 }
 
-function clickStopper(event) {
-    event.stopPropagation();
-    return;
-}
+
 //onclick="myFunction(this)"
 // function myFunction()
 function getIndexTR(x) {
@@ -93,36 +75,51 @@ function getIndexTR(x) {
         elemento = document.getElementById("tablaJS").firstElementChild;
     let items_tr = x.cells[conteo_celdas_filas-1];
     // console.log(items_tr[3]);
-    let uuid = document.getElementsByName("uuid").item(index_tb).value,
-        nomDoc = document.getElementsByName("nomDoc").item(index_tb).value,
-        RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
-    console.log("uuid: ", uuid ," - nomDoc: ", nomDoc, " - RutEmi: ",RutEmi) ;
+    let row_uuid = document.getElementsByName("uuid").item(index_tb).value,
+        row_nomDoc = document.getElementsByName("nomDoc").item(index_tb).value,
+        row_RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
+    console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
+    const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
+
+
+    contenido = downloadDocs(index_tb,documento);
+    console.log(contenido);
 
     // console.log("Elemento: ",elemento, " - Cantidad de celdas: ",conteo_celdas_filas);
-
-    // "uuid"  
-    // "nomDoc"
-    // "RutEmi"
-
-
 }
 
 
-// function downloadDocs(x){
-    
-//         console.log(x.rowIndex);
-//         // let data = document.getElementById("process-doc");
-//         // console.log("Data del item seleccionado es =>", data );
-    
+function downloadDocs(index_row,documento){
+    console.log("Index :", index_row);
+    console.log("Objeto", documento.uuid);
+    const url = 'http://localhost:8000/documentos/process_docs/';
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+            "uuid": documento.uuid
+        })
 
-        
-// }  
+    })
+    .then((response) => {
+        response.json().then(content => {
+           console.log("Contenido adquirido");
+           return content;
+        })
+    });
+}  
+
     // let valores = x.value
     // let tabla = document.querySelector("table tbody").value;
     // console.log(tabla);
     // console.log(x.value);
 
+
+    // let procesar = document.getElementById
     // document.addEventListener('click',function (params) {
 
     // })
@@ -138,8 +135,6 @@ function getIndexTR(x) {
 function createRowDoc(doc,event) 
 {
     const tbody = document.querySelector("#tablaJS");
-    const data_btn = {uuid : doc.uuid, nomDoc : doc.nomDoc, rut_emisor: doc.rut_emisor};
-    console.log(data_btn);    
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
@@ -148,8 +143,8 @@ function createRowDoc(doc,event)
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
-    let button = `<button id = 'process-doc' class="${cssButton}" type = 'button'  value = "" >Procesar</button>`;
-    // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button'  value = "${data_value} " onclick ="downloadDocs(this)">Procesar</button>`;
+    let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' >Procesar</button>`;
+    // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
     let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${button}</form>`;
     let tdfolio = `<td class = "${clase}">${doc.folio}</td>`,
         tdnomDoc = `<td class = "${clase}">${doc.nomDoc}</td>`,
