@@ -25,8 +25,8 @@ document.getElementById('btnLogin').addEventListener('click', function(e){
 loginUser()
 })
 
-// var url = 'http://52.201.38.209/auth-user/'
-var url = 'http://localhost:8000/auth-user/'
+// var url = 'http://54.160.143.91/auth-user/'
+var url = 'http://54.160.143.91/auth-user/'??'http://localhost:8000/auth-user/' 
 
 function loginUser(){
     fetch(url,{
