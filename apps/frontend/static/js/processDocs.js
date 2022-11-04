@@ -100,9 +100,7 @@ function downloadDocs(index_row,documento){
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({
-            "uuid": documento.uuid
-        })
+        body: JSON.stringify(documento)
 
     })
     .then((response) => {

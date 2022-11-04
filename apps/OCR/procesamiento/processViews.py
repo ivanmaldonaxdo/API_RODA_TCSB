@@ -59,6 +59,7 @@ class OpenKMViewSet(ViewSet):
         if contenido:
             # print(contenido)
             # data = contenido.decode()
+            resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
             return Response({
                 'message':'Documento Procesado',
             }, status=status.HTTP_200_OK,headers=None)
