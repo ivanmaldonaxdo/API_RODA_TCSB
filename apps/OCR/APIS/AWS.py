@@ -27,17 +27,20 @@ def listar_buckets():
     for bucket in s3.buckets.all():
         print(bucket.name)
 
-def extraccionOCR(_bucket,query,carpeta = 'media',nomDoc = None):
+def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
     json_procesado = dict()
     archivo = '{}/{}'.format(carpeta,nomDoc)
     print("archivo ",archivo)
     print("Bucket ", _bucket)
     # print("Ruta queries ",ruta_queries)
+    tablas_list = open(tables)
     resultado_queries = textract(_bucket, query,archivo)
+    # tablas_list = json.load(tables)
+    print(tablas_list)
     # resultado_tablas = 'media/Tables_ENEL_v1_2.json'
     # id_proceso = codigo_procesado
     # json_procesado.update(resultado_queries)
-    # return json_procesado
+    return resultado_queries
 
 
 #EMPEZAR ANALISIS DE DOCUMENTO

@@ -69,26 +69,27 @@ class OpenKMViewSet(ViewSet):
                 cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                 plantilla = cursor.fetchall()
             # plantilla = Plantilla.objects.select_related('proveedor').filter(Q(proveedor__rut_proveedor = data.get('rut_emisor')))
-                print(plantilla)
-                try:
-                    queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-                    
-                    print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-                    queries_file_path = os.path.join('media',queries_file)
-                    print("File Path ",queries_file_path)
-                    print("")
-                    print(queries_file_path)
-                    print("")
-                    query_doc = 'media'+ '/' + queries_file
-                    extracted_data = extraccionOCR('rodatest-bucket',query=query_doc, nomDoc = data.get('nomDoc'))
-                    return Response({
-                        'message':'Documento Procesado',
-                    }, status=status.HTTP_200_OK,headers=None)
-                except:
-                    print("Unable to Acces a queries config")
-                    return Response({
-                        'message':'Documento No Procesado',
-                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
+                # print(plantilla)
+                # try:
+                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                
+                print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                queries_file_path = os.path.join('media',queries_file)
+                print("File Path ",queries_file_path)
+                print("")
+                print(queries_file_path)
+                print("")
+                query_doc = 'media'+ '/' + queries_file
+                table_doc = 'media' + '/' + tables_file
+                extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                return Response({
+                    'message':'Documento Procesado',
+                }, status=status.HTTP_200_OK,headers=None)
+                # except:
+                #     print("Unable to Acces a queries config")
+                #     return Response({
+                #         'message':'Documento No Procesado',
+                #     }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
