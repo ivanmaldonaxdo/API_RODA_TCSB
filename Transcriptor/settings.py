@@ -64,6 +64,7 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 REST_FRAMEWORK = { 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.users.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ),
     'DEFAULT_PERMISSION_CLASSES':(
         'rest_framework.permissions.IsAuthenticated',
@@ -138,7 +139,11 @@ DATABASES = {
         'NAME': 'API_DB',
         'USER': 'postgres',
         'PASSWORD':'API_DB_PASSWORD',
+<<<<<<< HEAD
         'HOST':'34.229.126.146',
+=======
+        'HOST':'54.160.201.59',
+>>>>>>> f5a02690c829a47871af330cfacd395bcead572c
         'PORT':'5432'
     }
 }

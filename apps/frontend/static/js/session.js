@@ -15,35 +15,26 @@ function getCookie(cname) {
 }
 
 var csrftoken = getCookie('csrftoken');
-var loginForm = document.getElementById('login')
-loginForm.addEventListener('submit', function(e){
-    e.preventDefault()
-    console.log('form enviado')
+
+document.getElementById('cerrarsession').addEventListener('click', function(){
+    logoutUser()
 })
 
-document.getElementById('btnLogin').addEventListener('click', function(e){
-loginUser()
-})
+// var url = 'http://52.201.38.209/auth-user/'
 
-function loginUser(){
-    const url = 'http://localhost:8000/auth-user/'
+function logoutUser(){
+    const url = 'http://localhost:8000/logout/'
     fetch(url,{
-    method:'POST',
+    method:'GET',
     headers:{
         'Content-Type':'application/json',
         'X-CSRFToken': csrftoken,
     },
-    body:JSON.stringify({'email':login.email.value, 'password': login.password.value})
 
 })
 .then((response) => {response.json().then(data => {                  
 if(response.ok){         
-    window.location.replace("http://localhost:8000/inicio/");
-<<<<<<< HEAD
-
-    // window.location.replace("http://54.196.242.99/inicio/");
-=======
->>>>>>> f5a02690c829a47871af330cfacd395bcead572c
+    window.location.replace("http://localhost:8000/front/");
     } 
 else{
     console.log(response.data)

@@ -1,8 +1,14 @@
 from rest_framework import serializers
-from apps.management.models import Plantilla
+from apps.management.models import Sistema
 
-class PlantillaSerializer(serializers.ModelSerializer):
+
+class SistemaSerializers(serializers.ModelSerializer):
 
     class Meta:
-        model = Plantilla
-        fields = '__all__'
+        model = Sistema
+        fields = ('name_sis', 'credencial')
+
+    def update(self, instance, validated_data):
+        proveedor = super().update(instance, validated_data)
+        proveedor.save()
+        return proveedor
