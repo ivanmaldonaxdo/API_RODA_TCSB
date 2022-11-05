@@ -40,7 +40,9 @@ function loginUser(){
 })
 .then((response) => {response.json().then(data => {                  
 if(response.ok){         
-    window.location.replace("http://54.196.242.99/inicio/");
+    window.location.replace("http://localhost:8000/inicio/");
+
+    // window.location.replace("http://54.196.242.99/inicio/");
     } 
 else{
     console.log(response.data)

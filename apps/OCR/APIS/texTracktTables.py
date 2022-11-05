@@ -10,7 +10,6 @@ import re
 from pprint import pprint
 import json
 import time
-import pandas as pd
 from pathlib import Path as p
 import os
 

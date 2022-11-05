@@ -1,16 +1,20 @@
-from apps.users.models import User
 from rest_framework import filters
 from rest_framework.response import Response
-from apps.permissions import IsOperador, IsAdministrador
 from rest_framework.decorators import action
 from django.http import Http404
 from rest_framework.viewsets import GenericViewSet,ViewSet
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from apps.OCR.APIS.APIOpenKM import OpenKm
-from apps.OCR.APIS.AWS import subir_archivo
+from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
-
+from django.db import connections
+from apps.management.models import Plantilla
+from django.db.models import Q
+import json
+import os
+import csv
+from django.conf import settings# from django.core.files.storage
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
     docs = None
@@ -47,6 +51,7 @@ class OpenKMViewSet(ViewSet):
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
 
+
     #request debe tener el uuid,nomDoc y rutEmisor
     @action(detail=False,methods = ['POST'],url_name="process_docs")
     def process_docs(self,request):
@@ -60,9 +65,30 @@ class OpenKMViewSet(ViewSet):
             # print(contenido)
             # data = contenido.decode()
             resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
-            return Response({
-                'message':'Documento Procesado',
-            }, status=status.HTTP_200_OK,headers=None)
+            with connections['default'].cursor() as cursor:##conexion default a la bd
+                cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
+                plantilla = cursor.fetchall()
+            # plantilla = Plantilla.objects.select_related('proveedor').filter(Q(proveedor__rut_proveedor = data.get('rut_emisor')))
+                print(plantilla)
+                try:
+                    queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                    
+                    print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                    queries_file_path = os.path.join('media',queries_file)
+                    print("File Path ",queries_file_path)
+                    print("")
+                    print(queries_file_path)
+                    print("")
+                    query_doc = 'media'+ '/' + queries_file
+                    extracted_data = extraccionOCR('rodatest-bucket',query=query_doc, nomDoc = data.get('nomDoc'))
+                    return Response({
+                        'message':'Documento Procesado',
+                    }, status=status.HTTP_200_OK,headers=None)
+                except:
+                    print("Unable to Acces a queries config")
+                    return Response({
+                        'message':'Documento No Procesado',
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
@@ -109,3 +135,6 @@ class OpenKMViewSet(ViewSet):
     #     return Response(serializer.data, status=status.HTTP_200_OK)
  
     # json_tables =  {"Tablas" : ["Tabla_1","Tabla_2"]}  
+
+
+    #REFERENCIAS https://realpython.com/python-csv/

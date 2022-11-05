@@ -15,10 +15,6 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 ////////
-
-// let folio = 11419589
-// let tpServicio = null
-// let rut = null
 document.getElementById("processDocs").addEventListener('click', function (e) {
     let folio = document.getElementById("folio").value,
         servicio = document.getElementById("tipo_servicio").value
@@ -41,9 +37,9 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 })
 
 
-
-var url = 'http://54.196.242.99/documentos/search_docs/'
+// var url = 'http://54.196.242.99/documentos/search_docs/'
 function getDocs(folio,tpServicio, rutCli = null ) {
+    const url = 'http://localhost:8000/documentos/search_docs/'
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
         method: 'POST',
@@ -106,6 +102,7 @@ function downloadDocs(index_row,documento){
     .then((response) => {
         response.json().then(content => {
            console.log("Contenido adquirido");
+        //    console.log(response.json().MessagePort);
            return content;
         })
     });

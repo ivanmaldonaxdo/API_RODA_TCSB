@@ -6,6 +6,8 @@ from AWS import subir_archivo, textract
 import requests
 import json
 import time
+# from apps.OCR.APIS.textractByQueries import textract, codigo_procesado
+from AWS_TEXTRACT  import textract
 
 #******PARA EJECUTAR ESTE CODE SE DEBE ESCRIBIR EN EL TERMINAL CMD 'python TestOPKM.py'******
 openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
@@ -27,7 +29,7 @@ if isinstance(response, list):
         print("")
         metadata = openkm.get_metadata(uuid)
         # print(metadata)
-        textract('rodatest-bucket', nomDoc = r['nomDoc'])
+        textract('rodatest-bucket', nomDoc = 'Clinica Santiago_271715_202203_7352.pdf')
         # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
         # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
         # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
@@ -39,23 +41,21 @@ if isinstance(response, list):
         # print(metadata.get('folio'))
 
 else:
-    try:
-        uuid = response['uuid']
-        print("*"*153)
-        archivo = openkm.get_content_doc(uuid)
-        resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
-        print("SE HA SUBIDO EL PDF - {}".format(response['nomDoc']))
-        print("")
-        metadata = openkm.get_metadata(uuid)
-        # print(metadata)
-        textract('rodatest-bucket', nomDoc = response['nomDoc'])
-        # process_ocr = openkm.set_metadata_processed(uuid,1234)
-        # print(process_ocr)
-        # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
-        # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
-        # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
-        # print(metadata.get('folio'))
+    uuid = response['uuid']
+    print("*"*153)
+    archivo = openkm.get_content_doc(uuid)
+    resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = response['nomDoc'])
+    print("SE HA SUBIDO EL PDF - {}".format(response['nomDoc']))
+    print("")
+    metadata = openkm.get_metadata(uuid)
+    # print(metadata)
+    textract('rodatest-bucket', nomDoc ='Clinica Santiago_271715_202203_7352.pdf')
 
-    except:
-        print("ERROR EN SUBIR/PROCESAR ARCHIVO A S3 AWS")
+    #textract('rodatest-bucket', nomDoc = response['nomDoc'])
+    # process_ocr = openkm.set_metadata_processed(uuid,1234)
+    # print(process_ocr)
+    # print("RUT EMISOR: {} " .format(metadata.get("rut_emisor")))
+    # print("Se ha procesado ??? {}" .format(openkm.is_processed_doc(uuid)))
+    # print("Tiene grupo de propiedad ??? {}" .format(openkm.is_in_group_metadata(uuid)))
+    # print(metadata.get('folio'))
 
