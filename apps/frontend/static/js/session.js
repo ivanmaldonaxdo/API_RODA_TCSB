@@ -17,7 +17,20 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 document.getElementById('cerrarsession').addEventListener('click', function(){
-    logoutUser()
+    Swal.fire({
+        title: '¿Cerrar Sesión?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK',
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }).then((result) => {
+        if (result.value==true){
+            logoutUser()
+        }
+    })
 })
 
 // var url = 'http://52.201.38.209/auth-user/'
@@ -34,7 +47,11 @@ function logoutUser(){
 })
 .then((response) => {response.json().then(data => {                  
 if(response.ok){         
-    window.location.replace("http://localhost:8000/front/");
+    Swal.fire({
+        title: "Sesion cerrada correctamente"
+    }).then(() => {
+        window.location.replace("http://localhost:8000/");
+    })
     } 
 else{
     console.log(response.data)
