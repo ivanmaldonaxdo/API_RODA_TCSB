@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def processDocs(request):
-    return render(request, 'frontend/inicio.html')  
+    return render(request, 'frontend/processDocs.html')  
 
 def login(request):
     return render(request, 'frontend/login.html')

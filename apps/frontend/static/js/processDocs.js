@@ -36,9 +36,9 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 
 })
 
-
-
-// var url = 'http://localhost:8000/documentos/search_docs/'
+function numberRange (start, end) {
+    return new Array(end - start).fill().map((d, i) => i + start);
+}
 function getDocs(folio,tpServicio, rutCli = null ) {
     const url = 'http://localhost:8000/documentos/search_docs/'
     // const HTMLResponse = document.querySelector("#tablaJS")
@@ -56,10 +56,19 @@ function getDocs(folio,tpServicio, rutCli = null ) {
 
     })
     .then((response) => {
-        response.json().then(docs => {
-            Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
-        })
-    });
+        const status_code = response.status;
+        console.log("Codigo estado es: ", response.status);
+        
+        if (status_code >= 400 ){
+            // console.log( response.json().catch(err => console.error(err)));
+            console.log("No se ha encontrado informacion");
+        }
+        else {
+            response.json().then(docs => {
+                Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
+            })
+        }
+     });
 
 }
 
@@ -130,6 +139,7 @@ function downloadDocs(index_row,documento){
 
 function createRowDoc(doc,event) 
 {
+    // console.log(doc.uuid);
     const tbody = document.querySelector("#tablaJS");
     let body = '';
     let clase = "centrado",

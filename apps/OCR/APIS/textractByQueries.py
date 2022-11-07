@@ -121,11 +121,13 @@ def textract(_bucket,queryP, _archivo):
     archivo = _archivo
     s3BucketName = _bucket
     job_id = textfunc(_bucket, _query = queryP,_archivo = _archivo)
+    documento = dict()
 
     print("Comenzando el proceso de extracción de información")
     if is_job_complete(job_id):
         print("ID del proceso finalizado: {}".format(job_id))
         codigo_procesado = job_id
+        documento.update({"Job_id":job_id})
         response = get_job_results(job_id)
     else:
         print("Error 404")
@@ -133,7 +135,7 @@ def textract(_bucket,queryP, _archivo):
     # print(response)
 
     for result_page in response:
-        documento = dict()
+        # documento = dict()
         alias = ""
         respuesta = ""
         for item in result_page["Blocks"]:
