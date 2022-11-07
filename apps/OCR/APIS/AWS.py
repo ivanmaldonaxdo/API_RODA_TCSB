@@ -9,6 +9,9 @@ import time
 #from tabulate import tabulate
 import json
 from apps.OCR.APIS.textractByQueries import textract
+from apps.OCR.APIS.textractByTables import textractTB
+import re
+
 # from apps.OCR.APIS.textractByQueries import textract, codigo_procesado
 client = boto3.client('textract', region_name='us-east-1')
 
@@ -29,20 +32,27 @@ def listar_buckets():
 
 def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
     json_procesado = dict()
+    json_tablas = dict()
     archivo = '{}/{}'.format(carpeta,nomDoc)
-    print("archivo ",archivo)
-    print("Bucket ", _bucket)
-    # print("Ruta queries ",ruta_queries)
-    tablas_list = open(tables)
-    resultado_queries = textract(_bucket, query,archivo)
-    # tablas_list = json.load(tables)
-    print(tablas_list)
-    for i in tablas_list:
-        print(i)
-    # resultado_tablas = 'media/Tables_ENEL_v1_2.json'
-    # id_proceso = codigo_procesado
-    # json_procesado.update(resultado_queries)
-    return resultado_queries
+    # print("archivo ",archivo)
+    # print("Bucket ", _bucket)
 
+    ############### EXTRACCION POR QUERIES ###############
+    resultado_queries = textract(_bucket, query,archivo)
+    json_procesado.update(resultado_queries)
+    ############### RECUPERANDO DATA DE JSON TABLAS ###############
+    with open(tables) as tb_json:
+        data = tb_json.read().replace("\n", "").replace('ï»¿', "").strip()
+    data = json.loads(data)[0]
+    json_tablas.update(data)
+    list_tablas = json_tablas.get("TABLES")
+    resultado_tables = textractTB(archivo, list_tablas)
+    json_procesado.update(resultado_tables)
+    
+    print(json.dumps(json_procesado,indent=4))
 
 #EMPEZAR ANALISIS DE DOCUMENTO
+
+#references 
+#https://www.programiz.com/python-programming/json
+#https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/

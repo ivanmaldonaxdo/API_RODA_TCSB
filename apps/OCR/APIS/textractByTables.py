@@ -46,8 +46,6 @@ def get_table_csv_results(archivo,list_tablas,bucket = "rodatest-bucket"):
     for index, table in enumerate(table_blocks):
         csv += generate_table_csv(table, blocks_map, index +1,list_tablas=list_tablas)
         csv += '\n\n' 
-        # print(csv)       
-        print("*"*25)
     return csv
 
     # print(lista_textos)
@@ -121,7 +119,7 @@ def generate_table_csv(table_result, blocks_map, table_index,list_tablas):
     return csv
     
 def generate_table_json(table_result, blocks_map, table_index,list_tablas):
-    # rows = get_rows_columns_map(table_result, blocks_map)
+    rows = get_rows_columns_map(table_result, blocks_map)
     # print("Filas ",rows)
     table_id = 'Table_' + str(table_index)
     
@@ -136,6 +134,7 @@ def generate_table_json(table_result, blocks_map, table_index,list_tablas):
     csv += '\n\n\n'
     return csv
 
+#ESTA FUNCION SEPARA LA LINEAS DE TEXTO EN CLAVE VALOR
 def format_key_value(text):
     if text !="":
         texto = text
@@ -174,72 +173,34 @@ def format_key_value(text):
         propiedad = {clave.strip():item_final}
         return propiedad
         # print("Diccionario Final:",propiedad)
-            
-
     
-# print(format_key_value("CARGO POR DEMANDA EN H.P.  6.457,8  1.868  12.063.170"))
-# # "CERTIFICADO ENERGIA LIMPIA    690.112"
-# print(format_key_value("CERTIFICADO ENERGIA LIMPIA    690.112"))
+# with open("json_como_le-dicen.json", "wt",encoding='utf-8') as fout:
+#     fout.write(json.dumps(diccionario,indent=4))
 
-# # print("")
-# print(format_key_value("CARGO POR DEMANDA EN H.P.  12.063.170"))
-
-# some_table = "table_1"
-# if some_table in tablas:
-#     print("Se encuentra {}" .format(some_table)) 
-
-tablas = ["Table_1","Table_2","Table_4"]
-print("Tablas especificas a extraer data",tablas)
-
-table_csv = get_table_csv_results(archivo,list_tablas=tablas)
-print("Lineas")
-print("")
-print(table_csv)
-diccionario = dict()
-for line in table_csv.splitlines():
-    print(line)
-    # print()
-    # prop = dict()
-    
-    if line!="":
-        # pattern = ' :'
-        # replace = ""
-        # result = re.sub(pattern, replace, line).strip()
-        # print(result)
-        propiedad = format_key_value(line)
-        if propiedad is not None :
-            diccionario.update(propiedad)
-            # print(propiedad)
-        # diccionario.update(propiedad)
-    # print(propiedad)
-print(diccionario)
-
-# print(table_csv)
-with open("json_como_le-dicen.json", "wt",encoding='utf-8') as fout:
-    fout.write(json.dumps(diccionario,indent=4))
-
-# path = p('DOC.csv').re
-# print(path)
-
-# def create_full_path(rel_path):
-#     absolute_path = os.path.dirname(__file__)
-#     relative_path = rel_path
-#     full_path = os.path.join(absolute_path, relative_path)
-#     return full_path
-
-# csv_path = create_full_path("DOC.csv")
-# json_path = create_full_path("doc.json")
-
-# print()
-
-# with open("./DOC.csv", 'rb') as file:
-#   csvreader = csv.reader(file)
-#   for row in csvreader:
-#     try:
-#         print(row[0])
-#     except:
-#         XD = none
-
+def textractTB(archivo,list_tablas):
+    table_csv = get_table_csv_results(archivo,list_tablas)
+    print("Lineas")
+    print("")
+    print(table_csv)
+    diccionario = dict()
+    for line in table_csv.splitlines():
+        # print(line)
+        # print()
+        # prop = dict()
+        
+        if line!="":
+            # pattern = ' :'
+            # replace = ""
+            # result = re.sub(pattern, replace, line).strip()
+            # print(result)
+            propiedad = format_key_value(line)
+            if propiedad is not None :
+                diccionario.update(propiedad)
+                # print(propiedad)
+            # diccionario.update(propiedad)
+        # print(propiedad)
+    print(diccionario)
+    return diccionario
 # PROCESO get_table_csv_results LLAMA A generate_table_csv() en el cual se obtienen las tablas 
 
 

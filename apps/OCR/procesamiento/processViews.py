@@ -68,66 +68,30 @@ class OpenKMViewSet(ViewSet):
             with connections['default'].cursor() as cursor:##conexion default a la bd
                 cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                 plantilla = cursor.fetchall()
-            # plantilla = Plantilla.objects.select_related('proveedor').filter(Q(proveedor__rut_proveedor = data.get('rut_emisor')))
-                # print(plantilla)
-                # try:
-                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-                
-                print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-                queries_file_path = os.path.join('media',queries_file)
-                print("File Path ",queries_file_path)
-                print("")
-                print(queries_file_path)
-                print("")
-                query_doc = 'media'+ '/' + queries_file
-                table_doc = 'media' + '/' + tables_file
-                extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                return Response({
-                    'message':'Documento Procesado',
-                }, status=status.HTTP_200_OK,headers=None)
-                # except:
-                #     print("Unable to Acces a queries config")
-                #     return Response({
-                #         'message':'Documento No Procesado',
-                #     }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
+            # try:
+            queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+            
+            print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+            queries_file_path = os.path.join('media',queries_file)
+            print("File Path ",queries_file_path)
+            print("")
+            query_doc = 'media'+ '/' + queries_file
+            table_doc = 'media'+ '/' + tables_file
+            print(type(table_doc))
+            extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+            return Response({
+                'message':'Documento Procesado',
+            }, status=status.HTTP_200_OK,headers=None)
+            # except:
+            print("Unable to Acces a queries config")
+            return Response({
+                'message':'Documento No Procesado',
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
-
-        # if isinstance(docs, list):
-        #     for r in docs:
-        #         uuid = r['uuid']
-        #         print("*"*153)
-        #         archivo = self.openkm.get_content_doc(uuid)
-        #         # resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
-        #         print("SE HA SUBIDO EL PDF - {}".format(r['nomDoc']))
-        #         print("")
-        #         metadata = self.openkm.get_metadata(uuid)
-        #         print(metadata)
-        #         metadata.update({'nomDoc': r['nomDoc']})
-        #         metadata_list.append(metadata)
-        #         # process_ocr = openkm.set_metadata_processed(uuid,1234)
-        #         # print(process_ocr)
-        # else:
-        #     try:
-        #         uuid = docs['uuid']
-        #         print("*"*153)
-        #         archivo = self.openkm.get_content_doc(uuid)
-        #         # resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = docs['nomDoc'])
-        #         print("SE HA SUBIDO EL PDF - {}".format(docs['nomDoc']))
-        #         print("")
-        #         metadata = self.openkm.get_metadata(uuid)
-        #         metadata.update({'nomDoc': docs['nomDoc']})
-        #         print(metadata)
-        #         metadata_list.append(metadata)
-        #         # metadata_list = metadata
-        #         # process_ocr = openkm.set_metadata_processed(uuid,1234)
-
-        #     except:
-        #         print("ERROR EN SUBIR/PROCESAR ARCHIVO A S3 AWS")
-
-   
+ 
    
    
     # def list(self,request):

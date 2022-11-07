@@ -1,5 +1,7 @@
-﻿{
-    "TABLAS": [
-        "TABLE_6"
-    ]
-}
+﻿[
+    {
+        "TABLES": [
+            "Table_6"
+        ]
+    }
+]

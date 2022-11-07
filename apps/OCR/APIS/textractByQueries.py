@@ -26,7 +26,7 @@ def textfunc(_bucket, _query,_archivo):
         reader = csv.reader(queries_csv_file)
         for row in reader:
             queries.append({"Text": row[0].strip(), "Alias": row[1] })
-        print("QUERIES", queries)
+        # print("QUERIES", queries)
         # Call Textract
         response = client.start_document_analysis(
         DocumentLocation={
@@ -121,11 +121,13 @@ def textract(_bucket,queryP, _archivo):
     archivo = _archivo
     s3BucketName = _bucket
     job_id = textfunc(_bucket, _query = queryP,_archivo = _archivo)
+    documento = dict()
 
     print("Comenzando el proceso de extracción de información")
     if is_job_complete(job_id):
         print("ID del proceso finalizado: {}".format(job_id))
         codigo_procesado = job_id
+        documento.update({"Job_id":job_id})
         response = get_job_results(job_id)
     else:
         print("Error 404")
@@ -133,7 +135,7 @@ def textract(_bucket,queryP, _archivo):
     # print(response)
 
     for result_page in response:
-        documento = dict()
+        # documento = dict()
         alias = ""
         respuesta = ""
         for item in result_page["Blocks"]:
@@ -148,7 +150,7 @@ def textract(_bucket,queryP, _archivo):
                 print(item["Text"])
             #ALIAS ES EL NOMBRE DE <KEY> Y RESPUESTA ES EL <VALUE>
             documento.update({alias:respuesta})
-        print(documento)
+        # print(documento)
     return documento
     # json_object = json.dumps(documento, indent=4)
     # with open("zzz.json", "w") as outfile:
