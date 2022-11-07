@@ -39,11 +39,8 @@ function loginUser(){
 .then((response) => {response.json().then(data => {                  
 if(response.ok){         
     window.location.replace("http://localhost:8000/inicio/");
-<<<<<<< HEAD
 
     // window.location.replace("http://54.196.242.99/inicio/");
-=======
->>>>>>> d9dd7a23930ed86aa417d7b7c8f9490fbcda7ce2
     } 
 else{
     console.log(response.data)
