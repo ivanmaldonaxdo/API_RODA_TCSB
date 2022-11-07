@@ -173,12 +173,7 @@ def format_key_value(text):
         propiedad = {clave.strip():item_final}
         return propiedad
         # print("Diccionario Final:",propiedad)
-            
-tablas = ["Table_1","Table_2","Table_4"]
-print("Tablas especificas a extraer data",tablas)
-
-
-
+    
 # with open("json_como_le-dicen.json", "wt",encoding='utf-8') as fout:
 #     fout.write(json.dumps(diccionario,indent=4))
 
