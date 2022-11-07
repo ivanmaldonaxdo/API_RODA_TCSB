@@ -46,8 +46,6 @@ def get_table_csv_results(archivo,list_tablas,bucket = "rodatest-bucket"):
     for index, table in enumerate(table_blocks):
         csv += generate_table_csv(table, blocks_map, index +1,list_tablas=list_tablas)
         csv += '\n\n' 
-        # print(csv)       
-        print("*"*25)
     return csv
 
     # print(lista_textos)
@@ -121,7 +119,7 @@ def generate_table_csv(table_result, blocks_map, table_index,list_tablas):
     return csv
     
 def generate_table_json(table_result, blocks_map, table_index,list_tablas):
-    # rows = get_rows_columns_map(table_result, blocks_map)
+    rows = get_rows_columns_map(table_result, blocks_map)
     # print("Filas ",rows)
     table_id = 'Table_' + str(table_index)
     
@@ -176,18 +174,6 @@ def format_key_value(text):
         return propiedad
         # print("Diccionario Final:",propiedad)
             
-
-# print(format_key_value("CARGO POR DEMANDA EN H.P.  6.457,8  1.868  12.063.170"))
-# # "CERTIFICADO ENERGIA LIMPIA    690.112"
-# print(format_key_value("CERTIFICADO ENERGIA LIMPIA    690.112"))
-
-# # print("")
-# print(format_key_value("CARGO POR DEMANDA EN H.P.  12.063.170"))
-
-# some_table = "table_1"
-# if some_table in tablas:
-#     print("Se encuentra {}" .format(some_table)) 
-
 tablas = ["Table_1","Table_2","Table_4"]
 print("Tablas especificas a extraer data",tablas)
 
@@ -197,13 +183,13 @@ print("Tablas especificas a extraer data",tablas)
 #     fout.write(json.dumps(diccionario,indent=4))
 
 def textractTB(archivo,list_tablas):
-    table_csv = get_table_csv_results(archivo,list_tablas=tablas)
+    table_csv = get_table_csv_results(archivo,list_tablas)
     print("Lineas")
     print("")
     print(table_csv)
     diccionario = dict()
     for line in table_csv.splitlines():
-        print(line)
+        # print(line)
         # print()
         # prop = dict()
         
