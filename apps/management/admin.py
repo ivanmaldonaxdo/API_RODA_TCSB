@@ -17,13 +17,7 @@ admin.site.register(Contrato_servicio)
 admin.site.register(Plantilla)
 
 
-
-
-config = Sistema.objects.get()
-
 # get_solo will create the item if it does not already exist
-config = Sistema.get_solo()
-
 
 
 

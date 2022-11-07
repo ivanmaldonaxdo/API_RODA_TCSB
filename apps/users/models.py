@@ -10,12 +10,13 @@ from rest_framework.authtoken.models import Token
 
 #USUARIOS
 class UserManager(BaseUserManager):
-    def _create_user(self, email, name, telefono, role, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, name, telefono, role, sistema, password, is_staff, is_superuser, **extra_fields):
         user = self.model(
             email = email,
             name = name,
             telefono = telefono,
             role = role,
+            sistema = sistema,
             is_staff = is_staff,
             is_superuser = is_superuser,
             **extra_fields
@@ -24,11 +25,11 @@ class UserManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
-    def create_user(self, email, name, telefono, role, password=None, **extra_fields):
-        return self._create_user(email, name, telefono, role, password, False, False, **extra_fields)
+    def create_user(self, email, name, telefono, role, sistema, password=None, **extra_fields):
+        return self._create_user(email, name, telefono, role, sistema,  password, False, False, **extra_fields)
 
-    def create_superuser(self, email, name, telefono, role=None , password=None, **extra_fields):
-        return self._create_user(email, name, telefono, role,password, True, True, **extra_fields)
+    def create_superuser(self, email, name, telefono, role=None, sistema=None, password=None, **extra_fields):
+        return self._create_user(email, name, telefono, role, sistema, password, True, True, **extra_fields)
 
 
 #ROLES
@@ -49,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField('Nombre', max_length = 255, blank = True, null = True)
     telefono = models.CharField('Telefono', max_length= 15, blank=True, null = True)
     role =  models.ForeignKey(Rol, on_delete=models.CASCADE, null=True, default=None)
-    sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
+    sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1, null=True)
     ESTADOS = (
         (True, 'Activado'),
         (False, 'Desactivado'),
