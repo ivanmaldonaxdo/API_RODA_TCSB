@@ -37,6 +37,8 @@ def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
     resultado_queries = textract(_bucket, query,archivo)
     # tablas_list = json.load(tables)
     print(tablas_list)
+    for i in tablas_list:
+        print(i)
     # resultado_tablas = 'media/Tables_ENEL_v1_2.json'
     # id_proceso = codigo_procesado
     # json_procesado.update(resultado_queries)
