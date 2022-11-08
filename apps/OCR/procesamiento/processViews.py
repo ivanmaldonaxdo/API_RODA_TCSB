@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla
+from apps.management.models import Plantilla,Cliente
 from django.db.models import Q
 import json
 import os
@@ -79,6 +79,11 @@ class OpenKMViewSet(ViewSet):
             table_doc = 'media'+ '/' + tables_file
             print(type(table_doc))
             extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+            metadata = self.openkm.get_metadata(data.get("uuid"))
+            print(metadata)
+            
+            # folio,rutCli = metadata.get("folio"), metadata.get("rut")
+
             return Response({
                 'message':'Documento Procesado',
             }, status=status.HTTP_200_OK,headers=None)
