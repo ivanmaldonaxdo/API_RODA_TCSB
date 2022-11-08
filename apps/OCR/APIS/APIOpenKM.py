@@ -94,11 +94,7 @@ class OpenKm():
             metadata = response.json()
             #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
             propiedades = dict(map(lambda x:(x['label'], x['value']),metadata['formElementComplex']))
-            try:
-                propiedades.pop(None)
-            except:
-                print("Problems to delete None")
-            # print("OBTENCION CORRECTA DE METADATA")
+            print("OBTENCION CORRECTA DE METADATA")
             return propiedades
         else:
             print("ERROR EN CODIGO ESTADO => {} ".format(status_code))
@@ -135,16 +131,10 @@ class OpenKm():
         nodo = _qresult['node']
         path,uuid = nodo['path'], nodo['uuid']
         path_list = path.split('/')
-        # sucursal = ""
-        # if "Cobros" in path_list:
-        #     index = path_list.index('Cobros')
-        #     sucursal = path_list[index+2]
-        # nom_doc = path_list[-1]
         print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
         print("")
         objectOPK = dict(
                 {'path':path,
-                # 'sucursal':sucursal,
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
