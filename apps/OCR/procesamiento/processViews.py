@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente
+from apps.management.models import Plantilla,Cliente,Sucursal
 from django.db.models import Q
 import json
 import os
@@ -68,30 +68,31 @@ class OpenKMViewSet(ViewSet):
             with connections['default'].cursor() as cursor:##conexion default a la bd
                 cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                 plantilla = cursor.fetchall()
-            # try:
-            queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-            
-            print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-            queries_file_path = os.path.join('media',queries_file)
-            print("File Path ",queries_file_path)
-            print("")
-            query_doc = 'media'+ '/' + queries_file
-            table_doc = 'media'+ '/' + tables_file
-            print(type(table_doc))
-            extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-            metadata = self.openkm.get_metadata(data.get("uuid"))
-            print(metadata)
-            
-            # folio,rutCli = metadata.get("folio"), metadata.get("rut")
+            try:
+                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                queries_file_path = os.path.join('media',queries_file)
+                query_doc = 'media'+ '/' + queries_file
+                table_doc = 'media'+ '/' + tables_file
+                print(type(table_doc))
+                extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                metadata = self.openkm.get_metadata(data.get("uuid"))
+                print(metadata)
+                try:
+                    sucursal_id = Cliente().objects.select_related('sucursal')
+                except:
+                    print("Sucursal No es posible buscar")
 
-            return Response({
-                'message':'Documento Procesado',
-            }, status=status.HTTP_200_OK,headers=None)
-            # except:
-            print("Unable to Acces a queries config")
-            return Response({
-                'message':'Documento No Procesado',
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
+                # folio,rutCli = metadata.get("folio"), metadata.get("rut")
+
+                return Response({
+                    'message':'Documento Procesado',
+                }, status=status.HTTP_200_OK,headers=None)
+            except:
+                print("Unable to Acces a queries config")
+                return Response({
+                    'message':'Documento No Procesado',
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',

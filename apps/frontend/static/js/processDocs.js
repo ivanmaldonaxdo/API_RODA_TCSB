@@ -134,18 +134,26 @@ function downloadDocs(index_row,documento){
                 // console.log( response.json().catch(err => console.error(err)));
                 console.log("No se ha encontrado informacion");
                 Swal.fire({
+                    position: 'top-end',
                     icon: 'error',
-                    title: 'Oops...',
-                    text: 'No se han encontrado documentos..',
-                    // footer: '<a href="">Why do I have this issue?</a>'
-                })
+                    title: 'Tuvimos problemas para procesar este archivo',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
+
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Oops...',
+                //     text: 'No se han encontrado documentos..',
+                //     // footer: '<a href="">Why do I have this issue?</a>'
+                // })
             }else{
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
                     title: 'Documento Procesado con exito',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 3000
                   })
 
             }

@@ -94,6 +94,10 @@ class OpenKm():
             metadata = response.json()
             #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
             propiedades = dict(map(lambda x:(x['label'], x['value']),metadata['formElementComplex']))
+            try:
+                propiedades.pop(None)
+            except:
+                print("Problems to delete None")
             # print("OBTENCION CORRECTA DE METADATA")
             return propiedades
         else:
@@ -130,12 +134,17 @@ class OpenKm():
     def get_q_result_formatted(self,_qresult):
         nodo = _qresult['node']
         path,uuid = nodo['path'], nodo['uuid']
-        nom_doc = path.split('/')
-        nom_doc = nom_doc[-1]
+        path_list = path.split('/')
+        sucursal = ""
+        if "Cobros" in path_list:
+            index = path_list.index('Cobros')
+            sucursal = path_list[index+2]
+        nom_doc = path_list[-1]
         print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
         print("")
         objectOPK = dict(
-                {'path':path, 
+                {'path':path,
+                'sucursal':sucursal,
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
@@ -144,7 +153,7 @@ class OpenKm():
         objectOPK.update(metadata)
         print(objectOPK)
         # print(self.get_metadata(uuid))
-        return objectOPK if not self.is_processed_doc(uuid) else {}
+        return objectOPK if not self.is_processed_doc(uuid) else None
 
     def put_request(self,_url,_data,_params = None, _headers = {'Accept': 'application/json','content-type': 'application/json'}):
         headers = _headers
