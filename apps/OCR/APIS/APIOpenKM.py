@@ -15,7 +15,7 @@ class OpenKm():
         headers = _headers
         response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
-        
+
 #region GET_DOCS
     #AGU - ELE - GAS
     def search_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
@@ -29,7 +29,7 @@ class OpenKm():
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("")
-            print("Codigo de estado {}" .format(status_code)) 
+            print("Codigo de estado {}" .format(status_code))
             data = response.json()
             try:
                 tipo_dato = type(data['queryResult'])
@@ -60,7 +60,7 @@ class OpenKm():
             return {}
 #endregion GET_DOCS
 
-    #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
+    #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID
     def get_content_doc(self,_uuid = None):
         url = "{}{}" .format(self.end_point_base,'document/getContent')
         params = {'docId':_uuid}
@@ -130,21 +130,21 @@ class OpenKm():
         else:
             print("group_metadata - ERROR EN CODIGO ESTADO => {} ".format(status_code))
             return False
-    
+
     def get_q_result_formatted(self,_qresult):
         nodo = _qresult['node']
         path,uuid = nodo['path'], nodo['uuid']
         path_list = path.split('/')
-        sucursal = ""
-        if "Cobros" in path_list:
-            index = path_list.index('Cobros')
-            sucursal = path_list[index+2]
-        nom_doc = path_list[-1]
+        # sucursal = ""
+        # if "Cobros" in path_list:
+        #     index = path_list.index('Cobros')
+        #     sucursal = path_list[index+2]
+        # nom_doc = path_list[-1]
         print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
         print("")
         objectOPK = dict(
                 {'path':path,
-                'sucursal':sucursal,
+                # 'sucursal':sucursal,
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
@@ -174,7 +174,7 @@ class OpenKm():
         return False if status_code != 204 else True
 
 
-#REFERENCIAS 
+#REFERENCIAS
 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
 #https://www.openkm.com/wiki/index.php/RESTful_Guide#Search

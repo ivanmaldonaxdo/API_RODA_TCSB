@@ -132,7 +132,7 @@ function downloadDocs(index_row,documento){
             const status_code = response.status;
             if (status_code >= 400 ){
                 // console.log( response.json().catch(err => console.error(err)));
-                console.log("No se ha encontrado informacion");
+                // console.log("No se ha encontrado informacion");
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
