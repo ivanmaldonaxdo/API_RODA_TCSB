@@ -15,7 +15,7 @@ class OpenKm():
         headers = _headers
         response = requests.get(_url,headers = headers, auth = self.auth_creds, params = _params )
         return response
-
+        
 #region GET_DOCS
     #AGU - ELE - GAS
     def search_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
@@ -29,7 +29,7 @@ class OpenKm():
         status_code = response.status_code
         if (status_code in range(200,399)):
             print("")
-            print("Codigo de estado {}" .format(status_code))
+            print("Codigo de estado {}" .format(status_code)) 
             data = response.json()
             try:
                 tipo_dato = type(data['queryResult'])
@@ -60,7 +60,7 @@ class OpenKm():
             return {}
 #endregion GET_DOCS
 
-    #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID
+    #FUNCION PARA DESCARGAR ARCHIVO pdf por UIID 
     def get_content_doc(self,_uuid = None):
         url = "{}{}" .format(self.end_point_base,'document/getContent')
         params = {'docId':_uuid}
@@ -94,7 +94,7 @@ class OpenKm():
             metadata = response.json()
             #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
             propiedades = dict(map(lambda x:(x['label'], x['value']),metadata['formElementComplex']))
-            print("OBTENCION CORRECTA DE METADATA")
+            # print("OBTENCION CORRECTA DE METADATA")
             return propiedades
         else:
             print("ERROR EN CODIGO ESTADO => {} ".format(status_code))
@@ -126,15 +126,16 @@ class OpenKm():
         else:
             print("group_metadata - ERROR EN CODIGO ESTADO => {} ".format(status_code))
             return False
-
+    
     def get_q_result_formatted(self,_qresult):
         nodo = _qresult['node']
         path,uuid = nodo['path'], nodo['uuid']
-        path_list = path.split('/')
+        nom_doc = path.split('/')
+        nom_doc = nom_doc[-1]
         print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
         print("")
         objectOPK = dict(
-                {'path':path,
+                {'path':path, 
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
@@ -143,7 +144,7 @@ class OpenKm():
         objectOPK.update(metadata)
         print(objectOPK)
         # print(self.get_metadata(uuid))
-        return objectOPK if not self.is_processed_doc(uuid) else None
+        return objectOPK if not self.is_processed_doc(uuid) else {}
 
     def put_request(self,_url,_data,_params = None, _headers = {'Accept': 'application/json','content-type': 'application/json'}):
         headers = _headers
@@ -164,7 +165,7 @@ class OpenKm():
         return False if status_code != 204 else True
 
 
-#REFERENCIAS
+#REFERENCIAS 
 
 #https://docs.openkm.com/kcenter/view/okm-6.4/download-document-with-direct-link.html
 #https://www.openkm.com/wiki/index.php/RESTful_Guide#Search

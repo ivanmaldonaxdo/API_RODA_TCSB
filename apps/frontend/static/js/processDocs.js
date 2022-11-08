@@ -76,7 +76,15 @@ function getDocs(folio,tpServicio, rutCli = null ) {
       
     
         swal.close()
+        clearTable()
         if (status_code >= 400 ){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se han encontrado documentos..',
+                showConfirmButton: false,
+                timer: 2000
+            })
             // console.log( response.json().catch(err => console.error(err)));
             console.log("No se ha encontrado informacion");
         }
@@ -134,12 +142,12 @@ function downloadDocs(index_row,documento){
                 // console.log( response.json().catch(err => console.error(err)));
                 // console.log("No se ha encontrado informacion");
                 Swal.fire({
-                    position: 'top-end',
+                    // position: 'top-end',
                     icon: 'error',
                     title: 'Tuvimos problemas para procesar este archivo',
                     showConfirmButton: false,
                     timer: 3000
-                  })
+                })
 
                 // Swal.fire({
                 //     icon: 'error',
@@ -149,7 +157,7 @@ function downloadDocs(index_row,documento){
                 // })
             }else{
                 Swal.fire({
-                    position: 'top-end',
+                    // position: 'top-end',
                     icon: 'success',
                     title: 'Documento Procesado con exito',
                     showConfirmButton: false,
@@ -191,7 +199,6 @@ function createRowDoc(doc,event)
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
-    // let data_value = doc.uuid + " | " + doc.nomDoc + " | " + doc.rut_emisor
     // console.log(data_value);
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
@@ -209,7 +216,10 @@ function createRowDoc(doc,event)
     tbody.innerHTML += body;
     
 }
-
+function clearTable(){
+    const table = document.querySelector("#tablaJS");
+    table.innerHTML = '';
+}
 
 
 //referencias js
