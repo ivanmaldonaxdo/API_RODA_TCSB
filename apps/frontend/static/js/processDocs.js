@@ -26,16 +26,23 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
     else{
         if (servicio == "Tipo de servicio") {
             // console.log("servicio inservible");
+
             servicio = null;
         }
-    
+        
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'info',
+        // })
         Swal.fire({
-            title: 'Buscando documentos a procesar....',
-            timerProgressBar: true,
-            didOpen: () => {
-                Swal.showLoading()
-                getDocs(folio, servicio);
-            },
+        title: 'Buscando documentos a procesar....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            getDocs(folio, servicio);
+        },
+      
         })
         
     }
@@ -69,16 +76,9 @@ function getDocs(folio,tpServicio, rutCli = null ) {
       
     
         swal.close()
-        clearTable()
         if (status_code >= 400 ){
             // console.log( response.json().catch(err => console.error(err)));
             console.log("No se ha encontrado informacion");
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'No se han encontrado documentos..',
-                // footer: '<a href="">Why do I have this issue?</a>'
-            })
         }
         else {
             response.json().then(docs => {
@@ -210,11 +210,6 @@ function createRowDoc(doc,event)
     
 }
 
-function clearTable() {
-    var Table = document.querySelector("#tablaJS");
-    Table.innerHTML = "";
-    
-}
 
 
 //referencias js
