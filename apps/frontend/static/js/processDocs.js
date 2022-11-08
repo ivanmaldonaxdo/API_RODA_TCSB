@@ -29,7 +29,22 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 
             servicio = null;
         }
-        getDocs(folio, servicio);
+        
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'info',
+        // })
+        Swal.fire({
+        title: 'Buscando documentos a procesar....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            getDocs(folio, servicio);
+        },
+      
+        })
+        
     }
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -58,7 +73,9 @@ function getDocs(folio,tpServicio, rutCli = null ) {
     .then((response) => {
         const status_code = response.status;
         console.log("Codigo estado es: ", response.status);
-        
+      
+    
+        swal.close()
         if (status_code >= 400 ){
             // console.log( response.json().catch(err => console.error(err)));
             console.log("No se ha encontrado informacion");
@@ -67,6 +84,7 @@ function getDocs(folio,tpServicio, rutCli = null ) {
             response.json().then(docs => {
                 Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
             })
+            
         }
      });
 
