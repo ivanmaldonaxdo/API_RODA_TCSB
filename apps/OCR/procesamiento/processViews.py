@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento
 from django.db.models import Q
 import json
 import os
@@ -78,6 +78,11 @@ class OpenKMViewSet(ViewSet):
                     print(type(table_doc))
                     extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
                     metadata = self.openkm.get_metadata(data.get("uuid"))
+                    archivo  = ( data.get('nomDoc') + '.js')
+                    read = json.dumps(extracted_data, indent = 4)
+
+                    # txt = 
+                    documento = Documento.objects.create()
                     print(metadata)
                     try:
                         sucursal_id = Cliente().objects.select_related('sucursal')
@@ -103,7 +108,8 @@ class OpenKMViewSet(ViewSet):
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
             
-   
+    # def createJSON(nomDoc):
+    #     return ""
     # def list(self,request):
     #     print(self.docs)
     #     serializer = self.docs
