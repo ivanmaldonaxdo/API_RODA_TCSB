@@ -10,7 +10,6 @@ class ProveedorSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         proveedor = Proveedor(**validated_data)
-        proveedor.rut_proveedor = format_rut_without_dots(validated_data['rut_proveedor'])
         proveedor.save()
         return proveedor
     

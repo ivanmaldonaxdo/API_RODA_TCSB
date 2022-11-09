@@ -12,6 +12,10 @@ from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import FilterSet
 from apps.users.authentication import JWTAuthentication
+from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots, format_rut_with_dots
+
+
+
 
 class SucursalFilter(FilterSet):
     class Meta:
@@ -73,12 +77,12 @@ class SucursalesViewSets(viewsets.GenericViewSet):
 
     def update(self, request, pk=None):#Actualizar usuario
         sucursal = self.get_object(pk)
-        serializer = self.update_serializer_class(sucursal, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
+        serializer = self.update_serializer_class(sucursal, data=request.data)
+        if serializer.is_valid():
             serializer.save()
-            return Response({'message':'Sucursal actualizada correctamente',
-                'Nueva informacion':serializer.data},
-                status=status.HTTP_200_OK)
+            return Response({
+                'message': 'Sucursal actualizada correctamente'
+            }, status=status.HTTP_201_CREATED)
         return Response({
              'message':'Error en la actualizacion',
              'errors': serializer.errors
