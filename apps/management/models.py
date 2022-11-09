@@ -113,6 +113,7 @@ class Comuna(models.Model):
 class Sucursal(models.Model):
     nom_sucursal = models.CharField('Nombre Unidad', max_length=255, blank=False, null=True)
     cod =  models.IntegerField('Codigo', blank=False, unique= True)
+    rut_sucursal = models.CharField('Rut Sucursal', max_length=255, unique = True)
     is_active = models.BooleanField(default = True)
     direccion = models.CharField('Direccion', max_length=255)
     comuna = models.ForeignKey(Comuna, on_delete=models.SET_NULL, null=True)
