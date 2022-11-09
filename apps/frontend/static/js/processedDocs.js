@@ -16,22 +16,6 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 ////////
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-    // let folio = document.getElementById("folio").value,
-    //     servicio = document.getElementById("tipo_servicio").value
-    // console.log(folio);
-    // console.log(servicio);
-    // if (servicio =="Tipo de servicio"  && folio == ""){
-    //     console.log("NADA DE INFO");
-    // }
-    // else{
-    //     if (servicio == "Tipo de servicio") {
-    //         // console.log("servicio inservible");
-
-    //         servicio = null;
-    //     }
-        
-        
-    // }
     Swal.fire({
         title: 'Buscando documentos procesados....',
         timerProgressBar: true,
@@ -48,21 +32,14 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 
 function getProcesedDocs() {
-    // const url = 'http://3.80.228.126/documentos/search_docs/'
+    // const url = 'http://3.80.228.126/procesados/
     const url = 'http://localhost:8000/procesados/';
-    // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        // body: JSON.stringify({
-        //     "folio": folio,
-        //     "tipo_servicio": tpServicio,
-        //     "rut_receptor": rutCli
-        // })
-
     })
     .then((response) => {
         const status_code = response.status;
@@ -91,26 +68,6 @@ function getProcesedDocs() {
 
 }
 
-
-//onclick="myFunction(this)"
-// function myFunction()
-function getIndexTR(x) {
-    let index_tb = x.rowIndex;
-    // console.log(items_tr[3]);
-
-    //     title: 'Procesando documento....',
-    //     timerProgressBar: true,
-    //     didOpen: () => {
-    //         Swal.showLoading()
-    //         console.log(contenido);
-
-    //     },
-  
-    // })
-
-
-}
-
 //FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
 {
@@ -120,22 +77,20 @@ function createRowDoc(doc,event)
     let clase = "centrado",
         cssButton = "buttonDownload";
     
-    // let href = `<a href = "http://localhost:8000${doc.documento}" download ></a>`
-    // let button = `<button id = 'downloadDoc' class="${cssButton}" type = 'button'>${href}Descargar </button>`;
-    let btnDownload = `<button onclick="location.href='http://www.example.com'" id = "downloadDoc" class="${cssButton}" type="button" download> Descargar</button>`;
-    // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
+    //LOCAL
+    var urlBase = 'http://localhost:8000';
+    //server
+    // var urlBase = 'http://localhost'
 
-    // let form_procesar = `<form action="">${button}</form>`;
-    var linkaso = `${doc.documento}`
+    let btnDownload = `<button id = "downloadDoc" class="${cssButton}" type="button"> Descargar</button>`;
+    let hrefDownload = `<a href = "${urlBase}}${doc.documento}" download> ${btnDownload}</a>`;
+
     let tdfolio = `<td class = "${clase}" data-label="Folio">${doc.folio}</td>`,
         tdSucur = `<td class = "${clase}"  data-label="Sucursal">${doc.rut_sucursal}</td>`,
-        // tdnomDoc = `<td class = "${clase}"  data-label="Sucursal">${doc.nom_doc}</td>`,
         tdFechaProcess = `<td class = "${clase}" data-label="Fecha Procesado">${doc.fecha}</td>`,
-        tdDownload = `<td class = "${clase}" data-label="Documento">${btnDownload} </td>`;
+        tdDownload = `<td class = "${clase}" data-label="Documento">${hrefDownload} </td>`;
 
-        // tdDownload = `<td class = "${clase}" data-label="Documento"><a href = "http://localhost:8000${doc.documento}" download ></a>Descargar </td>`;
-        // tdRutReceptor = `<td class = "${clase}">${doc.rut_receptor}</td>`,
-        // tdDownload = `<td class = "${clase}">${form_procesar}</td>`;
+
 
     body += `<tr">${tdfolio}${tdSucur}${tdFechaProcess}${tdDownload}</tr>`;
     tbody.innerHTML += body;
@@ -145,11 +100,6 @@ function clearTable(){
     const table = document.querySelector("#tbodyProcessed");
     table.innerHTML = '';
 }
-// function deleteRow(indexRow){
-//     // document.getElementsByTagName("tr")[indexRow].remove();
-//     document.getElementById("tableProcesados").deleteRow(indexRow);
-//     console.log("FILA ELIMINADA GG");
-// }
 
 //referencias js
 //https://stackoverflow.com/questions/68933909/how-to-pass-hidden-field-in-table-and-return-the-value-in-jquery-on-tr-click

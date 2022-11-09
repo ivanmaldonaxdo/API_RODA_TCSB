@@ -18,14 +18,14 @@ var csrftoken = getCookie('csrftoken');
 document.getElementById("processDocs").addEventListener('click', function (e) {
     let folio = document.getElementById("folio").value,
         servicio = document.getElementById("tipo_servicio").value
-    console.log(folio);
-    console.log(servicio);
+    // console.log(folio);
+    // console.log(servicio);
     if (servicio =="Tipo de servicio"  && folio == ""){
         console.log("NADA DE INFO");
     }
     else{
         if (servicio == "Tipo de servicio") {
-            // console.log("servicio inservible");
+            // console.log("servicio no permitido");
 
             servicio = null;
         }
@@ -87,7 +87,7 @@ function getDocs(folio,tpServicio, rutCli = null ) {
                 timer: 2000
             })
             // console.log( response.json().catch(err => console.error(err)));
-            console.log("No se ha encontrado informacion");
+            // console.log("No se ha encontrado informacion");
         }
         else {
             response.json().then(docs => {
@@ -111,7 +111,7 @@ function getIndexTR(x) {
     let row_uuid = document.getElementsByName("uuid").item(index_tb).value,
         row_nomDoc = document.getElementsByName("nomDoc").item(index_tb).value,
         row_RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
-    console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
+    // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
 
@@ -122,14 +122,10 @@ function getIndexTR(x) {
             Swal.showLoading()
             contenido = downloadDocs(index_tb,documento);
             console.log(contenido);
-            // deleteRow(index_tb);
-
         },
   
     })
 
-
-    // console.log("Elemento: ",elemento, " - Cantidad de celdas: ",conteo_celdas_filas);
 }
 
 
@@ -173,7 +169,7 @@ function downloadDocs(index_row,documento){
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'success',
-                    title: 'Documento Procesado con exito',
+                    title: 'Documento procesado con éxito',
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -188,24 +184,6 @@ function downloadDocs(index_row,documento){
     });
 }  
 
-    // let valores = x.value
-    // let tabla = document.querySelector("table tbody").value;
-    // console.log(tabla);
-    // console.log(x.value);
-
-
-    // let procesar = document.getElementById
-    // document.addEventListener('click',function (params) {
-
-    // })
-
-
-
-    // if (btn_procesar) {
-    //     btn_procesar.addEventListener('click', function (event) {
-    //       btn_procesar.value
-    //     })
-    // }
 
 //FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
