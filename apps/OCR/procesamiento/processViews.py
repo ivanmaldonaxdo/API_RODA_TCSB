@@ -9,12 +9,14 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento
 from django.db.models import Q
 import json
 import os
 import csv
 from django.conf import settings# from django.core.files.storage
+from django.core.files.base import ContentFile
+
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
     docs = None
@@ -78,11 +80,29 @@ class OpenKMViewSet(ViewSet):
                     print(type(table_doc))
                     extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
                     metadata = self.openkm.get_metadata(data.get("uuid"))
-                    print(metadata)
+                    docName = str(data.get('nomDoc')).replace('.pdf', '')
+                    archivo  = ( docName + '.json')
+                    read = json.dumps(extracted_data, indent = 4)
+                    contenido = ""
+                    try:
+                        # print(read)
+                        contenido = ContentFile(read.encode('utf-8'))
+                        doc = Documento.objects.create(
+                            nom_doc = docName,
+                            folio =  metadata.get('folio'),
+                            sucursal = Sucursal(id = 1), 
+                            procesado = True                     
+                        )
+                        subido = doc.documento.save(archivo,contenido)
+                    except Exception as e: # work on python 3.x
+                        print(e)
+                    # print("txt xdddd  ",txt)
+                    # print(metadata)
                     try:
                         sucursal_id = Cliente().objects.select_related('sucursal')
                     except:
                         print("Sucursal No es posible buscar")
+
 
                     # folio,rutCli = metadata.get("folio"), metadata.get("rut")
 
@@ -103,7 +123,8 @@ class OpenKMViewSet(ViewSet):
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
             
-   
+    # def createJSON(nomDoc):
+    #     return ""
     # def list(self,request):
     #     print(self.docs)
     #     serializer = self.docs
