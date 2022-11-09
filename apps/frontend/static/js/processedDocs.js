@@ -81,9 +81,10 @@ function createRowDoc(doc,event)
     var urlBase = 'http://localhost:8000';
     //server
     // var urlBase = 'http://localhost'
+    var urlDownload = urlBase + doc.documento
 
     let btnDownload = `<button id = "downloadDoc" class="${cssButton}" type="button"> Descargar</button>`;
-    let hrefDownload = `<a href = "${urlBase}}${doc.documento}" download> ${btnDownload}</a>`;
+    let hrefDownload = `<a href = "${urlDownload}" download> ${btnDownload}</a>`;
 
     let tdfolio = `<td class = "${clase}" data-label="Folio">${doc.folio}</td>`,
         tdSucur = `<td class = "${clase}"  data-label="Sucursal">${doc.rut_sucursal}</td>`,
