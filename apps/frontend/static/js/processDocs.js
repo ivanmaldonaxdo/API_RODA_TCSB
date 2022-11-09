@@ -55,7 +55,8 @@ function numberRange (start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
 }
 function getDocs(folio,tpServicio, rutCli = null ) {
-    const url = 'http://3.80.228.126/documentos/search_docs/'
+    // const url = 'http://3.80.228.126/documentos/search_docs/'
+    const url = 'http://localhost:8000/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
         method: 'POST',
@@ -135,7 +136,9 @@ function getIndexTR(x) {
 function downloadDocs(index_row,documento){
     console.log("Index :", index_row);
     console.log("Objeto", documento.uuid);
-    const url = 'http://3.80.228.126/documentos/process_docs/';
+    // const url = 'http://3.80.228.126/documentos/process_docs/';
+    const url = 'http://localhost:8000/documentos/process_docs/';
+
     fetch(url, {
         method: 'POST',
         headers: {
@@ -236,7 +239,6 @@ function clearTable(){
 function deleteRow(indexRow){
     // document.getElementsByTagName("tr")[indexRow].remove();
     document.getElementById("tableProcesados").deleteRow(indexRow);
-
     console.log("FILA ELIMINADA GG");
 }
 
