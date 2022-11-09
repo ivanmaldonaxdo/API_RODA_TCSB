@@ -36,12 +36,12 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
         //     icon: 'info',
         // })
         Swal.fire({
-        title: 'Buscando documentos a procesar....',
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            getDocs(folio, servicio);
-        },
+            title: 'Buscando documentos a procesar....',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                getDocs(folio, servicio);
+            },
       
         })
         
@@ -114,9 +114,19 @@ function getIndexTR(x) {
 
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
 
+    Swal.fire({
+        title: 'Procesando documento....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            contenido = downloadDocs(index_tb,documento);
+            console.log(contenido);
+            // deleteRow(index_tb);
 
-    contenido = downloadDocs(index_tb,documento);
-    console.log(contenido);
+        },
+  
+    })
+
 
     // console.log("Elemento: ",elemento, " - Cantidad de celdas: ",conteo_celdas_filas);
 }
@@ -138,6 +148,7 @@ function downloadDocs(index_row,documento){
     .then((response) => {
         response.json().then(content => {
             const status_code = response.status;
+            swal.close()
             if (status_code >= 400 ){
                 // console.log( response.json().catch(err => console.error(err)));
                 // console.log("No se ha encontrado informacion");
@@ -162,7 +173,8 @@ function downloadDocs(index_row,documento){
                     title: 'Documento Procesado con exito',
                     showConfirmButton: false,
                     timer: 3000
-                  })
+                })
+                deleteRow(index_row);
 
             }
 
@@ -192,6 +204,7 @@ function downloadDocs(index_row,documento){
     //     })
     // }
 
+//FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
 {
     // console.log(doc.uuid);
@@ -220,7 +233,12 @@ function clearTable(){
     const table = document.querySelector("#tablaJS");
     table.innerHTML = '';
 }
+function deleteRow(indexRow){
+    // document.getElementsByTagName("tr")[indexRow].remove();
+    document.getElementById("tableProcesados").deleteRow(indexRow);
 
+    console.log("FILA ELIMINADA GG");
+}
 
 //referencias js
 //https://stackoverflow.com/questions/68933909/how-to-pass-hidden-field-in-table-and-return-the-value-in-jquery-on-tr-click
