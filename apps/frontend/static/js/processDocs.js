@@ -29,7 +29,22 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 
             servicio = null;
         }
-        getDocs(folio, servicio);
+        
+        // Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'info',
+        // })
+        Swal.fire({
+            title: 'Buscando documentos a procesar....',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                getDocs(folio, servicio);
+            },
+      
+        })
+        
     }
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -40,7 +55,8 @@ function numberRange (start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
 }
 function getDocs(folio,tpServicio, rutCli = null ) {
-    const url = 'http://localhost:8000/documentos/search_docs/'
+    // const url = 'http://3.80.228.126/documentos/search_docs/'
+    const url = 'http://localhost:8000/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
         method: 'POST',
@@ -58,8 +74,18 @@ function getDocs(folio,tpServicio, rutCli = null ) {
     .then((response) => {
         const status_code = response.status;
         console.log("Codigo estado es: ", response.status);
-        
+      
+    
+        swal.close()
+        clearTable()
         if (status_code >= 400 ){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se han encontrado documentos..',
+                showConfirmButton: false,
+                timer: 2000
+            })
             // console.log( response.json().catch(err => console.error(err)));
             console.log("No se ha encontrado informacion");
         }
@@ -67,6 +93,7 @@ function getDocs(folio,tpServicio, rutCli = null ) {
             response.json().then(docs => {
                 Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
             })
+            
         }
      });
 
@@ -88,9 +115,19 @@ function getIndexTR(x) {
 
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
 
+    Swal.fire({
+        title: 'Procesando documento....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            contenido = downloadDocs(index_tb,documento);
+            console.log(contenido);
+            // deleteRow(index_tb);
 
-    contenido = downloadDocs(index_tb,documento);
-    console.log(contenido);
+        },
+  
+    })
+
 
     // console.log("Elemento: ",elemento, " - Cantidad de celdas: ",conteo_celdas_filas);
 }
@@ -99,7 +136,9 @@ function getIndexTR(x) {
 function downloadDocs(index_row,documento){
     console.log("Index :", index_row);
     console.log("Objeto", documento.uuid);
+    // const url = 'http://3.80.228.126/documentos/process_docs/';
     const url = 'http://localhost:8000/documentos/process_docs/';
+
     fetch(url, {
         method: 'POST',
         headers: {
@@ -111,7 +150,38 @@ function downloadDocs(index_row,documento){
     })
     .then((response) => {
         response.json().then(content => {
-           console.log("Contenido adquirido");
+            const status_code = response.status;
+            swal.close()
+            if (status_code >= 400 ){
+                // console.log( response.json().catch(err => console.error(err)));
+                // console.log("No se ha encontrado informacion");
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'error',
+                    title: 'Tuvimos problemas para procesar este archivo',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Oops...',
+                //     text: 'No se han encontrado documentos..',
+                //     // footer: '<a href="">Why do I have this issue?</a>'
+                // })
+            }else{
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'success',
+                    title: 'Documento Procesado con exito',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                deleteRow(index_row);
+
+            }
+
+            console.log("Contenido adquirido");
         //    console.log(response.json().MessagePort);
            return content;
         })
@@ -137,6 +207,7 @@ function downloadDocs(index_row,documento){
     //     })
     // }
 
+//FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
 {
     // console.log(doc.uuid);
@@ -144,7 +215,6 @@ function createRowDoc(doc,event)
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
-    // let data_value = doc.uuid + " | " + doc.nomDoc + " | " + doc.rut_emisor
     // console.log(data_value);
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
@@ -162,8 +232,15 @@ function createRowDoc(doc,event)
     tbody.innerHTML += body;
     
 }
-
-
+function clearTable(){
+    const table = document.querySelector("#tablaJS");
+    table.innerHTML = '';
+}
+function deleteRow(indexRow){
+    // document.getElementsByTagName("tr")[indexRow].remove();
+    document.getElementById("tableProcesados").deleteRow(indexRow);
+    console.log("FILA ELIMINADA GG");
+}
 
 //referencias js
 //https://stackoverflow.com/questions/68933909/how-to-pass-hidden-field-in-table-and-return-the-value-in-jquery-on-tr-click

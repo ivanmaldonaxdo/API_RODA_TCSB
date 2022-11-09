@@ -36,7 +36,7 @@ document.getElementById('cerrarsession').addEventListener('click', function(){
 // var url = 'http://52.201.38.209/auth-user/'
 
 function logoutUser(){
-    const url = 'http://localhost:8000/logout/'
+    const url = 'http://3.80.228.126/logout/'
     fetch(url,{
     method:'GET',
     headers:{
