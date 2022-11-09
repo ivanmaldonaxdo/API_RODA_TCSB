@@ -44,8 +44,6 @@ class OpenKMViewSet(ViewSet):
         if docs:
             print("HAY ARCHIVOS")
             print("cantidad => {}" .format(len(docs)))
-            # print("**********SUBIDA DE ARCHIVOS A S3**********")
-            # print("IS LISTA?? -", isinstance(response, list),"- " ,type(response))
             print(docs)
             return Response(data = docs, status=status.HTTP_200_OK)
         else:   
@@ -63,12 +61,11 @@ class OpenKMViewSet(ViewSet):
                 data.get("uuid")
             ).content
             
-            # {"message: Data encontrada"},
-            # print(contenido)
-            # data = contenido.decode()
             try:
-
+                ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
+
+                ######################## CONSULTA DE PLANTILLAS EN BD #############################
                 with connections['default'].cursor() as cursor:##conexion default a la bd
                     cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                     plantilla = cursor.fetchall()
@@ -78,8 +75,12 @@ class OpenKMViewSet(ViewSet):
                 query_doc = 'media'+ '/' + queries_file
                 table_doc = 'media'+ '/' + tables_file
                 print(type(table_doc))
+
+                ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
                 extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
                 metadata = self.openkm.get_metadata(data.get("uuid"))
+
+                ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
                 docName = str(data.get('nomDoc')).replace('.pdf', '')
                 archivo  = ( docName + '.json')
                 read = json.dumps(extracted_data, indent = 4)
@@ -91,6 +92,7 @@ class OpenKMViewSet(ViewSet):
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
+                self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
                     'message':'Documento Procesado',
                     }, status=status.HTTP_200_OK,headers=None)
