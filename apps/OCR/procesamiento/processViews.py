@@ -15,6 +15,8 @@ import json
 import os
 import csv
 from django.conf import settings# from django.core.files.storage
+from django.core.files.base import ContentFile
+
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
     docs = None
@@ -78,16 +80,29 @@ class OpenKMViewSet(ViewSet):
                     print(type(table_doc))
                     extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
                     metadata = self.openkm.get_metadata(data.get("uuid"))
-                    archivo  = ( data.get('nomDoc') + '.js')
+                    docName = str(data.get('nomDoc')).replace('.pdf', '')
+                    archivo  = ( docName + '.json')
                     read = json.dumps(extracted_data, indent = 4)
-
-                    # txt = 
-                    documento = Documento.objects.create()
-                    print(metadata)
+                    contenido = ""
+                    try:
+                        # print(read)
+                        contenido = ContentFile(read.encode('utf-8'))
+                        doc = Documento.objects.create(
+                            nom_doc = docName,
+                            folio =  metadata.get('folio'),
+                            sucursal = Sucursal(id = 1), 
+                            procesado = True                     
+                        )
+                        subido = doc.documento.save(archivo,contenido)
+                    except Exception as e: # work on python 3.x
+                        print(e)
+                    # print("txt xdddd  ",txt)
+                    # print(metadata)
                     try:
                         sucursal_id = Cliente().objects.select_related('sucursal')
                     except:
                         print("Sucursal No es posible buscar")
+
 
                     # folio,rutCli = metadata.get("folio"), metadata.get("rut")
 
