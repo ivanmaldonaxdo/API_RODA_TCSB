@@ -43,18 +43,17 @@ function logoutUser(){
         'Content-Type':'application/json',
         'X-CSRFToken': csrftoken,
     },
-
-})
-.then((response) => {response.json().then(data => {                  
-if(response.ok){         
-    Swal.fire({
-        title: "Sesion cerrada correctamente"
-    }).then(() => {
-        window.location.replace("http://localhost:8000/");
     })
-    } 
-else{
-    console.log(response.data)
+    .then((response) => {response.json().then(data => {                  
+    if(response.ok){         
+        Swal.fire({
+            title: "Sesion cerrada correctamente"
+        }).then(() => {
+            window.location.replace("http://localhost:8000/");
+        })
+        } 
+    else{
+        console.log(response.data)
+        }
+    })});
     }
-})});
-}
