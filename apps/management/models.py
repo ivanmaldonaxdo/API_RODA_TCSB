@@ -3,9 +3,9 @@ from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
 from django.utils import timezone
 from drf_api_logger.models import APILogsModel
-
-
-
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from apps.management.storage import OverwriteStorage
 #Modelo SISTEMA: Mantiene las cpnfiguraciones basicas, tales como, urls, credenciales de las herramientas (Aun necesita modificaciones)
 #Solo admite 1 objecto del tipo sistema
 class Sistema(SingletonModel):
@@ -61,16 +61,17 @@ class Proveedor(models.Model):
 class Plantilla(models.Model):
     nom_doc= models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     version = models.CharField('Version plantilla', max_length=255, blank=False)
-    queries_config = models.FileField(null=True, validators=[
+    queries_config = models.FileField(null=True, storage=OverwriteStorage(), validators=[
         FileExtensionValidator(allowed_extensions=['csv'])
     ])
-    tablas_config = models.FileField(null=True, validators=[
+    tablas_config = models.FileField(null=True, storage=OverwriteStorage(), validators=[
         FileExtensionValidator(allowed_extensions=['json'])
     ])
     fecha_creacion = models.DateTimeField(default=timezone.now)
     proveedor = models.ForeignKey(Proveedor, on_delete = models.CASCADE,null=True, default=None)
     
-
+    def __str__(self):
+        return self.nom_doc
 
 
 class Zona(models.Model):
