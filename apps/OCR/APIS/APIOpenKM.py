@@ -22,8 +22,8 @@ class OpenKm():
         url = "{}{}" .format(self.end_point_base,'search/find')
         list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('anio_doc',_anio)]
         properties = self.get_list_params(list_params)
-        print("")
-        print("Propiedades => {}" .format(properties))
+        # print("")
+        # print("Propiedades => {}" .format(properties))
         params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA
         response = self.get_request(url,params)
         status_code = response.status_code
@@ -44,13 +44,11 @@ class OpenKm():
                     # boletas = []
                     boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
                     print("")
-                    print(f"Cantidad de boletas : {len(boletas)}")
+                    # print(f"Cantidad de boletas : {len(boletas)}")
                     return boletas
                 else:
                     print("**********TEST UNA BOLETA*********")
                     boleta = self.get_q_result_formatted(data['queryResult'])
-                    print(json.dumps(boleta,indent = 2))
-
                     return boleta
             except:
                 print("NO EXISTEN OCURRENCIAS")
@@ -139,10 +137,10 @@ class OpenKm():
                 'uuid':uuid,
                 'nomDoc':nom_doc
                 })
-        print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
+        # print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         metadata = self.get_metadata(uuid)
         objectOPK.update(metadata)
-        print(objectOPK)
+        # print(objectOPK)
         # print(self.get_metadata(uuid))
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
@@ -157,7 +155,7 @@ class OpenKm():
         params = {'nodeId':_uuid,'grpName':grpName}
         data = {'simplePropertyGroup': [{ 'name': 'okp:encCobro.proceso_ocr', 'value': _cod_processed }] }
         response = self.put_request(url, data, _params = params)
-        print(data)
+        # print(data)
         status_code = response.status_code
         print("")
         print("Codigo de estado {}" .format(status_code))

@@ -64,73 +64,53 @@ class OpenKMViewSet(ViewSet):
             ).content
             
             # {"message: Data encontrada"},
-            if contenido:
-                # print(contenido)
-                # data = contenido.decode()
+            # print(contenido)
+            # data = contenido.decode()
+            try:
+
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
                 with connections['default'].cursor() as cursor:##conexion default a la bd
                     cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                     plantilla = cursor.fetchall()
-                try:
-                    queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-                    print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-                    queries_file_path = os.path.join('media',queries_file)
-                    query_doc = 'media'+ '/' + queries_file
-                    table_doc = 'media'+ '/' + tables_file
-                    print(type(table_doc))
-                    extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                    metadata = self.openkm.get_metadata(data.get("uuid"))
-                    docName = str(data.get('nomDoc')).replace('.pdf', '')
-                    archivo  = ( docName + '.json')
-                    read = json.dumps(extracted_data, indent = 4)
-                    contenido = ""
-                    try:
-                        # print(read)
-                        contenido = ContentFile(read.encode('utf-8'))
-                        doc = Documento.objects.create(
-                            nom_doc = docName,
-                            folio =  metadata.get('folio'),
-                            sucursal = Sucursal(id = 1), 
-                            procesado = True                     
-                        )
-                        subido = doc.documento.save(archivo,contenido)
-                    except Exception as e: # work on python 3.x
-                        print(e)
-                    # print("txt xdddd  ",txt)
-                    # print(metadata)
-                    try:
-                        sucursal_id = Cliente().objects.select_related('sucursal')
-                    except:
-                        print("Sucursal No es posible buscar")
-
-
-                    # folio,rutCli = metadata.get("folio"), metadata.get("rut")
-
-                    return Response({
-                        'message':'Documento Procesado',
-                    }, status=status.HTTP_200_OK,headers=None)
-                except:
-                    print("Unable to Acces a queries config")
-                    return Response({
-                        'message':'Documento No Procesado',
-                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR,headers=None)
-            else:   
+                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                queries_file_path = os.path.join('media',queries_file)
+                query_doc = 'media'+ '/' + queries_file
+                table_doc = 'media'+ '/' + tables_file
+                print(type(table_doc))
+                extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                metadata = self.openkm.get_metadata(data.get("uuid"))
+                docName = str(data.get('nomDoc')).replace('.pdf', '')
+                archivo  = ( docName + '.json')
+                read = json.dumps(extracted_data, indent = 4)
+                contenido = ContentFile(read.encode('utf-8'))
+                doc = Documento.objects.create(
+                    nom_doc = docName,
+                    folio =  metadata.get('folio'),
+                    sucursal = Sucursal.objects.get(rut_sucursal = extracted_data.get('RUT_CLIENTE')), 
+                    procesado = True                     
+                )
+                subido = doc.documento.save(archivo,contenido)
                 return Response({
-                    'message':'La busqueda no coincide con ningun documento',
-                }, status= status.HTTP_404_NOT_FOUND)
-        except:
+                    'message':'Documento Procesado',
+                    }, status=status.HTTP_200_OK,headers=None)
+                
+                # folio,rutCli = metadata.get("folio"), metadata.get("rut")
+
+                    
+            except Exception as e:
+                print(e)
+                return Response({
+                    'message':'Documento No Procesado',
+                    }, status=status.HTTP_409_CONFLICT,headers=None)
+    
+        except Exception as e:
+            print(e)            
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
             
-    # def createJSON(nomDoc):
-    #     return ""
-    # def list(self,request):
-    #     print(self.docs)
-    #     serializer = self.docs
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
- 
-    # json_tables =  {"Tablas" : ["Tabla_1","Tabla_2"]}  
+
 
 
     #REFERENCIAS https://realpython.com/python-csv/

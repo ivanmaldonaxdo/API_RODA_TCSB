@@ -56,7 +56,7 @@ function numberRange (start, end) {
 }
 function getDocs(folio,tpServicio, rutCli = null ) {
     // const url = 'http://3.80.228.126/documentos/search_docs/'
-    const url = 'http://localhost:8000/search_docs/';
+    const url = 'http://localhost:8000/documentos/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
         method: 'POST',

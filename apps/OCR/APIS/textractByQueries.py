@@ -149,11 +149,6 @@ def textract(_bucket,queryP, _archivo):
                 print("Query answer:")
                 print(item["Text"])
             #ALIAS ES EL NOMBRE DE <KEY> Y RESPUESTA ES EL <VALUE>
-            documento.update({alias:respuesta})
+            documento.update({alias.strip():respuesta})
         # print(documento)
     return documento
-    # json_object = json.dumps(documento, indent=4)
-    # with open("zzz.json", "w") as outfile:
-    #     outfile.write(json_object)
-# ruta =  'Queries_ENEL_v1_2.csv'    
-# resultado_queries = textract("rodatest-bucket", query=ruta,_archivo="media/Clinica Santiago_271715_202203_7352.pdf")
