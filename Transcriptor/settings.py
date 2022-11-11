@@ -51,15 +51,9 @@ THIRD_APPS = [
     'rest_framework',
     'django_filters',
     'rut_chile',
-<<<<<<< HEAD
-    'solo'
-=======
-    'solo',
     'drf_api_logger',
     'django_crontab',
     "corsheaders",
-
->>>>>>> main
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
