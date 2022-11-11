@@ -1,6 +1,5 @@
 
 from rest_framework.response import Response
-from yaml import serialize
 from .serializers import UpdateSerializer
 from apps.management.plantilla.serializers import PlantillaSerializer, UpdateSerializer
 from apps.management.models import Plantilla
@@ -10,15 +9,6 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
-from django_filters import FilterSet
-from apps.users.authentication import ExpiringTokenAuthentication
-from rest_framework import generics
-from django.http import HttpResponse
-from wsgiref.util import FileWrapper
-from rest_framework.views import APIView
-from .serializers import PlantillaSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework import serializers
 
 # ViewSets define the view behavior.
 class PlantillaViewSet(viewsets.GenericViewSet):

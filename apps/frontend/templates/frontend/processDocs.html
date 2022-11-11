@@ -1,0 +1,79 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+
+    <div class="bk">
+        <div class="container-form">
+            <h1 class="centrado">Busqueda de archivos a procesar</h1>
+            <div class="inputs-form-inicio">
+
+                <form action="">
+                    <div class="input-wrapper">
+                        <input class="input" name ="sfolio" id="folio" placeholder="Folio" type="search">
+                    </div>
+
+                    <div class="content-select">
+                        <select id="tipo_servicio" name = "cbotipo_servicio">
+                            <option selected>Tipo de servicio</option>
+                            <option value="AGU">Agua</option>
+                            <option value="ELE">Electricidad</option>
+                            <option value="GAS">Gas</option>
+                        </select>
+                        <i></i>
+                    </div>
+
+                    <button  id="processDocs" type="submit" class="btn-buscar">Buscar</button>
+                </form>
+
+            </div>
+
+            <div class="container-table">
+                <div class="table-responsive">
+                    <div class="tbl-header">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                          <thead>
+                            <tr>
+                                <th class="centrado">Folio</th>
+                                <th class="centrado">Nombre archivo</th>
+                                <th class="centrado">Rut cliente</th>
+                                <th class="centrado">Tipo Servicio</th>
+                                <th class="centrado">Procesar</th>
+
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+                    <div class="tbl-content">
+                        <table class="table table-striped" id = "tableProcesados"  cellpadding="0" cellspacing="0" border="0">
+                            <tbody id = "tablaJS">
+                             {% for p in procesados %}
+                            <tr>
+                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+                                <td class="centrado"> {{p.folio}} </td>
+                                <td class="centrado">{{p.nomDoc}}</th>
+                                <td class="centrado">{{p.rut_receptor}}</th>
+                                <td class="centrado"> {{p.tipo_servicio}} </td>
+                                <td class="centrado"><button class="buttonDownload">Procesar</button> </td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script type="text/javascript" src="{% static 'js/processDocs.js' %}"></script>
+    {% comment %} <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> {% endcomment %}
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script> {% endcomment %}
+
+
+
+{% endblock %}
+
+

@@ -5,15 +5,14 @@ import os
 import requests
 import io
 import csv
-<<<<<<< HEAD
-# import trp.trp2 as t2
-=======
-#import trp.trp2 as t2
->>>>>>> monse
 import time
 #from tabulate import tabulate
 import json
+from apps.OCR.APIS.textractByQueries import textract
+from apps.OCR.APIS.textractByTables import textractTB
+import re
 
+# from apps.OCR.APIS.textractByQueries import textract, codigo_procesado
 client = boto3.client('textract', region_name='us-east-1')
 
 def subir_archivo(archivo,_bucket,carpeta = 'media',nomDoc = None):
@@ -31,133 +30,31 @@ def listar_buckets():
     for bucket in s3.buckets.all():
         print(bucket.name)
 
-#EMPEZAR ANALISIS DE DOCUMENTO
-def textfunc(_bucket, archivo):
-    queries_csv = "test.csv"
-    queries = list()
-    with open(queries_csv, mode='r', encoding='utf-8-sig') as queries_csv_file:
-        reader = csv.reader(queries_csv_file)
-        for row in reader:
-            queries.append({"Text": row[0].strip(), "Alias": row[1] })
-
-        # Call Textract
-        response = client.start_document_analysis(
-        DocumentLocation={
-                'S3Object': {
-                'Bucket': _bucket,
-                'Name': archivo
-                }
-        },
-        FeatureTypes=["QUERIES"],
-        QueriesConfig={
-            "Queries": queries
-        })
-        return response['JobId']
-
-#VERIFIFICA SI SE HA REALIZADO ANALISIS
-def is_job_complete(job_id):
-    time.sleep(1)
-    response = client.get_document_analysis(JobId=job_id)
-    status = response["JobStatus"]
-    print("Job status: {}".format(status))
-
-    while(status == "IN_PROGRESS"):
-        time.sleep(1)
-        response = client.get_document_analysis(JobId=job_id)
-        status = response["JobStatus"]
-        print("Job status: {}".format(status))
-
-    return status
-
-def get_job_results(job_id):
-    pages = []
-    time.sleep(1)
-    response = client.get_document_analysis(JobId=job_id)
-    pages.append(response)
-    print("Resultset page received: {}".format(len(pages)))
-    next_token = None
-    if 'NextToken' in response:
-        next_token = response['NextToken']
-
-    while next_token:
-        time.sleep(1)
-        response = client.\
-            get_document_analysis(JobId=job_id, NextToken=next_token)
-        pages.append(response)
-        print("Resultset page received: {}".format(len(pages)))
-        next_token = None
-        if 'NextToken' in response:
-            next_token = response['NextToken']
-        
-        return pages
-
-def is_job_complete(job_id):
-    time.sleep(1)
-    response = client.get_document_analysis(JobId=job_id)
-    status = response["JobStatus"]
-    print("Job status: {}".format(status))
-
-    while(status == "IN_PROGRESS"):
-        time.sleep(1)
-        response = client.get_document_analysis(JobId=job_id)
-        status = response["JobStatus"]
-        print("Job status: {}".format(status))
-
-    return status
-
-def get_job_results(job_id):
-    pages = []
-    time.sleep(1)
-    response = client.get_document_analysis(JobId=job_id)
-    pages.append(response)
-    print("Resultset page received: {}".format(len(pages)))
-    next_token = None
-    if 'NextToken' in response:
-        next_token = response['NextToken']
-
-    while next_token:
-        time.sleep(1)
-        response = client.\
-            get_document_analysis(JobId=job_id, NextToken=next_token)
-        pages.append(response)
-        print("Resultset page received: {}".format(len(pages)))
-        next_token = None
-        if 'NextToken' in response:
-            next_token = response['NextToken']
-
-    return pages
-
-def textract(_bucket, carpeta = 'media',nomDoc = None):
+def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
+    json_procesado = dict()
+    json_tablas = dict()
     archivo = '{}/{}'.format(carpeta,nomDoc)
-    job_id = textfunc(_bucket, archivo)
-    print("Comenzando el proceso de extracción de información")
-    if is_job_complete(job_id):
-        print("ID del proceso finalizado: {}".format(job_id))
-        response = get_job_results(job_id)
-    else:
-        print("Error 404")
+    # print("archivo ",archivo)
+    # print("Bucket ", _bucket)
 
-    # print(response)
+    ############### EXTRACCION POR QUERIES ###############
+    resultado_queries = textract(_bucket, query,archivo)
+    json_procesado.update(resultado_queries)
+    ############### RECUPERANDO DATA DE JSON TABLAS ###############
+    with open(tables) as tb_json:
+        data = tb_json.read().replace("\n", "").replace('ï»¿', "").strip()
+    data = json.loads(data)[0]
+    json_tablas.update(data)
+    list_tablas = json_tablas.get("TABLES")
+    ############### EXTRACCION POR TABLAS ###############
+    resultado_tables = textractTB(archivo, list_tablas)
 
-    for result_page in response:
-        documento = dict()
-        alias = ""
-        respuesta = ""
-        for item in result_page["Blocks"]:
-            if item["BlockType"] == "QUERY":
-                alias = item["Query"]["Alias"]
-                print("Query info:")
-                print(item["Query"])
-            #print(block)
-            if item["BlockType"] == "QUERY_RESULT":
-                respuesta = item["Text"]
-                print("Query answer:")
-                print(item["Text"])
-            #ALIAS ES EL NOMBRE DE <KEY> Y RESPUESTA ES EL <VALUE>
-            documento.update({alias:respuesta})
-        print(documento)
-    json_object = json.dumps(documento, indent=4)
-    with open("zzz.json", "w") as outfile:
-        outfile.write(json_object)
+    json_procesado.update(resultado_tables)
+    # print(json.dumps(json_procesado, indent=4))
+    return json_procesado
 
+#EMPEZAR ANALISIS DE DOCUMENTO
 
+#references 
+#https://www.programiz.com/python-programming/json
+#https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/

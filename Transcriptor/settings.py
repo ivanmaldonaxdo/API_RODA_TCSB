@@ -26,9 +26,8 @@ SECRET_KEY = 'django-insecure-82e32v=_md3-ydr+ic4@f=pbi4yxe@zf@p_$4by5npv+w@3(41
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['3.80.228.126']
 
 # Application definition
 
@@ -58,8 +57,6 @@ THIRD_APPS = [
     'solo',
     'drf_api_logger',
     'django_crontab',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
 
 >>>>>>> main
@@ -71,10 +68,11 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 REST_FRAMEWORK = { 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.users.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ),
-    # 'DEFAULT_PERMISSION_CLASSES':(
-    #     'rest_framework.permissions.IsAuthenticated',
-    # )
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
@@ -128,6 +126,29 @@ WSGI_APPLICATION = 'Transcriptor.wsgi.application'
 # }
 
 
+#DATABASES = {
+#'default': {
+#    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     'NAME': 'dfosmic3vq03p9',
+#      'USER': 'xvnkiwgepmxbmi',
+#       'PASSWORD':'0a8cfa127ba4dec9ccc58e39d6d990fa995cad63a47c2442130c3c1abe1e8f56',
+#        'HOST':'ec2-52-205-98-159.compute-1.amazonaws.com',
+#       'PORT':'5432'
+#   }
+#}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'API_DB',
+#         'USER': 'postgres',
+#         'PASSWORD':'API_DB_PASSWORD',
+#         'HOST':'54.160.201.59',
+#         'PORT':'5432'
+#     }
+# }
+
+#DB CARLOS HEROKU
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -205,3 +226,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'login'
+
+STATIC_ROOT = '/var/www/Trans-site/assets/'

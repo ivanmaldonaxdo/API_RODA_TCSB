@@ -3,16 +3,12 @@ import datetime
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from apps.users.usuarios.serializers import UserSerializer
-from rest_framework.generics import GenericAPIView
 from apps.users.models import User
-from rest_framework.exceptions import AuthenticationFailed
 import jwt
-from django.views.decorators.csrf import csrf_protect
-from django.utils.decorators import method_decorator
 from django.conf import settings
 from pytz import timezone
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.sessions.models import Session
+from django.contrib.auth import login, logout
 
 
 class authUser(APIView):
@@ -37,6 +33,13 @@ class authUser(APIView):
         tiempo_creacion = datetime.datetime.now(settings_time_zone)
         tiempo_expiracion = datetime.datetime.now(settings_time_zone)+settings.TOKEN_EXPIRED_AFTER
 
+        all_sessions = Session.objects.filter(expire_date__gte = tiempo_creacion)
+        if all_sessions.exists():
+            for session in all_sessions:
+                session_data = session.get_decoded()
+                if user.id == int(session_data.get('_auth_user_id')):
+                    session.delete()
+                    
         payload = {
             'id':user.id,
             'exp': tiempo_expiracion,
@@ -61,6 +64,7 @@ class Logout(APIView):
         response = Response()
         response.delete_cookie('jwt')
         logout(request)
+        response.status_code= status.HTTP_200_OK
         response.data = {
             'message': 'Se ha cerrado su sesion'
         }

@@ -2,61 +2,56 @@
 {% load static %}
 {% block contenido %}
 
-
-    <div class="containercentrado">
-        <div class="container1">
-            
-            <h1 class="centrado">Información</h1>
-            <div class="separadorcen"></div>
-
-            
-            <div class="cont-cliente">
-                <div class="infocliente">
-                    <a>Clientes<span class="borde0">0</span></a>
-                </div>
-                <div class="infocliente">
-
-                    <a>Sucursales<span class="borde0">0</span></a>
-
-                </div>
-                <div class="infocliente">
-
-                    <a>Boletas<span class="borde0">0</span></a>
-
-                </div>
-
-            </div>
-
-            
-        </div>
-
-
-        <div class="container1">
-            <h1 class="centrado">Detalle cuenta</h1>
-            <div class="separadorcen"></div>
-            
-            <div class="detallecuenta"> 
-                <i class="fa-solid fa-user"></i>
-                <label> Nombre usuario
-                </label>
+    <div class="bkcont">
+        <div class="containercentrado">
+            <div class="container1">
                 
+                <h1 class="centrado">Información</h1>
+                <div class="separadorcen"></div>
 
-            </div>
-            <div class="detallecuenta"> 
-                <i class="fa-solid fa-envelope"></i>
-                <label> Correo
-                </label>
                 
+                <div class="cont-cliente">
+                    <div class="infocliente">
+                        <a>Clientes<span class="borde0">0</span></a>
+                    </div>
+                    <div class="infocliente">
 
+                        <a>Sucursales<span class="borde0">0</span></a>
+
+                    </div>
+                    <div class="infocliente">
+
+                        <a>Boletas<span class="borde0">0</span></a>
+
+                    </div>
+
+                </div>
+
+                
             </div>
 
-            <i class="fa-solid fa-user"></i>
-            
 
+            <div class="container1">
+                <h1 class="centrado">Detalle cuenta</h1>
+                <div class="separadorcen"></div>
+                
+                <div class="detallecuenta"> 
+                    <button> <i class="fas fa-comments"></i> Comentarios</button>
+                </div>
+
+                <div class="detallecuenta"> 
+                    <button><i class="fas fa-chart-line"></i> Consumo Historico </button>
+                
+                </div>
+
+                <div class="detallecuenta"> 
+                <button><i class="fas fa-chart-bar"></i> Graficos analiticos</button>
+                
+                </div>
+        
+            </div>
 
         </div>
-
-    </div>
-
+    </div>    
 
 {% endblock %}

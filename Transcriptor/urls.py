@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.users.views import authUser, Logout
+
 from apps.OCR import cron
 from apps.OCR.APIS.APIOpenKM import OpenKm
 from django.conf.urls.static import static
@@ -31,7 +32,10 @@ urlpatterns = [
     path('cron/', cron.dicehola),
     path('procesoauto/', cron.subirdocaws),
     path('sucursales/', include('apps.management.sucursales.routers')),
+    path('plantillas/', include('apps.management.plantilla.routers')),
     path('documentos/',include('apps.OCR.procesamiento.routers')),
+    path('sistema/',include('apps.management.sistema.routers')),
+    path('procesados/',include('apps.management.procesados.routers')),
     path('cron/', cron.dicehola),
     path('', include('apps.frontend.urls'))
 

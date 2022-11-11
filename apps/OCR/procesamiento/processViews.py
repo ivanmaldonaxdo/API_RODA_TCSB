@@ -1,14 +1,22 @@
-from apps.users.models import User
 from rest_framework import filters
 from rest_framework.response import Response
-from apps.permissions import IsOperador, IsAdministrador
 from rest_framework.decorators import action
 from django.http import Http404
 from rest_framework.viewsets import GenericViewSet,ViewSet
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from apps.OCR.APIS.APIOpenKM import OpenKm
-from apps.OCR.APIS.AWS import subir_archivo
+from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
+from rest_framework import filters
+from django.db import connections
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento
+from django.db.models import Q
+import json
+import os
+import csv
+from django.conf import settings# from django.core.files.storage
+from django.core.files.base import ContentFile
+
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
     docs = None
@@ -20,7 +28,7 @@ class OpenKMViewSet(ViewSet):
         print("Filtros {} -".format(filtros))
         return filtros
     
-    @action(detail=False,methods = ['POST'])
+    @action(detail=False,methods = ['POST'],url_name="search_docs")
     # @action(detail = False, methods = ['post'])
     def search_docs(self,request):
         filtros = dict(request.data)
@@ -33,52 +41,78 @@ class OpenKMViewSet(ViewSet):
             _rutCli = filtros.get('rut_receptor')
         )
         # {"message: Data encontrada"},
-        metadata_list = []
         if docs:
-            print("PROCESAMIENTO DE ARCHIVOS")
-            # print("**********SUBIDA DE ARCHIVOS A S3**********")
-            # print("IS LISTA?? -", isinstance(response, list),"- " ,type(response))
-            if isinstance(docs, list):
-                for r in docs:
-                    uuid = r['uuid']
-                    print("*"*153)
-                    archivo = self.openkm.get_content_doc(uuid)
-                    # resultado =  subir_archivo(archivo.content,'rodatest-bucket', nomDoc = r['nomDoc'])
-                    print("SE HA SUBIDO EL PDF - {}".format(r['nomDoc']))
-                    print("")
-                    metadata = self.openkm.get_metadata(uuid)
-                    print(metadata)
-                    metadata.update({'nomDoc': r['nomDoc']})
-                    metadata_list.append(metadata)
-                    # process_ocr = openkm.set_metadata_processed(uuid,1234)
-                    # print(process_ocr)
-            else:
-                try:
-                    uuid = docs['uuid']
-                    print("*"*153)
-                    archivo = self.openkm.get_content_doc(uuid)
-                    # resultado = subir_archivo(archivo.content,'rodatest-bucket', nomDoc = docs['nomDoc'])
-                    print("SE HA SUBIDO EL PDF - {}".format(docs['nomDoc']))
-                    print("")
-                    metadata = self.openkm.get_metadata(uuid)
-                    metadata.update({'nomDoc': docs['nomDoc']})
-                    print(metadata)
-                    metadata_list.append(metadata)
-                    # metadata_list = metadata
-                    # process_ocr = openkm.set_metadata_processed(uuid,1234)
-
-                except:
-                    print("ERROR EN SUBIR/PROCESAR ARCHIVO A S3 AWS")
-
-            return Response(data = metadata_list, status=status.HTTP_200_OK)
+            print("HAY ARCHIVOS")
+            print("cantidad => {}" .format(len(docs)))
+            print(docs)
+            return Response(data = docs, status=status.HTTP_200_OK)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
 
-    # def list(self,request):
-    #     print(self.docs)
-    #     serializer = self.docs
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
- 
+
+    #request debe tener el uuid,nomDoc y rutEmisor
+    @action(detail=False,methods = ['POST'],url_name="process_docs")
+    def process_docs(self,request):
+        try:
+            data = dict(request.data)
+            contenido = self.openkm.get_content_doc(
+                data.get("uuid")
+            ).content
+            
+            try:
+                ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
+                resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
+
+                ######################## CONSULTA DE PLANTILLAS EN BD #############################
+                with connections['default'].cursor() as cursor:##conexion default a la bd
+                    cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
+                    plantilla = cursor.fetchall()
+                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                queries_file_path = os.path.join('media',queries_file)
+                query_doc = 'media'+ '/' + queries_file
+                table_doc = 'media'+ '/' + tables_file
+                print(type(table_doc))
+
+                ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
+                extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                metadata = self.openkm.get_metadata(data.get("uuid"))
+
+                ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
+                docName = str(data.get('nomDoc')).replace('.pdf', '')
+                archivo  = ( docName + '.json')
+                read = json.dumps(extracted_data, indent = 4)
+                contenido = ContentFile(read.encode('utf-8'))
+                doc = Documento.objects.create(
+                    nom_doc = docName,
+                    folio =  metadata.get('folio'),
+                    sucursal = Sucursal.objects.get(rut_sucursal = extracted_data.get('RUT_CLIENTE')), 
+                    procesado = True                     
+                )
+                subido = doc.documento.save(archivo,contenido)
+                self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
+                return Response({
+                    'message':'Documento Procesado',
+                    }, status=status.HTTP_200_OK,headers=None)
+                
+                # folio,rutCli = metadata.get("folio"), metadata.get("rut")
+
+                    
+            except Exception as e:
+                print(e)
+                return Response({
+                    'message':'Documento No Procesado',
+                    }, status=status.HTTP_409_CONFLICT,headers=None)
     
+        except Exception as e:
+            print(e)            
+            return Response({
+                'message':'La busqueda no coincide con ningun documento',
+            }, status= status.HTTP_404_NOT_FOUND)
+            
+
+
+
+    #REFERENCIAS https://realpython.com/python-csv/

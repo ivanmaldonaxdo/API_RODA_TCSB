@@ -2,9 +2,9 @@ from apps.users.models import User
 from apps.users.usuarios.serializers import UserSerializer, UpdateSerializer
 from rest_framework import filters
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
 from django.contrib.auth import authenticate
-from apps.permissions import IsOperador, IsAdministrador
+from apps.permissions import IsOperador, IsAdministrador, IsRodaUser
 from rest_framework.decorators import action
 from django.http import Http404
 from django_filters import FilterSet
@@ -12,11 +12,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from apps.users.authentication import JWTAuthentication
 
 
 class UserViewSet(viewsets.GenericViewSet):
-    #authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAdministrador]
     serializer_class = UserSerializer
     update_serializer = UpdateSerializer
     model = User
@@ -64,12 +63,7 @@ class UserViewSet(viewsets.GenericViewSet):
         user_serializer = self.serializer_class(data=request.data)
         if user_serializer.is_valid():
             user_serializer.save()
-            email = user_serializer.validated_data['email']
-            password = user_serializer.validated_data['password']
-            user = self.authUser(email, password)
-            token = Token.objects.create(user=user)
             return Response({
-                'Token':token.key,
                 'message': 'Usuario registrado',
                 'email':user_serializer.validated_data['email'],
                 'contraseña':user_serializer.validated_data['password']
@@ -110,13 +104,8 @@ class UserViewSet(viewsets.GenericViewSet):
         if user.is_active == True:
             user.is_active=False
             user.save()
-            token = Token.objects.filter(user=user)
-            if token:
-                token.delete()
-                message = 'Token eliminado'
             return Response({
                 'message': 'Usuario desactivado',
-                'Token-status': message
             }, status=status.HTTP_200_OK)
         elif user.is_active == False:
             user.is_active=True
