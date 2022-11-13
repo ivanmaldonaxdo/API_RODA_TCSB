@@ -182,6 +182,7 @@ class LogSistema(models.Model):
     method=models.CharField('Tipo de peticion',max_length=255, blank=False)
     response=models.TextField()
     status_code=models.PositiveSmallIntegerField('Status Respuesta')
+    fecha_hora = models.DateTimeField('Fecha y Hora', default=timezone.now)
 
     def __str__(self):
         return str(self.id) + self.api
