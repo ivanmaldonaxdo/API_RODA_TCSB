@@ -2,6 +2,7 @@ from rest_framework.authentication import BaseAuthentication
 import jwt
 from rest_framework.exceptions import AuthenticationFailed
 from apps.users.models import User
+from django.conf import settings
 
 class JWTAuthentication(BaseAuthentication):
 
@@ -12,7 +13,7 @@ class JWTAuthentication(BaseAuthentication):
             raise AuthenticationFailed('Token no valido')
 
         try:
-            payload =jwt.decode(token, 'secret', algorithms=['HS256'])
+            payload =jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Permisos expirados')
 

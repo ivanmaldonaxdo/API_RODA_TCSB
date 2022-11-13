@@ -58,7 +58,8 @@ class UserViewSet(viewsets.GenericViewSet):
             return Response({
                 'message':'La busqueda no coincide con ningun usuario',
             }, status= status.HTTP_404_NOT_FOUND)
-
+        p
+            
     def create(self, request): #Creacion de usuario
         user_serializer = self.serializer_class(data=request.data)
         if user_serializer.is_valid():

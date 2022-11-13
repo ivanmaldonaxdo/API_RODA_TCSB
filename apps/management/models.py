@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
 from django.utils import timezone
-from drf_api_logger.models import APILogsModel
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from apps.management.storage import OverwriteStorage
@@ -173,4 +172,18 @@ class Contrato_servicio(models.Model):
 
     def __str__(self):
         return self.proveedor + ' - '+ str(self.num_cliente)
+
+
+class LogSistema(models.Model):
+    api=models.CharField('URL',max_length=255, blank=False)
+    id_user=models.IntegerField('Id Usuario',  blank=False)
+    cliente = models.CharField('Cliente', max_length=255, default='No Aplica')
+    payload=models.CharField('Payload',max_length=255, blank=False)
+    method=models.CharField('Tipo de peticion',max_length=255, blank=False)
+    response=models.TextField()
+    status_code=models.PositiveSmallIntegerField('Status Respuesta')
+
+    def __str__(self):
+        return str(self.id) + self.api
+
 

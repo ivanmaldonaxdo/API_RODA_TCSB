@@ -15,6 +15,7 @@ admin.site.register(Sistema, SingletonModelAdmin)
 admin.site.register(Documento)
 admin.site.register(Contrato_servicio)
 admin.site.register(Plantilla)
+admin.site.register(LogSistema)
 
 
 # get_solo will create the item if it does not already exist
