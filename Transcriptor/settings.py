@@ -208,10 +208,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DRF_API_LOGGER_DATABASE = True
 DRF_API_LOGGER_SIGNAL = True
 DRF_LOGGER_QUEUE_MAX_SIZE = 30
-#funcion para el proceso automatico 
+
+#esta funcion de cron se repetira todos los dias a las 20:30  de la noche (como prueba)
+#como prueba esta sera modificada de manera sencilla con un valor entero si se desea "cancelar" tarea
+#nos quedaria resolver el como "DETENERLA"  de momento solo con ese parametro de entrada.
 CRONJOBS = [
-    ('* * * * *', 'apps.OCR.cron.dicehola'),
-    ('00 23 * * *', 'apps.OCR.cron.subirdocaws') 
+    ('30 20 1-30 1-12 1-5', 'apps.OCR.cron.procesocompleto')
 ]
 
 STATIC_URL = '/static/'
