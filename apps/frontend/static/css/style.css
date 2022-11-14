@@ -718,7 +718,7 @@ table{
     table-layout: fixed;
   }
   .tbl-header{
-    background-color: rgba(139, 75, 168, 0.603);
+    background-color: #8e44ad;
     width: 90%;
     margin-left: 3em;
    }
@@ -727,7 +727,7 @@ table{
     height:300px;
     overflow-x:auto;
     margin-top: 0px;
-    border: 1px solid rgba(91, 15, 126, 0.781);
+    border: 1px solid #8e44ad;
     margin-left: 3em;
   }
   th{
@@ -735,7 +735,7 @@ table{
     text-align: left;
     font-weight: 500;
     font-size: 16px;
-    color: #2c2d2e;
+    color: #fff;
     text-transform: uppercase;
   }
   td{
@@ -866,14 +866,12 @@ tbody tr:hover{
 @media screen and (max-width:1500px) {
     .container-form {
         width: 59em;
-        
         height: 42em;
         margin-top: 5px;
     }
     
     .bk{
         height: 50em;
-
     }
 }
 
@@ -883,11 +881,8 @@ tbody tr:hover{
         height: 42em;
         margin-top: 5px;
     }
-
-   
     .bk{
         height: 50em;
-
     }
 
     .inputs-form-inicio form {
@@ -911,43 +906,105 @@ tbody tr:hover{
     .bk {
         height: 54em;
     }
+    .tbl-header{
+        width: 87%;
+    }
+    .tbl-content{
+        width: 87%;
+    }
+    .buttonDownload {
+        padding: 8px 15px;
+    }
+
+
+}
+@media screen and (max-width:760px) {
+    .container-form {
+        width: 40em;
+        height: 47em;
+        margin-top: 5px;
+   
+    }
+    .bk{
+        height: 54em;
+    }
+    .inputs-form-inicio form {
+        width: 35em;
+    }
+    .content-select {
+        width: 11em;
+    }
+    .content-select  select{
+        font-size: 14px;
+    }
+
+    .input-wrapper input {
+        width: 8em;
+    }
+    .tbl-header{
+        width: 87%;
+    }
+    .tbl-content{
+        width: 87%;
+    }
 
 }
 
 @media screen and (max-width:650px) {
     .container-form {
         width: 80%;
-
         height: 54em;
     }
     .bk {
         height: 62em;
     }
-
-    .tbl-header{
-    
-    width: 80%;
-    margin-left: 3em;
-    }
     .tbl-content{
-    width: 80%;
-   
-
-    margin-left: 3em;
+        border: none;
+        height: 390px;
     }
+
+    table >tbody{
+        width: 100%;
+    }
+    table > thead > tr > th{
+        display: none;
+    }
+    table > tbody > tr > td{
+        display: block;
+        width: 100%;
+        text-align: right;
+        margin: 0;
+        padding: 6px;
+        border-spacing: 0;
+    }
+    table > tbody > tr > td::before{
+        content: attr(data-label);
+        display: inline;
+        float: left;
+        padding: 7px;
+        margin: -5px;
+        background-color: #8e44ad;
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-size: 14px;
+        color: var(--login-bg);
+        width: 33%;
+        text-align: left;
+    }
+    .buttonDownload {
+        padding: 5px 30px;
+    }
+
+
     .inputs-form-inicio form {
         width: 18em;
         height: 15em;
-        display: inline-block;
-        
-        
+        display: inline-block;  
     }
 
     .content-select {
         width: 14em;
-        padding-left: 25px;
-        
-        
+        padding-left: 25px;   
     }
     .inputs-form-inicio .btn-buscar{
         margin: auto;
@@ -956,15 +1013,26 @@ tbody tr:hover{
 
     .input-wrapper input {
         width: 10em;
-        margin-left: 3em;
-       
+        margin-left: 3em; 
     }
-
-
+    .content-select  select{
+        font-size: 1.1em;
+    }
 }
 
+@media screen and (max-width:528px){
+    table > tbody > tr > td::before{
 
-@media screen and (max-width:500px) {
+ 
+        margin: -5px;
+        font-size: 14px;
+
+        width: 34%;
+
+    }
+    
+}
+@media screen and (max-width:504px) {
     .container-form {
         width: 90%;
 
@@ -974,17 +1042,28 @@ tbody tr:hover{
         height: 65em;
     }
 
-    .tbl-header{
-    
-    width: 90%;
-    margin-left: 1em;
-    }
+   
     .tbl-content{
     width: 90%;
    
 
     margin-left: 1em;
     }
+
+
+    table > tbody > tr > td::before{
+
+        padding: 7px;
+        margin: -5px;
+        font-size: 11px;
+
+        width: 33%;
+
+    }
+    .buttonDownload {
+        padding: 5px 30px;
+    }
+
     .inputs-form-inicio form {
         width: 18em;
         height: 15em;
@@ -1011,6 +1090,36 @@ tbody tr:hover{
     }
 
 
+}
+@media screen and (max-width:393px){
+    table > tbody > tr > td::before{
+
+ 
+        margin: -5px;
+        font-size: 11px;
+
+        width: 34%;
+
+    }
+    
+}
+
+@media screen and (max-width:380px){
+    table > tbody > tr > td::before{
+        width: 38%;
+    } 
+}
+@media screen and (max-width:360px){
+    table > tbody > tr > td::before{
+        font-size: 11px;
+        width: 38%;
+
+    }
+
+    .buttonDownload {
+        padding: 5px 15px;
+    }
+    
 }
 
 /*----------------------------------------fin procesos------------------------------------------*/
