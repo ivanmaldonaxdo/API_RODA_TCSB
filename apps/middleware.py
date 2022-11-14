@@ -2,7 +2,7 @@ import logging
 from django.utils.deprecation import MiddlewareMixin
 import json
 from django.urls import resolve
-from apps.management.models import LogSistema
+from apps.management.models import LogSistema, Documento
 from apps.OCR.APIS.APIOpenKM import OpenKm
 class LogRestMiddleware:
 
@@ -39,11 +39,17 @@ class LogRestMiddleware:
                     api=api,
                     id_user=user,
                     payload=request_data,
+                    cliente= 'No aplica',
                     method=method,
                     response=response_body,
                     status_code=response.status_code,
-                
                 )
+                if url_name == 'search_docs-process_docs':
+                    cliente = Documento.objects.get(id=response_body["DodcID"])
+                    data['cliente'] = cliente.sucursal.rut_sucursal
+                elif url_name == 'search_docs-search_docs':
+                    data['cliente'] = response_body["rut_receptor"]
+
                 # create instance of model
                 m = LogSistema(**data)
                 # don't forget to save to database!
