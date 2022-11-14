@@ -3,8 +3,7 @@ from django.utils.deprecation import MiddlewareMixin
 import json
 from django.urls import resolve
 from apps.management.models import LogSistema
-
-
+from apps.OCR.APIS.APIOpenKM import OpenKm
 class LogRestMiddleware:
 
     def __init__(self, get_response):
@@ -49,8 +48,13 @@ class LogRestMiddleware:
                 m = LogSistema(**data)
                 # don't forget to save to database!
                 m.save()
-                if url_name == 'search_docs-process_docs':
-                    print('Actualizando metadata')
+                if url_name == 'search_docs-process_docs' and m.status_code == 200:
+                    openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
+                    uuid= response_body["uuid"]
+                    codigo = m.id
+                    openkm.set_metadata_processed(uuid,codigo)
+                    print('metadata actualizada')
+
         else:
             return response
 
