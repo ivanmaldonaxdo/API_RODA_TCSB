@@ -36,10 +36,11 @@
                           <thead>
                             <tr>
                                 <th class="centrado">Folio</th>
-                                <th class="centrado">Nombre archivo</th>
                                 <th class="centrado">Rut cliente</th>
                                 <th class="centrado">Tipo Servicio</th>
                                 <th class="centrado">Procesar</th>
+                                <th class="centrado">Detalle</th>
+
 
                             </tr>
                           </thead>
@@ -52,7 +53,6 @@
                             <tr>
                                 {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
                                 <td class="centrado"> {{p.folio}} </td>
-                                <td class="centrado">{{p.nomDoc}}</th>
                                 <td class="centrado">{{p.rut_receptor}}</th>
                                 <td class="centrado"> {{p.tipo_servicio}} </td>
                                 <td class="centrado"><button class="buttonDownload">Procesar</button> </td>
