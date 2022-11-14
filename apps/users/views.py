@@ -33,12 +33,12 @@ class authUser(APIView):
         tiempo_creacion = datetime.datetime.now(settings_time_zone)
         tiempo_expiracion = datetime.datetime.now(settings_time_zone)+settings.TOKEN_EXPIRED_AFTER
 
-        all_sessions = Session.objects.filter(expire_date__gte = tiempo_creacion)
-        if all_sessions.exists():
-            for session in all_sessions:
-                session_data = session.get_decoded()
-                if user.id == int(session_data.get('_auth_user_id')):
-                    session.delete()
+        # all_sessions = Session.objects.filter(expire_date__gte = tiempo_creacion)
+        # if all_sessions.exists():
+        #     for session in all_sessions:
+        #         session_data = session.get_decoded()
+        #         if user.id == int(session_data.get('_auth_user_id')):
+        #             session.delete()
                     
         payload = {
             'id':user.id,
@@ -46,7 +46,7 @@ class authUser(APIView):
             'iat': tiempo_creacion
         }
         
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
 
         response = Response()
 

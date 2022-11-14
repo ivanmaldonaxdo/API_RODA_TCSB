@@ -11,7 +11,7 @@ from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import FilterSet
 #Libreria
-from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
+from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots, format_rut_with_dots
 from apps.users.authentication import JWTAuthentication
 
 class ProvFilter(FilterSet):
@@ -44,17 +44,10 @@ class ProveedorViewSets(viewsets.GenericViewSet):
     def create(self, request):
         prov_serializer = self.serializer_class(data=request.data)
         if prov_serializer.is_valid():
-            rut = prov_serializer.validated_data.get('rut_proveedor')
-            rut = format_rut_without_dots(rut)
-            if len(rut)<=10 and is_valid_rut(rut):
-                prov_serializer.save()
-                return Response({
-                    'message': 'Proveedor registrado correctamente'
-                }, status=status.HTTP_201_CREATED)
-            else:
-                return Response({
-                    'message':'El rut ingresado no es valido',
-                }, status= status.HTTP_400_BAD_REQUEST)
+            prov_serializer.save()
+            return Response({
+                'message': 'Proveedor registrado correctamente'
+            }, status=status.HTTP_201_CREATED)
         return Response({
             'message':'Error en el registro',
             'errors': prov_serializer.errors
@@ -79,17 +72,10 @@ class ProveedorViewSets(viewsets.GenericViewSet):
         proveedor = self.get_object(pk)
         serializer = self.update_serializer_class(proveedor, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
-            rut = serializer.validated_data.get('rut_proveedor')
-            rut = format_rut_without_dots(rut)
-            if len(rut)<=10 and is_valid_rut(rut):
-                serializer.save()
-                return Response({'message':'Proveedor actualizado correctamente',
-                    'Nueva informacion':serializer.data},
-                    status=status.HTTP_200_OK)
-            else:
-                return Response({
-                    'message':'El rut ingresado no es valido',
-                }, status= status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response({'message':'Proveedor actualizado correctamente',
+                'Nueva informacion':serializer.data},
+                status=status.HTTP_200_OK)
         return Response({
              'message':'Error en la actualizacion',
              'errors': serializer.errors
