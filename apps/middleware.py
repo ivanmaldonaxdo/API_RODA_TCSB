@@ -14,8 +14,6 @@ class LogRestMiddleware:
         
         url_name = resolve(request.path_info).url_name
         namespace = resolve(request.path_info).namespace
-        print(namespace)
-        print(url_name)
         if namespace == 'admin':
                 return self.get_response(request)
 
@@ -51,6 +49,8 @@ class LogRestMiddleware:
                 m = LogSistema(**data)
                 # don't forget to save to database!
                 m.save()
+                if url_name == 'search_docs-process_docs':
+                    print('Actualizando metadata')
         else:
             return response
 
