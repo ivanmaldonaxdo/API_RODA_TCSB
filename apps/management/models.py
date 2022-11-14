@@ -2,11 +2,10 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
 from django.utils import timezone
-from drf_api_logger.models import APILogsModel
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from apps.management.storage import OverwriteStorage
-from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots, format_rut_with_dots
+from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 from rest_framework import serializers
 
 def validar_rut(value):
@@ -45,7 +44,7 @@ class Cliente(models.Model):
         return self.nom_cli
     
     def save(self, *args, **kwargs):
-        self.rut_cliente = format_rut_with_dots(self.rut_cliente)
+        self.rut_cliente = format_rut_without_dots(self.rut_cliente)
         super(Cliente, self).save(*args, **kwargs)
     
     class Meta:
@@ -71,7 +70,7 @@ class Proveedor(models.Model):
         return self.nom_proveedor
     
     def save(self, *args, **kwargs):
-        self.rut_proveedor = format_rut_with_dots(self.rut_proveedor)
+        self.rut_proveedor = format_rut_without_dots(self.rut_proveedor)
         super(Proveedor, self).save(*args, **kwargs)
     
     
@@ -145,7 +144,7 @@ class Sucursal(models.Model):
         return str(self.cod) +' - '+ str(self.nom_sucursal)
 
     def save(self, *args, **kwargs):
-        self.rut_sucursal = format_rut_with_dots(self.rut_sucursal)
+        self.rut_sucursal = format_rut_without_dots(self.rut_sucursal)
         super(Sucursal, self).save(*args, **kwargs)
     
     class Meta:
@@ -173,4 +172,19 @@ class Contrato_servicio(models.Model):
 
     def __str__(self):
         return self.proveedor + ' - '+ str(self.num_cliente)
+
+
+class LogSistema(models.Model):
+    api=models.CharField('URL',max_length=255, blank=False)
+    id_user=models.IntegerField('Id Usuario',  blank=False)
+    cliente = models.CharField('Cliente', max_length=255, default='No Aplica')
+    payload=models.CharField('Payload',max_length=255, blank=False)
+    method=models.CharField('Tipo de peticion',max_length=255, blank=False)
+    response=models.TextField()
+    status_code=models.PositiveSmallIntegerField('Status Respuesta')
+    fecha_hora = models.DateTimeField('Fecha y Hora', default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
+
 

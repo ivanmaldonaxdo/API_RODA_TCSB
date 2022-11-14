@@ -9,13 +9,14 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal,Documento
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema
 from django.db.models import Q
 import json
 import os
 import csv
 from django.conf import settings# from django.core.files.storage
 from django.core.files.base import ContentFile
+from django.forms.models import model_to_dict
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
@@ -27,15 +28,17 @@ class OpenKMViewSet(ViewSet):
                 filtros[k] = None
         print("Filtros {} -".format(filtros))
         return filtros
-    
+
     @action(detail=False,methods = ['POST'],url_name="search_docs")
     # @action(detail = False, methods = ['post'])
     def search_docs(self,request):
         filtros = dict(request.data)
         # diction = {}
+        openkm = self.openkm_creds()
+        print("OPKM OBJECT ", openkm.auth_creds.password)
         filtros = self.format_filtros(filtros)
         print(filtros)
-        docs = self.openkm.search_docs(
+        docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
             _rutCli = filtros.get('rut_receptor')
@@ -92,9 +95,12 @@ class OpenKMViewSet(ViewSet):
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
-                self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
+                id_doc = doc.id
+                print(id_doc)
+                # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado',
+                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
+
                     }, status=status.HTTP_200_OK,headers=None)
                 
                 # folio,rutCli = metadata.get("folio"), metadata.get("rut")
@@ -112,7 +118,56 @@ class OpenKMViewSet(ViewSet):
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
             
+    @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
+    def probar_creds(self,request):
+        
+        credenciales = self.credenciales()
+        # openkm_cred = credenciales.
+        print("")
+        print("credenciales  ",credenciales)
+
+        # print("openkm ",openkm_cred)
+        # print()
+        # sis.get("")
+        return Response({
+                'message':'Creds'
+            }, status=status.HTTP_200_OK,headers=None)
 
 
+    ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA APIOpenKM   
+    def openkm_creds(self):
+        creds = self.credenciales()
+        opk = creds.get("openkm")
+        openkm = OpenKm(
+            opk.get("username"), 
+            opk.get("password"), 
+            opk.get("end_point_base")
+        )
+        return openkm
+    ######### ESTA FUNCION SE ENCARGA DE LEER EL ARCHIVO DE CREDENCIALES DE SISTEMA
+    def credenciales(self):
+        sistema = Sistema.objects.all().first()
+        cantidad = Sistema.objects.count()
+        sis = model_to_dict(sistema)
+        sistema_file ="media" + "/" + str(sis.get("credencial"))
+        print(sistema_file)
+        # sistema = 
+        print("",cantidad, " - " ,sis)
+        # Opening JSON file
+        json_creds = dict()
 
+        ######### LECTURA DE ARCHIVO ##########
+        with open(sistema_file) as json_file:
+            data = json.load(json_file)
+            print(data)
+            json_creds.update(data)
+        
+        creds = dict()
+        ########## FORMATEANDO DE LISTA CREDENCIALES A UN DICCIONARIO PARA ACCEDER A CADA CREDENCIAL POR SU NOMBRE
+        for cred in json_creds.get("credenciales"):
+            creds.update(cred)
+        # openkm_sis, aws_sis = creds.get("openkm"), creds.get("aws")
+        print(creds)
+        return creds
+    
     #REFERENCIAS https://realpython.com/python-csv/
