@@ -13,9 +13,12 @@ class LogRestMiddleware:
         
         url_name = resolve(request.path_info).url_name
         namespace = resolve(request.path_info).namespace
+
         if namespace == 'admin':
                 return self.get_response(request)
-
+        if url_name == 'logout':
+                return self.get_response(request)
+        
         request_data = ''
         try:
             request_data = json.loads(request.body) if request.body else ''
@@ -44,11 +47,9 @@ class LogRestMiddleware:
                     response=response_body,
                     status_code=response.status_code,
                 )
-                if url_name == 'search_docs-process_docs':
+                if url_name == 'search_docs-process_docs' and data['status_code'] == 200:
                     cliente = Documento.objects.get(id=response_body["DodcID"])
                     data['cliente'] = cliente.sucursal.rut_sucursal
-                elif url_name == 'search_docs-search_docs':
-                    data['cliente'] = response_body["rut_receptor"]
 
                 # create instance of model
                 m = LogSistema(**data)

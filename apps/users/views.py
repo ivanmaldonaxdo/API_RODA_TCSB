@@ -62,8 +62,8 @@ class authUser(APIView):
 class Logout(APIView): 
     def get(self, request, *args, **kgwars):
         response = Response()
-        response.delete_cookie('jwt')
         logout(request)
+        response.delete_cookie('jwt')
         response.status_code= status.HTTP_200_OK
         response.data = {
             'message': 'Se ha cerrado su sesion'
