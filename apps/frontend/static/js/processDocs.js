@@ -150,7 +150,6 @@ function downloadDocs(index_row,documento){
             swal.close()
             if (status_code >= 400 ){
                 // console.log( response.json().catch(err => console.error(err)));
-                // console.log("No se ha encontrado informacion");
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'error',
@@ -178,7 +177,6 @@ function downloadDocs(index_row,documento){
             }
 
             console.log("Contenido adquirido");
-        //    console.log(response.json().MessagePort);
            return content;
         })
     });
@@ -187,9 +185,7 @@ function downloadDocs(index_row,documento){
 
 //FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
-{
-    // console.log(doc.uuid);
-    const tbody = document.querySelector("#tablaJS");
+{    const tbody = document.querySelector("#tablaJS");
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
