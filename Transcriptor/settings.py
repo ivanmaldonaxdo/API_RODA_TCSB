@@ -52,6 +52,7 @@ THIRD_APPS = [
     'django_filters',
     'rut_chile',
     'drf_api_logger',
+    'solo',
     'django_crontab',
     "corsheaders",
 ]
@@ -79,9 +80,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    'apps.middleware.LogRestMiddleware',
 ]
 
 CORS_ALLOW_ALL_ORIGINS: True
