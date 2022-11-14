@@ -4,6 +4,7 @@ import json
 from requests.adapters import HTTPAdapter, Retry
 import time
 import re
+from django.utils import timezone
 
 #************* CLASE API OPENKM **************
 class OpenKm():
@@ -161,6 +162,34 @@ class OpenKm():
         print("Codigo de estado {}" .format(status_code))
         # return True if status_code in (200,399) else False
         return False if status_code != 204 else True
+    
+    # def has_tag(self,_uuid):
+    #     grpName = 'okg:encCobro' #GRUPO DE METADATAS
+    #     url = "{}{}" .format(self.end_point_base,'note/list')
+    #     params = {'nodeId':_uuid,'grpName':grpName}
+    #     response = self.get_request(url,_params = params, _headers = None)
+    #     status_code = response.status_code
+    #     if (status_code in range(200,399)
+    #             and 'content-type' in response.headers
+    #             and 'application/json' in response.headers['content-type']):
+    #         parsed = response.json()
+    #         # print("tiene grupo ? = ",has_group)
+    #         #LABEL ES EL NOMBRE DE LA PROPIEDAD, VALUE SU VALUE
+    #         return parsed
+    #     else:
+    #         print("TAG - (ACTUALMENTE NO CONTIENE TAG) ERROR EN CODIGO => {} ".format(status_code))
+    #         return False
+    
+    # def set_tag_nonprocessed(self, _uuid):
+    #     grpName = 'okg:encCobro' #GRUPO DE METADATAS
+    #     url = "{}{}" .format(self.end_point_base,'note/add')
+    #     params = {'nodeId':_uuid,'grpName':grpName}
+    #     data = {[{'Error en procesar archivo, con salida de error: test'}]}
+    #     response = self.put_request(url, data, _params = params)
+    #     status_code = response.status_code
+    #     print("")
+    #     print("Codigo de estado {}" .format(status_code))
+    #     # return True if status_code in (200,399) else False
 
 
 #REFERENCIAS 
