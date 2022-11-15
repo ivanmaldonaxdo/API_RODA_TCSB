@@ -194,7 +194,7 @@ function createRowDoc(doc,event)
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
     let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' >Procesar</button>`;
-    let button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button'>Ver detalle</button>`;
+    let button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button'>Detalle</button>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
     let form_detalle =  `<form action="">${button_detalle}</form>`;
