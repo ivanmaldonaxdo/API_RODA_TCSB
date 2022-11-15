@@ -17,6 +17,8 @@ def homeinfo(request):
 def processed(request):
     return render(request, 'frontend/processed.html')
 
+def cron(request):
+    return render(request,'frontend/cron.html')
 
 def test(request):
     return render(request, 'frontend/test.html')
