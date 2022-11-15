@@ -98,10 +98,36 @@ function getDocs(folio,tpServicio, rutCli = null ) {
      });
 
 }
-
-
+//El es el elemento por ej: "uuid", index la fila en es que se encuentra
+let getValueElement = (el,index) =>{
+    return document.getElementsByName(el).item(index).value;
+}
 //onclick="myFunction(this)"
 // function myFunction()
+function EditRecordForEditDemo(element) {
+    var rowJavascript = element.parentNode.parentNode;
+    var rowjQuery = $(element).closest("tr");
+    alert("JavaScript Row Index : " + (rowJavascript.rowIndex - 1) + "\njQuery Row Index : " + (rowjQuery[0].rowIndex - 1));
+}
+function btnProcessDocs(elem) {
+    let fila = elem.parentNode.parentNode.parentNode;
+    let indexRow = fila.rowIndex
+    const documento = {
+        uuid : getValueElement('uuid',indexRow),
+        nomDoc : getValueElement('nomDoc',indexRow),
+        rut_emisor: getValueElement('RutEmi',indexRow)
+    };
+    Swal.fire({
+        title: 'Procesando documento....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            contenido = processDocs(indexRow,documento);
+            // console.log(contenido);            
+        },
+    
+    })
+}
 function getIndexTR(x) {
     let index_tb = x.rowIndex;
     let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
@@ -114,6 +140,7 @@ function getIndexTR(x) {
     // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
+<<<<<<< HEAD
 
     Swal.fire({
         title: 'Procesando documento....',
@@ -126,11 +153,12 @@ function getIndexTR(x) {
   
     })
 
+=======
+>>>>>>> origin/ivan_branch
 }
 
-
-function downloadDocs(index_row,documento){
-    console.log("Index :", index_row);
+function processDocs(indexRow,documento){
+    console.log("Index :", indexRow);
     console.log("Objeto", documento.uuid);
     // const url = 'http://3.80.228.126/documentos/process_docs/';
     const url = 'http://localhost:8000/documentos/process_docs/';
@@ -172,7 +200,7 @@ function downloadDocs(index_row,documento){
                     showConfirmButton: false,
                     timer: 3000
                 })
-                deleteRow(index_row);
+                deleteRow(indexRow);
 
             }
 
@@ -193,20 +221,24 @@ function createRowDoc(doc,event)
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
-    let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' >Procesar</button>`;
-    let button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button'>Detalle</button>`;
+    
+    let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
+        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc">Ver detalle</button>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
-    let form_detalle =  `<form action="">${button_detalle}</form>`;
-    let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${button}</form>`;
+    //////////// FORMS PARA BOTONES
+    let form_detalle =  `<form action="">${btnDetalle}</form>`;
+    let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${btnProcesar}</form>`;
+
+
     let tdfolio = `<td class = "${clase}" data-label="Folio"> ${doc.folio}</td>`,
         // tdnomDoc = `<td class = "${clase}" data-label="Nombre archivo"> ${doc.nomDoc}</td>`,
         tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
-        tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`;
+        tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
         tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
 
-    body += `<tr onclick = "getIndexTR(this)">${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
+    body += `<tr>${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
     tbody.innerHTML += body;
     
 }
