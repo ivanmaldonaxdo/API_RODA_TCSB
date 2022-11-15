@@ -102,6 +102,19 @@ function getDocs(folio,tpServicio, rutCli = null ) {
 
 //onclick="myFunction(this)"
 // function myFunction()
+function EditRecordForEditDemo(element) {
+    var rowJavascript = element.parentNode.parentNode;
+    var rowjQuery = $(element).closest("tr");
+    alert("JavaScript Row Index : " + (rowJavascript.rowIndex - 1) + "\njQuery Row Index : " + (rowjQuery[0].rowIndex - 1));
+}
+function procesarPrueba(elem) {
+    console.log(elem.parentNode.parentNode);
+    let fila = elem.parentNode.parentNode;
+    // let btn_procesar = document.getElementById('process-doc')
+    // btn_procesar.addEventListener('click', function (e) {
+    //     console.log(e.target.parentNode);
+    // })
+}
 function getIndexTR(x) {
     let index_tb = x.rowIndex;
     let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
@@ -116,27 +129,22 @@ function getIndexTR(x) {
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
     //detalleDoc
     //process-doc
-    let btn_detalle = document.getElementsByName('detalleDoc').item(index_tb);
-    btn_detalle.addEventListener('click', function (e) {
-        console.log("XDDDD: ", index_tb);
-        
-    })
 
-
-    
+    let btn_procesar = document.getElementsByName('process-doc').item(index_tb),
+        btn_detalle = document.getElementsByName('detalleDoc').item(index_tb);
     // Swal.fire({
     //     title: 'Procesando documento....',
     //     timerProgressBar: true,
     //     didOpen: () => {
     //         Swal.showLoading()
-    //         console.log(contenido);            contenido = downloadDocs(index_tb,documento);
+    //         contenido = downloadDocs(index_tb,documento);
+    //         // console.log(contenido);            
 
     //     },
   
     // })
 
 }
-
 
 function downloadDocs(index_row,documento){
     console.log("Index :", index_row);
@@ -205,7 +213,7 @@ function createRowDoc(doc,event)
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
     
-    let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' >Procesar</button>`,
+    let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "procesarPrueba(this)">Procesar</button>`,
         button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc">Ver detalle</button>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
@@ -220,7 +228,9 @@ function createRowDoc(doc,event)
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`;
         tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
 
-    body += `<tr onclick = "getIndexTR(this)">${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
+    body += `<tr>${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
+
+    // body += `<tr onclick = "getIndexTR(this)">${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
     tbody.innerHTML += body;
     
 }
