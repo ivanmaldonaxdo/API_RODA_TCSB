@@ -3,9 +3,11 @@
 {% block contenido %}
 
 
-
     <div class="bk">
+
+
         <div class="container-form">
+        
             <h1 class="centrado">Busqueda de archivos a procesar</h1>
             <div class="inputs-form-inicio">
 
@@ -65,23 +67,57 @@
                     </div>
                 </div>
             </div>
+            
 
-        </div>
+            <div class="modal-container">
+                
+                <div class="amodal modal-close">
+                    <p class="close">X</p>
+                    <div class="modal-texto">
+                        <h2>Detalle</h2>
+                        
+                        <form class="detalleform" action="" method="post">
+                            <div class="grupo">
+                                <label>Folio</label>
+                                
+                                <input class="inputdetalle" readonly onmousedown="return false;" type="txt">
+                                
+                            </div>
+                            <div class="grupo">
+                                <label>Rut emisior</label>
+                                
+                                <input class="inputdetalle" readonly onmousedown="return false;" type="txt">
+                                
+                            </div>
+                            <div class="grupo">
+                                <label>Nombre archivo</label>
+                                
+                                <input class="inputdetalle" readonly onmousedown="return false;" type="txt">
+                                
+                            </div>
+                            <div class="grupo">
+                                <label>fecha emision</label>
+                                
+                                <input class="inputdetalle" readonly onmousedown="return false;" type="txt">
+                                
+                            </div>
+                       
+                            
+                        </form> 
 
-        <div class="modal-container">
-                
-            <div class="modal modal-close">
-                <p class="close">X</p>
-                
-                <div class="modal-textos">
-                    <h2>Detalle</h2>
-                    <p>aasdnajksndjkdnsajknsdj</p>
+                    </div>
+
                 </div>
+        
             </div>
         </div>
 
 
+
     </div>
+
+
+
     <script type="text/javascript" src="{% static 'js/processDocs.js' %}"></script>
     {% comment %} <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> {% endcomment %}
     {% comment %} <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script> {% endcomment %}

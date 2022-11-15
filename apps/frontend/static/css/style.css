@@ -834,6 +834,7 @@ tbody tr:hover{
 
 .bk {
     height: 100vh;
+    display: block;
     /*
     background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
 
@@ -1379,21 +1380,103 @@ tbody tr:hover{
     align-items: center;
 }
 
-.modal{
+.amodal{
     width: 40%;
     height: 50%;
     background: #fff;
-    /*overflow: hidden;*/
-    display: flex;
+    text-align: center;
+    /*display: flex;*/
     flex-direction: column;
     justify-content: space-evenly;
     position: relative;
     transition: transform 1s;
     transform: translateY(0%);
+    border-radius: 10px;
+}
+.amodal h2{
+    text-align: center;
 }
 
+
 .modal-close{
-    transform: translateY();
+    transform: translateY(-200%);
 }
+
+.close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: #c44a4a;
+    color: #fff;
+    line-height: 25px;
+    cursor: pointer;
+    border-radius: 40%;
+    
+}
+
+
+.modal-texto{
+padding-top: 15px;
+}
+
+.inputdetalle{
+    background-color: #eee;
+    font-size: 1.1rem;
+    width: 20em;
+    height: 40px;
+    border-radius: 10px;
+    color: #8e44ad;
+    box-shadow: 0 0.4rem #dfd9d9;
+    cursor: pointer;
+    outline: none !important;
+    border: 1px solid #8e44ad;
+    background-color: #eee;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 0.4rem #dfd9d9;
+    border: 1px solid #8e44ad;
+    
+
+}
+
+
+form .grupo{
+    margin: 25px;
+}
+
+
+form label{
+    font-size: 1.2em;
+    color: #674baf;
+    width: 200px;
+    background: aqua;
+    
+}
+
+.detalleform{
+    margin-top: 30px;
+}
+
+
+/*
+form .inputdetalle{
+    background: none;
+    color: #c6c6c6;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 50%;
+    border: none;
+    border-bottom: 1px solid #49454567;
+}
+
+form input:focus{
+    outline: none !important;
+    color: #5e5d5d;
+}
+*/
 
 

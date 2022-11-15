@@ -128,6 +128,45 @@ function btnProcessDocs(elem) {
     
     })
 }
+//boton para abrir y cerrar detalle
+function btndetalleDocs(elem){
+    let fila = elem.parentNode.parentNode.parentNode;
+    let indexRow = fila.rowIndex
+    let cerrar =document.querySelectorAll(".close")[0];
+    let modal =document.querySelectorAll(".amodal")[0];
+    let modalc =document.querySelectorAll(".modal-container")[0];
+
+    modalc.style.opacity = "1";
+    modalc.style.visibility = "visible";
+    modal.classList.toggle("modal-close");
+
+}
+let cerrar =document.querySelectorAll(".close")[0];
+let modal =document.querySelectorAll(".amodal")[0];
+let modalc =document.querySelectorAll(".modal-container")[0];
+
+cerrar.addEventListener("click", function(){
+    modal.classList.toggle("modal-close");
+
+    setTimeout(function() {
+        modalc.style.opacity = "0";
+        modalc.style.visibility = "hidden";
+    }, 600);
+
+});
+
+window.addEventListener("click", function (e){
+    if(e.target == modalc){
+        modal.classList.toggle("modal-close");
+
+        setTimeout(function() {
+            modalc.style.opacity = "0";
+            modalc.style.visibility = "hidden";
+        }, 600);
+    }
+})
+
+
 function getIndexTR(x) {
     let index_tb = x.rowIndex;
     let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
@@ -140,7 +179,6 @@ function getIndexTR(x) {
     // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
-<<<<<<< HEAD
 
     Swal.fire({
         title: 'Procesando documento....',
@@ -153,8 +191,6 @@ function getIndexTR(x) {
   
     })
 
-=======
->>>>>>> origin/ivan_branch
 }
 
 function processDocs(indexRow,documento){
@@ -223,7 +259,7 @@ function createRowDoc(doc,event)
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
     
     let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
-        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc">Ver detalle</button>`;
+        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
     //////////// FORMS PARA BOTONES
