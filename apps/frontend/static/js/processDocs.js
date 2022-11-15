@@ -150,7 +150,6 @@ function downloadDocs(index_row,documento){
             swal.close()
             if (status_code >= 400 ){
                 // console.log( response.json().catch(err => console.error(err)));
-                // console.log("No se ha encontrado informacion");
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'error',
@@ -178,7 +177,6 @@ function downloadDocs(index_row,documento){
             }
 
             console.log("Contenido adquirido");
-        //    console.log(response.json().MessagePort);
            return content;
         })
     });
@@ -187,9 +185,7 @@ function downloadDocs(index_row,documento){
 
 //FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
-{
-    // console.log(doc.uuid);
-    const tbody = document.querySelector("#tablaJS");
+{    const tbody = document.querySelector("#tablaJS");
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
@@ -198,16 +194,19 @@ function createRowDoc(doc,event)
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
     let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' >Procesar</button>`;
+    let button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button'>Ver detalle</button>`;
+
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
-    
+    let form_detalle =  `<form action="">${button_detalle}</form>`;
     let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${button}</form>`;
     let tdfolio = `<td class = "${clase}" data-label="Folio"> ${doc.folio}</td>`,
-        tdnomDoc = `<td class = "${clase}" data-label="Nombre archivo"> ${doc.nomDoc}</td>`,
+        // tdnomDoc = `<td class = "${clase}" data-label="Nombre archivo"> ${doc.nomDoc}</td>`,
         tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`;
+        tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
 
-    body += `<tr onclick = "getIndexTR(this)">${tdfolio}${tdnomDoc}${tdRutReceptor}${tdTpServicio}${tdProcesar}</tr>`;
+    body += `<tr onclick = "getIndexTR(this)">${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
     tbody.innerHTML += body;
     
 }

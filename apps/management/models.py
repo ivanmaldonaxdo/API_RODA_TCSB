@@ -185,6 +185,6 @@ class LogSistema(models.Model):
     fecha_hora = models.DateTimeField('Fecha y Hora', default=timezone.now)
 
     def __str__(self):
-        return str(self.id) + self.api
+        return str(self.id)
 
 

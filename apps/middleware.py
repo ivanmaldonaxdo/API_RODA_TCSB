@@ -2,9 +2,8 @@ import logging
 from django.utils.deprecation import MiddlewareMixin
 import json
 from django.urls import resolve
-from apps.management.models import LogSistema
-
-
+from apps.management.models import LogSistema, Documento
+from apps.OCR.APIS.APIOpenKM import OpenKm
 class LogRestMiddleware:
 
     def __init__(self, get_response):
@@ -14,8 +13,6 @@ class LogRestMiddleware:
         
         url_name = resolve(request.path_info).url_name
         namespace = resolve(request.path_info).namespace
-        print(namespace)
-        print(url_name)
         if namespace == 'admin':
                 return self.get_response(request)
 
@@ -42,15 +39,28 @@ class LogRestMiddleware:
                     api=api,
                     id_user=user,
                     payload=request_data,
+                    cliente= 'No aplica',
                     method=method,
                     response=response_body,
                     status_code=response.status_code,
-                
                 )
+                if url_name == 'search_docs-process_docs':
+                    cliente = Documento.objects.get(id=response_body["DodcID"])
+                    data['cliente'] = cliente.sucursal.rut_sucursal
+                elif url_name == 'search_docs-search_docs':
+                    data['cliente'] = response_body["rut_receptor"]
+
                 # create instance of model
                 m = LogSistema(**data)
                 # don't forget to save to database!
                 m.save()
+                if url_name == 'search_docs-process_docs' and m.status_code == 200:
+                    openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
+                    uuid= response_body["uuid"]
+                    codigo = m.id
+                    openkm.set_metadata_processed(uuid,codigo)
+                    print('metadata actualizada')
+
         else:
             return response
 

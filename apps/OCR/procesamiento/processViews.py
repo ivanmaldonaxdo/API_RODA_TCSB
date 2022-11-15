@@ -95,9 +95,12 @@ class OpenKMViewSet(ViewSet):
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
-                self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
+                id_doc = doc.id
+                print(id_doc)
+                # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado',
+                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
+
                     }, status=status.HTTP_200_OK,headers=None)
                 
                 # folio,rutCli = metadata.get("folio"), metadata.get("rut")
