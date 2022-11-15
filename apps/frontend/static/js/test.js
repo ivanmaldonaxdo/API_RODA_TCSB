@@ -16,31 +16,11 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 ////////
 
-let folio = 11419589
-let tpServicio = null
-let rut = null
-document.getElementById("get-users").addEventListener('click', function(e){
-    getUser()
-    })
+var lasCookies = getCookie('rol');
+tabla = document.getElementsByClassName("bkcont")
 
+if (lasCookies=='Administrador'){
+    $(tabla).hide()
+    console.log('tablita ocultada mi rei')
+}
 
-
-    var url = 'http://localhost:8000/documentos/search_docs/'
-    function getUser(){
-        fetch(url,{
-            method:'POST',
-            headers:{
-            'Content-Type':'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body:JSON.stringify({
-                         "folio":folio,
-                         "tipo_servicio":tpServicio,
-                         "rut_receptor":rut
-                     })
-
-    })
-    .then((response) => {response.json().then(data => {    
-        console.log(data)
-    })});
-    }
