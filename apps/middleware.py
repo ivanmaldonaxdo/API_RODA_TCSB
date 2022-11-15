@@ -2,7 +2,7 @@ import logging
 from django.utils.deprecation import MiddlewareMixin
 import json
 from django.urls import resolve
-from apps.management.models import LogSistema
+from apps.management.models import LogSistema, Documento
 from apps.OCR.APIS.APIOpenKM import OpenKm
 class LogRestMiddleware:
 
@@ -13,9 +13,12 @@ class LogRestMiddleware:
         
         url_name = resolve(request.path_info).url_name
         namespace = resolve(request.path_info).namespace
+
         if namespace == 'admin':
                 return self.get_response(request)
-
+        if url_name == 'logout':
+                return self.get_response(request)
+        
         request_data = ''
         try:
             request_data = json.loads(request.body) if request.body else ''
@@ -39,11 +42,15 @@ class LogRestMiddleware:
                     api=api,
                     id_user=user,
                     payload=request_data,
+                    cliente= 'No aplica',
                     method=method,
                     response=response_body,
                     status_code=response.status_code,
-                
                 )
+                if url_name == 'search_docs-process_docs' and data['status_code'] == 200:
+                    cliente = Documento.objects.get(id=response_body["DodcID"])
+                    data['cliente'] = cliente.sucursal.rut_sucursal
+
                 # create instance of model
                 m = LogSistema(**data)
                 # don't forget to save to database!

@@ -33,12 +33,12 @@ class authUser(APIView):
         tiempo_creacion = datetime.datetime.now(settings_time_zone)
         tiempo_expiracion = datetime.datetime.now(settings_time_zone)+settings.TOKEN_EXPIRED_AFTER
 
-        all_sessions = Session.objects.filter(expire_date__gte = tiempo_creacion)
-        if all_sessions.exists():
-            for session in all_sessions:
-                session_data = session.get_decoded()
-                if user.id == int(session_data.get('_auth_user_id')):
-                    session.delete()
+        # all_sessions = Session.objects.filter(expire_date__gte = tiempo_creacion)
+        # if all_sessions.exists():
+        #     for session in all_sessions:
+        #         session_data = session.get_decoded()
+        #         if user.id == int(session_data.get('_auth_user_id')):
+        #             session.delete()
                     
         payload = {
             'id':user.id,
@@ -62,8 +62,8 @@ class authUser(APIView):
 class Logout(APIView): 
     def get(self, request, *args, **kgwars):
         response = Response()
-        response.delete_cookie('jwt')
         logout(request)
+        response.delete_cookie('jwt')
         response.status_code= status.HTTP_200_OK
         response.data = {
             'message': 'Se ha cerrado su sesion'

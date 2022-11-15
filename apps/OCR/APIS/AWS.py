@@ -8,8 +8,8 @@ import csv
 import time
 #from tabulate import tabulate
 import json
-from apps.OCR.APIS.textractByQueries import textract
-from apps.OCR.APIS.textractByTables import textractTB
+# from apps.OCR.APIS.textractByQueries import textract
+# from apps.OCR.APIS.textractByTables import textractTB
 import re
 
 # from apps.OCR.APIS.textractByQueries import textract, codigo_procesado
