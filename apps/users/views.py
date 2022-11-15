@@ -51,10 +51,12 @@ class authUser(APIView):
         response = Response()
 
         response.set_cookie(key='jwt', value=token, httponly=True)
+        response.set_cookie(key='rol', value=user.role)
         response.data = {
             'jwt':token,
             'message': 'Usuario autenticado',
         }
+
         login(request, user)
         response.status_code= status.HTTP_202_ACCEPTED
         return response
@@ -62,8 +64,9 @@ class authUser(APIView):
 class Logout(APIView): 
     def get(self, request, *args, **kgwars):
         response = Response()
-        response.delete_cookie('jwt')
         logout(request)
+        response.delete_cookie('jwt')
+        response.delete_cookie('rol')
         response.status_code= status.HTTP_200_OK
         response.data = {
             'message': 'Se ha cerrado su sesion'

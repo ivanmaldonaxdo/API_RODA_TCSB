@@ -114,17 +114,26 @@ function getIndexTR(x) {
     // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
-
-    Swal.fire({
-        title: 'Procesando documento....',
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            contenido = downloadDocs(index_tb,documento);
-            console.log(contenido);
-        },
-  
+    //detalleDoc
+    //process-doc
+    let btn_detalle = document.getElementsByName('detalleDoc').item(index_tb);
+    btn_detalle.addEventListener('click', function (e) {
+        console.log("XDDDD: ", index_tb);
+        
     })
+
+
+    
+    // Swal.fire({
+    //     title: 'Procesando documento....',
+    //     timerProgressBar: true,
+    //     didOpen: () => {
+    //         Swal.showLoading()
+    //         console.log(contenido);            contenido = downloadDocs(index_tb,documento);
+
+    //     },
+  
+    // })
 
 }
 
@@ -190,6 +199,8 @@ function createRowDoc(doc,event)
     let clase = "centrado",
         cssButton = "buttonDownload";
     // console.log(data_value);
+
+    ///////////////BOTONES
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
@@ -197,10 +208,12 @@ function createRowDoc(doc,event)
     let button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button'>Detalle</button>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
+    //////////// FORMS PARA BOTONES
     let form_detalle =  `<form action="">${button_detalle}</form>`;
     let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${button}</form>`;
+
+
     let tdfolio = `<td class = "${clase}" data-label="Folio"> ${doc.folio}</td>`,
-        // tdnomDoc = `<td class = "${clase}" data-label="Nombre archivo"> ${doc.nomDoc}</td>`,
         tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`;
