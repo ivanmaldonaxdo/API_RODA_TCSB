@@ -6,14 +6,23 @@ import sys
 import requests
 import json
 import time
+from apps.OCR.procesamiento.processViews import OpenKMViewSet
 
 
-def procesocompleto():   
+
+def procesocompleto(requests):   
     #aqui pondremos todo el proceso como tal y usaremos funciones de datetime para pauarlo 
     #en la funcion de abajo por lo que esta funcion sera llamada 
     #primero el proceso completo se usara de prueba y luego  se le ingresara una variable 
     # a la funcion para detenerlo por 'X' dias
-    print('aqui va el proceso completo')
+    Pcompleto = OpenKMViewSet()
+    Pcompleto.search_docs()
+    Pcompleto.process_docs()
+    Pcompleto.probar_creds()
+    Pcompleto.openkm_creds()
+    Pcompleto.credenciales()
+    print('funciona')
+    return HttpResponse("proceso funcionando")
 
 
 
@@ -27,4 +36,5 @@ def procesoautomatizado(request,x):
     if x>1 and x<30 :
         print('proceso detenido')
 
+    return HttpResponse (request)
      
