@@ -24,6 +24,9 @@ from rest_framework.decorators import action
 #Pcompleto.search_docs()
 #Pcompleto.process_docs()
 
+
+#metadata = self.openkm.get_metadata(data.get("uuid"))
+
 class procesoautomatico(ViewSet):
 
         @action(detail=False,methods = ['POST'],url_name="proceso_automatico")
@@ -32,8 +35,9 @@ class procesoautomatico(ViewSet):
          Pcompleto = OpenKMViewSet() 
 
          try:   
-                     Pcompleto.search_docs(request,folio='000079921')
-                     Pcompleto.process_docs(request) 
+                  data = Pcompleto.search_docs(request,folio='000079921')
+                  Pcompleto.process_docs(request,data) 
+
          except Exception as e:
             print(e)   
          return Response({'message':'archivo automatico no procesado'},status=status.HTTP_200_OK,headers=None)
