@@ -285,7 +285,7 @@ function createRowDoc(doc,event)
         btn_RutRecep = `<input type="hidden" id = "RutRecep" name="RutRecep" value="${doc.rut_receptor}"/>`;
         
     let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
-        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`
+        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`,
         btnFechaEmi = `<input type="hidden" id = "fechaEmi" name="fechaEmi" value="${fechaEmi}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
 
@@ -299,11 +299,18 @@ function createRowDoc(doc,event)
         tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
-        tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
+        tdDetalle = crearTd(clase,"Detalle",form_detalle);
+
+        // tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
 
     body += `<tr>${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
     tbody.innerHTML += body;
     
+}
+
+function crearTd(clase,dt_label,contenido) {
+    let td = `<td class = "${clase}" data-label="${dt_label}"> ${contenido}</td>`;
+    return td
 }
 function clearTable(){
     const table = document.querySelector("#tablaJS");
