@@ -472,7 +472,7 @@ nav #icon {
         background: #fff;
         color: #000000 !important;
         font-size: 23px;
-        /*cambiar color sjkdnkasjdnjkasdnksadnaskjdkasjdnjkasdnjkasdnjkasndjkasndjkasdnjkasnd*/
+       
     }
 
     nav ul.show {
@@ -1160,7 +1160,7 @@ tbody tr:hover{
     padding: 0.75rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.06);
-
+    
 
 }
 
@@ -1172,14 +1172,17 @@ tbody tr:hover{
 
     font-weight: 600;
     display: flex;
-    justify-content: space-between !important;
+    justify-content: space-between !important;/*asdnmkasdbkasbdasbdasdasdasdasdsadasdasdasdasdasdasdasdsadsdsadasd*/
+    
+}
 
+.ctacli{
+    color: #212529;
+    text-decoration: none !important;
 }
 
 .infocliente:hover {
-
     background: #c4c4c4;
-
 }
 
 .infocliente a:hover {
@@ -1481,4 +1484,5 @@ form input:focus{
 
 
 
+/*------------------------Fin modal-----------------------*/
 
