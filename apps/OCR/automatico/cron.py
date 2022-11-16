@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import GenericViewSet,ViewSet
+from django.shortcuts import get_object_or_404
 import sys
 import requests
 import json
@@ -24,10 +25,14 @@ from apps.OCR.procesamiento.processViews import OpenKMViewSet
 
 class procesoautomatico(ViewSet):
 
-        def procesocompleto(requests):
+
+        def procesocompleto(request):
+         
          Pcompleto = OpenKMViewSet() 
 
-         Pcompleto.search_docs()
-         print('tamos bien')
-         return render(requests,'cron.html')
-
+         try:   
+                     Pcompleto.search_docs(request,folio='000079921')
+                     Pcompleto.process_docs(request) 
+         except Exception as e:
+            print(e)   
+         return Response({'message':'archivo automatico no procesado'},status=status.HTTP_200_OK,headers=None)
