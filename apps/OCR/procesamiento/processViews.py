@@ -35,9 +35,8 @@ class OpenKMViewSet(ViewSet):
         filtros = dict(request.data)
         # diction = {}
         openkm = self.openkm_creds()
-        print("OPKM OBJECT ", openkm.auth_creds.password)
+        # print("OPKM OBJECT ", openkm.auth_creds.password)
         filtros = self.format_filtros(filtros)
-        print(filtros)
         docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
@@ -46,8 +45,6 @@ class OpenKMViewSet(ViewSet):
         # {"message: Data encontrada"},
         if docs:
             print("HAY ARCHIVOS")
-            print("cantidad => {}" .format(len(docs)))
-            print(docs)
             return Response(data = docs, status=status.HTTP_200_OK)
         else:   
             return Response({
@@ -134,7 +131,7 @@ class OpenKMViewSet(ViewSet):
             }, status=status.HTTP_200_OK,headers=None)
 
 
-    ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA APIOpenKM   
+    ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA CLASE APIOpenKM   
     def openkm_creds(self):
         creds = self.credenciales()
         opk = creds.get("openkm")
@@ -150,16 +147,16 @@ class OpenKMViewSet(ViewSet):
         cantidad = Sistema.objects.count()
         sis = model_to_dict(sistema)
         sistema_file ="media" + "/" + str(sis.get("credencial"))
-        print(sistema_file)
+        # print(sistema_file)
         # sistema = 
-        print("",cantidad, " - " ,sis)
+        # print("",cantidad, " - " ,sis)
         # Opening JSON file
         json_creds = dict()
 
         ######### LECTURA DE ARCHIVO ##########
         with open(sistema_file) as json_file:
             data = json.load(json_file)
-            print(data)
+            # print(data)
             json_creds.update(data)
         
         creds = dict()

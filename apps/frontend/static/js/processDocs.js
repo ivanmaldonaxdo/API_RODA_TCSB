@@ -212,9 +212,7 @@ function getIndexTR(x) {
             contenido = downloadDocs(index_tb,documento);
             console.log(contenido);
         },
-  
     })
-
 }
 
 function processDocs(indexRow,documento){
