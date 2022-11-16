@@ -36,6 +36,7 @@ def get_table_results(archivo,list_tablas,bucket = "rodatest-bucket"):
         return True
 
     warning = ""
+
     for page in doc.pages:
         # Print tables
         num_table = 1
@@ -44,14 +45,26 @@ def get_table_results(archivo,list_tablas,bucket = "rodatest-bucket"):
             print("********************")
             print("TABLA_" ,num_table)
             num_table+=1
-            if table_name not in list_tablas:
+            tabla_horiz = dict()
+            if table_name in list_tablas:
                 # print(table)
                 for r, row in enumerate(table.rows):
                     print(row)
                     print("")
-                    print("Largo fila", len(row.cells))
-                    # print(type(r))
-                    itemName  = ""
+                    cant_values = len(str(row.cells))
+                    pattern = "\[\]"
+                    print("Largo fila", len(cant_values))
+                    # m = re.split(r"\[\]", row)
+                    print(type(row.cells))
+
+                    # if cant_values >2:
+                    #     print(row.cells)
+
+                    #     m = list(map(lambda x: x, row.cells))
+                    #     print(m)
+
+                    # # print(type(r))
+                    # itemName  = ""
                     for c, cell in enumerate(row.cells):
                         # print("Table[{}][{}] = {}".format(r, c, cell.text))
                         if(c == 0):
