@@ -23,5 +23,3 @@ if (lasCookies=='Administrador'){
     console.log('tablita ocultada mi rei')
 }
 
-
-////////

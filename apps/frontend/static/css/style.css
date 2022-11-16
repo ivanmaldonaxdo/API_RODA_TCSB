@@ -1452,7 +1452,7 @@ form label{
     font-size: 1.2em;
     color: #674baf;
     width: 200px;
-    background: aqua;
+   /* background: aqua;*/
     
 }
 
@@ -1478,5 +1478,7 @@ form input:focus{
     color: #5e5d5d;
 }
 */
+
+
 
 
