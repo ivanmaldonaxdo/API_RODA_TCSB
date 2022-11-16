@@ -19,6 +19,7 @@ from apps.users.views import authUser, Logout
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 #path('procesoauto/', include('apps.OCR.automatico.routers')),
 
 urlpatterns = [
