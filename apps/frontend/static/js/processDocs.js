@@ -102,6 +102,18 @@ function getDocs(folio,tpServicio, rutCli = null ) {
 let getValueElement = (el,index) =>{
     return document.getElementsByName(el).item(index).value;
 }
+let getTextElement = (el,index) =>{
+    return document.getElementsByName(el).item(index).textContent;
+}
+
+let getValueByID = (el) =>{
+    return document.getElementById(el).value;
+}
+
+let setValueByID = (el,newValue) =>{
+    document.getElementById(el).value = newValue;
+}
+
 //onclick="myFunction(this)"
 // function myFunction()
 function EditRecordForEditDemo(element) {
@@ -132,6 +144,18 @@ function btnProcessDocs(elem) {
 function btndetalleDocs(elem){
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
+    console.log(indexRow);
+    console.log(getValueByID("mdFolio"));
+    console.log(getTextElement('tdFolio',indexRow));
+    setValueByID("mdFolio",getTextElement('tdFolio',indexRow));
+    setValueByID("mdNomDoc",getValueElement('nomDoc',indexRow));
+    setValueByID("mdFechaEmi",getValueElement('fechaEmi',indexRow));
+    setValueByID("mdRutEmi",getValueElement('RutEmi',indexRow));
+
+
+    
+    // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
+
     let cerrar =document.querySelectorAll(".close")[0];
     let modal =document.querySelectorAll(".amodal")[0];
     let modalc =document.querySelectorAll(".modal-container")[0];
@@ -249,26 +273,29 @@ function processDocs(indexRow,documento){
 
 //FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
-{    const tbody = document.querySelector("#tablaJS");
+{   
+    const tbody = document.querySelector("#tablaJS");
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
     // console.log(data_value);
+    var fechaEmi = `${doc.dia_doc}/${doc.mes_doc}/${doc.anio_doc}`
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
-        btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
-    
+        btn_RutRecep = `<input type="hidden" id = "RutRecep" name="RutRecep" value="${doc.rut_receptor}"/>`;
+        
     let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
-        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`;
+        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`
+        btnFechaEmi = `<input type="hidden" id = "fechaEmi" name="fechaEmi" value="${fechaEmi}"/>`,
+        btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
     //////////// FORMS PARA BOTONES
-    let form_detalle =  `<form action="">${btnDetalle}</form>`;
-    let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${btnProcesar}</form>`;
+    let form_detalle =  `<form action="">${btnDetalle}${btnFechaEmi}${btn_RutEmi}</form>`;
+    let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutRecep}${btnProcesar}</form>`;
 
 
-    let tdfolio = `<td class = "${clase}" data-label="Folio"> ${doc.folio}</td>`,
-        // tdnomDoc = `<td class = "${clase}" data-label="Nombre archivo"> ${doc.nomDoc}</td>`,
+    let tdfolio = `<td class = "${clase}" data-label="Folio" name ="tdFolio"> ${doc.folio}</td>`,
         tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
