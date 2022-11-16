@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from apps.users.views import authUser, Logout
-from apps.OCR import cron
-from apps.OCR.APIS.APIOpenKM import OpenKm
 from django.conf.urls.static import static
 from django.conf import settings
+
+#path('procesoauto/', include('apps.OCR.automatico.routers')),
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +28,7 @@ urlpatterns = [
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),
-    path('procesoauto/', cron.procesocompleto),
+    path('proceso/', include('apps.OCR.automatico.routers')),
     path('sucursales/', include('apps.management.sucursales.routers')),
     path('plantillas/', include('apps.management.plantilla.routers')),
     path('documentos/',include('apps.OCR.procesamiento.routers')),
