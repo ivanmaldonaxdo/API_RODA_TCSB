@@ -10,6 +10,7 @@ import requests
 import json
 import time
 from apps.OCR.procesamiento.processViews import OpenKMViewSet
+from rest_framework.decorators import action
 
 #from apps.OCR.procesamiento.processViews import OpenKMViewSet
 
@@ -25,7 +26,7 @@ from apps.OCR.procesamiento.processViews import OpenKMViewSet
 
 class procesoautomatico(ViewSet):
 
-
+        @action(detail=False,methods = ['POST'],url_name="proceso_automatico")
         def procesocompleto(request):
          
          Pcompleto = OpenKMViewSet() 
