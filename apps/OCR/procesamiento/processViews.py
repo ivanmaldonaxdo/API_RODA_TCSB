@@ -17,6 +17,7 @@ import csv
 from django.conf import settings# from django.core.files.storage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
+from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
@@ -85,15 +86,17 @@ class OpenKMViewSet(ViewSet):
                 archivo  = ( docName + '.json')
                 read = json.dumps(extracted_data, indent = 4)
                 contenido = ContentFile(read.encode('utf-8'))
+                rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
+                rut_cliente = format_rut_without_dots(rut_cliente)
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(rut_sucursal = extracted_data.get('RUT_CLIENTE')), 
+                    sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
                 id_doc = doc.id
-                print(id_doc)
+                # print(id_doc)
                 # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
                     'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
@@ -166,5 +169,12 @@ class OpenKMViewSet(ViewSet):
         # openkm_sis, aws_sis = creds.get("openkm"), creds.get("aws")
         print(creds)
         return creds
-    
+
+    def validar_rut(self,value):
+        rut_validado = is_valid_rut(value)
+        if rut_validado == True:
+            return value
+        else:
+            print("El rut no es valido")
+
     #REFERENCIAS https://realpython.com/python-csv/
