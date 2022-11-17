@@ -695,8 +695,6 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 
 .content-select:hover i {
     margin-top: 3px;
-
-
 }
 
 
@@ -1181,6 +1179,10 @@ tbody tr:hover{
     text-decoration: none !important;
 }
 
+.ctacli:hover{
+    color: #212529;
+    text-decoration: none !important;
+}
 .infocliente:hover {
     background: #c4c4c4;
 }
@@ -1486,3 +1488,33 @@ form input:focus{
 
 /*------------------------Fin modal-----------------------*/
 
+/*---------------------------------------tabla cliente------------------- */
+
+.cont-cli-table{
+    width: 90%;
+    margin: 0px auto;
+    margin-top: 35px;
+}
+
+.body-tablecli{
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid #8e44ad;
+}
+
+.tbl-header-cli{
+    background-color: #8e44ad;
+    margin-left: 3em;
+}
+
+.btn-cli-boleta{
+    padding: 0.4em 1.4em;
+    background: #8e44ad;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 0.5em;
+}
+
+
+/*---------------------------------------------------------------*/
