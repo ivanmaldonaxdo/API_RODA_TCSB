@@ -7,6 +7,6 @@ urlpatterns = [
     path('', login, name="login"),
     path('inicio/', homeinfo, name="homeinfo"),
     path('processedDocs/', processed, name="processed"),
-    path('automatizacion/', processed, name="cron"),
+    path('automatizacion/', cron, name="cron"),
     path('test/', test, name='test')
 ]

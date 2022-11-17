@@ -1,12 +1,10 @@
 from datetime import datetime
 from email.policy import default
-# from formatter import NullFormatter
 from xml.etree.ElementInclude import default_loader
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
 from django.utils import timezone
-#from drf_api_logger.models import APILogsModel
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from apps.management.storage import OverwriteStorage

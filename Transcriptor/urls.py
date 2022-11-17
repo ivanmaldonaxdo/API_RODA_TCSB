@@ -29,7 +29,6 @@ urlpatterns = [
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),
-    path('proceso/', include('apps.OCR.automatico.routers')),
     path('procesoauto/', include('apps.OCR.automatico.routers')),
     path('sucursales/', include('apps.management.sucursales.routers')),
     path('plantillas/', include('apps.management.plantilla.routers')),
