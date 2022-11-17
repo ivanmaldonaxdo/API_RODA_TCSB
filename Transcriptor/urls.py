@@ -36,6 +36,7 @@ urlpatterns = [
     path('documentos/',include('apps.OCR.procesamiento.routers')),
     path('sistema/',include('apps.management.sistema.routers')),
     path('procesados/',include('apps.management.procesados.routers')),
+    path('logs',include('apps.management.Logs.routers')),
     path('', include('apps.frontend.urls'))
 ]
 

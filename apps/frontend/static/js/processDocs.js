@@ -98,10 +98,99 @@ function getDocs(folio,tpServicio, rutCli = null ) {
      });
 
 }
+//El es el elemento por ej: "uuid", index la fila en es que se encuentra
+let getValueElement = (el,index) =>{
+    return document.getElementsByName(el).item(index).value;
+}
+let getTextElement = (el,index) =>{
+    return document.getElementsByName(el).item(index).textContent;
+}
 
+let getValueByID = (el) =>{
+    return document.getElementById(el).value;
+}
+
+let setValueByID = (el,newValue) =>{
+    document.getElementById(el).value = newValue;
+}
 
 //onclick="myFunction(this)"
 // function myFunction()
+function EditRecordForEditDemo(element) {
+    var rowJavascript = element.parentNode.parentNode;
+    var rowjQuery = $(element).closest("tr");
+    alert("JavaScript Row Index : " + (rowJavascript.rowIndex - 1) + "\njQuery Row Index : " + (rowjQuery[0].rowIndex - 1));
+}
+function btnProcessDocs(elem) {
+    let fila = elem.parentNode.parentNode.parentNode;
+    let indexRow = fila.rowIndex
+    const documento = {
+        uuid : getValueElement('uuid',indexRow),
+        nomDoc : getValueElement('nomDoc',indexRow),
+        rut_emisor: getValueElement('RutEmi',indexRow)
+    };
+    Swal.fire({
+        title: 'Procesando documento....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            contenido = processDocs(indexRow,documento);
+            // console.log(contenido);            
+        },
+    
+    })
+}
+//boton para abrir y cerrar detalle
+function btndetalleDocs(elem){
+    let fila = elem.parentNode.parentNode.parentNode;
+    let indexRow = fila.rowIndex
+    console.log(indexRow);
+    console.log(getValueByID("mdFolio"));
+    console.log(getTextElement('tdFolio',indexRow));
+    setValueByID("mdFolio",getTextElement('tdFolio',indexRow));
+    setValueByID("mdNomDoc",getValueElement('nomDoc',indexRow));
+    setValueByID("mdFechaEmi",getValueElement('fechaEmi',indexRow));
+    setValueByID("mdRutEmi",getValueElement('RutEmi',indexRow));
+
+
+    
+    // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
+
+    let cerrar =document.querySelectorAll(".close")[0];
+    let modal =document.querySelectorAll(".amodal")[0];
+    let modalc =document.querySelectorAll(".modal-container")[0];
+
+    modalc.style.opacity = "1";
+    modalc.style.visibility = "visible";
+    modal.classList.toggle("modal-close");
+
+}
+let cerrar =document.querySelectorAll(".close")[0];
+let modal =document.querySelectorAll(".amodal")[0];
+let modalc =document.querySelectorAll(".modal-container")[0];
+
+cerrar.addEventListener("click", function(){
+    modal.classList.toggle("modal-close");
+
+    setTimeout(function() {
+        modalc.style.opacity = "0";
+        modalc.style.visibility = "hidden";
+    }, 600);
+
+});
+
+window.addEventListener("click", function (e){
+    if(e.target == modalc){
+        modal.classList.toggle("modal-close");
+
+        setTimeout(function() {
+            modalc.style.opacity = "0";
+            modalc.style.visibility = "hidden";
+        }, 600);
+    }
+})
+
+
 function getIndexTR(x) {
     let index_tb = x.rowIndex;
     let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
@@ -123,14 +212,11 @@ function getIndexTR(x) {
             contenido = downloadDocs(index_tb,documento);
             console.log(contenido);
         },
-  
     })
-
 }
 
-
-function downloadDocs(index_row,documento){
-    console.log("Index :", index_row);
+function processDocs(indexRow,documento){
+    console.log("Index :", indexRow);
     console.log("Objeto", documento.uuid);
     // const url = 'http://3.80.228.126/documentos/process_docs/';
     const url = 'http://localhost:8000/documentos/process_docs/';
@@ -150,7 +236,6 @@ function downloadDocs(index_row,documento){
             swal.close()
             if (status_code >= 400 ){
                 // console.log( response.json().catch(err => console.error(err)));
-                // console.log("No se ha encontrado informacion");
                 Swal.fire({
                     // position: 'top-end',
                     icon: 'error',
@@ -173,12 +258,11 @@ function downloadDocs(index_row,documento){
                     showConfirmButton: false,
                     timer: 3000
                 })
-                deleteRow(index_row);
+                deleteRow(indexRow);
 
             }
 
             console.log("Contenido adquirido");
-        //    console.log(response.json().MessagePort);
            return content;
         })
     });
@@ -187,32 +271,44 @@ function downloadDocs(index_row,documento){
 
 //FUNCION QUE TOMA POR PARAMETRO DOCUMENTO PARA MOSTRAR EN UNA FILA DE LA TABLA
 function createRowDoc(doc,event) 
-{
-    // console.log(doc.uuid);
+{   
     const tbody = document.querySelector("#tablaJS");
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
     // console.log(data_value);
+    var fechaEmi = `${doc.dia_doc}/${doc.mes_doc}/${doc.anio_doc}`
     let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
+        btn_RutRecep = `<input type="hidden" id = "RutRecep" name="RutRecep" value="${doc.rut_receptor}"/>`;
+        
+    let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
+        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`,
+        btnFechaEmi = `<input type="hidden" id = "fechaEmi" name="fechaEmi" value="${fechaEmi}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
-    let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' >Procesar</button>`;
-    let button_detalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button'>Ver detalle</button>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
-    let form_detalle =  `<form action="">${button_detalle}</form>`;
-    let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutEmi}${button}</form>`;
-    let tdfolio = `<td class = "${clase}" data-label="Folio"> ${doc.folio}</td>`,
-        // tdnomDoc = `<td class = "${clase}" data-label="Nombre archivo"> ${doc.nomDoc}</td>`,
+    //////////// FORMS PARA BOTONES
+    let form_detalle =  `<form action="">${btnDetalle}${btnFechaEmi}${btn_RutEmi}</form>`;
+    let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutRecep}${btnProcesar}</form>`;
+
+
+    let tdfolio = `<td class = "${clase}" data-label="Folio" name ="tdFolio"> ${doc.folio}</td>`,
         tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
-        tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`;
-        tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
+        tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
+        tdDetalle = crearTd(clase,"Detalle",form_detalle);
 
-    body += `<tr onclick = "getIndexTR(this)">${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
+        // tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
+
+    body += `<tr>${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
     tbody.innerHTML += body;
     
+}
+
+function crearTd(clase,dt_label,contenido) {
+    let td = `<td class = "${clase}" data-label="${dt_label}"> ${contenido}</td>`;
+    return td
 }
 function clearTable(){
     const table = document.querySelector("#tablaJS");
@@ -227,3 +323,4 @@ function deleteRow(indexRow){
 //referencias js
 //https://stackoverflow.com/questions/68933909/how-to-pass-hidden-field-in-table-and-return-the-value-in-jquery-on-tr-click
 //https://bobbyhadz.com/blog/javascript-map-is-not-a-function#:~:text=The%20"TypeError%3A%20map%20is%20not,of%20how%20the%20error%20occurs.
+

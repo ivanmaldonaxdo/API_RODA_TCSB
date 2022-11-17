@@ -8,8 +8,9 @@ import csv
 import time
 #from tabulate import tabulate
 import json
-# from apps.OCR.APIS.textractByQueries import textract
-# from apps.OCR.APIS.textractByTables import textractTB
+from apps.OCR.APIS.textractByQueries import textract
+from apps.OCR.APIS.textractByTables import textractTB
+from apps.OCR.APIS.textractByTablesExp import get_table_results
 import re
 
 # from apps.OCR.APIS.textractByQueries import textract, codigo_procesado
@@ -39,6 +40,10 @@ def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
 
     ############### EXTRACCION POR QUERIES ###############
     resultado_queries = textract(_bucket, query,archivo)
+    print("RESULTADO QUERIES")
+    print(resultado_queries)
+    print("****************")
+
     json_procesado.update(resultado_queries)
     ############### RECUPERANDO DATA DE JSON TABLAS ###############
     with open(tables) as tb_json:
@@ -51,6 +56,10 @@ def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
 
     json_procesado.update(resultado_tables)
     # print(json.dumps(json_procesado, indent=4))
+
+    ###EXTRACCION APARTE
+    # textractPages = get_table_results(archivo, list_tablas)
+    # print(textractPages)
     return json_procesado
 
 #EMPEZAR ANALISIS DE DOCUMENTO
