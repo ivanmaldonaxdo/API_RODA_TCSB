@@ -49,8 +49,8 @@ class OpenKm():
                     return list(filter(None, boletas))
                 else:
                     print("**********TEST UNA BOLETA*********")
-                    print(json.dumps(boleta,indent=4))
                     boleta = self.get_q_result_formatted(data['queryResult'])
+                    print(json.dumps(boleta,indent=4))
                     return boleta
             except:
                 print("NO EXISTEN OCURRENCIAS")

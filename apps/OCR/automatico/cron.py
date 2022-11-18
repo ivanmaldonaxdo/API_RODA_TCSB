@@ -44,6 +44,20 @@ class procesoautomatico(ViewSet):
         print("Filtros {} -".format(filtros))
         return filtros
 
+    
+    #act: variable en BD que activa o desactiva el proceso
+    _folio='0000530760'
+    act=1
+    @action(detail=False,methods = ['POST'],url_name="fun_folio")
+    def fun_folio(self,request,_folio,act):
+            if act == 0:
+                    return Response('no se ejecutara')
+            else: 
+                data = self.search_docs(_folio)
+                respuesta = self.process_docs(data)
+                return (request,respuesta)      
+     
+
     @action(detail=False,methods = ['POST'],url_name="search_docs")
     # @action(detail = False, methods = ['post'])
     def search_docs(self,request):
@@ -65,7 +79,6 @@ class procesoautomatico(ViewSet):
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
-
 
     #request debe tener el uuid,nomDoc y rutEmisor
     @action(detail=False,methods = ['POST'],url_name="process_docs")
@@ -193,9 +206,9 @@ class procesoautomatico(ViewSet):
 
     #REFERENCIAS https://realpython.com/python-csv/
 
-
-
-
+  
+        
+         
 
 
 

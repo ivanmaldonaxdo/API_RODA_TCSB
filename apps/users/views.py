@@ -46,7 +46,7 @@ class authUser(APIView):
             'iat': tiempo_creacion
         }
         
-        token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+        token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256').decode("utf-8")
 
         response = Response()
 
