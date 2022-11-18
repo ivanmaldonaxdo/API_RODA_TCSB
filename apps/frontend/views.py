@@ -17,6 +17,9 @@ def homeinfo(request):
 def processed(request):
     return render(request, 'frontend/processed.html')
 
+def Cliente(request):
+    return render(request, 'frontend/Cliente.html')
+
 
 def test(request):
     return render(request, 'frontend/test.html')
