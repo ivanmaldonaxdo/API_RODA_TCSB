@@ -19,7 +19,7 @@ var lasCookies = getCookie('rol');
 tabla = document.getElementsByClassName("cont-cliente")
 
 if (lasCookies=='Administrador'){
-    $(tabla).hide()
-    console.log('tablita ocultada mi rei')
+   // $(tabla).hide()
+    //console.log('tablita ocultada mi rei')
 }
 
