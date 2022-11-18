@@ -61,7 +61,7 @@ class OpenKMViewSet(ViewSet):
             contenido = self.openkm.get_content_doc(
                 data.get("uuid")
             ).content
-            
+            print(type(self.openkm.get_content_doc(data.get("uuid")).content))
             try:
                 ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
@@ -88,6 +88,8 @@ class OpenKMViewSet(ViewSet):
                 contenido = ContentFile(read.encode('utf-8'))
                 rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
                 rut_cliente = format_rut_without_dots(rut_cliente)
+                print("Rut Extraido: ",rut_cliente)
+                print("Rut de Metadata: ",metadata.get("rut_receptor") )
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),

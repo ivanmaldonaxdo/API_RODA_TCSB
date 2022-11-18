@@ -179,9 +179,9 @@ def format_key_value(text):
 
 def textractTB(archivo,list_tablas):
     table_csv = get_table_csv_results(archivo,list_tablas)
-    print("Lineas")
-    print("")
-    print(table_csv)
+    # print("Lineas")
+    # print("")
+    # print(table_csv)
     diccionario = dict()
     for line in table_csv.splitlines():
         # print(line)
