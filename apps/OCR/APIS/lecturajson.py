@@ -28,7 +28,7 @@ f = open ('../../../media/Clinica_Santiago_271715_202102_4470.json', "r")
 
 # Reading from file
 data = json.loads(f.read())
-print(type(data))
+# print(type(data))
 objeto = ""
 if isinstance(data, list):
     # data = json.load(f)
@@ -37,21 +37,22 @@ if isinstance(data, list):
     objeto = data[0]
 else:
     objeto = data
-    print(objeto)
+    # print(objeto)
     print("")
     print("tipo dato objeto ",type(objeto))
 
-str_data = json.dumps(objeto)
-# ascii_str_data = str_data.encode('ascii')
-# bytes_object = base64.b64encode(ascii_str_data)
-bytes_object = base64.b64encode(str_data.encode('utf-8'))
-
-# str_data = str(objeto)
+str_data = json.dumps(objeto,indent=4)
 print(str_data)
-print("")
-print("objeto convertido es: ", type(str_data))
-# bytes_object = base64.b64encode(str_data)
-print(type(bytes_object))
+# # ascii_str_data = str_data.encode('ascii')
+# # bytes_object = base64.b64encode(ascii_str_data)
+# bytes_object = base64.b64encode(str_data.encode('utf-8'))
+
+# # str_data = str(objeto)
+# print(str_data)
+# print("")
+# print("objeto convertido es: ", type(str_data))
+# # bytes_object = base64.b64encode(str_data)
+# print(type(bytes_object))
 # with open("queries.pdf", "wb") as pdf:
 #     pdf.write(bytes_object.decode('unicode_escape'))
 # for i in data:
