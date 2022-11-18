@@ -8,7 +8,7 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
-from django_filters import FilterSet
+# from django_filters import FilterSet
 
 # class ClienteFilter(FilterSet):
 #     class Meta:
@@ -22,7 +22,7 @@ from django_filters import FilterSet
 class ProcesadosViewSet(viewsets.GenericViewSet):
     serializer_class = DocumentoSerializer
     model = Documento
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
 
 
     def get_queryset(self):

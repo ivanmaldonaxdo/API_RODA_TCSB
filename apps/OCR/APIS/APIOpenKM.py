@@ -25,7 +25,7 @@ class OpenKm():
         properties = self.get_list_params(list_params)
         # print("")
         # print("Propiedades => {}" .format(properties))
-        params = {'property':properties, 'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
+        params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -48,10 +48,11 @@ class OpenKm():
                     return list(filter(None, boletas))
                 else:
                     print("**********TEST UNA BOLETA*********")
-                    print(json.dumps(boleta,indent=4))
                     boleta = self.get_q_result_formatted(data['queryResult'])
+                    # print(json.dumps(boleta,indent=4))
                     return boleta
-            except:
+            except Exception as e:
+                print(e)
                 print("NO EXISTEN OCURRENCIAS")
                 return {}
         else:

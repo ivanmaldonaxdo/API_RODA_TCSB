@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema,Contrato_servicio
 from django.db.models import Q
 import json
 import os
@@ -90,10 +90,18 @@ class OpenKMViewSet(ViewSet):
                 rut_cliente = format_rut_without_dots(rut_cliente)
                 print("Rut Extraido: ",rut_cliente)
                 print("Rut de Metadata: ",metadata.get("rut_receptor") )
+                num_cli = str(extracted_data.get("Nro CLIENTE"))
+                #entry = Entry.objects.select_related('blog').get(id=5)
+                print(num_cli)
+
+                contrato_serv = Contrato_servicio.objects.get(num_cliente='271715' )
+                print(contrato_serv)
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(rut_sucursal = "rut_cliente"), 
+                    sucursal = Sucursal.objects.get(id = contrato_serv), 
+
+                    # sucursal = Sucursal.objects.get( id = Contrato_servicio.objects.only('sucursal_id').filter(num_cliente=num_cli)), 
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
