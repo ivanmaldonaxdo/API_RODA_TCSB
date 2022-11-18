@@ -90,16 +90,17 @@ class OpenKMViewSet(ViewSet):
                 rut_cliente = format_rut_without_dots(rut_cliente)
                 print("Rut Extraido: ",rut_cliente)
                 print("Rut de Metadata: ",metadata.get("rut_receptor") )
-                num_cli = str(extracted_data.get("Nro CLIENTE"))
+                numero_cli = extracted_data.get("Nro CLIENTE")
                 #entry = Entry.objects.select_related('blog').get(id=5)
-                print(num_cli)
+                # print(numero_cli)
 
-                contrato_serv = Contrato_servicio.objects.get(num_cliente='271715' )
-                print(contrato_serv)
+                contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
+                id_contrat = contrato_serv.sucursal.id
+                # print(id_contrat)
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(id = contrato_serv), 
+                    sucursal = Sucursal.objects.get(id = id_contrat), 
 
                     # sucursal = Sucursal.objects.get( id = Contrato_servicio.objects.only('sucursal_id').filter(num_cliente=num_cli)), 
                     procesado = True                     
@@ -109,7 +110,7 @@ class OpenKMViewSet(ViewSet):
                 # print(id_doc)
                 # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
+                    'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DodcID":id_doc
 
                     }, status=status.HTTP_200_OK,headers=None)
                 
@@ -177,7 +178,7 @@ class OpenKMViewSet(ViewSet):
         for cred in json_creds.get("credenciales"):
             creds.update(cred)
         # openkm_sis, aws_sis = creds.get("openkm"), creds.get("aws")
-        print(creds)
+        # print(creds)
         return creds
 
     def validar_rut(self,value):

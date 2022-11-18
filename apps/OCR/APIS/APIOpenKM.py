@@ -44,7 +44,7 @@ class OpenKm():
                     # boletas = []
                     boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
                     # print(f"Cantidad de boletas : {len(boletas)}")
-                    print(json.dumps(list(filter(None, boletas)),indent=4))
+                    # print(json.dumps(list(filter(None, boletas)),indent=4))
                     return list(filter(None, boletas))
                 else:
                     print("**********TEST UNA BOLETA*********")
