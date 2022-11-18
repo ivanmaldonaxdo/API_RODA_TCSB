@@ -25,7 +25,7 @@ class OpenKm():
         properties = self.get_list_params(list_params)
         # print("")
         # print("Propiedades => {}" .format(properties))
-        params = {'property':properties, 'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
+        params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -43,7 +43,6 @@ class OpenKm():
                     print("**********TEST MUCHAS BOLETAS*********")
                     # boletas = []
                     boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
-                    print("")
                     # print(f"Cantidad de boletas : {len(boletas)}")
                     # print(json.dumps(list(filter(None, boletas)),indent=4))
                     return list(filter(None, boletas))
@@ -51,8 +50,10 @@ class OpenKm():
                     print("**********TEST UNA BOLETA*********")
                     boleta = self.get_q_result_formatted(data['queryResult'])
                     print(json.dumps(boleta,indent=4))
+                    # print(json.dumps(boleta,indent=4))
                     return boleta
-            except:
+            except Exception as e:
+                print(e)
                 print("NO EXISTEN OCURRENCIAS")
                 return {}
         else:
@@ -133,7 +134,6 @@ class OpenKm():
         path_list = path.split('/')
         nom_doc = path_list[-1]
         # print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
-        print("")
         # if "okm:root" in
         objectOPK = dict(
                 {'path':path, 
@@ -145,7 +145,6 @@ class OpenKm():
         objectOPK.update(metadata)
         # print(objectOPK)
         # print(self.get_metadata(uuid))
-        print(self.is_processed_doc(uuid))
         return objectOPK if not self.is_processed_doc(uuid) else {}
 
     def put_request(self,_url,_data,_params = None, _headers = {'Accept': 'application/json','content-type': 'application/json'}):

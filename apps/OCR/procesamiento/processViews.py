@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema,Contrato_servicio
 from django.db.models import Q
 import json
 import os
@@ -18,6 +18,7 @@ from django.conf import settings# from django.core.files.storage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
+import sys
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
@@ -61,7 +62,7 @@ class OpenKMViewSet(ViewSet):
             contenido = self.openkm.get_content_doc(
                 data.get("uuid")
             ).content
-            
+            print(type(self.openkm.get_content_doc(data.get("uuid")).content))
             try:
                 ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
@@ -88,10 +89,21 @@ class OpenKMViewSet(ViewSet):
                 contenido = ContentFile(read.encode('utf-8'))
                 rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
                 rut_cliente = format_rut_without_dots(rut_cliente)
+                print("Rut Extraido: ",rut_cliente)
+                print("Rut de Metadata: ",metadata.get("rut_receptor") )
+                numero_cli = extracted_data.get("Nro CLIENTE")
+                #entry = Entry.objects.select_related('blog').get(id=5)
+                # print(numero_cli)
+
+                contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
+                id_contrat = contrato_serv.sucursal.id
+                # print(id_contrat)
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
+                    sucursal = Sucursal.objects.get(id = id_contrat), 
+
+                    # sucursal = Sucursal.objects.get( id = Contrato_servicio.objects.only('sucursal_id').filter(num_cliente=num_cli)), 
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
@@ -99,7 +111,7 @@ class OpenKMViewSet(ViewSet):
                 # print(id_doc)
                 # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
+                    'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DodcID":id_doc
 
                     }, status=status.HTTP_200_OK,headers=None)
                 
@@ -107,6 +119,13 @@ class OpenKMViewSet(ViewSet):
 
                     
             except Exception as e:
+                exception_type, exception_object, exception_traceback = sys.exc_info()
+                filename = exception_traceback.tb_frame.f_code.co_filename
+                line_number = exception_traceback.tb_lineno
+
+                print("Exception type: ", exception_type)
+                print("File name: ", filename)
+                print("Line number: ", line_number)
                 print(e)
                 return Response({
                     'message':'Documento No Procesado',
@@ -167,7 +186,7 @@ class OpenKMViewSet(ViewSet):
         for cred in json_creds.get("credenciales"):
             creds.update(cred)
         # openkm_sis, aws_sis = creds.get("openkm"), creds.get("aws")
-        print(creds)
+        # print(creds)
         return creds
 
     def validar_rut(self,value):

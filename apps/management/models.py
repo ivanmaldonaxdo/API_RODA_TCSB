@@ -85,7 +85,7 @@ class Plantilla(models.Model):
     nom_doc= models.CharField('Nombre Distribuidor', max_length=255, blank=False)
     version = models.CharField('Version plantilla', max_length=255, blank=False)
     queries_config = models.FileField(null=True, storage=OverwriteStorage(), validators=[
-        FileExtensionValidator(allowed_extensions=['csv'])
+        FileExtensionValidator(allowed_extensions=['csv','json'])
     ])
     tablas_config = models.FileField(null=True, storage=OverwriteStorage(), validators=[
         FileExtensionValidator(allowed_extensions=['json'])
@@ -171,10 +171,12 @@ class Documento(models.Model):
 class Contrato_servicio(models.Model):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default=None)
-    num_cliente = models.IntegerField('Numero Cliente', default=None, unique=True, blank=False)
+    num_cliente = models.CharField('Numero Cliente', default=None, unique=True, blank=False,max_length=255)
 
     def __str__(self):
-        return self.proveedor + ' - '+ str(self.num_cliente)
+        return str(self.num_cliente)
+
+        # return self.proveedor + ' - ' + str(self.num_cliente)
 
 
 class LogSistema(models.Model):
