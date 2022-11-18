@@ -35,7 +35,6 @@ from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 #modelo por servicio agua , luz , gas
 
 class procesoautomatico(ViewSet):
-
     docs = None
     openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):
@@ -45,7 +44,7 @@ class procesoautomatico(ViewSet):
         print("Filtros {} -".format(filtros))
         return filtros
 
-    @action(detail=False,methods = ['POST'],url_name="proceso_cron")
+    @action(detail=False,methods = ['POST'],url_name="search_docs")
     # @action(detail = False, methods = ['post'])
     def search_docs(self,request):
         filtros = dict(request.data)
@@ -193,8 +192,6 @@ class procesoautomatico(ViewSet):
             print("El rut no es valido")
 
     #REFERENCIAS https://realpython.com/python-csv/
-
-
 
 
 

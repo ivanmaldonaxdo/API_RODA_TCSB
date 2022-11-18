@@ -6,5 +6,5 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register('', procesoautomatico, basename="procesocompleto")
+router.register('', procesoautomatico, basename="search_docs")
 urlpatterns = router.urls

@@ -19,8 +19,6 @@ from apps.users.views import authUser, Logout
 from django.conf.urls.static import static
 from django.conf import settings
 
-#falta agregar al path
-#path('procesoauto/', include('apps.OCR.automatico.routers')),
 
 urlpatterns = [
     path('admin/', admin.site.urls),
