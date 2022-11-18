@@ -31,7 +31,8 @@ document.getElementById("muestraproce").addEventListener('click', function (e) {
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
-                getDocs(folio);
+                //getDocs(folio);
+                getProcesedDocs(getDocs);
             },
       
         })
