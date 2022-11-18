@@ -18,31 +18,20 @@ var csrftoken = getCookie('csrftoken');
 //funcion para procesar archivos por folio
 //muestraproce
 document.getElementById("muestraproce").addEventListener('click', function (e) {
-    let folio = document.getElementById("folio").value,
-        servicio = document.getElementById("tipo_servicio").value
+    let folio = document.getElementById("folio").value
     // console.log(folio);
     // console.log(servicio);
-    if (servicio =="Tipo de servicio"  && folio == ""){
+    if (folio == "Dcumentos"){
         console.log("NADA DE INFO");
     }
     else{
-        if (servicio == "Tipo de servicio") {
-            // console.log("servicio no permitido");
-
-            servicio = null;
-        }
-        
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'info',
-        // })
+       
         Swal.fire({
             title: 'Buscando documentos a procesar....',
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
-                getDocs(folio, servicio);
+                getDocs(folio);
             },
       
         })
