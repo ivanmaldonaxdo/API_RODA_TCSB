@@ -2,7 +2,7 @@
 
 //funcion para procesar archivos por folio
 //muestraproce
-document.getElementById("processDocs").addEventListener('click', function (e) {
+document.getElementById("muestraproce").addEventListener('click', function (e) {
     let folio = document.getElementById("folio").value,
         servicio = document.getElementById("tipo_servicio").value
     // console.log(folio);
