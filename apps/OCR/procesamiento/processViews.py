@@ -93,7 +93,7 @@ class OpenKMViewSet(ViewSet):
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
+                    sucursal = Sucursal.objects.get(rut_sucursal = "rut_cliente"), 
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)

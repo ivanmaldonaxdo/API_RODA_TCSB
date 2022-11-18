@@ -18,9 +18,12 @@ from django_filters import FilterSet
 #             'rut_cliente': ['exact'],
 #         }
 
+
 class ProcesadosViewSet(viewsets.GenericViewSet):
     serializer_class = DocumentoSerializer
     model = Documento
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+
 
     def get_queryset(self):
         queryset= self.filter_queryset(Documento.objects.all())
@@ -58,4 +61,17 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
         serializer = self.serializer_class(documento)
         return Response(serializer.data, status= status.HTTP_200_OK)
     
+    # @action(methods=['get'], detail=True, renderer_classes=(PassthroughRenderer,))
+    # def download(self, *args, **kwargs):
+    #     instance = Documento.objects.get()
+
+    #     # get an open file handle (I'm just using a file attached to the model for this example):
+    #     file_handle = instance.file.open()
+
+    #     # send file
+    #     response = FileResponse(file_handle, content_type='whatever')
+    #     response['Content-Length'] = instance.file.size
+    #     response['Content-Disposition'] = 'attachment; filename="%s"' % instance.file.name
+
+    #     return response
     
