@@ -16,38 +16,68 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 //funcion para procesar archivos por folio
-//muestraproce
+//muestraproce  000052369
 document.getElementById("muestraproce").addEventListener('click', function (e) {
-    let folio = document.getElementById("folio").value
-    // console.log(folio);
-    // console.log(servicio);
-    if (folio == "Dcumentos"){
-        console.log("NADA DE INFO");
-    }
-    else{
-       
+    //let folio = document.getElementById("folio").value
         Swal.fire({
             title: 'Buscando documentos a procesar....',
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
+                var folio = "000052369";
                 //getDocs(folio);
-                getProcesedDocs(getDocs);
+                getProcesedDocs();
             },
       
         })
-        
-    }
     e.preventDefault();
     e.stopImmediatePropagation();
-
+ 
 })
 
 function numberRange (start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
 }
+
+function getProcesedDocs() {
+    // const url = 'http://3.80.228.126/procesados/
+    const url = 'http://localhost:8000/procesados/';
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    })
+    .then((response) => {
+        const status_code = response.status;
+        console.log("Codigo estado es: ", response.status);
+      
+    
+        swal.close()
+        clearTable()
+        if (status_code >= 400 ){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se han encontrado documentos..',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            // console.log( response.json().catch(err => console.error(err)));
+        }
+        else {
+            response.json().then(docs => {
+                Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
+            })
+            
+        }
+     });
+
+}
+
 function getDocs(folio,tpServicio, rutCli = null ) {
-    // const url = 'http://3.80.228.126/documentos/search_docs/'
+    
     const url = 'http://localhost:8000/documentos/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
@@ -235,13 +265,6 @@ function processDocs(indexRow,documento){
                     showConfirmButton: false,
                     timer: 3000
                 })
-
-                // Swal.fire({
-                //     icon: 'error',
-                //     title: 'Oops...',
-                //     text: 'No se han encontrado documentos..',
-                //     // footer: '<a href="">Why do I have this issue?</a>'
-                // })
             }else{
                 Swal.fire({
                     // position: 'top-end',

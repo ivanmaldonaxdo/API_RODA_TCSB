@@ -2,72 +2,55 @@
 {% load static %}
 {% block contenido %}
 
+
+
 <div class="bk">
     <div class="container-form">
-        <h1 class="centrado">Archivos CRON </h1>
-
+        <h1 class="centrado">mostrar arhivos procesados en cron </h1>
         <div class="inputs-form-inicio">
             <form action="">
-                <div class="content-select">
-                    <select id="folio">
-                        <option selected>Documentos</option>
-                        <option value="000079921">000079921</option>
-                        <option value="000077564">000077564</option>
-                    </select>
-                    <i></i>
-                </div>
-                <button  id="muestraproce" type="submit" class="btn-buscar">mostrar procesos</button>
+                <button  id="muestraproce" type="submit" class="btn-buscar">mostrar proceso completo</button>
             </form>
-        </div>
 
-        
+        </div>
         <div class="container-table">
             <div class="table-responsive">
+                <h2 class="centrado">Archivos procesados</h2>
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                       <thead>
                         <tr>
+                            {% comment %} <th >#</th> {% endcomment %}
                             <th class="centrado">Folio</th>
-                            <th class="centrado">Rut cliente</th>
-                            <th class="centrado">Tipo Servicio</th>
-                            <th class="centrado">Procesar</th>
-                            <th class="centrado">Detalle</th>
+                            <th class="centrado">Sucursal</th>
+                            <th class="centrado">Fecha Procesado</th>
+                            <th class="centrado">Documento</th>
 
-
+                            {% comment %} <th >Rut cliente</th> {% endcomment %}
                         </tr>
                       </thead>
                     </table>
                 </div>
                 <div class="tbl-content">
-                    <table class="table table-striped" id = "tableProcesados"  cellpadding="0" cellspacing="0" border="0">
-                        <tbody id = "tablaJS">
-                         {% for p in procesados %}
-                        <tr>
+                    <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                        <tbody id = "tbodyProcessed">
+                            {% comment %} <tr>
+                                <td>AAC</td>
+                                <td>AUSTRALIAN COMPANY </td>
+                                <td>$1.38</td>
+                                <td>+2.01</td>
+                                <td>-0.36%</td>
+                            </tr> {% endcomment %}
+                                                      
                             {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
-                            <td class="centrado"> {{p.folio}} </td>
-                            <td class="centrado">{{p.rut_receptor}}</th>
-                            <td class="centrado"> {{p.tipo_servicio}} </td>
-                            <td class="centrado"><button class="buttonDownload">Procesar</button> </td>
-                            <td class="centrado"><button class="buttonDownload">Detalle</button> </td>
-                        </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
-
-        <div class="modal-container">
-        
     </div>
-
 </div>
 <script type="text/javascript" src="{% static 'js/cron.js' %}"></script>
-
-{% comment %} <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> {% endcomment %}
-{% comment %} <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script> {% endcomment %}
-
 
 
 

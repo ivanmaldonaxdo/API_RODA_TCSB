@@ -213,7 +213,7 @@ DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #como prueba esta sera modificada de manera sencilla con un valor entero si se desea "cancelar" tarea
 #nos quedaria resolver el como "DETENERLA"  de momento solo con ese parametro de entrada.
 CRONJOBS = [
-    ('30 20 1-30 1-12 1-5', 'apps.OCR.automatico.cron.procesoautomatico.procesocompleto')
+    ('45 21 1-30 1-12 1-5', 'apps.OCR.automatico.cron.procesoautomatico.procesook')
 ]
 
 STATIC_URL = '/static/'

@@ -43,57 +43,26 @@ class procesoautomatico(ViewSet):
                 filtros[k] = None
         print("Filtros {} -".format(filtros))
         return filtros
-
-    
     #act: variable en BD que activa o desactiva el proceso
-    _folio='0000530760'
-    act=1
-    @action(detail=False,methods = ['POST'],url_name="fun_folio")
-    def fun_folio(self,request,_folio,act):
-            if act == 0:
-                    return Response('no se ejecutara')
-            else: 
-                data = self.search_docs(_folio)
-                respuesta = self.process_docs(data)
-                return (request,respuesta)      
-     
 
-    @action(detail=False,methods = ['POST'],url_name="search_docs")
-    # @action(detail = False, methods = ['post'])
-    def search_docs(self,request):
+    @action(detail=False,methods = ['POST'],url_name="procesook")
+    def procesook(self,request):
         filtros = dict(request.data)
-        # diction = {}
         openkm = self.openkm_creds()
-        # print("OPKM OBJECT ", openkm.auth_creds.password)
         filtros = self.format_filtros(filtros)
         docs = openkm.search_docs(
-            _folio = filtros.get('folio'),
-            _serv = filtros.get('tipo_servicio'),
-            _rutCli = filtros.get('rut_receptor')
+            _folio = '000052369',
+            #_serv = filtros.get('tipo_servicio'),
+            #_rutCli = filtros.get('rut_receptor')
         )
-        # {"message: Data encontrada"},
         if docs:
             print("HAY ARCHIVOS")
-            return Response(data = docs, status=status.HTTP_200_OK)
-        else:   
-            return Response({
-                'message':'La busqueda no coincide con ningun documento',
-            }, status= status.HTTP_404_NOT_FOUND)
-
-    #request debe tener el uuid,nomDoc y rutEmisor
-    @action(detail=False,methods = ['POST'],url_name="process_docs")
-    def process_docs(self,request):
-        try:
+            data = docs
             data = dict(request.data)
-            contenido = self.openkm.get_content_doc(
-                data.get("uuid")
-            ).content
-            
+            contenido = self.openkm.get_content_doc(data.get("uuid")).content
             try:
                 ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
-
-                ######################## CONSULTA DE PLANTILLAS EN BD #############################
                 with connections['default'].cursor() as cursor:##conexion default a la bd
                     cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                     plantilla = cursor.fetchall()
@@ -123,28 +92,17 @@ class procesoautomatico(ViewSet):
                 )
                 subido = doc.documento.save(archivo,contenido)
                 id_doc = doc.id
-                # print(id_doc)
-                # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
-
-                    }, status=status.HTTP_200_OK,headers=None)
-                
-                # folio,rutCli = metadata.get("folio"), metadata.get("rut")
-
-                    
+                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
             except Exception as e:
-                print(e)
-                return Response({
-                    'message':'Documento No Procesado',
-                    }, status=status.HTTP_409_CONFLICT,headers=None)
-    
-        except Exception as e:
-            print(e)            
+                    print(e) 
+                    return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
+        else:   
             return Response({
-                'message':'La busqueda no coincide con ningun documento',
+                'message':'Documento no procesado ni encontrado por cron',
             }, status= status.HTTP_404_NOT_FOUND)
-            
+
+    
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):
         
@@ -159,7 +117,6 @@ class procesoautomatico(ViewSet):
         return Response({
                 'message':'Creds'
             }, status=status.HTTP_200_OK,headers=None)
-
 
     ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA CLASE APIOpenKM   
     def openkm_creds(self):

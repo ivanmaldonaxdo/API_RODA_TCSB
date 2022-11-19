@@ -17,7 +17,7 @@ var csrftoken = getCookie('csrftoken');
 ////////
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
     Swal.fire({
-        title: 'Buscando documentos procesados....',
+        title: 'Buscando documentos procesados en cron ',
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
