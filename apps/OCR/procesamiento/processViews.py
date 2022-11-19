@@ -53,16 +53,18 @@ class OpenKMViewSet(ViewSet):
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
 
-
+#region Description
     #request debe tener el uuid,nomDoc y rutEmisor
     @action(detail=False,methods = ['POST'],url_name="process_docs")
     def process_docs(self,request):
         try:
+            openkm = self.openkm_creds()
+
             data = dict(request.data)
-            contenido = self.openkm.get_content_doc(
+            contenido = openkm.get_content_doc(
                 data.get("uuid")
             ).content
-            print(type(self.openkm.get_content_doc(data.get("uuid")).content))
+            print(type(openkm.get_content_doc(data.get("uuid")).content))
             try:
                 ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
@@ -80,21 +82,19 @@ class OpenKMViewSet(ViewSet):
 
                 ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
                 extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                metadata = self.openkm.get_metadata(data.get("uuid"))
+                metadata = openkm.get_metadata(data.get("uuid"))
 
                 ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
                 docName = str(data.get('nomDoc')).replace('.pdf', '')
                 archivo  = ( docName + '.json')
-                read = json.dumps(extracted_data, indent = 4)
-                contenido = ContentFile(read.encode('utf-8'))
+
+                ######## RUT DE CLIENTE
                 rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
                 rut_cliente = format_rut_without_dots(rut_cliente)
-                print("Rut Extraido: ",rut_cliente)
-                print("Rut de Metadata: ",metadata.get("rut_receptor") )
                 numero_cli = extracted_data.get("Nro CLIENTE")
-                #entry = Entry.objects.select_related('blog').get(id=5)
-                # print(numero_cli)
-
+        
+                read = json.dumps(extracted_data, indent = 4)
+                contenido = ContentFile(read.encode('utf-8'))
                 contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
                 id_contrat = contrato_serv.sucursal.id
                 # print(id_contrat)
@@ -136,10 +136,10 @@ class OpenKMViewSet(ViewSet):
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
-            
+
+#region Description
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):
-        
         credenciales = self.credenciales()
         # openkm_cred = credenciales.
         print("")
@@ -152,6 +152,25 @@ class OpenKMViewSet(ViewSet):
                 'message':'Creds'
             }, status=status.HTTP_200_OK,headers=None)
 
+
+
+    @action(detail=False,methods = ['POST'],url_name="process_by_servicio")
+    def process_by_servicio (self,request):
+        filtros = dict(request.data)
+        # diction = {}
+        openkm = self.openkm_creds()
+        # print("OPKM OBJECT ", openkm.auth_creds.password)
+        docs = openkm.search_docs(
+            _serv = filtros.get('tipo_servicio')
+        )
+        # {"message: Data encontrada"},
+        if docs:
+            print("HAY ARCHIVOS")
+            return Response(data = docs, status=status.HTTP_200_OK)
+        else:   
+            return Response({
+                'message':'La busqueda no coincide con ningun documento',
+            }, status= status.HTTP_404_NOT_FOUND)
 
     ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA CLASE APIOpenKM   
     def openkm_creds(self):
