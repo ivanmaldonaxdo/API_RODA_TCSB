@@ -12,7 +12,7 @@
                 
                 <div class="cont-cliente">
                     <div class="infocliente">
-                        <a>Clientes<span class="borde0">0</span></a>
+                        <a class="ctacli" >Clientes<span class="borde0">0</span></a>
                     </div>
                     <div class="infocliente">
 
@@ -30,13 +30,34 @@
                 
             </div>
 
-
             <div class="container1">
                 <h1 class="centrado">Detalle cuenta</h1>
                 <div class="separadorcen"></div>
                 
                 <div class="detallecuenta"> 
-                    <button> <i class="fas fa-comments"></i> Comentarios</button>
+        
+                    <button id="open"><i class="fas fa-comments"></i> Comentarios</button>
+
+                    <div class="comentario" id="comentario_">
+                        
+                        <div class="com">
+                            <h2>comentario</h2>
+                            <div class="input-com">
+                                <input id="nuevoComentario"  type="text" placeholder="Nuevo Comentario...">
+                                <div class="btn-agg">
+                                    <button class="btn" onclick="nComentario()">Comentar</button>
+                                </div>
+                            </div>
+                            <ul id="comentarios" class="contenedor-2">
+                            
+                            </ul>
+
+                            <button class="btn" id="close">Cerrar</button>
+                        </div>
+                        
+                    </div>
+
+                    
                 </div>
 
                 <div class="detallecuenta"> 
@@ -52,8 +73,63 @@
             </div>
 
         </div>
-    </div>   
-     
+
+    </div>
+
+
+<!--Modal para visualizar los clientes -->
+        <div class="modal-container">
+                
+            <div class="amodal modal-close">
+                <p class="close">X</p>
+                <div class="modal-texto">
+                    <h2>Visualizacion de Clientes </h2>
+                    <div class="cont-cli-table">
+                        <table>
+                            <thead class="tbl-header-cli">
+                                <tr>
+                                    <th>Cliente </th>
+                                    <th>Rut cliente </th>
+                                    <th>Sucursales </th>
+                                    <th>Direccion</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="body-tablecli">
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+    
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+<!--Modal para realizar los comentarios-->   
+
+
+
+    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>
 
 {% endblock %}
