@@ -45,7 +45,7 @@ def get_table_csv_results(_documento,_list_tablas,_bucket = "rodatest-bucket"):
 
     csv = ''
     for index, table in enumerate(table_blocks):
-        csv += generate_table_csv(table, blocks_map, index +1,_list_tablas = _list_tablas)
+        csv += generate_table_csv(table, blocks_map, index +1,_list_tablas = list_tablas)
         csv += '\n\n' 
     return csv
     # print(lista_textos)
@@ -87,36 +87,36 @@ def generate_table_csv(table_result, blocks_map, table_index,_list_tablas):
     csv = ""
     # print("Filas ",rows)
     table_id = 'Table_' + str(table_index)
-    if table_id in list_tablas:
-        # csv = 'Table: {0}\n\n'.format(table_id)
+    # if table_id in list_tablas:
+    #     # csv = 'Table: {0}\n\n'.format(table_id)
 
-        csv = '{0}\n\n'.format(table_id)
+    #     csv = '{0}\n\n'.format(table_id)
     tabla_object = dict()
     for row_index, cols in rows.items():
         # print("Columnas" ,cols)
         for col_index, text in cols.items():
             # print("text" ,text)
-            if table_id in list_tablas:
+            # if table_id in list_tablas:
             #     # print("No Se  {}" .format(table_id))
             #         # print(csv)
-                try:
-                    texto ='{}'.format(text)+ " "
-                    # print(texto.strip())
-                    # tabla_object.update(format_key_value(texto.strip()))
-                    csv += '{}'.format(text)+ " "
-                    # print( csv[col_index][row_index])
-                
-                except:
-                    "Error"
+            try:
+                texto ='{}'.format(text)+ " "
+                # print(texto.strip())
+                # tabla_object.update(format_key_value(texto.strip()))
+                csv += '{}'.format(text)+ " "
+                # print( csv[col_index][row_index])
+            
+            except:
+                "Error"
             
 
-        if table_id in list_tablas:       
-            csv += '\n'
+        # if table_id in list_tablas:       
+        csv += '\n'
         # print(csv[0])
         # if "Table: " in csv:
         #     print("XD")
-    if table_id in list_tablas:
-        csv += '\n\n\n'
+    # if table_id in list_tablas:
+    csv += '\n\n\n'
     # print(csv)
     return csv
     

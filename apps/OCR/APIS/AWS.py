@@ -57,6 +57,11 @@ def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
     data = json.loads(data)[0]
     json_tablas.update(data)
     list_tablas = json_tablas.get("TABLES")
+    print(type(list_tablas))
+    #diccionario_tablas = dict()    
+    #for tb in list_tablas:
+    #     resultado_tables = textractTB(_bucket = bucket , _documento = archivo, tabla = tb)
+    #     diccionario_tablas
 
     try:
         print(list_tablas)
