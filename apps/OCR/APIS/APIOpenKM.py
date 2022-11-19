@@ -25,7 +25,7 @@ class OpenKm():
         properties = self.get_list_params(list_params)
         # print("")
         # print("Propiedades => {}" .format(properties))
-        params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
+        params = {'property':properties,'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
