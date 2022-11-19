@@ -42,7 +42,7 @@ class Cliente(models.Model):
     razon_social = models.CharField('Razon social', max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default = True)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
-
+    
     def __str__(self):
         return self.nom_cli
     
