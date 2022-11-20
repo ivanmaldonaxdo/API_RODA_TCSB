@@ -14,18 +14,18 @@ s3BucketName = "rodatest-bucket"
 
 #EMPEZAR ANALISIS DE DOCUMENTO
 def textfunc(_bucket, _query,_archivo):
-    print("textfunc")
-    print("")
-    print("archivo ",_archivo)
-    print("Bucket ", _bucket)
-    print("Ruta queries ",_query)
+    # print("textfunc")
+    # print("")
+    # print("archivo ",_archivo)
+    # print("Bucket ", _bucket)
+    # print("Ruta queries ",_query)
     queries_csv = _query
     # queries_csv = '/test.csv'
     queries = list()
     with open(queries_csv, mode='r', encoding='utf-8-sig') as queries_csv_file:
         reader = csv.reader(queries_csv_file)
         for row in reader:
-            queries.append({"Text": row[0].strip(), "Alias": row[1] })
+            queries.append({"Text": row[0].strip(), "Alias": row[1]})
         # print("QUERIES", queries)
         # Call Textract
         response = client.start_document_analysis(
@@ -37,8 +37,59 @@ def textfunc(_bucket, _query,_archivo):
         },
         FeatureTypes=["QUERIES"],
         QueriesConfig={
-            "Queries": queries
-        })
+            "Queries": [{
+                "Text": "NUMBER BELOW FACTURA ELECTRONICA",
+                "Alias": "FOLIO/N FACTURA",
+                "Pages":["1"]
+            },
+            {
+                "Text": "WHAT IS R.U.T.: IN TOP OF FACTURA ELECTRONICA?",
+                "Alias": "RUT_EMISOR",
+                "Pages":["1"]
+            },
+            {
+                "Text": "R.U.T.:",
+                "Alias": "RUT_CLIENTE",
+                "Pages":["1"]
+            },
+            {
+                "Text": "FECHA EMISION",
+                "Alias": "FECHA EMISION",
+                "Pages":["1"]
+            },
+            {
+                "Text": "DATE TO PAY",
+                "Alias": "FECHA DE VENCIMIENTO",
+                "Pages":["1"]
+            },
+            {
+                "Text": "SERVICIO CLIENTE",
+                "Alias": "Nro CLIENTE",
+                "Pages":["1"]
+            },
+            {
+                "Text": "DEMANDA HORAS PUNTA",
+                "Alias": "DEMANDA LEIDA HORAS PUNTA",
+                "Pages":["1"]
+            },
+            {
+                "Text": "DEMANDA HORAS SUMINISTRADA",
+                "Alias": "DEMANDA MAXIMA LEIDA",
+                "Pages":["1"]
+            },
+            {
+                "Text": "FACTOR DE POTENCIA",
+                "Alias": "FACTOR DE POTENCIA",
+                "Pages":["1"]
+            },
+            {
+                "Text": "CONSUMO TOTAL",
+                "Alias": "CONSUMO",
+                "Pages":["1"]
+            }
+            ]
+        }
+        )
         return response['JobId']
 
 #VERIFIFICA SI SE HA REALIZADO ANALISIS
@@ -71,7 +122,7 @@ def get_job_results(job_id):
         response = client.\
             get_document_analysis(JobId=job_id, NextToken=next_token)
         pages.append(response)
-        print("Resultset page received: {}".format(len(pages)))
+        # print("Resultset page received: {}".format(len(pages)))
         next_token = None
         if 'NextToken' in response:
             next_token = response['NextToken']
@@ -107,7 +158,7 @@ def get_job_results(job_id):
         response = client.\
             get_document_analysis(JobId=job_id, NextToken=next_token)
         pages.append(response)
-        print("Resultset page received: {}".format(len(pages)))
+        # print("Resultset page received: {}".format(len(pages)))
         next_token = None
         if 'NextToken' in response:
             next_token = response['NextToken']
@@ -141,13 +192,13 @@ def textract(_bucket,queryP, _archivo):
         for item in result_page["Blocks"]:
             if item["BlockType"] == "QUERY":
                 alias = item["Query"]["Alias"]
-                print("Query info:")
-                print(item["Query"])
+                # print("Query info:")
+                # print(item["Query"])
             #print(block)
             if item["BlockType"] == "QUERY_RESULT":
                 respuesta = item["Text"]
-                print("Query answer:")
-                print(item["Text"])
+                # print("Query answer:")
+                # print(item["Text"])
             #ALIAS ES EL NOMBRE DE <KEY> Y RESPUESTA ES EL <VALUE>
             documento.update({alias.strip():respuesta})
         # print(documento)

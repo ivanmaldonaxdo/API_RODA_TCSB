@@ -25,7 +25,7 @@ class OpenKm():
         properties = self.get_list_params(list_params)
         # print("")
         # print("Propiedades => {}" .format(properties))
-        params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA
+        params = {'property':properties,'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -41,17 +41,18 @@ class OpenKm():
                 print("BUSQUEDA DE DOCUMENTOS NO PROCESADOS")
                 if is_lista:
                     print("**********TEST MUCHAS BOLETAS*********")
-                    print("")
                     # boletas = []
                     boletas = list(map(lambda x :self.get_q_result_formatted(x),data['queryResult']))
-                    print("")
                     # print(f"Cantidad de boletas : {len(boletas)}")
-                    return boletas
+                    # print(json.dumps(list(filter(None, boletas)),indent=4))
+                    return list(filter(None, boletas))
                 else:
                     print("**********TEST UNA BOLETA*********")
                     boleta = self.get_q_result_formatted(data['queryResult'])
+                    # print(json.dumps(boleta,indent=4))
                     return boleta
-            except:
+            except Exception as e:
+                print(e)
                 print("NO EXISTEN OCURRENCIAS")
                 return {}
         else:
@@ -129,14 +130,16 @@ class OpenKm():
     def get_q_result_formatted(self,_qresult):
         nodo = _qresult['node']
         path,uuid = nodo['path'], nodo['uuid']
-        nom_doc = path.split('/')
-        nom_doc = nom_doc[-1]
-        print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
-        print("")
+        path_list = path.split('/')
+        nom_doc = path_list[-1]
+        rut_client = path_list[3]
+        # print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
+        # if "okm:root" in
         objectOPK = dict(
                 {'path':path, 
                 'uuid':uuid,
-                'nomDoc':nom_doc
+                'nomDoc':nom_doc,
+                'rut_client':rut_client
                 })
         # print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         metadata = self.get_metadata(uuid)

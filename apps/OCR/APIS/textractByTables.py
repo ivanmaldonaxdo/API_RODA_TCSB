@@ -14,17 +14,18 @@ from pathlib import Path as p
 import os
 
 client = boto3.client('textract', region_name='us-east-1')
-_bucket = "rodatest-bucket"
+# _bucket = "rodatest-bucket"
 
-archivo = "media/Clinica Santiago_271715_202103_4486.pdf"
+# archivo = "media/Clinica Santiago_271715_202103_4486.pdf"
 
-def get_table_csv_results(archivo,list_tablas,bucket = "rodatest-bucket"):
+def get_table_csv_results(_documento,_list_tablas,_bucket = "rodatest-bucket"):
+    list_tablas = _list_tablas
     # process using pdf
     # get the results
     response = client.analyze_document(Document={
         'S3Object': {
                 'Bucket': _bucket,
-                'Name': archivo
+                'Name': _documento
                 }
         }, 
         FeatureTypes=['TABLES'])
@@ -44,11 +45,11 @@ def get_table_csv_results(archivo,list_tablas,bucket = "rodatest-bucket"):
 
     csv = ''
     for index, table in enumerate(table_blocks):
-        csv += generate_table_csv(table, blocks_map, index +1,list_tablas=list_tablas)
+        csv += generate_table_csv(table, blocks_map, index +1,_list_tablas = list_tablas)
         csv += '\n\n' 
     return csv
-
     # print(lista_textos)
+
 def get_rows_columns_map(table_result, blocks_map):
     rows = {}
     for relationship in table_result['Relationships']:
@@ -80,41 +81,42 @@ def get_text(result, blocks_map):
                             text +=  'X '    
     return text
 
-def generate_table_csv(table_result, blocks_map, table_index,list_tablas):
+def generate_table_csv(table_result, blocks_map, table_index,_list_tablas):
+    list_tablas = _list_tablas
     rows = get_rows_columns_map(table_result, blocks_map)
     csv = ""
     # print("Filas ",rows)
     table_id = 'Table_' + str(table_index)
-    if table_id in list_tablas:
-        # csv = 'Table: {0}\n\n'.format(table_id)
+    # if table_id in list_tablas:
+    #     # csv = 'Table: {0}\n\n'.format(table_id)
 
-        csv = '{0}\n\n'.format(table_id)
+    #     csv = '{0}\n\n'.format(table_id)
     tabla_object = dict()
     for row_index, cols in rows.items():
         # print("Columnas" ,cols)
         for col_index, text in cols.items():
             # print("text" ,text)
-            if table_id in list_tablas:
+            # if table_id in list_tablas:
             #     # print("No Se  {}" .format(table_id))
             #         # print(csv)
-                try:
-                    texto ='{}'.format(text)+ " "
-                    # print(texto.strip())
-                    # tabla_object.update(format_key_value(texto.strip()))
-                    csv += '{}'.format(text)+ " "
-                    # print( csv[col_index][row_index])
-                
-                except:
-                    "Error"
+            try:
+                texto ='{}'.format(text)+ " "
+                # print(texto.strip())
+                # tabla_object.update(format_key_value(texto.strip()))
+                csv += '{}'.format(text)+ " "
+                # print( csv[col_index][row_index])
+            
+            except:
+                "Error"
             
 
-        if table_id in list_tablas:       
-            csv += '\n'
+        # if table_id in list_tablas:       
+        csv += '\n'
         # print(csv[0])
         # if "Table: " in csv:
         #     print("XD")
-    if table_id in list_tablas:
-        csv += '\n\n\n'
+    # if table_id in list_tablas:
+    csv += '\n\n\n'
     # print(csv)
     return csv
     
@@ -141,18 +143,14 @@ def format_key_value(text):
         pattern_split = "  +"
         array_texto = re.split(pattern_split, texto.strip())
         # print(array_texto)
-
         item_final = str(array_texto[-1:][-1])
-
         # print("Ultimo item ",item_final)
         clave =""
         if len(array_texto)>2:
             index_final = array_texto.index(item_final)
             # print(index_final)
-            
             for i in range (len(array_texto)):
                 item = array_texto[i]
-            
                 if index_final!= i:
                     if i==0:
                         clave +=" "+item
@@ -177,14 +175,17 @@ def format_key_value(text):
 # with open("json_como_le-dicen.json", "wt",encoding='utf-8') as fout:
 #     fout.write(json.dumps(diccionario,indent=4))
 
-def textractTB(archivo,list_tablas):
-    table_csv = get_table_csv_results(archivo,list_tablas)
-    print("Lineas")
-    print("")
-    print(table_csv)
+def textractTB(_bucket,_documento,_list_tablas):
+    documento = _documento
+    list_tablas = _list_tablas
+    s3BucketName = _bucket
+    table_csv = get_table_csv_results(_documento = documento,_list_tablas = list_tablas,_bucket = s3BucketName)
+    # print("Lineas")
+    # print("")
+    # print(table_csv)
     diccionario = dict()
     for line in table_csv.splitlines():
-        # print(line)
+        print(line)
         # print()
         # prop = dict()
         

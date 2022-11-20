@@ -4,6 +4,8 @@ import json
 from django.urls import resolve
 from apps.management.models import LogSistema, Documento
 from apps.OCR.APIS.APIOpenKM import OpenKm
+from apps.OCR.procesamiento.processViews import OpenKMViewSet 
+procesamiento = OpenKMViewSet()
 class LogRestMiddleware:
 
     def __init__(self, get_response):
@@ -56,7 +58,8 @@ class LogRestMiddleware:
                 # don't forget to save to database!
                 m.save()
                 if url_name == 'search_docs-process_docs' and m.status_code == 200:
-                    openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
+                    openkm = procesamiento.openkm_creds()
+                    # openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
                     uuid= response_body["uuid"]
                     codigo = m.id
                     openkm.set_metadata_processed(uuid,codigo)

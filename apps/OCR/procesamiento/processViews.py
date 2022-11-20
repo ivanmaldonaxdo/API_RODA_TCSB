@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema,Contrato_servicio
 from django.db.models import Q
 import json
 import os
@@ -17,6 +17,8 @@ import csv
 from django.conf import settings# from django.core.files.storage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
+from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
+import sys
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
@@ -35,9 +37,8 @@ class OpenKMViewSet(ViewSet):
         filtros = dict(request.data)
         # diction = {}
         openkm = self.openkm_creds()
-        print("OPKM OBJECT ", openkm.auth_creds.password)
+        # print("OPKM OBJECT ", openkm.auth_creds.password)
         filtros = self.format_filtros(filtros)
-        print(filtros)
         docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
@@ -46,24 +47,24 @@ class OpenKMViewSet(ViewSet):
         # {"message: Data encontrada"},
         if docs:
             print("HAY ARCHIVOS")
-            print("cantidad => {}" .format(len(docs)))
-            print(docs)
             return Response(data = docs, status=status.HTTP_200_OK)
         else:   
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
 
-
+#region Description
     #request debe tener el uuid,nomDoc y rutEmisor
     @action(detail=False,methods = ['POST'],url_name="process_docs")
     def process_docs(self,request):
         try:
+            openkm = self.openkm_creds()
+
             data = dict(request.data)
-            contenido = self.openkm.get_content_doc(
+            contenido = openkm.get_content_doc(
                 data.get("uuid")
             ).content
-            
+            print(type(openkm.get_content_doc(data.get("uuid")).content))
             try:
                 ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
                 resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
@@ -81,25 +82,36 @@ class OpenKMViewSet(ViewSet):
 
                 ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
                 extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                metadata = self.openkm.get_metadata(data.get("uuid"))
+                metadata = openkm.get_metadata(data.get("uuid"))
 
                 ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
                 docName = str(data.get('nomDoc')).replace('.pdf', '')
                 archivo  = ( docName + '.json')
+
+                ######## RUT DE CLIENTE
+                rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
+                rut_cliente = format_rut_without_dots(rut_cliente)
+                numero_cli = extracted_data.get("Nro CLIENTE")
+        
                 read = json.dumps(extracted_data, indent = 4)
                 contenido = ContentFile(read.encode('utf-8'))
+                contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
+                id_contrat = contrato_serv.sucursal.id
+                # print(id_contrat)
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(rut_sucursal = extracted_data.get('RUT_CLIENTE')), 
+                    sucursal = Sucursal.objects.get(id = id_contrat), 
+
+                    # sucursal = Sucursal.objects.get( id = Contrato_servicio.objects.only('sucursal_id').filter(num_cliente=num_cli)), 
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
                 id_doc = doc.id
-                print(id_doc)
+                # print(id_doc)
                 # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")
+                    'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DodcID":id_doc
 
                     }, status=status.HTTP_200_OK,headers=None)
                 
@@ -107,6 +119,13 @@ class OpenKMViewSet(ViewSet):
 
                     
             except Exception as e:
+                exception_type, exception_object, exception_traceback = sys.exc_info()
+                filename = exception_traceback.tb_frame.f_code.co_filename
+                line_number = exception_traceback.tb_lineno
+
+                print("Exception type: ", exception_type)
+                print("File name: ", filename)
+                print("Line number: ", line_number)
                 print(e)
                 return Response({
                     'message':'Documento No Procesado',
@@ -117,10 +136,10 @@ class OpenKMViewSet(ViewSet):
             return Response({
                 'message':'La busqueda no coincide con ningun documento',
             }, status= status.HTTP_404_NOT_FOUND)
-            
+
+#region Description
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):
-        
         credenciales = self.credenciales()
         # openkm_cred = credenciales.
         print("")
@@ -134,7 +153,26 @@ class OpenKMViewSet(ViewSet):
             }, status=status.HTTP_200_OK,headers=None)
 
 
-    ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA APIOpenKM   
+
+    @action(detail=False,methods = ['POST'],url_name="process_by_servicio")
+    def process_by_servicio (self,request):
+        filtros = dict(request.data)
+        # diction = {}
+        openkm = self.openkm_creds()
+        # print("OPKM OBJECT ", openkm.auth_creds.password)
+        docs = openkm.search_docs(
+            _serv = filtros.get('tipo_servicio')
+        )
+        # {"message: Data encontrada"},
+        if docs:
+            print("HAY ARCHIVOS")
+            return Response(data = docs, status=status.HTTP_200_OK)
+        else:   
+            return Response({
+                'message':'La busqueda no coincide con ningun documento',
+            }, status= status.HTTP_404_NOT_FOUND)
+
+    ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA CLASE APIOpenKM   
     def openkm_creds(self):
         creds = self.credenciales()
         opk = creds.get("openkm")
@@ -150,16 +188,16 @@ class OpenKMViewSet(ViewSet):
         cantidad = Sistema.objects.count()
         sis = model_to_dict(sistema)
         sistema_file ="media" + "/" + str(sis.get("credencial"))
-        print(sistema_file)
+        # print(sistema_file)
         # sistema = 
-        print("",cantidad, " - " ,sis)
+        # print("",cantidad, " - " ,sis)
         # Opening JSON file
         json_creds = dict()
 
         ######### LECTURA DE ARCHIVO ##########
         with open(sistema_file) as json_file:
             data = json.load(json_file)
-            print(data)
+            # print(data)
             json_creds.update(data)
         
         creds = dict()
@@ -167,7 +205,14 @@ class OpenKMViewSet(ViewSet):
         for cred in json_creds.get("credenciales"):
             creds.update(cred)
         # openkm_sis, aws_sis = creds.get("openkm"), creds.get("aws")
-        print(creds)
+        # print(creds)
         return creds
-    
+
+    def validar_rut(self,value):
+        rut_validado = is_valid_rut(value)
+        if rut_validado == True:
+            return value
+        else:
+            print("El rut no es valido")
+
     #REFERENCIAS https://realpython.com/python-csv/

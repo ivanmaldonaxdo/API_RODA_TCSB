@@ -92,16 +92,19 @@ function getDocs(folio,tpServicio, rutCli = null ) {
         else {
             response.json().then(docs => {
                 Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
+                console.log(docs);
             })
             
         }
      });
 
 }
-//El es el elemento por ej: "uuid", index la fila en es que se encuentra
+//"el" es elemento por ej: "uuid", index la fila en es que se encuentra
 let getValueElement = (el,index) =>{
     return document.getElementsByName(el).item(index).value;
 }
+
+////OBTIENE EL CONTENIDO DE LOS TD 
 let getTextElement = (el,index) =>{
     return document.getElementsByName(el).item(index).textContent;
 }
@@ -146,14 +149,27 @@ function btndetalleDocs(elem){
     let indexRow = fila.rowIndex
     console.log(indexRow);
     console.log(getValueByID("mdFolio"));
+    let rut_cli = getTextElement('tdRutCli',indexRow),
+        rut_proveedor = getTextElement('RutEmi',indexRow);
+        
+    console.log(rut_cli);
+    // console.log(getTextElement('tdRutCli',indexRow));
     console.log(getTextElement('tdFolio',indexRow));
+
+    //////////SETEO DE PROPIEDADES DEL MODAL EN JS
     setValueByID("mdFolio",getTextElement('tdFolio',indexRow));
     setValueByID("mdNomDoc",getValueElement('nomDoc',indexRow));
     setValueByID("mdFechaEmi",getValueElement('fechaEmi',indexRow));
-    setValueByID("mdRutEmi",getValueElement('RutEmi',indexRow));
-
-
-    
+    setValueByID("mdRutEmi",rut_proveedor);
+    // tdRutReceptor
+    getDataClient(rut_cli).then(
+        client => Array.isArray(client) ? setValueByID( "mdNomCli", client.map(cli=> cli.nom_cli)) : client.nom_cli
+    )
+    getDataProv(rut_proveedor).then(
+        prov => Array.isArray(prov) ? setValueByID("mdNomProv",prov.map(prv=> prv.nom_proveedor)) : prov.nom_proveedor
+    )
+    // console.log(client);
+    // console.log("Cliente is ", cliente);
     // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
 
     let cerrar =document.querySelectorAll(".close")[0];
@@ -187,9 +203,39 @@ window.addEventListener("click", function (e){
             modalc.style.opacity = "0";
             modalc.style.visibility = "hidden";
         }, 600);
-    }
+    } 
 })
 
+async function  getDataClient (rutCliente) {
+    const url = new URL("http://localhost:8000/clientes/");
+    const params = {rut_cliente : rutCliente}
+    url.search = new URLSearchParams(params).toString();
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    obj = await res.json();
+    
+    return obj
+}
+
+async function  getDataProv(rutProveedor) {
+    const url = new URL("http://localhost:8000/proveedores/");
+    const params = {rut_proveedor : rutProveedor}
+    url.search = new URLSearchParams(params).toString();
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    obj = await res.json();
+    return obj
+}
 
 function getIndexTR(x) {
     let index_tb = x.rowIndex;
@@ -212,9 +258,7 @@ function getIndexTR(x) {
             contenido = downloadDocs(index_tb,documento);
             console.log(contenido);
         },
-  
     })
-
 }
 
 function processDocs(indexRow,documento){
@@ -285,7 +329,7 @@ function createRowDoc(doc,event)
         btn_RutRecep = `<input type="hidden" id = "RutRecep" name="RutRecep" value="${doc.rut_receptor}"/>`;
         
     let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
-        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`
+        btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`,
         btnFechaEmi = `<input type="hidden" id = "fechaEmi" name="fechaEmi" value="${fechaEmi}"/>`,
         btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
 
@@ -296,14 +340,21 @@ function createRowDoc(doc,event)
 
 
     let tdfolio = `<td class = "${clase}" data-label="Folio" name ="tdFolio"> ${doc.folio}</td>`,
-        tdRutReceptor = `<td class = "${clase}" data-label="Rut cliente"> ${doc.rut_receptor}</td>`,
+        tdRutClient = `<td class = "${clase}" data-label="Rut cliente" name ="tdRutCli"> ${doc.rut_client}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
-        tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
+        tdDetalle = crearTd(clase,"Detalle",form_detalle);
 
-    body += `<tr>${tdfolio}${tdRutReceptor}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
+        // tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
+
+    body += `<tr>${tdfolio}${tdRutClient}${tdTpServicio}${tdProcesar}${tdDetalle}</tr>`;
     tbody.innerHTML += body;
     
+}
+
+function crearTd(clase,dt_label,contenido) {
+    let td = `<td class = "${clase}" data-label="${dt_label}"> ${contenido}</td>`;
+    return td
 }
 function clearTable(){
     const table = document.querySelector("#tablaJS");
