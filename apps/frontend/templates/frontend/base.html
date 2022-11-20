@@ -35,7 +35,7 @@
             <img src={% static 'img/roda-logo.png' %} alt="" class="logo">
             <ul>
                 <li><a href="{% url 'homeinfo' %}">Inicio</a></li>
-                <li><a href="{% url 'process' %}">Archivos a procesar</a></li>
+                <li><a class="boletas-info" href="{% url 'process' %}">Archivos a procesar</a></li>
                 <li><a href="{% url 'processed' %}">Procesados</a></li>
                 <li><a href="{% url 'Cliente' %}">Clientes</a></li>
                 <li><a href="{% url 'Usuarios' %}">Usuarios</a></li>
@@ -142,7 +142,8 @@
             $('.tbl-header').css({ 'padding-right': scrollWidth });
         }).resize();
     </script>
-    <script type="text/javascript" src="{% static 'js/session.js' %}"></script>  
+    <script type="text/javascript" src="{% static 'js/session.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>  
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

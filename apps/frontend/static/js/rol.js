@@ -16,10 +16,12 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 var lasCookies = getCookie('rol');
-tabla = document.getElementsByClassName("cont-cliente")
+tabla = document.getElementsByClassName("boletas-info")
 
 if (lasCookies=='Administrador'){
-   // $(tabla).hide()
+    $(tabla).hide()
     //console.log('tablita ocultada mi rei')
+    
+   
 }
 
