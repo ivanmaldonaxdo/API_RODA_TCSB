@@ -9,7 +9,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema, cron
 from django.db.models import Q
 import json
 import os
@@ -43,65 +43,73 @@ class procesoautomatico(ViewSet):
                 filtros[k] = None
         print("Filtros {} -".format(filtros))
         return filtros
-    #act: variable en BD que activa o desactiva el proceso
+#modificar parametros de entrada tipo_servicio, rut_receptor 
 
     @action(detail=False,methods = ['POST'],url_name="procesook")
     def procesook(self,request):
+        cronact = cron.objects.get(id=2)
         filtros = dict(request.data)
-        openkm = self.openkm_creds()
-        filtros = self.format_filtros(filtros)
-        docs = openkm.search_docs(
-            _folio = '000052369',
-            #_serv = filtros.get('tipo_servicio'),
-            #_rutCli = filtros.get('rut_receptor')
-        )
-        if docs:
-            print("HAY ARCHIVOS")
-            data = docs
-            data = dict(request.data)
-            contenido = self.openkm.get_content_doc(data.get("uuid")).content
-            try:
-                ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
-                resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
-                with connections['default'].cursor() as cursor:##conexion default a la bd
-                    cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
-                    plantilla = cursor.fetchall()
-                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-                print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-                queries_file_path = os.path.join('media',queries_file)
-                query_doc = 'media'+ '/' + queries_file
-                table_doc = 'media'+ '/' + tables_file
-                print(type(table_doc))
-
-                ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
-                extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                metadata = self.openkm.get_metadata(data.get("uuid"))
-
-                ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
-                docName = str(data.get('nomDoc')).replace('.pdf', '')
-                archivo  = ( docName + '.json')
-                read = json.dumps(extracted_data, indent = 4)
-                contenido = ContentFile(read.encode('utf-8'))
-                rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
-                rut_cliente = format_rut_without_dots(rut_cliente)
-                doc = Documento.objects.create(
-                    nom_doc = docName,
-                    folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
-                    procesado = True                     
+        if cronact.is_active == True:
+                filtros = dict(request.data)
+                openkm = self.openkm_creds()
+                filtros = self.format_filtros(filtros)
+                docs = openkm.search_docs(
+                    _folio = filtros.get('folio'),
+                    _serv = filtros.get('tipo_servicio'), 
+                    _rutCli = filtros.get('rut_receptor')
                 )
-                subido = doc.documento.save(archivo,contenido)
-                id_doc = doc.id
-                return Response({
-                    'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
-            except Exception as e:
-                    print(e) 
-                    return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
-        else:   
-            return Response({
-                'message':'Documento no procesado ni encontrado por cron',
-            }, status= status.HTTP_404_NOT_FOUND)
+                if docs:
+                    print("HAY ARCHIVOS")
+                    data = docs
+                    data = dict(request.data)
+                    contenido = self.openkm.get_content_doc(data.get("uuid")).content
+                    try:
+                        ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
+                        resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
+                        with connections['default'].cursor() as cursor:##conexion default a la bd
+                            cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
+                            plantilla = cursor.fetchall()
+                        queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                        print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                        queries_file_path = os.path.join('media',queries_file)
+                        query_doc = 'media'+ '/' + queries_file
+                        table_doc = 'media'+ '/' + tables_file
+                        print(type(table_doc))
 
+                        ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
+                        extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                        metadata = self.openkm.get_metadata(data.get("uuid"))
+
+                        ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
+                        docName = str(data.get('nomDoc')).replace('.pdf', '')
+                        archivo  = ( docName + '.json')
+                        read = json.dumps(extracted_data, indent = 4)
+                        contenido = ContentFile(read.encode('utf-8'))
+                        rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
+                        rut_cliente = format_rut_without_dots(rut_cliente)
+                        doc = Documento.objects.create(
+                            nom_doc = docName,
+                            folio =  metadata.get('folio'),
+                            sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
+                            procesado = True                     
+                        )
+                        subido = doc.documento.save(archivo,contenido)
+                        id_doc = doc.id
+                        return Response({
+                            'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
+                    except Exception as e:
+                            print(e) 
+                            return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
+                else:   
+                    return Response({
+                        'message':'Documento no procesado ni encontrado por cron',
+                    }, status= status.HTTP_404_NOT_FOUND)
+
+        else:
+            return Response({
+                        'message':'proceso desactivado ',
+                    }, status= status.HTTP_404_NOT_FOUND)
+    
     
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):

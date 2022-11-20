@@ -36,6 +36,14 @@ class Sistema(SingletonModel):
         verbose_name = "Configuracion del sistema"
 
 
+class cron(models.Model):
+    ESTADO=((True,'Acticado'),(False,'Desactivado'))
+    is_active=models.BooleanField(default=True,choices=ESTADO)
+    sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
+    def __str__(self):
+        return str(self.id)
+
+
 class Cliente(models.Model):
     nom_cli = models.CharField('Nombre cliente', max_length=255, blank=True, null=True)
     rut_cliente = models.CharField('Rut Cliente', max_length=255, unique=True, default='Sin Rut', validators=[validar_rut])
@@ -43,6 +51,10 @@ class Cliente(models.Model):
     is_active = models.BooleanField(default = True)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
     
+
+    def __str__(self):
+        return str(self.cron)
+
     def __str__(self):
         return self.nom_cli
     
@@ -191,5 +203,6 @@ class LogSistema(models.Model):
 
     def __str__(self):
         return str(self.id)
+
 
 
