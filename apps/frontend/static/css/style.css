@@ -1646,11 +1646,34 @@ form input:focus{
     margin-top: 49px;
 
 }
+.form-reg{
+    width: 100%;
+    margin: auto;
+}
+.form-reg h1{
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 15px;
+}
+
+.form-cont{
+    background: transparent;
+    padding: 40px 0;
+    border-radius: 10px;
+    margin-left: 4em;
+}
 
 .form-cli{
     position: relative;
     margin: 45px;
 }
+
+.form-registro{
+    background: #fff;
+    padding: 40px 0;
+    box-shadow: 0 0 6px 0 rgb;
+}
+
 
 .input-registro{
     background: none;
@@ -1669,11 +1692,11 @@ form input:focus{
 }
 
 .label-registro{
-    color: #2c2d2e;
+    color: #616161;
     font-size: 16px;
     position: absolute;
-    left: 1em;
-    top: 0;
+    left: 5px;
+    top: 10px;
     transition: 0.5s ease all;
     pointer-events: none;
 
@@ -1686,9 +1709,43 @@ form input:focus{
     color: #2196f3;
 }
 
-.form-registro{
-    background: #fff;
-    padding: 40px 0;
-    box-shadow: 0 0 6px 0 rgb;
+.barra{
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.barra::before{
+    content: "";
+    height: 2px;
+    width: 0%;
+    bottom: 0;
+    position: absolute;
+    background: linear-gradient(100.83deg, #443880 -0.52%, #E02030 113.57%);
+    transition: 0.3s ease width;
+    
+}
+
+.input:focus~.barra::before{
+    width: 100%;
+
+}
+
+.btn-registrar{
+    border-radius: 5px;
+    border: none;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: #fff;
+    height: 40px;
+    font-size: 16px;
+    background: #8e44ad;
+}
+
+@media screen and (max-width:500px) {
+    .form{
+        width: 80%;
+    }
 }
 

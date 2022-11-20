@@ -20,6 +20,9 @@ def processed(request):
 def Cliente(request):
     return render(request, 'frontend/Cliente.html')
 
+def Usuarios(request):
+    return render(request, 'frontend/Usuarios.html')
+
 
 def test(request):
     return render(request, 'frontend/test.html')
