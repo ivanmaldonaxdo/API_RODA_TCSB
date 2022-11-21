@@ -63,7 +63,6 @@ class procesoautomatico(ViewSet):
         cron_activo = cron.objects.get(id=2)
 
         if cron_activo.is_active == True:
-        
                     cli2 = Cliente.objects.all()
                     for c in cli2:
                         if c.is_active:
@@ -159,8 +158,6 @@ class procesoautomatico(ViewSet):
                                 ,status= status.HTTP_404_NOT_FOUND)
 
 
-
-    
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):
         
