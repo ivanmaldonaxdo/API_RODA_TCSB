@@ -1,0 +1,214 @@
+{
+    "Queries": [
+        {
+            "Text": "VENCIMIENTO",
+            "Alias": "VENCIMIENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "NRO CUENTA",
+            "Alias": "Nro CLIENTE",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CARGO FIJO = ",
+            "Alias": "CARGO FIJO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CONSUMO AGUA =",
+            "Alias": "CONSUMO AGUA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "AGUA NO PUNTA =",
+            "Alias": "CONSUMO AGUA NO PUNTA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CONSUMO AGUA =",
+            "Alias": "CONSUMO AGUA PUNTA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SOBRECONSUMO =",
+            "Alias": "SOBRECONSUMO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "RECOLECCION =",
+            "Alias": "RECOLECCION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TRATAMIENTO =",
+            "Alias": "TRATAMIENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "INTERES DEUDA",
+            "Alias": "INTERÉS DEUDA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "LECTURA ACTUAL",
+            "Alias": "LECTURA ACTUAL",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "LECTURA ANTERIOR",
+            "Alias": "LECTURA ANTERIOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "DIFERENCIAS DE LECTURAS",
+            "Alias": "DIFERENCIAS DE LECTURAS",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CONSUMO TOTAL",
+            "Alias": "CONSUMO TOTAL",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "PROXIMA LECTURA",
+            "Alias": "PROXIMA LECTURA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FACTOR DE COBRO PERIODO",
+            "Alias": "FACTOR DE COBRO PERIODO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "LIMITE DE SOBRE CONSUMO",
+            "Alias": "LIMITE DE SOBRECONSUMO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "NUMERO DE MEDIDOR",
+            "Alias": "NUMERO DE MEDIDOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "ULTIMO PAGO VALOR",
+            "Alias": "ULTIMO PAGO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CONSIDERAR MOVIMIENTOS HASTA",
+            "Alias": "CONSIDERAR MOVIMIENTOS",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "corte o reposicion 1era instancia",
+            "Alias": "corte o reposicion 1era instancia",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "corte o reposicion 2era instancia",
+            "Alias": "corte o reposicion 2era instancia",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "PLANTAS DE TRATAMIENTO",
+            "Alias": "PLANTA TRATAMIENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "NETO",
+            "Alias": "NETO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "IVA 19%",
+            "Alias": "IVA 19%",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TOTAL",
+            "Alias": "TOTAL VENTA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "MONTO NO FACTURADO",
+            "Alias": "monto no facturado",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SALDO ANTERIOR",
+            "Alias": "SALDO ANTERIOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "DESCUENTO LEY REDONDEO",
+            "Alias": "DESCUENTO LEY REDONDEO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "VALOR A PAGAR",
+            "Alias": "VALOR A PAGAR",
+            "Pages": [
+                "1"
+            ]
+        }
+    ]
+}

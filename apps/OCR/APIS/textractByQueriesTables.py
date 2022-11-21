@@ -5,13 +5,13 @@ import re
 import json
 client = boto3.client('textract', region_name='us-east-1')
 
-def startJob(s3BucketName, objectName,_queries_file = None):
+def startJob(s3BucketName, objectName,_queries_file):
     queries_file = _queries_file
     queries = list()
     ################# LECTURA DEL ARCHIVO JSON DE LAS QUERIES
-    # f = open (queries_file, "r")
-    # queries = json.loads(f.read())
-
+    f = open (queries_file, "r")
+    queries = json.loads(f.read())
+    print(queries)
     global client
     response = None
     response = client.start_document_analysis(
@@ -22,7 +22,7 @@ def startJob(s3BucketName, objectName,_queries_file = None):
             }
         },
         FeatureTypes = ["QUERIES", "TABLES"],
-        QueriesConfig = queries_file         
+        QueriesConfig = queries         
     )
     return response["JobId"]
 
@@ -75,6 +75,7 @@ def getJobResults(jobId,_list_tablas):
     blocks=[]
     # print(pages)
     data_extracted = dict()
+    ################## EXTRACCION DE DATA POR QUERIES ######################
     queries_result = getJobResultsQueries(jobId,pages)
     data_extracted.update(queries_result)
     ################## EXTRACCION DE DATA POR TABLAS ######################
@@ -94,14 +95,14 @@ def getJobResults(jobId,_list_tablas):
     if len(table_blocks) <= 0:
         return "<b> NO Table FOUND </b>"
     
-    
-    for index, table in enumerate(table_blocks):
-        csv += generate_table_csv(table, blocks_map, index +1, _list_tablas = list_tablas)
-        csv += '\n\n'
+    if list_tablas is not None:
+        for index, table in enumerate(table_blocks):
+            csv += generate_table_csv(table, blocks_map, index +1, _list_tablas = list_tablas)
+            csv += '\n\n'
 
 
-    tables_result = csvtext_to_object(csv)
-    data_extracted.update(tables_result)
+        tables_result = csvtext_to_object(csv)
+        data_extracted.update(tables_result)
     return data_extracted
 
 
@@ -203,6 +204,7 @@ def csvtext_to_object(csv):
     # print(diccionario)
     return diccionario
 
+#ESTA FUNCION FORMATEA LAS LINEAS DEL TEXTO TABLAS
 def format_key_value(text):
     if text !="":
         texto = text
@@ -238,12 +240,8 @@ def format_key_value(text):
         propiedad = {clave.strip():item_final.strip()}
         return propiedad
 
-# Document
-
-
-# def leer_csv_content(csv):
-
-def textractQTB (s3BucketName, documentName,_queries_file,_tables = ["Table_6"]):
+# FUNCION GENERAL PARA EXTRAER LA DATA
+def textractQTB (s3BucketName, documentName,_queries_file,_tables = None):
     jobId = startJob(s3BucketName, documentName,_queries_file)
     # json_documento = dict()
 
@@ -252,64 +250,66 @@ def textractQTB (s3BucketName, documentName,_queries_file,_tables = ["Table_6"])
         response = getJobResults(jobId,_tables)
     else:
         print("Error 404")
+    
+    print(response)
     return response
     
-queries_config = {
-    "Queries": [{
-        "Text": "NUMBER BELOW FACTURA ELECTRONICA",
-        "Alias": "FOLIO/N FACTURA",
-        "Pages":["1"]
-    },
-    {
-        "Text": "WHAT IS R.U.T.: IN TOP OF FACTURA ELECTRONICA?",
-        "Alias": "RUT_EMISOR",
-        "Pages":["1"]
-    },
-    {
-        "Text": "R.U.T.:",
-        "Alias": "RUT_CLIENTE",
-        "Pages":["1"]
-    },
-    {
-        "Text": "FECHA EMISION",
-        "Alias": "FECHA EMISION",
-        "Pages":["1"]
-    },
-    {
-        "Text": "DATE TO PAY",
-        "Alias": "FECHA DE VENCIMIENTO",
-        "Pages":["1"]
-    },
-    {
-        "Text": "SERVICIO CLIENTE",
-        "Alias": "Nro CLIENTE",
-        "Pages":["1"]
-    },
-    {
-        "Text": "DEMANDA HORAS PUNTA",
-        "Alias": "DEMANDA LEIDA HORAS PUNTA",
-        "Pages":["1"]
-    },
-    {
-        "Text": "DEMANDA HORAS SUMINISTRADA",
-        "Alias": "DEMANDA MAXIMA LEIDA",
-        "Pages":["1"]
-    },
-    {
-        "Text": "FACTOR DE POTENCIA",
-        "Alias": "FACTOR DE POTENCIA",
-        "Pages":["1"]
-    },
-    {
-        "Text": "CONSUMO TOTAL",
-        "Alias": "CONSUMO",
-        "Pages":["1"]
-    }
-    ]
-}
+# queries_config = {
+#     "Queries": [{
+#         "Text": "NUMBER BELOW FACTURA ELECTRONICA",
+#         "Alias": "FOLIO/N FACTURA",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "WHAT IS R.U.T.: IN TOP OF FACTURA ELECTRONICA?",
+#         "Alias": "RUT_EMISOR",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "R.U.T.:",
+#         "Alias": "RUT_CLIENTE",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "FECHA EMISION",
+#         "Alias": "FECHA EMISION",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "DATE TO PAY",
+#         "Alias": "FECHA DE VENCIMIENTO",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "SERVICIO CLIENTE",
+#         "Alias": "Nro CLIENTE",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "DEMANDA HORAS PUNTA",
+#         "Alias": "DEMANDA LEIDA HORAS PUNTA",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "DEMANDA HORAS SUMINISTRADA",
+#         "Alias": "DEMANDA MAXIMA LEIDA",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "FACTOR DE POTENCIA",
+#         "Alias": "FACTOR DE POTENCIA",
+#         "Pages":["1"]
+#     },
+#     {
+#         "Text": "CONSUMO TOTAL",
+#         "Alias": "CONSUMO",
+#         "Pages":["1"]
+#     }
+#     ]
+# }
 
-s3BucketName = 'rodatest-bucket'
-documentName = 'media/Clinica Santiago_271715_202203_7352.pdf'
-resultado = textractQTB(s3BucketName, documentName, _queries_file = queries_config)
-print(json.dumps(resultado,indent = 4))
+# s3BucketName = 'rodatest-bucket'
+# documentName = 'media/Clinica Santiago_271715_202203_7352.pdf'
+# resultado = textractQTB(s3BucketName, documentName, _queries_file = queries_config)
+# print(json.dumps(resultado,indent = 4))
 # print(resultado)

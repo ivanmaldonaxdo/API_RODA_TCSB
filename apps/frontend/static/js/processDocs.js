@@ -289,7 +289,7 @@ function processDocs(indexRow,documento){
                     showConfirmButton: false,
                     timer: 3000
                 })
-
+                
                 // Swal.fire({
                 //     icon: 'error',
                 //     title: 'Oops...',
@@ -311,6 +311,9 @@ function processDocs(indexRow,documento){
             console.log("Contenido adquirido");
            return content;
         })
+        .catch(err => {
+            console.log('caught it!',err);
+         });
     });
 }  
 
