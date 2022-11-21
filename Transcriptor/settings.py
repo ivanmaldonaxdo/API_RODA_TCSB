@@ -52,7 +52,7 @@ THIRD_APPS = [
     'django_filters',
     'rut_chile',
     'solo',
-    'django_crontab',
+    'django_cron',
     "corsheaders",
 
 ]
@@ -209,9 +209,10 @@ DRF_API_LOGGER_DATABASE = True
 DRF_API_LOGGER_SIGNAL = True
 DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #funcion para el proceso automatico 
-CRONJOBS = [
-    ('* * * * *', 'apps.OCR.cron.dicehola')
+CRON_CLASSES = [
+    "apps.tasks.MyCronJob"
 ]
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
