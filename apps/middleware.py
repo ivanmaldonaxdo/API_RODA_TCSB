@@ -28,7 +28,11 @@ class LogRestMiddleware:
             pass
             
         response = self.get_response(request)
-        user = request.user.id
+        
+        if request.user.id is not None:
+            user = request.user.id
+        else:
+            user = 0
         method=request.method
         api = request.build_absolute_uri()
         
