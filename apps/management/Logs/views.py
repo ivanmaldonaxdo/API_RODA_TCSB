@@ -8,17 +8,24 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
-from django.http import JsonResponse
-import json
+from rest_framework.pagination import PageNumberPagination
+
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 20
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
 
 
 class LogViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdministrador]
     serializer_class = LogSerializer
     model = LogSistema
-    
+    http_method_names = ['get']
+    pagination_class = StandardResultsSetPagination
+
     def get_queryset(self):
-        return LogSistema.objects.all().order_by('-id')[:10]
+        return LogSistema.objects.all().order_by('-id')
     
     def get_object(self, pk):
         try:
@@ -26,11 +33,7 @@ class LogViewSet(viewsets.ModelViewSet):
         except self.model.DoesNotExist:
             raise Http404
 
-    @action(detail=False, methods=['get'], name= 'logs_sistema')
-    def ver_logs(self, request):
-        logs  = self.get_queryset()
-        logs_serializer = self.serializer_class(logs)
-        return Response(logs_serializer.data, status= status.HTTP_200_OK)
+    
 
     @action(detail=True, methods=['get'])
     def log(self, request, pk=None):
