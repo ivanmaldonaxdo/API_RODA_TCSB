@@ -21,11 +21,10 @@
                       <thead>
                         <tr>
                             {% comment %} <th >#</th> {% endcomment %}
-                            <th class="centrado">Folio</th>
-                            <th class="centrado">Sucursal</th>
-                            <th class="centrado">Fecha Procesado</th>
-                            <th class="centrado">Documento</th>
-
+                            <th class="centrado">id_doc </th>
+                            <th class="centrado">doc.docName</th>
+                            <th class="centrado">doc.folio</th>
+                            <th class="centrado">hora_actual</th>
                             {% comment %} <th >Rut cliente</th> {% endcomment %}
                         </tr>
                       </thead>
@@ -34,15 +33,14 @@
                 <div class="tbl-content">
                     <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
                         <tbody id = "tbodyProcessed">
-                            {% comment %} <tr>
-                                <td>AAC</td>
-                                <td>AUSTRALIAN COMPANY </td>
-                                <td>$1.38</td>
-                                <td>+2.01</td>
-                                <td>-0.36%</td>
-                            </tr> {% endcomment %}
-                                                      
-                            {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+                            <!-- {% for cronf in cronfiltrados %} -->
+                           <!-- <tr> -->
+                           <!-- <th class="centrado"> {{ cronf.id_doc }}</th>-->
+                           <!-- <td> {{ cronf.doc.docName }}</td>-->
+                          <!--  <td> {{ cronf.doc.folio }}</td>-->
+                           <!-- <td> {{ cronf.hora_actual }}</td>-->
+                          <!--  </tr> -->
+                         <!--{% endfor %}-->
                         </tbody>
                     </table>
                 </div>
@@ -50,10 +48,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{% static 'js/cron.js' %}"></script>
-
-
-
+<!-- <script type="text/javascript" src="{% static 'js/cron.js' %}"></script> -->
 
 
 {% endblock %}

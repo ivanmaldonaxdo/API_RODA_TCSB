@@ -51,9 +51,9 @@ class Cliente(models.Model):
     is_active = models.BooleanField(default = True)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
     
-
     def __str__(self):
-        return str(self.cron)
+        return bool(self.is_active)
+
 
     def __str__(self):
         return self.nom_cli
@@ -64,6 +64,7 @@ class Cliente(models.Model):
     
     class Meta:
         verbose_name_plural = "Clientes"
+
 
 class Servicio(models.Model):
     servicio= models.CharField('Servicio', max_length=255, blank=False, null=True)

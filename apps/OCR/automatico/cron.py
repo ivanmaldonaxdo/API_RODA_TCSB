@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.http import Http404
 from rest_framework.viewsets import GenericViewSet,ViewSet
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from rest_framework import status
 from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
@@ -18,7 +18,7 @@ from django.conf import settings# from django.core.files.storage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
-
+from datetime import datetime
 
 #proceso automatico por cliente y servicio
 #el proceso consultara en la BD si es un numero u otro para realizar el proceso o no
@@ -47,9 +47,24 @@ class procesoautomatico(ViewSet):
 
     @action(detail=False,methods = ['POST'],url_name="procesook")
     def procesook(self,request):
-        cronact = cron.objects.get(id=2)
-        filtros = dict(request.data)
-        if cronact.is_active == True:
+
+        #obtenemos todos los clientes clientes
+        #obtenemos si esta activo o no  
+        #cli_act = cli.get(is_active=True)
+        #cli_dict = dict(cli_act)
+        #(falta mejorar esta funcion para filtrar por usuarios/servicio/rutreceptor)
+        cli = Cliente.objects.get(nom_cli="BANCO DEL ESTADO")
+       
+
+        #for d in d :
+         #   return 
+
+
+
+        if cli.is_active == True: 
+            #cronact = cron.objects.get(id=2)
+            #filtros = dict(request.data)
+            #if cronact.is_active == True:
                 filtros = dict(request.data)
                 openkm = self.openkm_creds()
                 filtros = self.format_filtros(filtros)
@@ -95,20 +110,32 @@ class procesoautomatico(ViewSet):
                         )
                         subido = doc.documento.save(archivo,contenido)
                         id_doc = doc.id
-                        return Response({
-                            'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
+                        x = datetime.now()
+                        dia = x.day
+                        hora = x.hour
+                        min = x.minute
+                        hora_actual = dia + hora + min 
+                        #cronfiltrado = id_doc + doc.docName + doc.folio + hora_actual
+                        #render (request,"cron.html",{"cronfiltrado":cronfiltrado})
+                        return Response({'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
+                    
                     except Exception as e:
                             print(e) 
                             return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
-                else:   
-                    return Response({
-                        'message':'Documento no procesado ni encontrado por cron',
-                    }, status= status.HTTP_404_NOT_FOUND)
-
+                  
         else:
-            return Response({
-                        'message':'proceso desactivado ',
-                    }, status= status.HTTP_404_NOT_FOUND)
+              x = datetime.now()
+              dia = x.day
+              hora = x.hour
+              min = x.minute
+              return Response({'message':'proceso desactivado por servicio impago',
+              'message':'hora registrada del proceso',
+              'dia':dia,
+              'hora':hora,
+              'min':min,}, status= status.HTTP_404_NOT_FOUND)
+            
+    #return Response(data = docs, status=status.HTTP_200_OK)
+    #{'message':'usuarios desactivados; proceso desactivado',},status= status.HTTP_404_NOT_FOUND
     
     
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
