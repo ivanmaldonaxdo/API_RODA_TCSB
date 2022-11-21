@@ -37,6 +37,9 @@ class Sistema(SingletonModel):
 
 
 class cron(models.Model):
+    #modificar por servicio en variable 
+    #asi se ejecurada un dia de agua otro de luz etc
+    #por parametro
     ESTADO=((True,'Acticado'),(False,'Desactivado'))
     is_active=models.BooleanField(default=True,choices=ESTADO)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)

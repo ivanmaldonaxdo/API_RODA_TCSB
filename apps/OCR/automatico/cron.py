@@ -1,3 +1,4 @@
+import array
 from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -48,18 +49,21 @@ class procesoautomatico(ViewSet):
     @action(detail=False,methods = ['POST'],url_name="procesook")
     def procesook(self,request):
 
-        #obtenemos todos los clientes clientes
-        #obtenemos si esta activo o no  
-        #cli_act = cli.get(is_active=True)
-        #cli_dict = dict(cli_act)
         #(falta mejorar esta funcion para filtrar por usuarios/servicio/rutreceptor)
+        #pensar mejor por parametros y folio especifico
+        #si este ya fue procesado se devuelve la hora y todos sus datos de procesamiento
+
+        #inicio con este ciclo for filtramos por usuario activo para cada cliente de roda
+        cli2 = Cliente.objects.all()
+        for c in cli2:
+            if c.is_active:
+                
+                print(c.nom_cli +' '+'este usuario esta activo')
+            else:
+                print(c.nom_cli +' '+'este usuario no esta activo') 
+        #fin de tal manera que sino lo esta se muestra por fronend
+
         cli = Cliente.objects.get(nom_cli="BANCO DEL ESTADO")
-       
-
-        #for d in d :
-         #   return 
-
-
 
         if cli.is_active == True: 
             #cronact = cron.objects.get(id=2)
@@ -114,7 +118,7 @@ class procesoautomatico(ViewSet):
                         dia = x.day
                         hora = x.hour
                         min = x.minute
-                        hora_actual = dia + hora + min 
+                        #hora= repr(dia)+'/ '+repr(hora)+' '+repr(min) 
                         #cronfiltrado = id_doc + doc.docName + doc.folio + hora_actual
                         #render (request,"cron.html",{"cronfiltrado":cronfiltrado})
                         return Response({'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
@@ -128,15 +132,10 @@ class procesoautomatico(ViewSet):
               dia = x.day
               hora = x.hour
               min = x.minute
+              hora= repr(dia)+'/ '+repr(hora)+' '+repr(min)
               return Response({'message':'proceso desactivado por servicio impago',
-              'message':'hora registrada del proceso',
-              'dia':dia,
-              'hora':hora,
-              'min':min,}, status= status.HTTP_404_NOT_FOUND)
+                                'dia/ hora del proceso':hora}, status= status.HTTP_404_NOT_FOUND)
             
-    #return Response(data = docs, status=status.HTTP_200_OK)
-    #{'message':'usuarios desactivados; proceso desactivado',},status= status.HTTP_404_NOT_FOUND
-    
     
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):

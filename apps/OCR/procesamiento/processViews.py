@@ -184,14 +184,11 @@ class OpenKMViewSet(ViewSet):
         return openkm
     ######### ESTA FUNCION SE ENCARGA DE LEER EL ARCHIVO DE CREDENCIALES DE SISTEMA
     def credenciales(self):
+        
         sistema = Sistema.objects.all().first()
         cantidad = Sistema.objects.count()
         sis = model_to_dict(sistema)
         sistema_file ="media" + "/" + str(sis.get("credencial"))
-        # print(sistema_file)
-        # sistema = 
-        # print("",cantidad, " - " ,sis)
-        # Opening JSON file
         json_creds = dict()
 
         ######### LECTURA DE ARCHIVO ##########
