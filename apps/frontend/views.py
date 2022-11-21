@@ -20,8 +20,14 @@ def processed(request):
 def Cliente(request):
     return render(request, 'frontend/Cliente.html')
 
+def modificarcliente(request):
+    return render(request, 'frontend/modificarcliente.html')
+
 def Usuarios(request):
     return render(request, 'frontend/Usuarios.html')
+
+def modificarusuario(request):
+    return render(request, 'frontend/modificarusuario.html')
 
 
 def test(request):
