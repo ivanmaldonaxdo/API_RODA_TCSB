@@ -11,7 +11,7 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 
-class LargeResultsSetPagination(PageNumberPagination):
+class StandardResultsSetPagination(PageNumberPagination):
     page_size = 20
     page_size_query_param = 'page_size'
     max_page_size = 10000
@@ -21,11 +21,11 @@ class LogViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdministrador]
     serializer_class = LogSerializer
     model = LogSistema
-    pagination_class = LargeResultsSetPagination
     http_method_names = ['get']
-    
+    pagination_class = StandardResultsSetPagination
+
     def get_queryset(self):
-        return LogSistema.objects.all().order_by('-id')[:10]
+        return LogSistema.objects.all().order_by('-id')
     
     def get_object(self, pk):
         try:
