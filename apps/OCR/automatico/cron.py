@@ -44,7 +44,6 @@ class procesoautomatico(ViewSet):
                 filtros[k] = None
         print("Filtros {} -".format(filtros))
         return filtros
-#modificar parametros de entrada tipo_servicio, rut_receptor 
 
     @action(detail=False,methods = ['POST'],url_name="procesook")
     def procesook(self,request):
@@ -54,88 +53,113 @@ class procesoautomatico(ViewSet):
         #si este ya fue procesado se devuelve la hora y todos sus datos de procesamiento
 
         #inicio con este ciclo for filtramos por usuario activo para cada cliente de roda
-        cli2 = Cliente.objects.all()
-        for c in cli2:
-            if c.is_active:
-                
-                print(c.nom_cli +' '+'este usuario esta activo')
-            else:
-                print(c.nom_cli +' '+'este usuario no esta activo') 
-        #fin de tal manera que sino lo esta se muestra por fronend
+        #obtenemos todos los clientes de la BD
+        
+        #dentro del proceso filtramos por servicio
+        #creamos un models en cliente  que devuelva el servicio contratado(agua,luz,gas)
+        
 
-        cli = Cliente.objects.get(nom_cli="BANCO DEL ESTADO")
+        #filtramos por cron activo , es decir todo el proceso automatico
+        cron_activo = cron.objects.get(id=2)
 
-        if cli.is_active == True: 
-            #cronact = cron.objects.get(id=2)
-            #filtros = dict(request.data)
-            #if cronact.is_active == True:
-                filtros = dict(request.data)
-                openkm = self.openkm_creds()
-                filtros = self.format_filtros(filtros)
-                docs = openkm.search_docs(
-                    _folio = filtros.get('folio'),
-                    _serv = filtros.get('tipo_servicio'), 
-                    _rutCli = filtros.get('rut_receptor')
-                )
-                if docs:
-                    print("HAY ARCHIVOS")
-                    data = docs
-                    data = dict(request.data)
-                    contenido = self.openkm.get_content_doc(data.get("uuid")).content
-                    try:
-                        ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
-                        resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
-                        with connections['default'].cursor() as cursor:##conexion default a la bd
-                            cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
-                            plantilla = cursor.fetchall()
-                        queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-                        print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-                        queries_file_path = os.path.join('media',queries_file)
-                        query_doc = 'media'+ '/' + queries_file
-                        table_doc = 'media'+ '/' + tables_file
-                        print(type(table_doc))
+        if cron_activo.is_active == True:
+        
+                    cli2 = Cliente.objects.all()
+                    for c in cli2:
+                        if c.is_active:
+                            #se podra realizar el proceso pasandole el rut del cliente por parametros
+                            filtros = dict(request.data)
+                            openkm = self.openkm_creds()
+                            filtros = self.format_filtros(filtros)
+                            docs = openkm.search_docs(
+                                _folio = filtros.get('folio'),
+                                _serv = filtros.get('tipo_servicio'), 
+                                _rutCli = filtros.get('rut_receptor')
+                            )
+                            if docs:
+                                print("HAY ARCHIVOS")
+                                data = docs
+                                data = dict(request.data)
+                                contenido = self.openkm.get_content_doc(data.get("uuid")).content
+                                try:
+                                    ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
+                                    resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
+                                    with connections['default'].cursor() as cursor:##conexion default a la bd
+                                        cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
+                                        plantilla = cursor.fetchall()
+                                    queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                                    print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                                    queries_file_path = os.path.join('media',queries_file)
+                                    query_doc = 'media'+ '/' + queries_file
+                                    table_doc = 'media'+ '/' + tables_file
+                                    print(type(table_doc))
 
-                        ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
-                        extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                        metadata = self.openkm.get_metadata(data.get("uuid"))
+                                    ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
+                                    extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                                    metadata = self.openkm.get_metadata(data.get("uuid"))
 
-                        ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
-                        docName = str(data.get('nomDoc')).replace('.pdf', '')
-                        archivo  = ( docName + '.json')
-                        read = json.dumps(extracted_data, indent = 4)
-                        contenido = ContentFile(read.encode('utf-8'))
-                        rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
-                        rut_cliente = format_rut_without_dots(rut_cliente)
-                        doc = Documento.objects.create(
-                            nom_doc = docName,
-                            folio =  metadata.get('folio'),
-                            sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
-                            procesado = True                     
-                        )
-                        subido = doc.documento.save(archivo,contenido)
-                        id_doc = doc.id
+                                    ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
+                                    docName = str(data.get('nomDoc')).replace('.pdf', '')
+                                    archivo  = ( docName + '.json')
+                                    read = json.dumps(extracted_data, indent = 4)
+                                    contenido = ContentFile(read.encode('utf-8'))
+                                    rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
+                                    rut_cliente = format_rut_without_dots(rut_cliente)
+                                    doc = Documento.objects.create(
+                                        nom_doc = docName,
+                                        folio =  metadata.get('folio'),
+                                        sucursal = Sucursal.objects.get(rut_sucursal = rut_cliente), 
+                                        procesado = True                     
+                                    )
+                                    subido = doc.documento.save(archivo,contenido)
+                                    id_doc = doc.id
+                                    x = datetime.now()
+                                    dia = x.day
+                                    hora = x.hour
+                                    min = x.minute
+                                    hora= repr(dia)+'/ '+repr(hora)+' '+repr(min) 
+                                    #proceso_final = c.nom_cli + id_doc + doc.docName + doc.folio + hora_actual2
+                                    return Response({'message':'Documento Procesado','DodcID':id_doc,
+                                                        'uuid':data.get("uuid"),
+                                                        'dia/ hora del proceso':hora,
+                                                    }, status=status.HTTP_200_OK,headers=None)
+                                
+                                except Exception as e:
+                                    #si el documento ya fue procesado  se debe mostrar igual
+                                        print(e)
+                                        print(c.nom_cli +' '+'este usuario esta activo') 
+                                        return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
+                                        #aqui respuesta del for 
+                                        
+                            else:
+                                #sino esta el documento se muestra
+                                folio = data.get('folio')
+                                return Response({'message':'Documento no encontrado',
+                                                'folio':folio}
+                                                , status= status.HTTP_404_NOT_FOUND)
+                                
+                    else:
                         x = datetime.now()
                         dia = x.day
                         hora = x.hour
                         min = x.minute
-                        #hora= repr(dia)+'/ '+repr(hora)+' '+repr(min) 
-                        #cronfiltrado = id_doc + doc.docName + doc.folio + hora_actual
-                        #render (request,"cron.html",{"cronfiltrado":cronfiltrado})
-                        return Response({'message':'Documento Procesado','DodcID':id_doc,'uuid':data.get("uuid")}, status=status.HTTP_200_OK,headers=None)
-                    
-                    except Exception as e:
-                            print(e) 
-                            return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
-                  
+                        hora= repr(dia)+'/ '+repr(hora)+' '+repr(min)
+                        return Response({'message':'proceso desactivado por servicio impago',
+                                            'dia/ hora del proceso':hora,
+                                            'cliente': c.nom_cli,}
+                                            ,status= status.HTTP_404_NOT_FOUND)
         else:
-              x = datetime.now()
-              dia = x.day
-              hora = x.hour
-              min = x.minute
-              hora= repr(dia)+'/ '+repr(hora)+' '+repr(min)
-              return Response({'message':'proceso desactivado por servicio impago',
-                                'dia/ hora del proceso':hora}, status= status.HTTP_404_NOT_FOUND)
-            
+            x = datetime.now()
+            dia = x.day
+            hora = x.hour
+            min = x.minute
+            hora= repr(dia)+'/ '+repr(hora)+' '+repr(min)
+            return Response({'message':'Cron esta desactivado',
+                                'dia/ hora ':hora,}
+                                ,status= status.HTTP_404_NOT_FOUND)
+
+
+
     
     @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
     def probar_creds(self,request):
