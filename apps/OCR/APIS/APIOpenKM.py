@@ -25,7 +25,7 @@ class OpenKm():
         properties = self.get_list_params(list_params)
         # print("")
         # print("Propiedades => {}" .format(properties))
-        params = {'property':properties} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
+        params = {'property':properties,'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -133,12 +133,14 @@ class OpenKm():
         path,uuid = nodo['path'], nodo['uuid']
         path_list = path.split('/')
         nom_doc = path_list[-1]
+        rut_client = path_list[3]
         # print("DATA => PATH: {} /n UUID: {}" .format(path,uuid))
         # if "okm:root" in
         objectOPK = dict(
                 {'path':path, 
                 'uuid':uuid,
-                'nomDoc':nom_doc
+                'nomDoc':nom_doc,
+                'rut_client':rut_client
                 })
         # print("No procesado" if not self.is_processed_doc(uuid) else "Este archivo si ha sido procesado")
         metadata = self.get_metadata(uuid)

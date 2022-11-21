@@ -19,6 +19,9 @@ def processed(request):
 
 def cron(request):
     return render(request,'frontend/cron.html')
+def Cliente(request):
+    return render(request, 'frontend/Cliente.html')
+
 
 def test(request):
     return render(request, 'frontend/test.html')
