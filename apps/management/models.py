@@ -196,13 +196,13 @@ class Contrato_servicio(models.Model):
 
 
 class LogSistema(models.Model):
-    api=models.CharField('URL',max_length=255, blank=False)
-    id_user=models.IntegerField('Id Usuario',  blank=False)
+    api=models.CharField('URL',max_length=255, blank=False, default='URL')
+    id_user=models.IntegerField('Id Usuario',  blank=False, default=0)
     cliente = models.CharField('Cliente', max_length=255, default='No Aplica')
-    payload=models.CharField('Payload',max_length=255, blank=False)
-    method=models.CharField('Tipo de peticion',max_length=255, blank=False)
-    response=models.TextField()
-    status_code=models.PositiveSmallIntegerField('Status Respuesta')
+    payload=models.CharField('Payload',max_length=255, blank=False, default='Payload')
+    method=models.CharField('Tipo de peticion',max_length=255, blank=False, default='Metodo')
+    response=models.TextField(default='Response')
+    status_code=models.PositiveSmallIntegerField('Status Respuesta', default='codigo')
     fecha_hora = models.DateTimeField('Fecha y Hora', default=timezone.now)
 
     def __str__(self):

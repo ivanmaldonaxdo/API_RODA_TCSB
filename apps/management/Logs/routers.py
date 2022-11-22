@@ -6,6 +6,6 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register(r'logs', LogViewSet, basename="Logs del sistema")
+router.register('', LogViewSet, basename="Logs del sistema")
 
 urlpatterns = router.urls

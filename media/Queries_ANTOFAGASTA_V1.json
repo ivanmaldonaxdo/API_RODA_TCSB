@@ -1,0 +1,193 @@
+{
+    "Queries": [
+        {
+            "Text": "NRO",
+            "Alias": "NBOLETA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "NRO CLIENTE",
+            "Alias": "NUMERO CLIENTE",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA EMISION",
+            "Alias": "FECHA EMISION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TOTAL DE PAGAR",
+            "Alias": "TOTAL DE PAGAR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA VENCIMIENTO",
+            "Alias": "FECHA VENCIMIENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "NRO MEDIDOR",
+            "Alias": "N° MEDIDOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "DIAMETRO MEDIDOR",
+            "Alias": "DIAMETRO MEDIDOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "GRUPO TARIFARIO",
+            "Alias": "GRUPO TARIFARIO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "M3 ABONAR",
+            "Alias": "M3 ABONAR PROX FACTURA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "ESTADO SUMINISTRO",
+            "Alias": "ESTADO DE SUMINISTRO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TIPO FACTURACION",
+            "Alias": "TIPO DE FACTURACION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "LECTURA ANTERIOR fecha",
+            "Alias": "LECTURA ANTERIOR fecha",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "LECTURA ACTUAL fecha",
+            "Alias": "LECTURA ACTUAL fecha",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "What is lectura anterior M3 of actual lecture?",
+            "Alias": "LECTURA ANTERIOR M3",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "What is lectura actual M3 of actual lecture?",
+            "Alias": "LECTURA ACTUAL M3",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CONSUMO PERIODO",
+            "Alias": "CONSUMO PERIODO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA PROXIMA LECTURA",
+            "Alias": "FECHA PROXIMA LECTURA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "PAGOS ULTIMAS FACTURAS",
+            "Alias": "PAGOS ULTIMAS FACTURAS",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA ULTIMO PAGO",
+            "Alias": "FECHA ULTIMO PAGO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "MONTO AFECTO",
+            "Alias": "MONTO AFECTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "19 % IVA",
+            "Alias": "19 % IVA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "MONTO EXENTO",
+            "Alias": "MONTO EXENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TOTAL FACTURADO",
+            "Alias": "TOTAL FACTURA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SENCILLO ACTUAL",
+            "Alias": "AJUSTE SENCILLO ACTUAL",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SENCILLO ANTERIOR",
+            "Alias": "AJUSTE SENCILLO ANTERIOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "PENDIENTES PAGO",
+            "Alias": "SALDOS PENDIENTES DE PAGO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "OTROS COBROS",
+            "Alias": "TOTAL OTROS COBROS",
+            "Pages": [
+                "1"
+            ]
+        }
+    ]
+}

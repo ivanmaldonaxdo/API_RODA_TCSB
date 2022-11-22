@@ -89,8 +89,8 @@ class OpenKMViewSet(ViewSet):
                 archivo  = ( docName + '.json')
 
                 ######## RUT DE CLIENTE
-                rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
-                rut_cliente = format_rut_without_dots(rut_cliente)
+                # rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
+                # rut_cliente = format_rut_without_dots(rut_cliente)
                 numero_cli = extracted_data.get("Nro CLIENTE")
         
                 read = json.dumps(extracted_data, indent = 4)
@@ -128,7 +128,7 @@ class OpenKMViewSet(ViewSet):
                 print("Line number: ", line_number)
                 print(e)
                 return Response({
-                    'message':'Documento No Procesado',
+                    'message':'Documento No Procesado','Error':str(e)
                     }, status=status.HTTP_409_CONFLICT,headers=None)
     
         except Exception as e:
