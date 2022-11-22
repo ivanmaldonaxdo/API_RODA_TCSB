@@ -60,12 +60,21 @@ class procesoautomatico(ViewSet):
         
 
         #filtramos por cron activo , es decir todo el proceso automatico
+        
+        #buscamos
+        #const url = 'http://localhost:8000/documentos/search_docs/
+        #http://localhost:8000/documentos/process_docs/'
+        #const url = 'http://localhost:8000/procesados/'
+        
         cron_activo = cron.objects.get(id=2)
 
         if cron_activo.is_active == True:
                     cli2 = Cliente.objects.all()
                     for c in cli2:
                         if c.is_active:
+                            #aqui funciones para detener por dia/ hora
+
+
                             #se podra realizar el proceso pasandole el rut del cliente por parametros
                             filtros = dict(request.data)
                             openkm = self.openkm_creds()
