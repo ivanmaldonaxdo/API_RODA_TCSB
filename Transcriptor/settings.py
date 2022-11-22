@@ -53,7 +53,6 @@ THIRD_APPS = [
     'rut_chile',
     'drf_api_logger',
     'solo',
-    'django_cron',
     "corsheaders",
 ]
 
