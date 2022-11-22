@@ -19,7 +19,7 @@ var lasCookies = getCookie('rol');
 tabla = document.getElementsByClassName("boletas-info")
 
 if (lasCookies=='Administrador'){
-    $(tabla).hide()
+    //$(tabla).hide()
     //console.log('tablita ocultada mi rei')
     
    

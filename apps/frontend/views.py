@@ -23,11 +23,17 @@ def Cliente(request):
 def modificarcliente(request):
     return render(request, 'frontend/modificarcliente.html')
 
+def listarcliente(request):
+    return render(request, 'frontend/listarcliente.html')
+
 def Usuarios(request):
     return render(request, 'frontend/Usuarios.html')
 
 def modificarusuario(request):
     return render(request, 'frontend/modificarusuario.html')
+
+def listarusuarios(request):
+    return render(request, 'frontend/listarusuarios.html')
 
 
 def test(request):

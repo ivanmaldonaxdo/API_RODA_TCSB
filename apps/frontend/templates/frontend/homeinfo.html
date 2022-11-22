@@ -21,7 +21,7 @@
                     </div>
                     <div class="infocliente">
 
-                        <a href="{% url 'processed' %}">Boletas<span class="borde0">0</span></a>
+                        <a class="ctacli" href="{% url 'processed' %}">Boletas<span class="borde0">0</span></a>
 
                     </div>
 
@@ -85,7 +85,7 @@
                 <div class="modal-texto">
                     <h2>Visualizacion de Clientes </h2>
                     <div class="cont-cli-table">
-                        <table>
+                        <table id="detalle-cli">
                             <thead class="tbl-header-cli">
                                 <tr>
                                     <th>Cliente </th>
@@ -96,6 +96,31 @@
                                 </tr>
                             </thead>
                             <tbody class="body-tablecli">
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="centrado">Prueba</td>
+                                    <td class="centrado">Prueba</td>
+                                    
+                                </tr>
                                 <tr>
                                     <td class="centrado">Prueba</td>
                                     <td class="centrado">Prueba</td>
@@ -127,7 +152,11 @@
 
 <!--Modal para realizar los comentarios-->   
 
-
+    <script>
+        $(document).ready( function () {
+            $('#detalle-cli').DataTable();
+        } );
+    </script>
 
     <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>
