@@ -248,7 +248,8 @@ function getIndexTR(x) {
         row_RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
     // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
-    const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
+    const documento = {uuid :
+         , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
 
     Swal.fire({
         title: 'Procesando documento....',
