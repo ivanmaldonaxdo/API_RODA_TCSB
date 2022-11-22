@@ -14,7 +14,7 @@ from django.db.models import Q
 import json
 import os
 import csv
-from django.conf import settings# from django.core.files.storage
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
