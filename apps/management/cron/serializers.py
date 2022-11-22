@@ -8,3 +8,8 @@ class SistemaSerializers(serializers.ModelSerializer):
     class Meta:
         model = ConfigCron
         fields = ('hora_luz', 'hora_agua', 'hora_gas',)
+
+
+
+
+

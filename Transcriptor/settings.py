@@ -54,7 +54,6 @@ THIRD_APPS = [
     'solo',
     'django_cron',
     "corsheaders",
-
 ]
 
 CRON_CREDENCIAL= 'Nmi9IXfkKBUgyRk*pQ+1F9Xz@8OS7$1&E4^6eJTrdgKD$soC6'

@@ -191,6 +191,7 @@ class LogSistema(models.Model):
 
 
 class ConfigCron(SingletonModel):
+    status = models.CharField('Status', max_length=100,blank=False, default='Inactivo')
     singleton_instance_id = 1
     cursor = models.IntegerField('Cursor', blank=False, default=0)
     ESTADOS = (
