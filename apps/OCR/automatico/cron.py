@@ -61,11 +61,9 @@ class procesoautomatico(ViewSet):
 
         #filtramos por cron activo , es decir todo el proceso automatico
         
-        #buscamos
-        #const url = 'http://localhost:8000/documentos/search_docs/
-        #http://localhost:8000/documentos/process_docs/'
         #const url = 'http://localhost:8000/procesados/'
         
+        #
         cron_activo = cron.objects.get(id=2)
 
         if cron_activo.is_active == True:
