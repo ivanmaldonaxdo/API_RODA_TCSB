@@ -12,7 +12,7 @@ class JWTAuthentication(BaseAuthentication):
         if not token:
             raise AuthenticationFailed('Token no valido')
         
-        if token == settings.SECRET_KEY:
+        if token == settings.CRON_CREDENCIAL:
             user = User.objects.get(id=11)
             return (user, None)
 

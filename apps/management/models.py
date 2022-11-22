@@ -190,3 +190,20 @@ class LogSistema(models.Model):
         return str(self.id)
 
 
+class ConfigCron(SingletonModel):
+    singleton_instance_id = 1
+    cursor = models.IntegerField('Cursor', blank=False, default=0)
+    ESTADOS = (
+        (True, 'Activado'),
+        (False, 'Desactivado'),
+    )
+    is_active = models.BooleanField(default = True, choices=ESTADOS)
+    hora_gas = models.TimeField(default='14:00')
+    hora_agua = models.TimeField(default='08:00')
+    hora_luz = models.TimeField(default='02:00')
+
+    def __str__(self):
+        return "Cron"
+
+    class Meta:
+        verbose_name = "Configuracion de CRON"
