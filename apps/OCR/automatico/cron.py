@@ -21,20 +21,6 @@ from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 from datetime import datetime
 
-#proceso automatico por cliente y servicio
-#el proceso consultara en la BD si es un numero u otro para realizar el proceso o no
-#se debe crear en models la clase openkmauto con una variable simple 
-#esta sera consultada mediante el proceso automatico
-
-#folios a probar
-#000052369"
-#000053076"
-#000056302"
-#000077564"
-#000079921"
-
-#modelo por servicio agua , luz , gas
-
 class procesoautomatico(ViewSet):
     docs = None
     openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
@@ -44,6 +30,13 @@ class procesoautomatico(ViewSet):
                 filtros[k] = None
         print("Filtros {} -".format(filtros))
         return filtros
+
+
+    @action(detail=False,methods = ['POST'],url_name="pruebausu")
+    def pruebausu(self,request):
+        url = 'http://localhost:8000/clientes/'
+        x = request.get(url)
+        
 
     @action(detail=False,methods = ['POST'],url_name="procesook")
     def procesook(self,request):
@@ -61,9 +54,10 @@ class procesoautomatico(ViewSet):
 
         #filtramos por cron activo , es decir todo el proceso automatico
         
-        #const url = 'http://localhost:8000/procesados/'
+        #http://localhost:8000/documentos/process_docs/' procesa archivos
+        #http://localhost:8000/documentos/search_docs/'; los busca
+        #const url = 'http://localhost:8000/procesados/' busca procesados
         
-        #
         cron_activo = cron.objects.get(id=2)
 
         if cron_activo.is_active == True:
@@ -71,9 +65,9 @@ class procesoautomatico(ViewSet):
                     for c in cli2:
                         if c.is_active:
                             #aqui funciones para detener por dia/ hora
-
-
                             #se podra realizar el proceso pasandole el rut del cliente por parametros
+                            #REALIZAR FUNCIONES POR REQUEST
+                            
                             filtros = dict(request.data)
                             openkm = self.openkm_creds()
                             filtros = self.format_filtros(filtros)
@@ -136,24 +130,31 @@ class procesoautomatico(ViewSet):
                                         print(c.nom_cli +' '+'este usuario esta activo') 
                                         return Response({'message':'Documento no Procesado',}, status= status.HTTP_404_NOT_FOUND)
                                         #aqui respuesta del for 
-                                        
+
+                            #el proceso automatico de por si trae los documentos sin procesar       
+                            #se debera modificar este codigo 
                             else:
                                 #sino esta el documento se muestra
-                                folio = data.get('folio')
+                                #por folio ya que por servicio no va al caso
+                                filtros = dict(request.data)
+                                folio = filtros.get('folio')
                                 return Response({'message':'Documento no encontrado',
                                                 'folio':folio}
                                                 , status= status.HTTP_404_NOT_FOUND)
-                                
                     else:
+                        print(c.nom_cli)
                         x = datetime.now()
                         dia = x.day
                         hora = x.hour
                         min = x.minute
                         hora= repr(dia)+'/ '+repr(hora)+' '+repr(min)
+                        print(hora)
+                        print(c.nom_cli)
                         return Response({'message':'proceso desactivado por servicio impago',
                                             'dia/ hora del proceso':hora,
-                                            'cliente': c.nom_cli,}
+                                            'cliente': c.nom_cli}
                                             ,status= status.HTTP_404_NOT_FOUND)
+                     
         else:
             x = datetime.now()
             dia = x.day
