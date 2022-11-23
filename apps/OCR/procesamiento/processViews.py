@@ -80,6 +80,7 @@ class OpenKMViewSet(ViewSet):
                     resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
 
                     ######################## CONSULTA DE PLANTILLAS EN BD #############################
+                    print(data.get('rut_emisor'))
                     with connections['default'].cursor() as cursor:##conexion default a la bd
                         cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                         plantilla = cursor.fetchall()
