@@ -11,11 +11,12 @@ class SistemaSerializers(serializers.ModelSerializer):
 
 
 class CronSerializer(serializers.ModelSerializer):
+    hora_luz = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
+    hora_agua = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
+    hora_gas = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
 
     class Meta:
         model = ConfigCron
-        fields = ('is_active',)
-
-
+        fields = ('is_active','status', 'hora_luz', 'hora_agua', 'hora_gas',)
 
 
