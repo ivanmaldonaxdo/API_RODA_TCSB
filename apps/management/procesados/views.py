@@ -1,28 +1,45 @@
-
+from rest_framework import filters
 from rest_framework.response import Response
-from apps.management.procesados.serializers import DocumentoSerializer
-from apps.management.models import Documento
+from apps.management.procesados.serializers import DocumentosSerializers,ContratoSerializer
+from apps.management.models import Documento,Contrato_servicio
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import FilterSet
+# import django_filters
+
 # from django_filters import FilterSet
 
-# class ClienteFilter(FilterSet):
-#     class Meta:
-#         model = Documento
-#         fields = {
-#             'nom_cli': ['contains'],
-#             'rut_cliente': ['exact'],
-#         }
+class DocumentoFilter(FilterSet):
+    class Meta:
+        model = Documento
+        # fields = ['folio']
+        # fields = {
+        #     'contrato_servicio__num_cliente':['exact'],
+        #     # 'contrato_servicio_set':['contains']
+
+        # }
+        fields = {
+                'folio':['exact'],
+                # 'contrato_servicio_set':['contains']
+
+            }
 
 
 class ProcesadosViewSet(viewsets.GenericViewSet):
-    serializer_class = DocumentoSerializer
+    serializer_class = DocumentosSerializers
     model = Documento
-    # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    # filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = DocumentoFilter.Meta.fields
+    # filterset_fields = Contrato_servicioFilter.Meta.fields
+    # filter_class = DocumentoFilter
+    # search_fields = (
+    #     '^folio',
+    # )
+    filter_backends = [DjangoFilterBackend]
 
 
     def get_queryset(self):
@@ -39,7 +56,7 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
     def list(self, request): #Listado de usuario
         query = self.get_queryset()
         if query:
-            serializer = DocumentoSerializer(query, many=True)
+            serializer = DocumentosSerializers(query, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:   
             return Response({
@@ -48,13 +65,13 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
     
 
     
-    def create(self, request, *args, **kwargs):
-        serializer_class = DocumentoSerializer(data=request.data)
-        if serializer_class.is_valid():
-            serializer_class.save()
-            return Response(serializer_class.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer_class.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def create(self, request, *args, **kwargs):
+    #     serializer_class = DocumentoSerializer(data=request.data)
+    #     if serializer_class.is_valid():
+    #         serializer_class.save()
+    #         return Response(serializer_class.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(serializer_class.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def retrieve(self, request, pk = None): 
         documento  = self.get_object(pk)
