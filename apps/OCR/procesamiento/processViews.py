@@ -96,14 +96,12 @@ class OpenKMViewSet(ViewSet):
                 read = json.dumps(extracted_data, indent = 4)
                 contenido = ContentFile(read.encode('utf-8'))
                 contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
-                id_contrat = contrato_serv.sucursal.id
+                # id_contrat = contrato_serv.sucursal.id
                 # print(id_contrat)
                 doc = Documento.objects.create(
                     nom_doc = docName,
                     folio =  metadata.get('folio'),
-                    sucursal = Sucursal.objects.get(id = id_contrat), 
-
-                    # sucursal = Sucursal.objects.get( id = Contrato_servicio.objects.only('sucursal_id').filter(num_cliente=num_cli)), 
+                    contrato_servicio = contrato_serv,
                     procesado = True                     
                 )
                 subido = doc.documento.save(archivo,contenido)
@@ -111,7 +109,7 @@ class OpenKMViewSet(ViewSet):
                 # print(id_doc)
                 # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
                 return Response({
-                    'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DodcID":id_doc
+                    'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DocID":id_doc
 
                     }, status=status.HTTP_200_OK,headers=None)
                 
@@ -127,8 +125,14 @@ class OpenKMViewSet(ViewSet):
                 print("File name: ", filename)
                 print("Line number: ", line_number)
                 print(e)
+                error = ""
+                rut_proveedor = data.get('rut_emisor')
+                if str(e) == "list index out of range":
+                    error = "No hay plantillas relacionadas a proveedor con rut {}" .format(rut_proveedor)
+                else:
+                    error = str(e)
                 return Response({
-                    'message':'Documento No Procesado','Error':str(e)
+                    'message':'Documento No Procesado','Error':error
                     }, status=status.HTTP_409_CONFLICT,headers=None)
     
         except Exception as e:
