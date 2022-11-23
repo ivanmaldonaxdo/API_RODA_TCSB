@@ -150,21 +150,13 @@ class Sucursal(models.Model):
     class Meta:
         verbose_name_plural = "Sucursales"
 
-
+# def ruta_img_carousel(instance,filename):
+#     return 'images/carousel/{0}/{1}'.format(instance.categoria.nombre_categ, filename)
 #Boleta/Factura
-class Documento(models.Model):
-    nom_doc = models.CharField('Documento',max_length=255, default='Documento')
-    folio = models.CharField('Folio',max_length=255, blank=False)
-    fecha_procesado = models.DateTimeField(default=timezone.now)
-    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
-    procesado = models.BooleanField(default = False)
-    documento = models.FileField(validators=[
-        FileExtensionValidator(allowed_extensions=['json', 'pdf'])
-    ])
 
-    def __str__(self):
-        return self.nom_doc
 
+    # def ruta_docs(self,filename):
+    #     return 'procesados/{}'.format(self.nom_doc)
 class Contrato_servicio(models.Model):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default=None)
@@ -175,6 +167,18 @@ class Contrato_servicio(models.Model):
 
         # return self.proveedor + ' - ' + str(self.num_cliente)
 
+class Documento(models.Model):
+    nom_doc = models.CharField('Documento',max_length=255, default='Documento')
+    folio = models.CharField('Folio',max_length=255, blank=False)
+    fecha_procesado = models.DateTimeField(default=timezone.now)
+    contrato_servicio = models.ForeignKey(Contrato_servicio,on_delete=models.SET_NULL,null=True)
+    procesado = models.BooleanField(default = False)
+    documento = models.FileField(upload_to ='procesados/' ,validators=[
+        FileExtensionValidator(allowed_extensions=['json', 'pdf'])
+    ])
+
+    def __str__(self):
+        return self.nom_doc
 
 class LogSistema(models.Model):
     api=models.CharField('URL',max_length=255, blank=False, default='URL')

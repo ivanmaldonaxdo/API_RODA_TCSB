@@ -237,29 +237,29 @@ async function  getDataProv(rutProveedor) {
     return obj
 }
 
-function getIndexTR(x) {
-    let index_tb = x.rowIndex;
-    let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
-        elemento = document.getElementById("tablaJS").firstElementChild;
-    let items_tr = x.cells[conteo_celdas_filas-1];
-    // console.log(items_tr[3]);
-    let row_uuid = document.getElementsByName("uuid").item(index_tb).value,
-        row_nomDoc = document.getElementsByName("nomDoc").item(index_tb).value,
-        row_RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
-    // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
+// function getIndexTR(x) {
+//     let index_tb = x.rowIndex;
+//     let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
+//         elemento = document.getElementById("tablaJS").firstElementChild;
+//     let items_tr = x.cells[conteo_celdas_filas-1];
+//     // console.log(items_tr[3]);
+//     let row_uuid = document.getElementsByName("uuid").item(index_tb).value,
+//         row_nomDoc = document.getElementsByName("nomDoc").item(index_tb).value,
+//         row_RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
+//     // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
 
-    const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
+//     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
 
-    Swal.fire({
-        title: 'Procesando documento....',
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            contenido = downloadDocs(index_tb,documento);
-            console.log(contenido);
-        },
-    })
-}
+//     Swal.fire({
+//         title: 'Procesando documento....',
+//         timerProgressBar: true,
+//         didOpen: () => {
+//             Swal.showLoading()
+//             contenido = downloadDocs(index_tb,documento);
+//             console.log(contenido);
+//         },
+//     })
+// }
 
 function processDocs(indexRow,documento){
     console.log("Index :", indexRow);

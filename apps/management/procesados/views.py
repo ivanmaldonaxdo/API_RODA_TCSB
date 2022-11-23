@@ -26,7 +26,7 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
 
 
     def get_queryset(self):
-        queryset= self.filter_queryset(Documento.objects.all())
+        queryset= self.filter_queryset(Documento.objects.all().order_by('-fecha_procesado'))
         return queryset
 
     def get_object(self, pk):
