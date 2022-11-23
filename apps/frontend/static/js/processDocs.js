@@ -100,11 +100,12 @@ function getDocs(folio,tpServicio, rutCli = null ) {
 
 }
 //"el" es elemento por ej: "uuid", index la fila en es que se encuentra
+/// SIRVE PARA OBTENER VALORES DE BOTONES
 let getValueElement = (el,index) =>{
     return document.getElementsByName(el).item(index).value;
 }
 
-////OBTIENE EL CONTENIDO DE LOS TD 
+////OBTIENE EL CONTENIDO DE LOS TD (NO BOTONES)
 let getTextElement = (el,index) =>{
     return document.getElementsByName(el).item(index).textContent;
 }
@@ -130,13 +131,15 @@ function btnProcessDocs(elem) {
     const documento = {
         uuid : getValueElement('uuid',indexRow),
         nomDoc : getValueElement('nomDoc',indexRow),
-        rut_emisor: getValueElement('RutEmi',indexRow)
+        rut_emisor: getValueElement('RutEmi',indexRow),
+        rut_client : getTextElement('tdRutCli',indexRow)
     };
     Swal.fire({
         title: 'Procesando documento....',
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
+            console.log(documento);
             contenido = processDocs(indexRow,documento);
             // console.log(contenido);            
         },
@@ -237,33 +240,9 @@ async function  getDataProv(rutProveedor) {
     return obj
 }
 
-// function getIndexTR(x) {
-//     let index_tb = x.rowIndex;
-//     let conteo_celdas_filas = document.getElementById("tablaJS").firstElementChild.childElementCount,
-//         elemento = document.getElementById("tablaJS").firstElementChild;
-//     let items_tr = x.cells[conteo_celdas_filas-1];
-//     // console.log(items_tr[3]);
-//     let row_uuid = document.getElementsByName("uuid").item(index_tb).value,
-//         row_nomDoc = document.getElementsByName("nomDoc").item(index_tb).value,
-//         row_RutEmi = document.getElementsByName("RutEmi").item(index_tb).value;
-//     // console.log("uuid: ", row_uuid ," - nomDoc: ", row_nomDoc, " - RutEmi: ",row_RutEmi);
-
-//     const documento = {uuid :row_uuid , nomDoc : row_nomDoc, rut_emisor: row_RutEmi};
-
-//     Swal.fire({
-//         title: 'Procesando documento....',
-//         timerProgressBar: true,
-//         didOpen: () => {
-//             Swal.showLoading()
-//             contenido = downloadDocs(index_tb,documento);
-//             console.log(contenido);
-//         },
-//     })
-// }
-
 function processDocs(indexRow,documento){
-    console.log("Index :", indexRow);
-    console.log("Objeto", documento.uuid);
+    // console.log("Index :", indexRow);
+    // console.log("Objeto", documento.uuid);
     // const url = 'http://3.80.228.126/documentos/process_docs/';
     const url = 'http://localhost:8000/documentos/process_docs/';
 
@@ -307,7 +286,6 @@ function processDocs(indexRow,documento){
                 deleteRow(indexRow);
 
             }
-
             console.log("Contenido adquirido");
            return content;
         })
@@ -327,7 +305,7 @@ function createRowDoc(doc,event)
         cssButton = "buttonDownload";
     // console.log(data_value);
     var fechaEmi = `${doc.dia_doc}/${doc.mes_doc}/${doc.anio_doc}`
-    let btn_uuid   = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
+    let btn_uuid  = `<input type="hidden" id = "uuid"   name="uuid" value="${doc.uuid}"/>`,
         btn_nomDoc = `<input type="hidden" id = "nomDoc" name="nomDoc" value="${doc.nomDoc}"/>`,
         btn_RutRecep = `<input type="hidden" id = "RutRecep" name="RutRecep" value="${doc.rut_receptor}"/>`;
         
@@ -343,7 +321,7 @@ function createRowDoc(doc,event)
 
 
     let tdfolio = `<td class = "${clase}" data-label="Folio" name ="tdFolio"> ${doc.folio}</td>`,
-        tdRutClient = `<td class = "${clase}" data-label="Rut cliente" name ="tdRutCli"> ${doc.rut_client}</td>`,
+        tdRutClient = `<td class = "${clase}" data-label="Rut cliente" name ="tdRutCli">${doc.rut_client}</td>`,
         tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
         tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
         tdDetalle = crearTd(clase,"Detalle",form_detalle);
