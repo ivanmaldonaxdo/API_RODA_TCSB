@@ -59,3 +59,16 @@ class StatusForCron(viewsets.GenericViewSet):
         return Response({
             'message':'HUBO UN ERROR AL ACTUALIZAR EL ESTADO DE CRON'
         }, status= status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['get'])
+    def verificar_status(self, request):
+        cron = self.get_object(1)
+        response = Response()
+        data = dict()
+        estatus = {'status':cron.is_active}
+        data.update(estatus)
+        response.status_code= status.HTTP_202_ACCEPTED
+        response.data = data
+
+        return response
+    
