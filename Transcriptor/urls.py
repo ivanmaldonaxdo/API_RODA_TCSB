@@ -35,11 +35,15 @@ urlpatterns = [
     path('procesados/',include('apps.management.procesados.routers')),
 <<<<<<< HEAD
     path('logs/',include('apps.management.Logs.routers')),
+<<<<<<< HEAD
     path('cron/', cron.dicehola),
 =======
     path('logs',include('apps.management.Logs.routers')),
     #path('cron/', cron.dicehola),
 >>>>>>> monse
+=======
+    path('cron/',include('apps.management.cron.routers')),
+>>>>>>> fc84f8c7f2a2f7b5dba5ba100febdb4a8cb28403
     path('', include('apps.frontend.urls'))
 
 ]
