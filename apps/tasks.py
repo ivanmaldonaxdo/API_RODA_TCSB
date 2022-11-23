@@ -25,7 +25,7 @@ class MyCronJob(CronJobBase):
 
     def do(self):
         if self.cronconfig.is_active == True:
-            url =  'http://localhost:8000/documentos/search_docs/'
+            url =  'http://44.197.147.109/documentos/search_docs/'
             cookie = settings.CRON_CREDENCIAL
             body={'folio': '', 'tipo_servicio': 'GAS', 'rut_receptor': None}
             ConfigCron.objects.filter(id=1).update(status = 'Buscando Informacion')
@@ -33,7 +33,7 @@ class MyCronJob(CronJobBase):
             data = search.json()
             ConfigCron.objects.filter(id=1).update(status = 'Procesando documentos')
             for bol in data:
-                url2 =  'http://localhost:8000/cron/verificar_status/'
+                url2 =  'http://44.197.147.109/cron/verificar_status/'
                 cookie = settings.CRON_CREDENCIAL
                 estado = requests.get(url=url2, cookies={'jwt':cookie})
                 con = estado.json()
@@ -41,7 +41,7 @@ class MyCronJob(CronJobBase):
                     uidd= bol['uuid']
                     nomDoc = bol['nomDoc']
                     rut_emisor = bol['rut_emisor']
-                    url3 =  'http://localhost:8000/documentos/process_docs/'
+                    url3 =  'http://44.197.147.109/documentos/process_docs/'
                     body_proc= {'uuid' :uidd , "nomDoc" : nomDoc, "rut_emisor": rut_emisor}
                     proc = requests.post(url=url3, json=body_proc, cookies={'jwt':cookie})
                     time.sleep(5)
