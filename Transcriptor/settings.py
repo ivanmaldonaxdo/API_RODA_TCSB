@@ -209,9 +209,6 @@ DRF_API_LOGGER_DATABASE = True
 DRF_API_LOGGER_SIGNAL = True
 DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #funcion para el proceso automatico 
-CRONJOBS = [
-    ('* * * * *', 'apps.OCR.cron.dicehola')
-]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

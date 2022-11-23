@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import login,homeinfo,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios
+from .views import login,homeinfo,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron
 
 from .views import login,homeinfo,processDocs, test
 
@@ -15,5 +15,6 @@ urlpatterns = [
     path('Usuarios/', Usuarios, name="Usuarios"),
     path('Modificarusuario/', modificarusuario, name="modificarusuario"),
     path('listarusuarios/', listarusuarios, name="listarusuarios"),
+    path('cron/', cron, name="cron"),
     path('test/', test, name='test')
 ]
