@@ -210,9 +210,12 @@ DRF_API_LOGGER_DATABASE = True
 DRF_API_LOGGER_SIGNAL = True
 DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #funcion para el proceso automatico 
+<<<<<<< HEAD
 CRON_CLASSES = [
     "apps.tasks.MyCronJob"
 ]
+=======
+>>>>>>> monse
 
 
 STATIC_URL = '/static/'
