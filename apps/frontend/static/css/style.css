@@ -272,82 +272,122 @@ input~i {
 /* ---------------------------------------------------------FIN FOOTER----------------------------------------------*/
 /*----------------------------------------------- header------------------------------------------------------------------------*/
 
-/* 
+header{
+    position: fixed;
+     top: 0; left: 0; right: 0;
+     background: #2c2d2e;
+     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+     padding: 0px 3%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     z-index: 1000;
+ }
+ 
+ 
+ .logo{
+     width: 200px;
+ }
+ 
+ header .navbar{
+     height: 75px;
+ }
+ header .navbar ul{
+     list-style: none;
+ }
+ 
+ header .navbar ul li{
+     position: relative;
+     float: left;
+     margin-left: 10px;
+ }
+ 
+ header .navbar ul li a{
+     padding: 7px 7px;
+     color: #fff;
+     display: block;
+     font-size: 18px;
+     color: #fff;
+     text-transform: uppercase;
+     display: block;
+     border: 1px solid transparent;
+     border-radius: 3px;
+     margin-top: 10px;
+   
+ }
+ 
+ header .navbar ul li a:hover{
+     
+     color: #ccc6eb;
+   
+     transition: .5s;
 
-nav {
-    height: 80px;
-    width: 100%;
-    background: #2c2d2e;
-}
-
-.logo {
-    width: 250px;
-    padding-left: 60px;
-    padding-top: 10px;
-}
-
-nav ul {
-    float: right;
-    margin-right: 40px;
-}
-
-nav li {
-    display: inline-block;
-    margin: 0 8px;
-    line-height: 80px;
-
-}
-
-nav a {
-    color: #fff !important;
+ }
+ 
+ header .navbar ul li ul{
+     position: absolute;
+     padding: 0;
+     left: 0;
+     width: 200px;
+     background: #2c2d2e;
+     display: none;
+     border-radius: 0px 0px 6px 6px;
+ 
+ }
+ header .navbar ul li ul li{
+     width: 100%;
+     border-top: 1px solid rgba(255, 255, 255, 0.308);
     
-    font-size: 18px;
-    text-transform: uppercase;
-    border: 1px solid transparent;
-    padding: 7px 10px;
-    border-radius: 3px;
-}
+ }
+ /*
+ header .navbar ul li ul li ul{
+     left: 200px;
+     top: 0;
+ 
+ }*/
+ 
+ header .navbar ul li:hover > ul{
+     display: initial;
+ }
+ 
+ 
+ 
+ 
+ #menu-bar{
+     display: none;
+ }
+ 
+ 
+ header label{
+     font-size: 30px;
+     color: #fff;
+     cursor: pointer;
+     display: none;
+ }
+ 
+ @media (max-width:1100px){
+     .logo{
+         width: 150px;
+     }
+ }
+ 
+ @media (max-width:1258px){
+     header{
+        padding: 20px;
+     }
+ 
+     header label{
+         display: initial;
+     }
+ 
+    header .navbar{
+         position: absolute;
+         background: #2c2d2e;
+         border-top: 1px solid rgba(255, 255, 255, 0.308);
+       /* display: none;*/
+     }
 
-a.active,
-a:hover {
-
-    border: 1px solid #fff;
-    transition: .5s;
-}
-
-nav #icon {
-    color: white;
-    font-size: 30px;
-    line-height: 80px;
-    float: right;
-    margin-right: 40px;
-    cursor: pointer;
-    display: none;
-}
-
-@media screen and (max-width: 1048px) {
-    .logo {
-        width: 250px;
-        padding-left: 60px;
-        padding-top: 10px;
-    }
-
-    nav ul {
-        margin-right: 5px;
-
-    }
-
-    nav a {
-        font-size: 17px;
-    }
-}
-
-@media screen and (max-width: 909px) {
-    nav #icon {
-        display: block;
-    }
-
-    nav ul {
+     header .navbar ul {
         position: fixed;
         width: 100%;
         height: 100vh;
@@ -357,160 +397,51 @@ nav #icon {
         text-align: center;
         transition: all .5s;
     }
-
-    nav li {
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-    }
-
-    nav a {
-        font-size: 20px;
-    }
-
-    a.active,
-    a:hover {
-        background: #fff;
-        color: #000000 !important;
-        font-size: 23px;
+     header .navbar ul li{
+         width: 100%;
+        
        
-    }
+     }
+     header .navbar ul li ul{
+         position: relative;
+         width: 100%;
+     }
+     header .navbar ul li ul li{
+        background: #47494b;
+        left: -40px;
+         
+     }
+     header .navbar ul li ul li a{
+        padding-left: 50px;
+         
+     }
+     header .navbar ul li ul li ul{
+         width: 100%;
+         left: 0;
+     }
+ /*
+     #menu-bar:checked ~ .navbar{
+        display: initial;
 
-    nav ul.show {
-        left: 0;
-        z-index: 1;
+     }*/
+     header .navbar{
+         height: 100vh;
+     }
+ 
+     .logo{
+         width: 150px;
+     }
+    .navbar ul.show{
+        left: 0px;
+     }
+     header .navbar ul li a:hover{
+    
+        color: #ccc6eb;
     }
-} */
+ 
+ }
 /*asjkdhnasjkdbjkashbdjhkasbdjhasdbhjkasbdjhasbdjhsabdjhasbdhjasbdjhasbdjhasbdhjbsadjhbashjdbasjhdbhjasd*/
 
-header{
-   position: fixed;
-    top: 0; left: 0; right: 0;
-    background: #2c2d2e;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    padding: 0px 3%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-}
-
-.logo{
-    width: 200px;
-}
-
-header .navbar{
-    height: 75px;
-}
-header .navbar ul{
-    list-style: none;
-}
-
-header .navbar ul li{
-    position: relative;
-    float: left;
-}
-
-header .navbar ul li a{
-    font-size: 18px;
-    padding: 20px;
-    color: #fff;
-    display: block;
-}
-
-header .navbar ul li a:hover{
-    background: rgba(97, 97, 97, 0.884);
-    color: #fff;
-}
-
-header .navbar ul li ul{
-    position: absolute;
-    padding: 0;
-    left: 0;
-    width: 150px;
-    background: #2c2d2e;
-    display: none;
-
-}
-header .navbar ul li ul li{
-    width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.308);
-
-}
-/*
-header .navbar ul li ul li ul{
-    left: 200px;
-    top: 0;
-
-}*/
-
-header .navbar ul li:hover > ul{
-    display: initial;
-}
-
-
-
-#menu-bar{
-    display: none;
-}
-
-
-header label{
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-    display: none;
-}
-
-@media (max-width:1100px){
-    .logo{
-        width: 150px;
-    }
-}
-
-@media (max-width:1042px){
-    header{
-        padding: 20px;
-    }
-
-    header label{
-        display: initial;
-    }
-
-    header .navbar{
-        position: absolute;
-        top: 100%; left: 0; right: 0;
-        background: #2c2d2e;
-        border-top: 1px solid rgba(255, 255, 255, 0.308);
-       display: none;
-    }
-    header .navbar ul li{
-        width: 100%;
-    }
-    header .navbar ul li ul{
-        position: relative;
-        width: 100%;
-    }
-    header .navbar ul li ul li{
-        background: #47494b;
-    }
-    header .navbar ul li ul li ul{
-        width: 100%;
-        left: 0;
-    }
-
-    #menu-bar:checked ~ .navbar{
-        display: initial;
-    }
-    header .navbar{
-        height: 100vh;
-    }
-
-    .logo{
-        width: 150px;
-    }
-
-}
  
 /*----------------------------fin header-----------------------------------------------------------*/
 
@@ -550,13 +481,29 @@ header label{
 }
 
 .inputs-form-manual{
+        /* border: 1px solid red;*/
+        padding-top: 10px;
+        /*display: flex;*/
+        justify-content: center;
+        padding-bottom: 15px;
+        margin-left: 4.8em;
+    
+}
+.inputs-form-manual form{
+    width: 50em;
+    background: #e0e0e0;
+    background: rgb(212, 212, 212);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    display: flex;
     justify-content: center;
-    margin-left: 4.8em;
+    
 }
 
 .pad-top{
     padding-top: 15px;
     padding-bottom: 15px;
+    padding-right: 65px;
+
 }
 
 .inputs-form-inicio label {
@@ -618,6 +565,36 @@ header label{
 }
 
 .btn-buscar:active {
+    transform: translateY(-1px);
+}
+
+/*asdasd*/
+
+.btn-buscar-pro {
+    padding: 1em 2em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #8e44ad;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin: 25px;
+}
+
+.btn-buscar-pro:hover {
+    background-color: #d63248;
+    box-shadow: 0px 15px 20px rgba(224, 70, 103, 0.226);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.btn-buscar-pro:active {
     transform: translateY(-1px);
 }
 
@@ -850,7 +827,7 @@ tbody tr:hover{
 
 
 .bk {
-    height: 105vh;
+    height: 108vh;
     display: block;
     background: #f3f3f3;
     padding-top: 7em;
@@ -894,6 +871,9 @@ tbody tr:hover{
     .inputs-form-inicio form {
         width: 40em;
     }
+    .inputs-form-manual form {
+        width: 40em;
+    }
 
     .content-select {
         width: 14em;
@@ -910,6 +890,9 @@ tbody tr:hover{
         width: 44em;
     }
     .inputs-form-inicio{
+        margin-left: 2em;
+    }
+    .inputs-form-manual{
         margin-left: 2em;
     }
     .tbl-header{
@@ -935,6 +918,10 @@ tbody tr:hover{
     .inputs-form-inicio form {
         width: 36em;
     }
+    .inputs-form-manual form {
+        width: 36em;
+    }
+
     .content-select {
         width: 11em;
     }
@@ -943,7 +930,7 @@ tbody tr:hover{
     }
 
     .input-wrapper input {
-        width: 8em;
+        width: 9.8em;
     }
     .tbl-header{
         width: 87%;
@@ -964,6 +951,12 @@ tbody tr:hover{
     .bk {
         height: 62em;
     }
+
+    .inputs-form-manual form{
+        width: 28em;
+        height:6em;
+    }
+
     .tbl-content{
         border: none;
         height: 390px;
@@ -1006,12 +999,14 @@ tbody tr:hover{
         width: 18em;
         height: 15em;
         display: inline-block;  
-        margin-left: 5.5em;
+        margin-left: 5em;
     }
-
+    .pad-top{
+        padding-right:0px;
+    }
     .content-select {
-        width: 14em;
-        padding-left: 25px;   
+        width: 13.5em;
+        padding-left: 25px;
     }
     .inputs-form-inicio .btn-buscar{
         margin: auto;
@@ -1019,34 +1014,95 @@ tbody tr:hover{
     }
 
     .input-wrapper input {
-        width: 10em;
-        margin-left: 3em; 
+        width: 11em;
+        margin-left: 2.5em; 
     }
     .content-select  select{
         font-size: 1.1em;
+    }
+    .container-form {
+        width: 90%;
+
+        height: 65em;
+    }
+    .bk {
+        height: 80em;
+    }
+}
+@media screen and (max-width:542px){
+    .inputs-form-manual form{
+        width: 25em;
+        height:6em;
+    }
+    .inputs-form-inicio form {
+
+        margin-left: 4em;
+    }
+
+    
+}
+
+@media screen and (max-width:480px){
+    .inputs-form-manual form{
+        width: 23em;
+        height:6em;
+    }
+    .inputs-form-inicio form {
+
+        margin-left: 3em;
+    }
+
+    
+}
+
+@media screen and (max-width:450px){
+    .inputs-form-manual form{
+        width: 22em;
+        height:6em;
+    }
+    .inputs-form-inicio form {
+
+        margin-left: 2em;
+    }
+
+    
+}
+
+@media screen and (max-width:412px){
+    .inputs-form-manual form{
+        width: 19em;
+        height:10em;
+        display: inline-block;
+    }
+    .inputs-form-inicio form {
+
+        margin-left: 1em;
+    }
+    .btn-buscar-pro {
+        margin: auto;
+        margin-top: 15px;
+        margin-left: 7em;
     }
 }
 
 @media screen and (max-width:528px){
     table > tbody > tr > td::before{
-
- 
         margin: -5px;
         font-size: 14px;
-
         width: 34%;
-
     }
     
 }
+
+
 @media screen and (max-width:504px) {
     .container-form {
         width: 90%;
 
-        height: 56em;
+        height: 69em;
     }
     .bk {
-        height: 65em;
+        height: 78em;
     }
 
    
@@ -1108,6 +1164,14 @@ tbody tr:hover{
         width: 34%;
 
     }
+    .container-form {
+        width: 90%;
+
+        height: 69em;
+    }
+    .bk {
+        height: 78em;
+    }
     
 }
 
@@ -1115,6 +1179,14 @@ tbody tr:hover{
     table > tbody > tr > td::before{
         width: 38%;
     } 
+    .container-form {
+        width: 90%;
+
+        height: 69em;
+    }
+    .bk {
+        height: 78em;
+    }
 }
 @media screen and (max-width:360px){
     table > tbody > tr > td::before{
@@ -1126,6 +1198,31 @@ tbody tr:hover{
     .buttonDownload {
         padding: 5px 15px;
     }
+
+    .inputs-form-manual form{
+        width: 17em;
+        height:10em;
+        display: inline-block;
+    }
+    .inputs-form-inicio form {
+        width: 17em;
+        margin: auto;
+        
+    }
+    .btn-buscar-pro {
+        margin: auto;
+        margin-top: 15px;
+        margin-left: 7em;
+    }
+    .container-form {
+        width: 90%;
+
+        height: 69em;
+    }
+    .bk {
+        height: 78em;
+    }
+
     
 }
 
@@ -1187,7 +1284,15 @@ tbody tr:hover{
     text-decoration: none !important;
 }
 
+.ctaclie{
+    color: #212529;
+    text-decoration: none !important;
+}
 .ctacli:hover{
+    color: #212529;
+    text-decoration: none !important;
+}
+.ctaclie:hover{
     color: #212529;
     text-decoration: none !important;
 }
@@ -1392,7 +1497,7 @@ tbody tr:hover{
 
 .amodal{
     width: 40%;
-    height: 50%;
+    height: 55%;
     background: #fff;
     text-align: center;
     /*display: flex;*/
@@ -1435,7 +1540,7 @@ padding-top: 15px;
 .inputdetalle{
     background-color: #eee;
     font-size: 1.1rem;
-    width: 20em;
+    width: 22em;
     height: 40px;
     border-radius: 10px;
     color: #8e44ad;
@@ -1448,6 +1553,7 @@ padding-top: 15px;
     border-radius: 6px;
     box-shadow: 0 0.4rem #dfd9d9;
     border: 1px solid #8e44ad;
+    padding-left: 6px;
     
 
 }
@@ -1471,23 +1577,59 @@ form label{
 }
 
 
-/*
-form .inputdetalle{
-    background: none;
-    color: #c6c6c6;
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 50%;
-    border: none;
-    border-bottom: 1px solid #49454567;
+
+@media screen and (max-width:1600px) {
+    .amodal{
+        width: 50%;
+    }
+
 }
 
-form input:focus{
-    outline: none !important;
-    color: #5e5d5d;
+
+@media screen and (max-width:1283px) {
+    .amodal{
+        width: 60%;
+    }
 }
-*/
+
+
+@media screen and (max-width:1061px) {
+    .amodal{
+        width: 70%;
+    }
+
+}
+
+@media screen and (max-width:916px) {
+
+    .inputdetalle{
+        width: 20em;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:790px) {
+    .inputdetalle{
+        width: 19em;
+        font-size: 13px;
+    }
+    form .grupo{
+        margin: 10px;
+    }
+    form label{
+        font-size: 15px;
+    }
+
+}
+@media screen and (max-width:620px){
+    .amodal{
+        height: 59%;
+    }
+}
+
+
+
+
 
 
 
@@ -1735,7 +1877,7 @@ form input:focus{
 }
 
 .btn-registrar{
-    border-radius: 5px;
+    border-radius: 5px ;
     border: none;
     display: block;
     width: 80%;
@@ -1746,8 +1888,100 @@ form input:focus{
     background: #8e44ad;
 }
 
-@media screen and (max-width:500px) {
-    .form{
-        width: 80%;
+
+
+
+
+
+@media screen and (max-width:1000px) {
+
+    .login-container {
+        width: 70%;
+        /* margin-top: 3rem;*/
+
+
+    }
+
+    .container-form1 {
+        width: 50%;
+        border-radius: 10px;
+    }
+
+    .form-cont{
+        margin-left: 0px;
+    }
+    .btn-registrar{
+       margin-left: 20px;
+       
+    }
+
+   
+}
+
+@media screen and (max-width:850px) {
+
+    .container-form1 {
+        width: 60%;
+     
+    }
+
+}
+
+
+@media screen and (max-width:650px) {
+    .container-form1 {
+        width: 69%;
+     
+    }
+   
+}
+@media screen and (max-width:542px){
+
+    .container-form1 {
+        width: 70%;
+     
+    }
+    .form-cont{
+
+        margin-left:0;
+    }
+    .form-reg h1{
+        text-align: left;
+        
+    }
+
+
+    .form-cli{
+        position: relative;
+        margin: 0;
+        margin-top: 40px;
+        
+    }
+
+    .btn-registrar{
+        margin-top: 30px;
+        margin-left: 5px;
+       
     }
 }
+
+@media screen and (max-width:480px){
+    .container-form1 {
+        width: 79%;
+     
+    }
+    .form-cli{
+        position: relative;
+        margin: 0;
+        margin-top: 30px;
+
+    }
+
+    .btn-registrar{
+        margin-top: 30px;
+       
+    }
+    
+}
+
+
