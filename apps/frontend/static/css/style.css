@@ -17,6 +17,10 @@
 
 }
 
+body{
+    min-height: 100vh;
+}
+
 /*-----------------------------------------------  LOGIN    --------------------------------------------------------*/
 
 
@@ -198,180 +202,82 @@ input~i {
 
 /*--------------------------------- FOOTER----------------------------------------------------*/
 
-
-
-.contenedor-todo {
-    background: #202020;
-    color: white;
-    margin: auto;
-    padding: 40px;
-
-
-}
-
-.contenedor1 {
-    display: flex;
-    justify-content: space-between;
-}
-
-.colum1 {
-    max-width: 400px;
-    padding-left: 50px;
-}
-
-.colum1 h1 {
-    font-size: 20px;
-
-}
-
-.colum1 p {
-    font-size: 14px;
-    color: #c7c7c7;
-    margin-top: 20px;
-
-}
-
-.colum2 {
-    max-width: 400px;
-    padding-right: 100px;
-
-}
-
-.colum2 h1 {
-    font-size: 20px;
-}
-
-.row {
-    margin-top: 25px;
-    display: flex;
-}
-
-.row img {
-    width: 36px;
-    height: 36px;
-
-}
-
-.row a {
-    margin-top: 15px;
-    padding-left: 20px;
-    color: #c7c7c7;
-}
-
-.row a:hover {
-    color: #c7c7c7 !important;
-    border: none;
-}
-
-
-
-.colum3 {
-    max-width: 400px;
-    padding-right: 50px;
-
-}
-
-.colum3 h1 {
-    font-size: 20px;
-}
-
-.row2 {
-    margin-top: 20px;
+.pie-pagina{
+    width: 100%;
+    background-color: #202020;
   
+    position: absolute;
 }
-
-.row2 p {
-    margin-left: 10px;
-    max-width: 300px;
-    margin-top: 10px;
+.pie-pagina .grupo-1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap:50px;
+    padding: 45px 0px;
 }
-
-.contenedor-footer {
-    
-    background: #101010;
+.pie-pagina .grupo-1 .box figure{
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
 }
-
-.copy {
-    color: #c7c7c7;
+.pie-pagina .grupo-1 .box figure img{
+    width: 250px;
 }
-
-.infofooter a {
+.pie-pagina .grupo-1 .box h2{
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+.pie-pagina .grupo-1 .box p{
+    color: #efefef;
+    margin-bottom: 10px;
+}
+.pie-pagina .grupo-1 .red-social a{
+    display: inline-block;
     text-decoration: none;
-    color: #c7c7c7;
-
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    margin-right: 10px;
+    background-color: #101010;
+    text-align: center;
+    transition: all 300ms ease;
 }
-
-.infofooter a:hover {
-    text-decoration: none;
-    color: #c7c7c7;
-
+.pie-pagina .grupo-1 .red-social a:hover{
+    color: #7851c0;
 }
-
-
-@media screen and (max-width:1600px) {
-
-    .infofooter a:hover {
-    color: #c7c7c7 !important;
-    border: none !important;
-    background: transparent;
-    font-size: 16px;
-    }
-
+.pie-pagina .grupo-2{
+    background-color: #101010;
+    padding: 15px 10px;
+    text-align: center;
+    color: #fff;
 }
-
-@media screen and (max-width:1158px) {
-    .colum2{
-    padding-right: 0px;
-    }
-    .infofooter a:hover {
-    color: #c7c7c7 !important;
-    border: none !important;
-    background: transparent;
-    font-size: 16px;
-    }
-
+.pie-pagina .grupo-2 small{
+    font-size: 15px;
 }
-
-
-@media screen and (max-width:1100px) {
-    .contenedor1{
-       display: inline-block;
+@media screen and (max-width:800px){
+    .pie-pagina .grupo-1{
+        width: 90%;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap:30px;
+        padding: 35px 0px;
     }
-
-    .colum2,
-    .colum3{
-        margin-left: 3em;
-        margin-top: 3em;
-    }
-    .row a:hover {
-        color: #c7c7c7 !important;
-        border: none !important;
-        background: transparent;
-        font-size: 16px;
-    }
-    .infofooter a:hover {
-        color: #c7c7c7 !important;
-        border: none !important;
-        background: transparent;
-        font-size: 16px;
-    }
-   
 }
 
 /* ---------------------------------------------------------FIN FOOTER----------------------------------------------*/
 /*----------------------------------------------- header------------------------------------------------------------------------*/
+
+/* 
+
 nav {
     height: 80px;
     width: 100%;
-    /*background: #193144;*/
-    /*background: rgb(41, 40, 40);*/
     background: #2c2d2e;
-
-
-
 }
 
 .logo {
@@ -394,14 +300,12 @@ nav li {
 
 nav a {
     color: #fff !important;
-    /*cambiar color  5555555555555555555555555555555555555*/
+    
     font-size: 18px;
     text-transform: uppercase;
     border: 1px solid transparent;
     padding: 7px 10px;
     border-radius: 3px;
-
-
 }
 
 a.active,
@@ -409,8 +313,6 @@ a:hover {
 
     border: 1px solid #fff;
     transition: .5s;
-
-
 }
 
 nav #icon {
@@ -450,7 +352,6 @@ nav #icon {
         width: 100%;
         height: 100vh;
         background: #2c2d2e;
-        /*cambiar color wjkansdjksnkasjdjkasdkasdksjadbskajdbk*/
         top: 80px;
         left: -100%;
         text-align: center;
@@ -479,10 +380,139 @@ nav #icon {
         left: 0;
         z-index: 1;
     }
+} */
+/*asjkdhnasjkdbjkashbdjhkasbdjhasdbhjkasbdjhasbdjhsabdjhasbdhjasbdjhasbdjhasbdhjbsadjhbashjdbasjhdbhjasd*/
+
+header{
+   position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #2c2d2e;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 0px 3%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
 }
 
-/*-----------------------------------------------------------fin header-----------------------------------------------------------*/
+.logo{
+    width: 200px;
+}
 
+header .navbar{
+    height: 75px;
+}
+header .navbar ul{
+    list-style: none;
+}
+
+header .navbar ul li{
+    position: relative;
+    float: left;
+}
+
+header .navbar ul li a{
+    font-size: 18px;
+    padding: 20px;
+    color: #fff;
+    display: block;
+}
+
+header .navbar ul li a:hover{
+    background: rgba(97, 97, 97, 0.884);
+    color: #fff;
+}
+
+header .navbar ul li ul{
+    position: absolute;
+    padding: 0;
+    left: 0;
+    width: 150px;
+    background: #2c2d2e;
+    display: none;
+
+}
+header .navbar ul li ul li{
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.308);
+
+}
+/*
+header .navbar ul li ul li ul{
+    left: 200px;
+    top: 0;
+
+}*/
+
+header .navbar ul li:hover > ul{
+    display: initial;
+}
+
+
+
+#menu-bar{
+    display: none;
+}
+
+
+header label{
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width:1100px){
+    .logo{
+        width: 150px;
+    }
+}
+
+@media (max-width:1042px){
+    header{
+        padding: 20px;
+    }
+
+    header label{
+        display: initial;
+    }
+
+    header .navbar{
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: #2c2d2e;
+        border-top: 1px solid rgba(255, 255, 255, 0.308);
+       display: none;
+    }
+    header .navbar ul li{
+        width: 100%;
+    }
+    header .navbar ul li ul{
+        position: relative;
+        width: 100%;
+    }
+    header .navbar ul li ul li{
+        background: #47494b;
+    }
+    header .navbar ul li ul li ul{
+        width: 100%;
+        left: 0;
+    }
+
+    #menu-bar:checked ~ .navbar{
+        display: initial;
+    }
+    header .navbar{
+        height: 100vh;
+    }
+
+    .logo{
+        width: 150px;
+    }
+
+}
+ 
+/*----------------------------fin header-----------------------------------------------------------*/
 
 /*---------------------------pagina procesados------------------------------------*/
 .centrado {
@@ -493,7 +523,7 @@ nav #icon {
 .container-form {
     width: 59em;
     margin: auto;
-    height: 47em;
+    height: 53em;
     padding-top: 28px;
 
     background: #EDEDED;
@@ -501,55 +531,51 @@ nav #icon {
 
     background: rgb(236, 236, 236);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-    margin-top: 49px;
-
 
 }
 
 .container-form h1 {
-
     text-transform: capitalize;
     font-size: 36px;
     font-weight: 600;
-
 }
 
 .inputs-form-inicio {
     /* border: 1px solid red;*/
     padding-top: 10px;
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     padding-bottom: 15px;
+    margin-left: 4.8em;
+}
 
+.inputs-form-manual{
+    justify-content: center;
+    margin-left: 4.8em;
+}
 
+.pad-top{
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .inputs-form-inicio label {
     padding-left: 15px;
     padding-right: 10px;
     font-size: 20px;
-
-
 }
 
 .inputs-form-inicio form {
     width: 50em;
-    /*  border: 1px solid red;*/
     background: #e0e0e0;
-
     background: rgb(212, 212, 212);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-
     display: flex;
     justify-content: center;
-
-
 }
 
 .select-search {
     width: 150px;
-
-
 }
 
 /*.btn-buscar{
@@ -597,7 +623,6 @@ nav #icon {
 
 /*--------------------------INPUTS ------------------------------------------------------------*/
 .input-wrapper {
-
     float: left;
 }
 
@@ -612,7 +637,6 @@ nav #icon {
     box-shadow: 0 0.4rem #dfd9d9;
     cursor: pointer;
     outline: none;
-
 }
 
 .input-wrapper input:focus {
@@ -620,8 +644,6 @@ nav #icon {
 }
 
 /*---------------------------------- SELECT -------------------------------------------------------------------*/
-
-
 
 .content-select select {
     appearance: none;
@@ -655,21 +677,16 @@ nav #icon {
     background: #f0f0f0;
     color: #8e44ad;
     font-size: 1.1em;
-
     box-shadow: 0 0.4rem #dfd9d9;
     border: 2px solid rgba(0, 0, 0, 0);
     border-radius: 12px;
     position: relative;
     transition: all 0.25s ease;
-
 }
 
 .content-select select:hover {
-
     border: 2px solid #8e44ad;
     border-radius: 12px;
-
-
 }
 
 /* 
@@ -691,15 +708,11 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
     transition: all 0.25s ease;
 }
 
-
-
 .content-select:hover i {
     margin-top: 3px;
 }
 
-
 /*----------------------tabla-------------------------------------------------*/
-
 
 .container-table {
     padding-top: 15px;
@@ -827,62 +840,56 @@ tbody tr:hover{
      opacity: 0.4;
     }
    }
+
+
+/*---------------------------procesar todos ---------------*/
+
+
+
 /*----------------------------------FIN TABLA  -----------------------------*/
 
 
 .bk {
-    height: 100vh;
+    height: 105vh;
     display: block;
-    /*
-    background-image: linear-gradient(#193144 ,#325d7f ,#6e597d  ,#c17186 ,#f57081 , #f9b296  );
-
-*/
     background: #f3f3f3;
-
-    padding-top: 25px;
-    padding-bottom: 2em;
+    padding-top: 7em;
+    
 }
 
+@media screen and (max-width:1885px) {
 
+    .bk {
+        height: 65em;
+    }
+}
 
 
 @media screen and (max-width:1600px) {
     .container-form {
         width: 59em;
-        height: 42em;
         margin-top: 5px;
-       
     }
-
-    .bk{
-        height: 50em;
-
+    .bk {
+        height: 65em;
     }
-
 }
 
 
 @media screen and (max-width:1500px) {
     .container-form {
         width: 59em;
-        height: 42em;
         margin-top: 5px;
     }
-    
-    .bk{
-        height: 50em;
-    }
+
 }
 
 @media screen and (max-width:1000px) {
     .container-form {
         width: 48em;
-        height: 42em;
         margin-top: 5px;
     }
-    .bk{
-        height: 50em;
-    }
+
 
     .inputs-form-inicio form {
         width: 40em;
@@ -895,21 +902,21 @@ tbody tr:hover{
     .input-wrapper input {
         width: 10em;
     }
+   
 }
 
 @media screen and (max-width:850px) {
     .container-form {
         width: 44em;
-        height: 47em;
     }
-    .bk {
-        height: 54em;
+    .inputs-form-inicio{
+        margin-left: 2em;
     }
     .tbl-header{
         width: 87%;
     }
     .tbl-content{
-        width: 89%;
+        width: 87%;
     }
     .buttonDownload {
         padding: 8px 15px;
@@ -920,15 +927,13 @@ tbody tr:hover{
 @media screen and (max-width:760px) {
     .container-form {
         width: 40em;
-        height: 47em;
+        height: 53em;
         margin-top: 5px;
    
     }
-    .bk{
-        height: 54em;
-    }
+
     .inputs-form-inicio form {
-        width: 35em;
+        width: 36em;
     }
     .content-select {
         width: 11em;
@@ -942,9 +947,11 @@ tbody tr:hover{
     }
     .tbl-header{
         width: 87%;
+        margin-left: 2.5em;
     }
     .tbl-content{
         width: 87%;
+        margin-left: 2.5em;
     }
 
 }
@@ -999,6 +1006,7 @@ tbody tr:hover{
         width: 18em;
         height: 15em;
         display: inline-block;  
+        margin-left: 5.5em;
     }
 
     .content-select {
@@ -1278,9 +1286,7 @@ tbody tr:hover{
 
 */
     background: #f3f3f3;
-
-    padding-top: 25px;
-    padding-bottom: 2em;
+    padding-top: 150px;
 }
 
 @media screen and (max-width:1000px) {
@@ -1291,8 +1297,6 @@ tbody tr:hover{
         width: 20em;
         
     }
-    
-
 }
 
 @media screen and (max-width:850px) {
@@ -1302,12 +1306,11 @@ tbody tr:hover{
 
     }
     .bkcont{
-        height:80em;
+        height:89em;
     }
     .container1{
       
-        width: 25em;
-          
+        width: 25em;   
      }
     
     .cont-cliente{
@@ -1646,11 +1649,34 @@ form input:focus{
     margin-top: 49px;
 
 }
+.form-reg{
+    width: 100%;
+    margin: auto;
+}
+.form-reg h1{
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 15px;
+}
+
+.form-cont{
+    background: transparent;
+    padding: 40px 0;
+    border-radius: 10px;
+    margin-left: 4em;
+}
 
 .form-cli{
     position: relative;
     margin: 45px;
 }
+
+.form-registro{
+    background: #fff;
+    padding: 40px 0;
+    box-shadow: 0 0 6px 0 rgb;
+}
+
 
 .input-registro{
     background: none;
@@ -1669,11 +1695,11 @@ form input:focus{
 }
 
 .label-registro{
-    color: #2c2d2e;
+    color: #616161;
     font-size: 16px;
     position: absolute;
-    left: 1em;
-    top: 0;
+    left: 5px;
+    top: 10px;
     transition: 0.5s ease all;
     pointer-events: none;
 
@@ -1686,9 +1712,42 @@ form input:focus{
     color: #2196f3;
 }
 
-.form-registro{
-    background: #fff;
-    padding: 40px 0;
-    box-shadow: 0 0 6px 0 rgb;
+.barra{
+    position: relative;
+    display: block;
+    width: 100%;
 }
 
+.barra::before{
+    content: "";
+    height: 2px;
+    width: 0%;
+    bottom: 0;
+    position: absolute;
+    background: linear-gradient(100.83deg, #443880 -0.52%, #E02030 113.57%);
+    transition: 0.3s ease width;
+    
+}
+
+.input:focus~.barra::before{
+    width: 100%;
+
+}
+
+.btn-registrar{
+    border-radius: 5px;
+    border: none;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: #fff;
+    height: 40px;
+    font-size: 16px;
+    background: #8e44ad;
+}
+
+@media screen and (max-width:500px) {
+    .form{
+        width: 80%;
+    }
+}
