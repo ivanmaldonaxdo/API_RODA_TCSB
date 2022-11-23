@@ -35,6 +35,9 @@ def modificarusuario(request):
 def listarusuarios(request):
     return render(request, 'frontend/listarusuarios.html')
 
+def cron(request):
+    return render(request, 'frontend/cron.html')
+
 
 def test(request):
     return render(request, 'frontend/test.html')
