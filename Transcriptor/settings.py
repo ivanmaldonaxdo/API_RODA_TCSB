@@ -52,10 +52,11 @@ THIRD_APPS = [
     'django_filters',
     'rut_chile',
     'solo',
-    'django_crontab',
+    'django_cron',
     "corsheaders",
-
 ]
+
+CRON_CREDENCIAL= 'Nmi9IXfkKBUgyRk*pQ+1F9Xz@8OS7$1&E4^6eJTrdgKD$soC6'
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
@@ -209,9 +210,10 @@ DRF_API_LOGGER_DATABASE = True
 DRF_API_LOGGER_SIGNAL = True
 DRF_LOGGER_QUEUE_MAX_SIZE = 30
 #funcion para el proceso automatico 
-CRONJOBS = [
-    ('* * * * *', 'apps.OCR.cron.dicehola')
+CRON_CLASSES = [
+    "apps.tasks.MyCronJob"
 ]
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
