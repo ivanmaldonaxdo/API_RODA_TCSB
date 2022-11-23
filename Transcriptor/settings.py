@@ -114,37 +114,6 @@ WSGI_APPLICATION = 'Transcriptor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-#DATABASES = {
-#'default': {
-#    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#     'NAME': 'dfosmic3vq03p9',
-#      'USER': 'xvnkiwgepmxbmi',
-#       'PASSWORD':'0a8cfa127ba4dec9ccc58e39d6d990fa995cad63a47c2442130c3c1abe1e8f56',
-#        'HOST':'ec2-52-205-98-159.compute-1.amazonaws.com',
-#       'PORT':'5432'
-#   }
-#}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'API_DB',
-#         'USER': 'postgres',
-#         'PASSWORD':'API_DB_PASSWORD',
-#         'HOST':'54.160.201.59',
-#         'PORT':'5432'
-#     }
-# }
-
-#DB CARLOS HEROKU
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
