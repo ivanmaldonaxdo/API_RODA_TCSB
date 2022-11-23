@@ -27,7 +27,7 @@ document.getElementById('btnLogin').addEventListener('click', function (e) {
 
 function loginUser() {
     // const url = 'http://3.80.228.126/auth-user/'
-    const url = 'http://localhost:8000/auth-user/'
+    const url = 'http://44.197.147.109/auth-user/'
 
     fetch(url, {
         method: 'POST',
@@ -43,7 +43,7 @@ function loginUser() {
             if (response.ok) {
                 // window.location.replace("http://3.80.228.126/inicio/");
 
-                window.location.replace("http://localhost:8000/inicio/");
+                window.location.replace("http://44.197.147.109/inicio/");
             }
             else {
                 console.log(response.data)
