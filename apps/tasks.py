@@ -23,25 +23,28 @@ class MyCronJob(CronJobBase):
     code = 'CronProcessDocs'    # a unique code
 
     def do(self):
-        url =  'http://localhost:8000/documentos/search_docs/'
-        cookie = settings.CRON_CREDENCIAL
-        body={'folio': '', 'tipo_servicio': 'GAS', 'rut_receptor': None}
-        ConfigCron.objects.filter(id=1).update(status = 'Buscando Informacion')
-        search = requests.post(url=url, json=body, cookies={'jwt':cookie})
-        data = search.json()
-        ConfigCron.objects.filter(id=1).update(status = 'Procesando documentos')
-        # for bol in data:
-        #     uidd= bol['uuid']
-        #     nomDoc = bol['nomDoc']
-        #     rut_emisor = bol['rut_emisor']
-        #     url =  'http://localhost:8000/documentos/process_docs/'
-        #     body_proc= {'uuid' :uidd , "nomDoc" : nomDoc, "rut_emisor": rut_emisor}
-        #     proc = requests.post(url=url, json=body_proc, cookies={'jwt':cookie})
-        ConfigCron.objects.filter(id=1).update(status = 'Finalizando')
-        if self.cronconfig.cursor<2:
-            ConfigCron.objects.filter(id=1).update(cursor = self.cursor+1)
-        elif self.cursor == 2:
-            ConfigCron.objects.filter(id=1).update(cursor = 0)
-        ConfigCron.objects.filter(id=1).update(status = 'Terminado o En espera')
-        return str(data)
+        if self.cronconfig == True:
+            url =  'http://localhost:8000/documentos/search_docs/'
+            cookie = settings.CRON_CREDENCIAL
+            body={'folio': '', 'tipo_servicio': 'GAS', 'rut_receptor': None}
+            ConfigCron.objects.filter(id=1).update(status = 'Buscando Informacion')
+            search = requests.post(url=url, json=body, cookies={'jwt':cookie})
+            data = search.json()
+            ConfigCron.objects.filter(id=1).update(status = 'Procesando documentos')
+            # for bol in data:
+            #     uidd= bol['uuid']
+            #     nomDoc = bol['nomDoc']
+            #     rut_emisor = bol['rut_emisor']
+            #     url =  'http://localhost:8000/documentos/process_docs/'
+            #     body_proc= {'uuid' :uidd , "nomDoc" : nomDoc, "rut_emisor": rut_emisor}
+            #     proc = requests.post(url=url, json=body_proc, cookies={'jwt':cookie})
+            ConfigCron.objects.filter(id=1).update(status = 'Finalizando')
+            if self.cronconfig.cursor<2:
+                ConfigCron.objects.filter(id=1).update(cursor = self.cursor+1)
+            elif self.cursor == 2:
+                ConfigCron.objects.filter(id=1).update(cursor = 0)
+            ConfigCron.objects.filter(id=1).update(status = 'Terminado o En espera')
+            return str(data)
+        else:
+            return 'El proceso esta detendido indefinidamente'
 
