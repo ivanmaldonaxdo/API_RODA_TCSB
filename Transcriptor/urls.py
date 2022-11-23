@@ -33,8 +33,13 @@ urlpatterns = [
     path('documentos/',include('apps.OCR.procesamiento.routers')),
     path('sistema/',include('apps.management.sistema.routers')),
     path('procesados/',include('apps.management.procesados.routers')),
+<<<<<<< HEAD
     path('logs/',include('apps.management.Logs.routers')),
     path('cron/', cron.dicehola),
+=======
+    path('logs',include('apps.management.Logs.routers')),
+    #path('cron/', cron.dicehola),
+>>>>>>> monse
     path('', include('apps.frontend.urls'))
 
 ]
