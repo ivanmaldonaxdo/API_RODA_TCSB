@@ -15,6 +15,7 @@ class SistemaViewSets(viewsets.ModelViewSet):
     serializer_class = SistemaSerializers
     model = Sistema
     permission_classes= (IsAdministrador,)
+    http_method_names = ['get', 'post']
 
     def get_queryset(self):
         queryset= Sistema.objects.all().first()
