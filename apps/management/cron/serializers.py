@@ -10,6 +10,12 @@ class SistemaSerializers(serializers.ModelSerializer):
         fields = ('hora_luz', 'hora_agua', 'hora_gas',)
 
 
+class CronSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConfigCron
+        fields = ('is_active',)
+
 
 
 
