@@ -1,0 +1,39 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+    <div class="bk">
+
+        <div class="container-form1">
+            <div class="login-container">
+                <form action="" id="form-cliente" class="form-cont">
+                    <div class="form-reg">
+                        <h1>Modificar Usuarios</h1>
+                        <div class="separadorcen"></div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <label class="label-registro" for="">Nombre usuario</label>
+                        </div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <label class="label-registro" for="">Correo</label>
+                        </div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <label class="label-registro" for="">Contraseña</label>
+                        </div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <label class="label-registro" for="">Telefono</label>
+                        </div>
+                        <button class="btn-registrar">Modificar</button>
+                    </div>
+                </form>
+                <img class="image-container" src={% static 'img/registro.svg' %} alt="login">
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

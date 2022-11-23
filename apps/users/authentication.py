@@ -11,6 +11,12 @@ class JWTAuthentication(BaseAuthentication):
 
         if not token:
             raise AuthenticationFailed('Token no valido')
+        
+
+        #Autenticacion personalizada para el usuario CRON, modificar el email en caso de modificar el usuario en la BD
+        if token == settings.CRON_CREDENCIAL:
+            user = User.objects.get(email='usuarioroda@roda.cl')
+            return (user, None)
 
         try:
             payload =jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])

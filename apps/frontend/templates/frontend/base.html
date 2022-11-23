@@ -16,33 +16,77 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-    {% comment %} <script>
-        $(document).ready(function () {
-            $('#icon').click(function () {
-                $('ul').toggleClass('show');
-
-            });
-        });
-    </script> {% endcomment %}
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+
+    <!--datatable-->
+
+
 
     <title>Home</title>
 </head>
 
 <body>
     <header>
-        <nav>
+        <!-- <nav>
             <img src={% static 'img/roda-logo.png' %} alt="" class="logo">
             <ul>
                 <li><a href="{% url 'homeinfo' %}">Inicio</a></li>
-                <li><a href="{% url 'process' %}">Archivos a procesar</a></li>
+                <li><a class="boletas-info" href="{% url 'process' %}">Archivos a procesar</a></li>
                 <li><a href="{% url 'processed' %}">Procesados</a></li>
-                <li><a href="{% url 'Cliente' %}">Registros</a></li>
+                <li><a href="">Clientes +</a>
+                    <ul>
+                        <li><a href="{% url 'Cliente' %}">Registrar</a></li>
+                        <li><a href="{% url 'modificarcliente' %}">Modificar</a></li>
+                        <li><a href="{% url 'listarcliente' %}">Listar</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="">Usuarios +</a>
+                    <ul>
+                        <li><a href="{% url 'Usuarios' %}">Registrar</a></li>
+                        <li><a href="{% url 'modificarusuario' %}">Modificar</a></li>
+                        <li><a href="{% url 'listarusuarios' %}">Listar</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'cron' %}">cron</a></li>
                 <li><a  id="cerrarsession" href="#">Cerrar sesion</a></li>
             </ul>
             <label id="icon">
                 <i class="fas fa-bars"></i>
             </label>
+        </nav> -->
+
+        <img src={% static 'img/roda-logo.png' %} alt="" class="logo">
+
+        <input type="checkbox" id="menu-bar">
+        <label for="menu-bar"><i class="fas fa-bars"></i></label>  
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="{% url 'homeinfo' %}">Inicio</a></li>
+                <li><a class="boletas-info" href="{% url 'process' %}">Archivos a procesar</a></li>
+                <li><a href="{% url 'processed' %}">Procesados</a></li>
+                <li><a href="">Clientes +</a>
+                    <ul>
+                        <li><a href="{% url 'Cliente' %}">Registrar</a></li>
+                        <li><a href="{% url 'modificarcliente' %}">Modificar</a></li>
+                        <li><a href="{% url 'listarcliente' %}">Listar</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="">Usuarios +</a>
+                    <ul>
+                        <li><a href="{% url 'Usuarios' %}">Registrar</a></li>
+                        <li><a href="{% url 'modificarusuario' %}">Modificar</a></li>
+                        <li><a href="{% url 'listarusuarios' %}">Listar</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'cron' %}">cron</a></li>
+                <li><a  id="cerrarsession" href="#">Cerrar sesion</a></li>
+            </ul>
+            
+
         </nav>
 
     </header>
@@ -51,84 +95,40 @@
         {% block contenido %}
         {% endblock %}
    
-    <!--FOOTER-->
+        <!--FOOTER-->
 
-    <footer>
-
-        <div class="contenedor-todo">
-            <div class="contenedor1">
-
-                <div class="colum1">
-                    <h1>Mas informacion de la compañia</h1>
-                    <p>Gestión del desempeño energético actual para establecer mejoras por medio de la implementación de proyectos y la gestión integral de los consumos.</p>
+    <footer class="pie-pagina">
+        <div class="grupo-1">
+            <div class="box">
+                <figure>
+                    <a href="#">
                         <img src={% static 'img/roda-logo.png' %} alt="" width="200px">
-                </div>
-
-                <div class="colum2">
-                    <h1>Redes Sociales</h1>
-                    <div class="row">
-                        <a href="https://www.facebook.com/DuocUC.SedeVinadelMar">
-                        <img src={% static 'img/face.png' %}> | Siguenos en Facebook</a>
-                        
-                    </div>
-
-                    <div class="row">
-                        <a href="https://twitter.com/DuocUC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
-                        <img src={% static 'img/twitter.png' %}> | Siguenos en Twitter</a>
-                      
-                    </div>
-
-
-                    <div class="row">
-                        <a href="https://www.instagram.com/duoc_vina/">
-                        <img src={% static 'img/insta.png' %}> | Siguenos en Instagram</a>
-                        
-                    </div>
-
-
-                    <div class="row">
-                        <a href="https://www.google.com/">
-                        <img src={% static 'img/google.png' %}> | Siguenos en Google+</a>
-                    </div>
-                </div>
-
-                <div class="colum3">
-                    <h1>Informacion de contactos</h1>
-                    <div class="row2">
-                        <p>
-                            Álvarez 2336
-                            <br>
-                            Duoc Uc
-                            <br>
-                            Viña del mar, Chile
-                            <br>
-                            Correo: RODA@duoc.cl
-                            <br>
-                            telefono: +56 9 99999999
-                            <br>
-                            Horario: Lunes a viernes de 09:00 a 18:00 hrs
-                        </p>
-                    </div>
+                    </a>
+                </figure>
+            </div>
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <p>Gestión del desempeño energético actual para establecer mejoras por medio de la implementación de proyectos y la gestión integral de los consumos.</p>
+                
+            </div>
+            <div class="box">
+                <h2>SIGUENOS</h2>
+                <div class="red-social">
+                    <a href="https://www.facebook.com/DuocUC.SedeVinadelMar" class="fa fa-facebook"></a>
+                    <a href="https://www.instagram.com/duoc_vina/" class="fa fa-instagram"></a>
+                    <a href="https://twitter.com/DuocUC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" class="fa fa-twitter"></a>
+                    
                 </div>
             </div>
         </div>
-
-        <div class="contenedor-footer">
-            <div class="copy">
-                <p>Todos los derechos Reservados | RODA ENERGIA </p>
-            </div>
-
-            <div class="infofooter">
-                <a href="">Informacion compañia</a> |
-                <a href="">privacion y politica</a> |
-                <a href="">terminos y condiciones</a>
-            </div>
+        <div class="grupo-2">
+            <small>&copy; <b>RODA ENERGIA</b> - Todos los Derechos Reservados.</small>
         </div>
     </footer>
 
     <script>
         $(document).ready(function () {
-            $('#icon').click(function () {
+            $('#menu-bar').click(function () {
                 $('ul').toggleClass('show');
 
             });
@@ -141,7 +141,9 @@
             $('.tbl-header').css({ 'padding-right': scrollWidth });
         }).resize();
     </script>
-    <script type="text/javascript" src="{% static 'js/session.js' %}"></script>  
+
+    <script type="text/javascript" src="{% static 'js/session.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>  
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
