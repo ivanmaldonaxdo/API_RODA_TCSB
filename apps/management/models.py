@@ -177,16 +177,34 @@ class Contrato_servicio(models.Model):
 
 
 class LogSistema(models.Model):
-    api=models.CharField('URL',max_length=255, blank=False)
-    id_user=models.IntegerField('Id Usuario',  blank=False)
+    api=models.CharField('URL',max_length=255, blank=False, default='URL')
+    id_user=models.IntegerField('Id Usuario',  blank=False, default=0)
     cliente = models.CharField('Cliente', max_length=255, default='No Aplica')
-    payload=models.CharField('Payload',max_length=255, blank=False)
-    method=models.CharField('Tipo de peticion',max_length=255, blank=False)
-    response=models.TextField()
-    status_code=models.PositiveSmallIntegerField('Status Respuesta')
+    payload=models.CharField('Payload',max_length=255, blank=False, default='Payload')
+    method=models.CharField('Tipo de peticion',max_length=255, blank=False, default='Metodo')
+    response=models.TextField(default='Response')
+    status_code=models.PositiveSmallIntegerField('Status Respuesta', default='codigo')
     fecha_hora = models.DateTimeField('Fecha y Hora', default=timezone.now)
 
     def __str__(self):
         return str(self.id)
 
 
+class ConfigCron(SingletonModel):
+    status = models.CharField('Status', max_length=100,blank=False, default='Inactivo')
+    singleton_instance_id = 1
+    cursor = models.IntegerField('Cursor', blank=False, default=0)
+    ESTADOS = (
+        (True, 'Activado'),
+        (False, 'Desactivado'),
+    )
+    is_active = models.BooleanField(default = True, choices=ESTADOS)
+    hora_gas = models.TimeField(default='14:00')
+    hora_agua = models.TimeField(default='08:00')
+    hora_luz = models.TimeField(default='02:00')
+
+    def __str__(self):
+        return "Cron"
+
+    class Meta:
+        verbose_name = "Configuracion de CRON"

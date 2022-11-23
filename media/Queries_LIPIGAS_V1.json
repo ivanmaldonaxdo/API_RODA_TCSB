@@ -1,0 +1,46 @@
+{
+    "Queries": [
+        {
+            "Text": "Cod Cliente DM:",
+            "Alias": "NRO cliente",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "WHAT IS RUT?",
+            "Alias": "R.U.T (EMISOR)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "second rut",
+            "Alias": "R.U.T (cliente)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "what is N of document below factura electronica?",
+            "Alias": "FOLIO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "fecha vencimiento",
+            "Alias": "fecha vencimiento",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "fecha emision",
+            "Alias": "fecha emision",
+            "Pages": [
+                "1"
+            ]
+        }
+    ]
+}

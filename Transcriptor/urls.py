@@ -33,7 +33,7 @@ urlpatterns = [
     path('documentos/',include('apps.OCR.procesamiento.routers')),
     path('sistema/',include('apps.management.sistema.routers')),
     path('procesados/',include('apps.management.procesados.routers')),
-    path('logs',include('apps.management.Logs.routers')),
+    path('logs/',include('apps.management.Logs.routers')),
     path('cron/', cron.dicehola),
     path('', include('apps.frontend.urls'))
 

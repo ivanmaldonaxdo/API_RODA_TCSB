@@ -12,13 +12,16 @@ from django.contrib.auth import login, logout
 
 
 class authUser(APIView):
+
     authentication_classes = [] #disables authentication
     permission_classes = [] #disables permission
+
     def post(self, request):
-        email= request.data.get('email','')
+        email= request.data.get('email','').lower()
         password = request.data.get('password','')
 
         user = User.objects.filter(email=email).first()
+        
         if user is None:
             return Response({'message':'El usuario no existe'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -49,7 +52,6 @@ class authUser(APIView):
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
 
         response = Response()
-
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.set_cookie(key='rol', value=user.role)
         response.data = {

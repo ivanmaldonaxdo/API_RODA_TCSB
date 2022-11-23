@@ -12,8 +12,9 @@ import json
 from apps.OCR.APIS.textractByTables import textractTB
 # from apps.OCR.APIS.textractByTablesExp import get_table_results
 from apps.OCR.APIS.textractByQueriesPages import textract
+from apps.OCR.APIS.textractByQueriesTables import textractQTB
 import re
-
+import sys
 # from apps.OCR.APIS.textractByQueries import textract, codigo_procesado
 client = boto3.client('textract', region_name='us-east-1')
 
@@ -32,39 +33,29 @@ def listar_buckets():
     for bucket in s3.buckets.all():
         print(bucket.name)
 
-def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
+def extraccionOCR(_bucket,query,tables = None,carpeta = 'media',nomDoc = None):
     json_procesado = dict()
     json_tablas = dict()
     archivo = '{}/{}'.format(carpeta,nomDoc)
     bucket = _bucket
+    queries = query
     # print("archivo ",archivo)
     # print("Bucket ", _bucket)
-
-    ############### EXTRACCION POR QUERIES ###############
-    # resultado_queries = textract(_bucket, query,archivo)
-
-    ############### EXTRACCION POR QUERIES JSON ###############
-    resultado_queries = textract(_bucket = _bucket, _queries_file = query, _documento = archivo)
-
-    print("RESULTADO QUERIES")
-    print(resultado_queries)
-    print("****************")
-    json_procesado.update(resultado_queries)
-
     ############### RECUPERANDO DATA DE JSON TABLAS ###############
     with open(tables) as tb_json:
         data = tb_json.read().replace("\n", "").replace('ï»¿', "").strip()
     data = json.loads(data)[0]
     json_tablas.update(data)
     list_tablas = json_tablas.get("TABLES")
+    ################ VERIFICA EL LARGO DE ELEMENTOS EN LA LISTA DE LA TABLA 
     print(type(list_tablas))
-    #diccionario_tablas = dict()    
-    #for tb in list_tablas:
-    #     resultado_tables = textractTB(_bucket = bucket , _documento = archivo, tabla = tb)
-    #     diccionario_tablas
-
+    print("Largo Tablas", len(list_tablas))
+    list_tablas = (list_tablas if len(list_tablas) > 0 else None)
     try:
         print(list_tablas)
+        json_procesado = textractQTB(bucket, archivo, queries,list_tablas)
+        print(json.dumps(json_procesado, indent = 4))
+        return json_procesado
     except Exception as e:
         exception_type, exception_object, exception_traceback = sys.exc_info()
         filename = exception_traceback.tb_frame.f_code.co_filename
@@ -74,17 +65,11 @@ def extraccionOCR(_bucket,query,tables,carpeta = 'media',nomDoc = None):
         print("File name: ", filename)
         print("Line number: ", line_number)
         print(e)
-
-    ############### EXTRACCION POR TABLAS ###############
-    resultado_tables = textractTB(_bucket = bucket , _documento = archivo, _list_tablas = list_tablas)
-
-    json_procesado.update(resultado_tables)
-    # print(json.dumps(json_procesado, indent=4))
+        return None
 
     ###EXTRACCION APARTE
     # textractPages = get_table_results(archivo, list_tablas)
     # print(textractPages)
-    return json_procesado
 
 #EMPEZAR ANALISIS DE DOCUMENTO
 
