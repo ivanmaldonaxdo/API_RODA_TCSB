@@ -15,12 +15,38 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 ////////
+
+
 document.getElementById("processDocs").addEventListener('click', function (e) {
+
     let folio = document.getElementById("folio").value,
         servicio = document.getElementById("tipo_servicio").value
     // console.log(folio);
     // console.log(servicio);
-    if (servicio =="Tipo de servicio"  && folio == ""){
+    // let fecha = document.querySelector('#fechaBusqueda').value;
+    // let list_fecha = String(fecha).split("-");
+    // console.log();
+    // list_fecha.reverse(list_fecha.length)
+    // let dia = list_fecha.length == 0 ? null : list_fecha[0],
+    //     mes = list_fecha.length == 0 ? null : list_fecha[1],
+    //     anio = list_fecha.length == 0 ? null: list_fecha[2];
+
+    // console.log(dia);
+    // console.log(list_fecha);
+    // console.log(dia, " " ,mes, " ", anio);
+    // console.log(fecha.toLocaleDateString('es-CL'));
+    // console.log(typeof fecha);
+    let fecha = document.querySelector('#fechaBusqueda').value;
+    let list_fecha = String(fecha).split("-");
+    console.log();
+    list_fecha.reverse(list_fecha.length)
+    let isVacio = fecha =="";
+    console.log(isVacio);
+    let dia = isVacio  ? null : list_fecha[0],
+        mes = isVacio ? null : list_fecha[1],
+        anio = isVacio  ? null: list_fecha[2];
+    console.log(dia," ",mes," ",anio);
+    if (servicio =="Tipo de servicio" && folio == "" && isVacio){
         console.log("NADA DE INFO");
     }
     else{
@@ -29,6 +55,7 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 
             servicio = null;
         }
+
         
         // Swal.fire({
         //     title: 'Are you sure?',
@@ -40,21 +67,21 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
-                getDocs(folio, servicio);
+                getDocs(folio, servicio,dia = dia, mes = mes, anio = anio);
             },
       
         })
         
     }
+
     e.preventDefault();
     e.stopImmediatePropagation();
-
 })
 
 function numberRange (start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
 }
-function getDocs(folio,tpServicio, rutCli = null ) {
+function getDocs(folio,tpServicio, rutCli = null,dia = null, mes = null, anio = null  ) {
     // const url = 'http://3.80.228.126/documentos/search_docs/'
     const url = 'http://localhost:8000/documentos/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
@@ -67,7 +94,11 @@ function getDocs(folio,tpServicio, rutCli = null ) {
         body: JSON.stringify({
             "folio": folio,
             "tipo_servicio": tpServicio,
-            "rut_receptor": rutCli
+            "rut_receptor": null,
+            "dia" : dia,
+            "mes" : mes,
+            "anio" : anio,
+
         })
 
     })
@@ -124,6 +155,99 @@ function EditRecordForEditDemo(element) {
     var rowJavascript = element.parentNode.parentNode;
     var rowjQuery = $(element).closest("tr");
     alert("JavaScript Row Index : " + (rowJavascript.rowIndex - 1) + "\njQuery Row Index : " + (rowjQuery[0].rowIndex - 1));
+}
+//boton para abrir y cerrar detalle
+function btndetalleDocs(elem){
+    let fila = elem.parentNode.parentNode.parentNode;
+    let indexRow = fila.rowIndex
+    console.log(indexRow);
+    console.log(getValueByID("mdFolio"));
+    let rut_cli = getTextElement('tdRutCli',indexRow),
+    rut_proveedor = getTextElement('RutEmi',indexRow);
+    
+    console.log(rut_cli);
+    // console.log(getTextElement('tdRutCli',indexRow));
+    console.log(getTextElement('tdFolio',indexRow));
+    
+    //////////SETEO DE PROPIEDADES DEL MODAL EN JS
+    setValueByID("mdFolio",getTextElement('tdFolio',indexRow));
+    setValueByID("mdNomDoc",getValueElement('nomDoc',indexRow));
+    setValueByID("mdFechaEmi",getValueElement('fechaEmi',indexRow));
+    setValueByID("mdRutEmi",rut_proveedor);
+    // tdRutReceptor
+    getDataClient(rut_cli).then(
+        client => Array.isArray(client) ? setValueByID( "mdNomCli", client.map(cli=> cli.nom_cli)) : client.nom_cli
+        )
+        getDataProv(rut_proveedor).then(
+            prov => Array.isArray(prov) ? setValueByID("mdNomProv",prov.map(prv=> prv.nom_proveedor)) : prov.nom_proveedor
+            )
+            // console.log(client);
+            // console.log("Cliente is ", cliente);
+            // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
+            
+            let cerrar =document.querySelectorAll(".close")[0];
+            let modal =document.querySelectorAll(".amodal")[0];
+            let modalc =document.querySelectorAll(".modal-container")[0];
+            
+            modalc.style.opacity = "1";
+            modalc.style.visibility = "visible";
+            modal.classList.toggle("modal-close");
+            
+        }
+        let cerrar =document.querySelectorAll(".close")[0];
+        let modal =document.querySelectorAll(".amodal")[0];
+        let modalc =document.querySelectorAll(".modal-container")[0];
+        
+        cerrar.addEventListener("click", function(){
+            modal.classList.toggle("modal-close");
+            
+            setTimeout(function() {
+                modalc.style.opacity = "0";
+                modalc.style.visibility = "hidden";
+            }, 600);
+
+        });
+        
+        window.addEventListener("click", function (e){
+            if(e.target == modalc){
+                modal.classList.toggle("modal-close");
+                
+                setTimeout(function() {
+                    modalc.style.opacity = "0";
+                    modalc.style.visibility = "hidden";
+                }, 600);
+            } 
+        })
+        
+        async function  getDataClient (rutCliente) {
+            const url = new URL("http://localhost:8000/clientes/");
+            const params = {rut_cliente : rutCliente}
+            url.search = new URLSearchParams(params).toString();
+            const res = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+            obj = await res.json();
+            
+            return obj
+        }
+        
+        async function  getDataProv(rutProveedor) {
+            const url = new URL("http://localhost:8000/proveedores/");
+            const params = {rut_proveedor : rutProveedor}
+            url.search = new URLSearchParams(params).toString();
+            const res = await fetch(url, {
+                method: 'GET',
+                headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    obj = await res.json();
+    return obj
 }
 function btnProcessDocs(elem) {
     let fila = elem.parentNode.parentNode.parentNode;
@@ -184,9 +308,7 @@ function btndetalleDocs(elem){
     modal.classList.toggle("modal-close");
 
 }
-let cerrar =document.querySelectorAll(".close")[0];
-let modal =document.querySelectorAll(".amodal")[0];
-let modalc =document.querySelectorAll(".modal-container")[0];
+
 
 cerrar.addEventListener("click", function(){
     modal.classList.toggle("modal-close");

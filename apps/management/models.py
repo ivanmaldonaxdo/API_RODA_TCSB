@@ -61,7 +61,7 @@ class Servicio(models.Model):
 
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
-    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True, validators=[validar_rut])
+    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
     contacto = models.CharField('Contacto', max_length=255, blank=True)
     is_active = models.BooleanField(default = True)
     servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, default=None)

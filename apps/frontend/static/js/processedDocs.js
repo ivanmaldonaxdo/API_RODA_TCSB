@@ -105,7 +105,7 @@ function createRowDoc(doc,event)
 
 
 
-    body += `<tr">${tdfolio}${tdSucur}${tdFechaProcess}${tdDownload}</tr>`;
+    body += `<tr">${tdfolio}${tdFechaProcess}${tdDownload}</tr>`;
     tbody.innerHTML += body;
     
 }

@@ -16,3 +16,4 @@ django-cors-headers==3.13.0
 matplotlib==3.6.1
 django-cors-headers==3.13.0
 PyJWT==2.6.0
+django-cron==0.6.0
