@@ -141,6 +141,7 @@ class OpenKMViewSet(ViewSet):
                     error = "No exite algun cliente relacionado al rut {}" .format(rut_client)
                 else:
                     error = str(e)
+                print(error)
                 return Response({
                     'message':'Documento No Procesado','Error':error
                     }, status=status.HTTP_409_CONFLICT,headers=None)
