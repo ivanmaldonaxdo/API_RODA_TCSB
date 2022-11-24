@@ -22,10 +22,10 @@ class OpenKm():
     def search_docs(self,_folio = None ,_serv = None , _rutCli = None, dia = None ,mes =None, anio =None):
         url = "{}{}" .format(self.end_point_base,'search/find')
         # list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli)]
-        list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('dia_doc',dia),('mes_doc',mes),('anio_doc',anio)]
-        print(list_params)
+        list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli)]
+        # print(list_params)
         filtros = { 'folio': _folio,'tipo_servicio': _serv ,'rut_receptor':_rutCli}
-        print(filtros)
+        # print(filtros)
         properties = self.get_list_params(list_params)
         # print("")
         print("Propiedades => {}" .format(properties))

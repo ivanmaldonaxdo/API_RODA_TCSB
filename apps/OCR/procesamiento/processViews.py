@@ -40,13 +40,15 @@ class OpenKMViewSet(ViewSet):
         openkm = self.openkm_creds()
         # print("OPKM OBJECT ", openkm.auth_creds.password)
         # filtros = self.format_filtros(filtros)
+        print("Filtros Search Docs")
+        print(filtros)
         docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
             _rutCli = filtros.get('rut_receptor'),
-            dia = filtros.get('dia'),
-            mes = filtros.get('mes'),
-            anio = filtros.get('anio')
+            # dia = filtros.get('dia'),
+            # mes = filtros.get('mes'),
+            # anio = filtros.get('anio')
 
             
         )
@@ -148,6 +150,7 @@ class OpenKMViewSet(ViewSet):
                     error = "No exite algun cliente relacionado al rut {}" .format(rut_client)
                 else:
                     error = str(e)
+                print(error)
                 return Response({
                     'message':'Documento No Procesado','Error':error
                     }, status=status.HTTP_409_CONFLICT,headers=None)
