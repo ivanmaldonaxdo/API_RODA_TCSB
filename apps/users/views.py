@@ -20,13 +20,14 @@ class authUser(APIView):
         email= request.data.get('email','').lower()
         password = request.data.get('password','')
 
-        user = User.objects.filter(email=email).first()
-        
-        if user is None:
-            return Response({'message':'El usuario no existe'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = User.objects.get(email=email)
+        except:
+            return Response({'message':'El usuario no existe'}, status=status.HTTP_404_NOT_FOUND)
+    
 
         if not user.check_password(password):
-            return Response({'message':'Contraseña incorrecta'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message':'Contraseña incorrecta'}, status=status.HTTP_401_UNAUTHORIZED)
         
         if user.is_active == False:
             return Response({'message':'Usuario deshabilitado, contacte a un administrador'}, status=status.HTTP_401_UNAUTHORIZED)
