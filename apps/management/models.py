@@ -196,11 +196,11 @@ class LogSistema(models.Model):
 
 class ConfigCron(SingletonModel):
     STATUS = (
-        (1, 'En espera'),
-        (2, 'Recopilando DATA'),
-        (3, 'Procesando DATA'),
-        (4, 'Finalizando'),
-        (5, 'Detenido')
+        ("1", 'En espera'),
+        ("2", 'Recopilando DATA'),
+        ("3", 'Procesando DATA'),
+        ("4", 'Finalizando'),
+        ("5", 'Detenido')
         )
     status = models.CharField('Status', choices=STATUS, max_length=100,blank=False, default='5')
     singleton_instance_id = 1
