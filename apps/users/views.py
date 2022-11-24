@@ -9,7 +9,7 @@ from django.conf import settings
 from pytz import timezone
 from django.contrib.sessions.models import Session
 from django.contrib.auth import login, logout
-
+from rest_framework.decorators import action
 
 class authUser(APIView):
 
@@ -53,7 +53,6 @@ class authUser(APIView):
 
         response = Response()
         response.set_cookie(key='jwt', value=token, httponly=True)
-        response.set_cookie(key='rol', value=user.role)
         response.data = {
             'jwt':token,
             'message': 'Usuario autenticado',
@@ -74,3 +73,8 @@ class Logout(APIView):
             'message': 'Se ha cerrado su sesion'
         }
         return response
+
+class UserRol(APIView):
+    def get(self,request):
+        rol = request.user.role.id 
+        return Response({'Rol': rol}, status=status.HTTP_200_OK)

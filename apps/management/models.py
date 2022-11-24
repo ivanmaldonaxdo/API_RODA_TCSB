@@ -195,7 +195,14 @@ class LogSistema(models.Model):
 
 
 class ConfigCron(SingletonModel):
-    status = models.CharField('Status', max_length=100,blank=False, default='Inactivo')
+    STATUS = (
+        ("1", 'En espera'),
+        ("2", 'Recopilando DATA'),
+        ("3", 'Procesando DATA'),
+        ("4", 'Finalizando'),
+        ("5", 'Detenido')
+        )
+    status = models.CharField('Status', choices=STATUS, max_length=100,blank=False, default='5')
     singleton_instance_id = 1
     cursor = models.IntegerField('Cursor', blank=False, default=0)
     ESTADOS = (
@@ -203,9 +210,7 @@ class ConfigCron(SingletonModel):
         (False, 'Desactivado'),
     )
     is_active = models.BooleanField(default = True, choices=ESTADOS)
-    hora_gas = models.TimeField(default='14:00')
-    hora_agua = models.TimeField(default='08:00')
-    hora_luz = models.TimeField(default='02:00')
+    hora_exec = models.TimeField(default='5:00')
 
     def __str__(self):
         return "Cron"

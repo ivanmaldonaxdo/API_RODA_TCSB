@@ -46,8 +46,8 @@ class UserViewSet(viewsets.GenericViewSet):
     
 
 
-    #http://44.197.147.109/usuarios/?search=Carlos
-    #http://44.197.147.109/usuarios/?is_active=True
+    #http://localhost:8000/usuarios/?search=Carlos
+    #http://localhost:8000/usuarios/?is_active=True
 
     def list(self, request): #Listado de usuario
         query = self.get_queryset()
@@ -117,6 +117,8 @@ class UserViewSet(viewsets.GenericViewSet):
         return Response({
             'message':'La ID ingresada no coincide con ningun usuario'
         }, status= status.HTTP_404_NOT_FOUND)
+
+    
 
 
     

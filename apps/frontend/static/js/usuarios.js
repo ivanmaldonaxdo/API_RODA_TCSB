@@ -27,7 +27,7 @@ document.getElementById("btn-registrar").addEventListener('click', function(e){
 
 function RegisterUser() {
     // const url = 'http://3.80.228.126/auth-user/'
-    const url = 'http://44.197.147.109/usuarios/'
+    const url = 'http://localhost:8000/usuarios/'
     formulario = {
         'email' : RegForm.email.value,
         'password': RegForm.password.value,

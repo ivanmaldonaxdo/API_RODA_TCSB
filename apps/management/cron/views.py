@@ -22,8 +22,25 @@ class StatusForCron(viewsets.GenericViewSet):
         except self.model.DoesNotExist:
             raise Http404
 
-    def retrieve(self, request, pk = None): #Detalle de un usuario
-        cron = self.get_object(pk)
+    #http://localhost:8000/cron/actualizar_parametros_cron/
+    @action(detail=False, methods=['post'])
+    def actualizar_parametros_cron(self, request):
+        cron = self.get_queryset()
+        serializer = self.serializer_class(cron, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message':'Parametros actualizados correctamente',
+                    'Nueva informacion':serializer.data},
+                    status=status.HTTP_200_OK)
+        return Response({
+             'message':'Error en la actualizacion',
+             'errors': serializer.errors
+        }, status= status.HTTP_400_BAD_REQUEST)
+
+    #http://localhost:8000/cron/info_cron/
+    @action(detail=False, methods=['get'])
+    def info_cron(self, request): #Detalle de un usuario
+        cron = self.get_object(1)
         servicio = Servicio.objects.get(id=cron.cursor)
         siguiente = Servicio.objects.get(id=cron.cursor+1)
         response = Response()
@@ -38,13 +55,14 @@ class StatusForCron(viewsets.GenericViewSet):
         response.status_code= status.HTTP_202_ACCEPTED
         return response
 
-    def destroy(self, request, pk=None):
-        cron  = self.get_object(pk)
+
+    @action(detail=False, methods=['get'])
+    def estado_cron(self, request):
+        cron  = self.get_object(1)
         if cron.is_active == True:
             cron.is_active=False
             cron.status='Desactivado'
             cron.save()
-            subprocess.run(["sudo", "service", "cron", "stop"])
             return Response ({
                 'message': 'CRON is INACTIVE'
             }, status=status.HTTP_200_OK)
@@ -52,7 +70,6 @@ class StatusForCron(viewsets.GenericViewSet):
             cron.is_active=True
             cron.status='Activado'
             cron.save()
-            subprocess.run(["sudo", "service", "cron", "start"])
             return Response ({
                 'message': 'CRON is ACTIVE'
             }, status=status.HTTP_200_OK)
@@ -60,6 +77,7 @@ class StatusForCron(viewsets.GenericViewSet):
             'message':'HUBO UN ERROR AL ACTUALIZAR EL ESTADO DE CRON'
         }, status= status.HTTP_400_BAD_REQUEST)
 
+    #http://localhost:8000/cron/verificar_status/
     @action(detail=False, methods=['get'])
     def verificar_status(self, request):
         cron = self.get_object(1)
