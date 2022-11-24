@@ -71,7 +71,7 @@ REST_FRAMEWORK = {
     )
 }
 
-TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
+TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=10)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
