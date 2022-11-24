@@ -17,23 +17,25 @@ var csrftoken = getCookie('csrftoken');
 ////////
 
 
-document.getElementById("processDocs").addEventListener('click', function (e) {
+document.getElementById("searchDocs").addEventListener('click', function (e) {
 
     let folio = document.getElementById("folio").value,
         servicio = document.getElementById("tipo_servicio").value
     // console.log(fecha.toLocaleDateString('es-CL'));
     // console.log(typeof fecha);
-    let fecha = document.querySelector('#fechaBusqueda').value;
-    let isVacio = fecha == "";
-    fecha = String(fecha).split("-").reverse().join("-");
-    console.log(isVacio);
-    console.log(fecha);
+    let fecha_emision = document.querySelector('#fechaBusqueda').value;
+    fecha_emision = String(fecha_emision);
+    let isVacio = fecha_emision == "";
+    console.log(isVacio); 
+    console.log(fecha_emision);
+    let rut_client = null,
+        rut_receptor = null;
     // console.log(isVacio);
     // let dia = isVacio  ? null : list_fecha[0],
     //     mes = isVacio ? null : list_fecha[1],
     //     anio = isVacio  ? null: list_fecha[2];
     // console.log(dia," ",mes," ",anio);
-    if (servicio == "Tipo de servicio" && folio == "" && isVacio) {
+    if (servicio == "Tipo de servicio" && folio == "" && isVacio)  {
         console.log("NADA DE INFO");
         Swal.fire({
             // title: '<strong>HTML <u>example</u></strong>',
@@ -63,7 +65,8 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
-                getDocs(folio, servicio, fecha = fecha);
+                
+                getDocs(folio, servicio,rut_client, rut_receptor,fecha_emision);
             },
 
         })
@@ -77,7 +80,7 @@ document.getElementById("processDocs").addEventListener('click', function (e) {
 function numberRange(start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
 }
-function getDocs(folio, tpServicio, rutCli = null, fecha = null) {
+function getDocs(folio, tpServicio,rut_client, rut_receptor,fecha = null) {
     // const url = 'http://3.80.228.126/documentos/search_docs/'
     const url = 'http://localhost:8000/documentos/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
@@ -90,7 +93,8 @@ function getDocs(folio, tpServicio, rutCli = null, fecha = null) {
         body: JSON.stringify({
             "folio": folio,
             "tipo_servicio": tpServicio,
-            "rut_receptor": null,
+            "rut_client": rut_client,
+            "rut_receptor":rut_receptor,
             "fecha": fecha
         })
 
@@ -180,13 +184,13 @@ function btndetalleDocs(elem) {
     modalc.style.visibility = "visible";
     modal.classList.toggle("modal-close");
 
+    getDataClient(rut_cli).then(
+        client => Array.isArray(client) ? setValueByID("mdNomCli", client.map(cli => cli.nom_cli)) : client.nom_cli
+    )
+    getDataProv(rut_proveedor).then(
+        prov => Array.isArray(prov) ? setValueByID("mdNomProv", prov.map(prv => prv.nom_proveedor)) : prov.nom_proveedor
+    )
 }
-getDataClient(rut_cli).then(
-    client => Array.isArray(client) ? setValueByID("mdNomCli", client.map(cli => cli.nom_cli)) : client.nom_cli
-)
-getDataProv(rut_proveedor).then(
-    prov => Array.isArray(prov) ? setValueByID("mdNomProv", prov.map(prv => prv.nom_proveedor)) : prov.nom_proveedor
-)
 let cerrar = document.querySelectorAll(".close")[0];
 let modal = document.querySelectorAll(".amodal")[0];
 let modalc = document.querySelectorAll(".modal-container")[0];

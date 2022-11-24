@@ -39,13 +39,25 @@ class OpenKMViewSet(ViewSet):
         # diction = {}
         openkm = self.openkm_creds()
         # print("OPKM OBJECT ", openkm.auth_creds.password)
-        # filtros = self.format_filtros(filtros)
+        filtros = self.format_filtros(filtros)
         print("Filtros Search Docs")
         print(filtros)
+        anio = None
+        mes = None
+        dia = None
+        try:
+            print(str(filtros.get("fecha")).split("-"))
+            anio,mes,dia = str(filtros.get("fecha")).split("-")
+        except:
+            print("No Fechita")
         docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
-            _rutCli = filtros.get('rut_receptor'),
+            _rutCli = filtros.get('rut_client'),
+            _rutReceptor = filtros.get('rut_receptor'),
+            dia = dia,
+            mes = mes,
+            anio = anio 
             # dia = filtros.get('dia'),
             # mes = filtros.get('mes'),
             # anio = filtros.get('anio')
