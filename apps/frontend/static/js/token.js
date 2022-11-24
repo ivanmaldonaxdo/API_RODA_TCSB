@@ -18,7 +18,6 @@ var csrftoken = getCookie('csrftoken');
 var loginForm = document.getElementById('login')
 loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
-    console.log('form enviado')
 })
 
 document.getElementById('btnLogin').addEventListener('click', function (e) {
@@ -49,7 +48,6 @@ function loginUser() {
                 })
             }
             else {
-                console.log('que paho')
                 Swal.fire({
                     title:data['message'],
                     icon:'error',

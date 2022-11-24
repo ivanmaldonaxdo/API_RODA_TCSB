@@ -10,7 +10,15 @@ from pytz import timezone
 from django.contrib.sessions.models import Session
 from django.contrib.auth import login, logout
 from rest_framework.decorators import action
+from rest_framework import generics
+from apps.users.usuarios.serializers import ChangePasswordSerializer
 
+
+
+#Funcion que autentica al usuario al momento de iniciar sesion, debe recibir un correo y contraseña
+#al autenticarse correctamente setea una cookie con el token generado en el cliente o navegador que se este utilizando.
+#Endpoint:
+#http://localhost:8000/auth-user/
 class authUser(APIView):
 
     authentication_classes = [] #disables authentication
@@ -62,7 +70,9 @@ class authUser(APIView):
         login(request, user)
         response.status_code= status.HTTP_202_ACCEPTED
         return response
-        
+
+#Funcion para desloguear al usuario, elimina el token y la sesion de usuario
+#http://localhost:8000/logout/
 class Logout(APIView): 
     def get(self, request, *args, **kgwars):
         response = Response()
@@ -75,7 +85,57 @@ class Logout(APIView):
         }
         return response
 
+#Funcion para verificar el rol de usuario, importante si se quiere hacer validaciones en el front end VER ROLES DEFINIDOS EN LA BD
+#http://localhost:8000/rol_usuario/
 class UserRol(APIView):
     def get(self,request):
         rol = request.user.role.id 
         return Response({'Rol': rol}, status=status.HTTP_200_OK)
+
+
+
+
+
+#Funcion para cambiar la contraseña de un usuario, este debe estar autenticado antes de realizar la accion
+#http://localhost:8000/api/change-password/
+class ChangePasswordView(generics.UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    model = User
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("contraseña_actual")):
+                return Response({"contraseña_actual": ["Incorrecta"]}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.set_password(serializer.data.get("nueva_contraseña"))
+            self.object.save()
+           
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Contraseña actualizada correctamente',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+#Otras URLS funciones importantes
+#Instaladas con librerias
+
+#Reset Password, se debe ingresar el email para que se valide que corresponda a un usuario, el sistema envia un correo al usuario con el token
+#de validacion
+#http://localhost:8000/api/password_reset/
+
+
+#En esta URL se ingresa el token de confirmacion que se envio por correo, mas especificando la nueva contraseña
+#http://localhost:8000/api/password_reset/confirm/

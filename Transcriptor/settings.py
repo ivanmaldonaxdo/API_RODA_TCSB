@@ -54,6 +54,7 @@ THIRD_APPS = [
     'solo',
     'django_cron',
     "corsheaders",
+    'django_rest_passwordreset',
 ]
 
 CRON_CREDENCIAL= 'Nmi9IXfkKBUgyRk*pQ+1F9Xz@8OS7$1&E4^6eJTrdgKD$soC6'
@@ -175,13 +176,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Segundos que dura un token (establecido en 10 horas)
 
-DRF_API_LOGGER_DATABASE = True
-DRF_API_LOGGER_SIGNAL = True
-DRF_LOGGER_QUEUE_MAX_SIZE = 30
+
 #funcion para el proceso automatico 
 CRON_CLASSES = [
     "apps.tasks.MyCronJob"
 ]
+
+
+#ACA SE ESTABLECE EL CORREO QUE USARA EL SISTEMA PARA ENVIAR CORREOS, SE ESPECIFICÓ UNO DE EJEMPLOS PARA ENVIAR CORREOS DE TEST
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = "testrodaapi@gmail.com"
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'tqhtssgnowedlown'
+
 
 
 STATIC_URL = '/static/'
