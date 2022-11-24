@@ -26,8 +26,9 @@ class OpenKMViewSet(ViewSet):
     openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):
         for k,v in filtros.items():
-            if v == "":
-                filtros[k] = None
+            if k not in ['dia_doc','anio_doc','mes_doc']:
+                if v == "":
+                    filtros[k] = None
         print("Filtros {} -".format(filtros))
         return filtros
 
@@ -38,11 +39,16 @@ class OpenKMViewSet(ViewSet):
         # diction = {}
         openkm = self.openkm_creds()
         # print("OPKM OBJECT ", openkm.auth_creds.password)
-        filtros = self.format_filtros(filtros)
+        # filtros = self.format_filtros(filtros)
         docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
-            _rutCli = filtros.get('rut_receptor')
+            _rutCli = filtros.get('rut_receptor'),
+            dia = filtros.get('dia'),
+            mes = filtros.get('mes'),
+            anio = filtros.get('anio')
+
+            
         )
         # {"message: Data encontrada"},
         if docs:
@@ -74,6 +80,7 @@ class OpenKMViewSet(ViewSet):
                     resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
 
                     ######################## CONSULTA DE PLANTILLAS EN BD #############################
+                    print(data.get('rut_emisor'))
                     with connections['default'].cursor() as cursor:##conexion default a la bd
                         cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
                         plantilla = cursor.fetchall()
@@ -88,7 +95,6 @@ class OpenKMViewSet(ViewSet):
                     extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
                     metadata = openkm.get_metadata(data.get("uuid"))
 
-                    ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
                     docName = str(data.get('nomDoc')).replace('.pdf', '')
                     archivo  = ( docName + '.json')
 
@@ -96,12 +102,14 @@ class OpenKMViewSet(ViewSet):
                     # rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
                     # rut_cliente = format_rut_without_dots(rut_cliente)
                     numero_cli = extracted_data.get("Nro CLIENTE")
-            
+
+                    ######################## OBTENCION DE CONTENIDO JSON PARA SUBIDA ###################
                     read = json.dumps(extracted_data, indent = 4)
                     contenido = ContentFile(read.encode('utf-8'))
                     contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
                     # id_contrat = contrato_serv.sucursal.id
                     # print(id_contrat)
+                    ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
                     doc = Documento.objects.create(
                         nom_doc = docName,
                         folio =  metadata.get('folio'),

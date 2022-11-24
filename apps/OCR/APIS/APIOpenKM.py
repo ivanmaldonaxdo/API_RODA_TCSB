@@ -19,12 +19,17 @@ class OpenKm():
         
 #region GET_DOCS
     #AGU - ELE - GAS esta función realiza la busqueda de archivos no procesados
-    def search_docs(self, _folio = None ,_serv = None , _rutCli = None, _anio = None):
+    def search_docs(self,_folio = None ,_serv = None , _rutCli = None, dia = None ,mes =None, anio =None):
         url = "{}{}" .format(self.end_point_base,'search/find')
-        list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('anio_doc',_anio)]
+        # list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli)]
+        list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('dia_doc',dia),('mes_doc',mes),('anio_doc',anio)]
+        print(list_params)
+        filtros = { 'folio': _folio,'tipo_servicio': _serv ,'rut_receptor':_rutCli}
+        print(filtros)
         properties = self.get_list_params(list_params)
         # print("")
-        # print("Propiedades => {}" .format(properties))
+        print("Propiedades => {}" .format(properties))
+        # print(properties)
         params = {'property':properties,'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
@@ -78,10 +83,13 @@ class OpenKm():
         for param in _list_params:
             key,value = param[0],param[1]
             # print("PARAM > {}" .format(l))
-            if value is not None:
-                # print("PARAM > {}" .format('okp:encCobro.{}={}'.format( key,value )))
-                query = 'okp:encCobro.{}={}'.format(param[0],param[1])
-                queries.append(query)
+            if value == "":
+                value == None
+            else:
+                if value is not None:
+                    print("PARAM > {}" .format('okp:encCobro.{}={}'.format( key,value )))
+                    query = 'okp:encCobro.{}={}'.format(param[0],param[1])
+                    queries.append(query)
         return queries
 
     def get_metadata(self,_uuid):
