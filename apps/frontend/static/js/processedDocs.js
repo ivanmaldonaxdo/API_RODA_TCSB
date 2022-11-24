@@ -34,7 +34,7 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 function getProcesedDocs() {
     // const url = 'http://3.80.228.126/procesados/
-    const url = 'http://44.197.147.109/procesados/';
+    const url = 'http://localhost:8000/procesados/';
     fetch(url, {
         method: 'GET',
         headers: {
@@ -90,7 +90,7 @@ function createRowDoc(doc,event)
         cssButton = "buttonDownload";
     
     //LOCAL
-    var urlBase = 'http://44.197.147.109';
+    var urlBase = 'http://localhost:8000';
     //server
     // var urlBase = 'http://localhost'
     var urlDownload = urlBase + doc.documento

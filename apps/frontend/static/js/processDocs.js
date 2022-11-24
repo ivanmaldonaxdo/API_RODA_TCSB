@@ -83,7 +83,7 @@ function numberRange (start, end) {
 }
 function getDocs(folio,tpServicio, rutCli = null,dia = null, mes = null, anio = null  ) {
     // const url = 'http://3.80.228.126/documentos/search_docs/'
-    const url = 'http://44.197.147.109/documentos/search_docs/';
+    const url = 'http://localhost:8000/documentos/search_docs/';
     // const HTMLResponse = document.querySelector("#tablaJS")
     fetch(url, {
         method: 'POST',
@@ -332,7 +332,7 @@ window.addEventListener("click", function (e){
 })
 
 async function  getDataClient (rutCliente) {
-    const url = new URL("http://44.197.147.109/clientes/");
+    const url = new URL("http://localhost:8000/clientes/");
     const params = {rut_cliente : rutCliente}
     url.search = new URLSearchParams(params).toString();
     const res = await fetch(url, {
@@ -348,7 +348,7 @@ async function  getDataClient (rutCliente) {
 }
 
 async function  getDataProv(rutProveedor) {
-    const url = new URL("http://44.197.147.109/proveedores/");
+    const url = new URL("http://localhost:8000/proveedores/");
     const params = {rut_proveedor : rutProveedor}
     url.search = new URLSearchParams(params).toString();
     const res = await fetch(url, {
@@ -366,7 +366,7 @@ function processDocs(indexRow,documento){
     // console.log("Index :", indexRow);
     // console.log("Objeto", documento.uuid);
     // const url = 'http://3.80.228.126/documentos/process_docs/';
-    const url = 'http://44.197.147.109/documentos/process_docs/';
+    const url = 'http://localhost:8000/documentos/process_docs/';
 
     fetch(url, {
         method: 'POST',
