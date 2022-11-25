@@ -115,6 +115,16 @@ class Contrato(viewsets.GenericViewSet):
     serializer_class = ContratoServiciosSerializer
     model = Contrato_servicio
 
+    def get_queryset(self):
+        queryset= self.filter_queryset(Sucursal.objects.all())
+        return queryset
+
+    def get_object(self, pk):
+        try:
+            return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        except self.model.DoesNotExist:
+            raise Http404
+
 
     @action(detail=False, methods=['post'])
     def create_contract(self, request):
@@ -129,15 +139,12 @@ class Contrato(viewsets.GenericViewSet):
             'errors': contrato_serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
 
-    # @action(detail=False, methods=['post'])
-    # def create_contract(self, request):
-    #     contrato_serializer = self.serializer_class(data=request.data)
-    #     if contrato_serializer.is_valid():
-    #         contrato_serializer.save()
-    #         return Response({
-    #             'message': 'Servicio registrado correctamente'
-    #         }, status=status.HTTP_201_CREATED)
-    #     return Response({
-    #         'message':'Error en el registro',
-    #         'errors': contrato_serializer.errors
-    #     }, status= status.HTTP_400_BAD_REQUEST)
+    def destroy(self, request, pk=None):
+        contrato = self.get_object(pk)
+        if contrato.delete():
+            return Response({
+                'message': 'Contrato Eliminado'
+            }, status=status.HTTP_200_OK)
+        return Response({
+            'message':'La ID ingresada no coincide con ningun contrato'
+        }, status= status.HTTP_404_NOT_FOUND)
