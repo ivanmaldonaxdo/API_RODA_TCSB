@@ -166,8 +166,7 @@ function btndetalleDocs(elem) {
     // console.log(getTextElement('tdRutCli',indexRow));
     console.log(getTextElement('tdFolio', indexRow));
 
-<<<<<<< HEAD
-        });
+};
         
  
         async function  getDataClient (rutCliente) {
@@ -184,7 +183,7 @@ function btndetalleDocs(elem) {
             obj = await res.json();
             
             return obj
-=======
+
     //////////SETEO DE PROPIEDADES DEL MODAL EN JS
     setValueByID("mdFolio", getTextElement('tdFolio', indexRow));
     setValueByID("mdNomDoc", getValueElement('nomDoc', indexRow));
@@ -243,7 +242,6 @@ async function getDataClient(rutCliente) {
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
->>>>>>> 1b456b0a187a69653183f53a47218187a99e8345
         }
     })
     obj = await res.json();
