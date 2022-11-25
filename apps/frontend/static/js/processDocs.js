@@ -245,6 +245,10 @@ async function getDataProv(rutProveedor) {
     obj = await res.json();
     return obj
 }
+///////////////////////////////////////////////////////////////////
+
+
+///////////PROCESAR DOCUMENT0S
 function btnProcessDocs(elem) {
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
