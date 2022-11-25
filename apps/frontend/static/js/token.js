@@ -18,7 +18,6 @@ var csrftoken = getCookie('csrftoken');
 var loginForm = document.getElementById('login')
 loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
-    console.log('form enviado')
 })
 
 document.getElementById('btnLogin').addEventListener('click', function (e) {
@@ -28,7 +27,7 @@ document.getElementById('btnLogin').addEventListener('click', function (e) {
 function loginUser() {
     // const url = 'http://3.80.228.126/auth-user/'
     const url = 'http://localhost:8000/auth-user/'
-
+    const inicio = "http://localhost:8000/inicio/"
     fetch(url, {
         method: 'POST',
         headers: {
@@ -40,15 +39,21 @@ function loginUser() {
     })
     .then((response) => {
         response.json().then(data => {
-            if (response.ok) {
-                // window.location.replace("http://3.80.228.126/inicio/");
-
-                window.location.replace("http://localhost:8000/inicio/");
+            if (response.status == 202) {
+                Swal.fire({
+                    title:'Sesion iniciada correctamente',
+                    icon:'success',
+                }).then(function(){
+                    window.location = inicio;
+                })
             }
             else {
-                console.log(response.data)
+                Swal.fire({
+                    title:data['message'],
+                    icon:'error',
+                   
+                })
             }
-
         })
     });
 }

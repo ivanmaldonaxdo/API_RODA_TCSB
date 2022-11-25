@@ -19,9 +19,11 @@ from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 import sys
+from apps.permissions import  *
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
+    permission_classes = (IsAdministrador,IsOperador,)
     docs = None
     openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):
@@ -39,14 +41,28 @@ class OpenKMViewSet(ViewSet):
         # diction = {}
         openkm = self.openkm_creds()
         # print("OPKM OBJECT ", openkm.auth_creds.password)
-        # filtros = self.format_filtros(filtros)
+        filtros = self.format_filtros(filtros)
+        print("Filtros Search Docs")
+        print(filtros)
+        anio = None
+        mes = None
+        dia = None
+        try:
+            print(str(filtros.get("fecha")).split("-"))
+            anio,mes,dia = str(filtros.get("fecha")).split("-")
+        except:
+            print("No Fechita")
         docs = openkm.search_docs(
             _folio = filtros.get('folio'),
             _serv = filtros.get('tipo_servicio'),
-            _rutCli = filtros.get('rut_receptor'),
-            dia = filtros.get('dia'),
-            mes = filtros.get('mes'),
-            anio = filtros.get('anio')
+            _rutCli = filtros.get('rut_client'),
+            _rutReceptor = filtros.get('rut_receptor'),
+            dia = dia,
+            mes = mes,
+            anio = anio 
+            # dia = filtros.get('dia'),
+            # mes = filtros.get('mes'),
+            # anio = filtros.get('anio')
 
             
         )
@@ -151,7 +167,7 @@ class OpenKMViewSet(ViewSet):
                     error = str(e)
                 print(error)
                 return Response({
-                    'message':'Documento No Procesado','Error':error
+                    'message':'Documento No Procesado','Error':error, 'uuid':data.get('uuid')
                     }, status=status.HTTP_409_CONFLICT,headers=None)
     
         except Exception as e:

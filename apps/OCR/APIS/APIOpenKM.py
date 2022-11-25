@@ -19,18 +19,28 @@ class OpenKm():
         
 #region GET_DOCS
     #AGU - ELE - GAS esta función realiza la busqueda de archivos no procesados
-    def search_docs(self,_folio = None ,_serv = None , _rutCli = None, dia = None ,mes =None, anio =None):
+    def search_docs(self,_folio = None ,_serv = None, _rutCli = None,_rutReceptor = None, dia = None ,mes = None, anio = None):
         url = "{}{}" .format(self.end_point_base,'search/find')
+        path = '/okm:root/Cobros/'
+        if _rutCli is not None:
+            path = f'{path}{_rutCli}/'
         # list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli)]
-        list_params = [('folio',_folio),('tipo_servicio',_serv),('rut_receptor',_rutCli),('dia_doc',dia),('mes_doc',mes),('anio_doc',anio)]
-        print(list_params)
-        filtros = { 'folio': _folio,'tipo_servicio': _serv ,'rut_receptor':_rutCli}
-        print(filtros)
+        list_params = [
+            ('folio',_folio),
+            ('tipo_servicio',_serv),
+            ('rut_receptor',_rutReceptor),
+            ('anio_doc',anio),
+            ('mes_doc',mes),
+            ('dia_doc',dia),
+        ]
+        # print(list_params)
+        # filtros = { 'folio': _folio,'tipo_servicio': _serv ,'rut_receptor':_rutReceptor}
+        # print(filtros)
         properties = self.get_list_params(list_params)
         # print("")
         print("Propiedades => {}" .format(properties))
         # print(properties)
-        params = {'property':properties,'path':'/okm:root/Cobros/'} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
+        params = {'property':properties,'path':path} #LOS PARAMETROS SON UNA LISTA DE PROPIEDADES MDATA Y PATH
         response = self.get_request(url,params)
         status_code = response.status_code
         if (status_code in range(200,399)):
@@ -83,13 +93,13 @@ class OpenKm():
         for param in _list_params:
             key,value = param[0],param[1]
             # print("PARAM > {}" .format(l))
-            if value == "":
-                value == None
-            else:
-                if value is not None:
-                    print("PARAM > {}" .format('okp:encCobro.{}={}'.format( key,value )))
-                    query = 'okp:encCobro.{}={}'.format(param[0],param[1])
-                    queries.append(query)
+            # if value == "":
+            #     value == None
+            # else:
+            if value is not None:
+                print("PARAM > {}" .format('okp:encCobro.{}={}'.format(key,value )))
+                query = 'okp:encCobro.{}={}'.format(param[0],param[1])
+                queries.append(query)
         return queries
 
     def get_metadata(self,_uuid):
@@ -114,7 +124,7 @@ class OpenKm():
         is_processed = True
         try:
             proceso_ocr = metadata.get('proceso_ocr')
-            is_processed = (False if proceso_ocr == "" else True)
+            is_processed = (False if proceso_ocr == "" or str.__contains__(proceso_ocr, 'TAG ERROR') else True)
         except:
             print("PROBLEMAS PARA ACCEDER A ESA PROPIEDAD")
         return is_processed

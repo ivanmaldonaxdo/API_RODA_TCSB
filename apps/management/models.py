@@ -61,7 +61,7 @@ class Servicio(models.Model):
 
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
-    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
+    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True, validators=[validar_rut])
     contacto = models.CharField('Contacto', max_length=255, blank=True)
     is_active = models.BooleanField(default = True)
     servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, default=None)
@@ -195,17 +195,22 @@ class LogSistema(models.Model):
 
 
 class ConfigCron(SingletonModel):
-    status = models.CharField('Status', max_length=100,blank=False, default='Inactivo')
+    STATUS = (
+        ('En espera', 'En espera'),
+        ('Recopilando DATA', 'Recopilando DATA'),
+        ('Procesando DATA', 'Procesando DATA'),
+        ('Finalizando', 'Finalizando'),
+        ('Detenido', 'Detenido')
+        )
+    status = models.CharField('Status', choices=STATUS, max_length=100,blank=False, default='En espera')
     singleton_instance_id = 1
-    cursor = models.IntegerField('Cursor', blank=False, default=0)
+    fecha = models.DateField(default=timezone.now)
     ESTADOS = (
         (True, 'Activado'),
         (False, 'Desactivado'),
     )
     is_active = models.BooleanField(default = True, choices=ESTADOS)
-    hora_gas = models.TimeField(default='14:00')
-    hora_agua = models.TimeField(default='08:00')
-    hora_luz = models.TimeField(default='02:00')
+    hora_exec = models.TimeField(default='5:00')
 
     def __str__(self):
         return "Cron"

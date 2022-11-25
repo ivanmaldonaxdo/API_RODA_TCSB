@@ -2,19 +2,17 @@ from apps.management.models import ConfigCron
 from rest_framework import serializers
 
 class SistemaSerializers(serializers.ModelSerializer):
-    hora_luz = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
-    hora_agua = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
-    hora_gas = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
+    hora_exec = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
+    fecha = serializers.DateField(format='%Y-%m-%d')
     class Meta:
         model = ConfigCron
-        fields = ('hora_luz', 'hora_agua', 'hora_gas',)
+        fields = ('hora_exec','fecha')
 
 
 class CronSerializer(serializers.ModelSerializer):
-    hora_luz = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
-    hora_agua = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
-    hora_gas = serializers.TimeField(format='%H:%M', input_formats='%H:%M')
-
+    hora_exec = serializers.TimeField(format='%H:%M')
+    fecha = serializers.DateField(format='%Y-%m-%d')
+    status = serializers.ReadOnlyField()
     class Meta:
         model = ConfigCron
         fields = '__all__'
