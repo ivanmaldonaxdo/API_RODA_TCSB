@@ -6,6 +6,8 @@ from apps.management.models import LogSistema, Documento
 from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.procesamiento.processViews import OpenKMViewSet 
 procesamiento = OpenKMViewSet()
+
+
 class LogRestMiddleware:
 
     def __init__(self, get_response):
@@ -20,6 +22,9 @@ class LogRestMiddleware:
                 return self.get_response(request)
         if url_name == 'logout':
                 return self.get_response(request)
+        if url_name == 'cron-verificar-status':
+                return self.get_response(request)
+        
         
         request_data = ''
         try:
@@ -69,8 +74,11 @@ class LogRestMiddleware:
                     uuid= response_body["uuid"]
                     codigo = m.id
                     openkm.set_metadata_processed(uuid,codigo)
-                    print('metadata actualizada')
-
+                if url_name == 'search_docs-process_docs' and m.status_code != 200:
+                    openkm = procesamiento.openkm_creds()
+                    uuid= response_body["uuid"]
+                    codigo = str(m.id) + " TAG ERROR"
+                    openkm.set_metadata_processed(uuid,codigo)
         else:
             return response
 

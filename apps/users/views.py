@@ -139,3 +139,8 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 #En esta URL se ingresa el token de confirmacion que se envio por correo, mas especificando la nueva contraseña
 #http://localhost:8000/api/password_reset/confirm/
+
+
+#Cambio de contraseñas
+#Endpoint:
+#http://localhost:8000/api/change-password/
