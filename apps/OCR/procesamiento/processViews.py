@@ -19,9 +19,11 @@ from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 import sys
+from apps.permissions import  *
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
+    permission_classes = (IsAdministrador,IsOperador,)
     docs = None
     openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):

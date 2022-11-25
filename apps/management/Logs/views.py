@@ -1,7 +1,7 @@
 from apps.management.models import LogSistema
 from apps.management.Logs.serializers import LogSerializer
 from rest_framework.response import Response
-from apps.permissions import IsAdministrador
+from apps.permissions import *
 from rest_framework.decorators import action
 from django.http import Http404
 from rest_framework import viewsets
@@ -23,6 +23,7 @@ class LogViewSet(viewsets.ModelViewSet):
     model = LogSistema
     http_method_names = ['get']
     pagination_class = StandardResultsSetPagination
+    permission_classes = (IsAdministrador,IsOperador,)
 
     def get_queryset(self):
         return LogSistema.objects.all().order_by('-id')
