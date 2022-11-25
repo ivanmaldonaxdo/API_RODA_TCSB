@@ -9,10 +9,12 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 import datetime
 from django.urls import resolve
+from apps.permissions import *
 
 class StatusForCron(viewsets.GenericViewSet):
     serializer_class = CronSerializer
     model = ConfigCron
+    permission_classes = (IsAdministrador,IsOperador,)
 
     def get_queryset(self):
         queryset=ConfigCron.objects.all().first()
@@ -28,7 +30,6 @@ class StatusForCron(viewsets.GenericViewSet):
     @action(detail=False, methods=['post'])
     def actualizar_parametros_cron(self, request):
         cron = self.get_queryset()
-        print(resolve(request.path_info).url_name)
         serializer = self.serializer_class(cron, data=request.data, partial=True)
         
         if serializer.is_valid(raise_exception=True):
@@ -48,10 +49,21 @@ class StatusForCron(viewsets.GenericViewSet):
         response = Response()
         data = dict()
         cron_serializer = self.serializer_class(cron)
-        print(cron.STATUS[1][1])
+        if cron.status == 'Recopilando DATA' or cron.status == 'Procesando DATA':
+            data['Proceso'] = 'En ejecucion'
+            data['Estado'] = cron.status
+            if cron.fecha != cron.fecha + datetime.timedelta(days=1):
+                data['Siguiente ejecucion'] = cron.fecha
+            else:
+                data['Siguiente ejecucion'] = cron.fecha + datetime.timedelta(days=1)
+        else:
+            data['Proceso'] = 'Detenido o En espera'
+            data['Próxima ejecucion'] = cron.fecha 
+            data['Hora Próxima ejecucion'] = cron.hora_exec
         response.data = data
         response.status_code= status.HTTP_202_ACCEPTED
         return response
+
 
     #http://localhost:8000/cron/estado_cron/
     @action(detail=False, methods=['get'])

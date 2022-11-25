@@ -15,7 +15,7 @@ class JWTAuthentication(BaseAuthentication):
 
         #Autenticacion personalizada para el usuario CRON, modificar el email en caso de modificar el usuario en la BD
         if token == settings.CRON_CREDENCIAL:
-            user = User.objects.get(email='usuarioroda@roda.cl')
+            user = User.objects.get(email='usuariocron@gmail.com')
             return (user, None)
 
         try:
