@@ -27,21 +27,35 @@
                             <label class="label-registro" for="">Telefono</label>
                         </div>
                         <div class="content-select">
-                            <select id="sucursal" name="rol">
-                                <option selected>Ingresar Rol...</option>
+                            <select id="rol" name="rol">
+                                <option value="0">Ingresar Rol...</option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Operador</option>
                                 <option value="3">Usuario Roda</option>
                             </select>
                             <i></i>
                         </div>
+<<<<<<< HEAD
+                        <button id = "btn-registrar" type="submit" class="btn-registrar" onclick="validar();">Registrar</button>
+=======
                         <button id="btn-registrar" type="submit" class="btn-registrar">Registrar</button>
+>>>>>>> 1b456b0a187a69653183f53a47218187a99e8345
                     </div>
                 </form>
                 <img class="image-container" src={% static 'img/registro.svg' %} alt="login">
             </div>
         </div>
     </div>
+    <script>
+        function validar(){
+            var roles=document.getElementById('rol');
+            if(roles.value==0 || roles.value=="")
+            {
+                alert ("Seleccionar una opcion para el rol");
+                roles.focus();
+            } 
+        }
+    </script>
     <script type="text/javascript" src="{% static 'js/usuarios.js' %}"></script>  
 
 

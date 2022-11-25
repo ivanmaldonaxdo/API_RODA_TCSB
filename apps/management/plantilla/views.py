@@ -29,15 +29,6 @@ class PlantillaViewSet(viewsets.GenericViewSet):
         except self.model.DoesNotExist:
             raise Http404
 
-    def list(self, request): #Listado de usuario
-        query = self.get_queryset()
-        if query:
-            serializer = PlantillaSerializer(query, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:   
-            return Response({
-                'message':'La busqueda no coincide con ninguna plantilla',
-            }, status= status.HTTP_404_NOT_FOUND)
     
     def create(self, request, *args, **kwargs):
         serializer_class = PlantillaSerializer(data=request.data)

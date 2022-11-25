@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
-        fields = ('email', 'password','name','telefono', 'role')
+        fields = ('email', 'password','name','telefono', 'role', 'master')
     
     def update(self, instance, validated_data):
         user = super().update(instance, validated_data)
