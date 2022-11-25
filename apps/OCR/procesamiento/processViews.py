@@ -165,7 +165,7 @@ class OpenKMViewSet(ViewSet):
                     error = str(e)
                 print(error)
                 return Response({
-                    'message':'Documento No Procesado','Error':error
+                    'message':'Documento No Procesado','Error':error, 'uuid':data.get('uuid')
                     }, status=status.HTTP_409_CONFLICT,headers=None)
     
         except Exception as e:
