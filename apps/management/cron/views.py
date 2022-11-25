@@ -4,9 +4,11 @@ from rest_framework import status
 from rest_framework import viewsets
 from apps.management.cron.serializers import CronSerializer
 import subprocess
-from apps.management.models import ConfigCron, Servicio
+from apps.management.models import ConfigCron, Servicio, Cliente
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+import datetime
+from django.urls import resolve
 
 class StatusForCron(viewsets.GenericViewSet):
     serializer_class = CronSerializer
@@ -26,7 +28,9 @@ class StatusForCron(viewsets.GenericViewSet):
     @action(detail=False, methods=['post'])
     def actualizar_parametros_cron(self, request):
         cron = self.get_queryset()
+        print(resolve(request.path_info).url_name)
         serializer = self.serializer_class(cron, data=request.data, partial=True)
+        
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response({'message':'Parametros actualizados correctamente',
@@ -41,21 +45,15 @@ class StatusForCron(viewsets.GenericViewSet):
     @action(detail=False, methods=['get'])
     def info_cron(self, request): #Detalle de un usuario
         cron = self.get_object(1)
-        servicio = Servicio.objects.get(id=cron.cursor)
-        siguiente = Servicio.objects.get(id=cron.cursor+1)
         response = Response()
         data = dict()
         cron_serializer = self.serializer_class(cron)
-        if cron.status != 'Desactivado' or cron.status !='Terminado o En espera':
-            cron_exec = {'Proceso en ejecucion':servicio.servicio}
-            data.update(cron_exec)
-        proximo = {'Proximo proceso a ejecutar':siguiente.servicio}
-        data.update(proximo)
+        print(cron.STATUS[1][1])
         response.data = data
         response.status_code= status.HTTP_202_ACCEPTED
         return response
 
-
+    #http://localhost:8000/cron/estado_cron/
     @action(detail=False, methods=['get'])
     def estado_cron(self, request):
         cron  = self.get_object(1)

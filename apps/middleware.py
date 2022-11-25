@@ -6,6 +6,8 @@ from apps.management.models import LogSistema, Documento
 from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.procesamiento.processViews import OpenKMViewSet 
 procesamiento = OpenKMViewSet()
+
+
 class LogRestMiddleware:
 
     def __init__(self, get_response):
@@ -20,6 +22,9 @@ class LogRestMiddleware:
                 return self.get_response(request)
         if url_name == 'logout':
                 return self.get_response(request)
+        if url_name == 'cron-verificar-status':
+                return self.get_response(request)
+        
         
         request_data = ''
         try:
