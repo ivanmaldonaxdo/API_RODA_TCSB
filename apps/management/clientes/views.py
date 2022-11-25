@@ -48,7 +48,6 @@ class ClienteViewSets(viewsets.GenericViewSet):
         client_serializer = self.serializer_class(data=request.data)
         if client_serializer.is_valid():
             client_serializer.save()
-            #subprocess.run(["python3", "manage.py", "update_index"])
             return Response({
                 'message': 'Cliente registrado correctamente'
             }, status=status.HTTP_201_CREATED)

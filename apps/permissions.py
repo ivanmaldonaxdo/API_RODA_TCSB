@@ -50,6 +50,16 @@ class ProveedoresPermission(BasePermission):
         else:
             return False
 
+class CronPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['list', 'retrieve']:
+            return True
+        elif view.action in ['create', 'update', 'destroy']:
+            return request.user.is_staff == True or request.user.role.id == 1
+        else:
+            return False
+
+
 
 # class OpenKMPermission(BasePermission):
 #     def has_permission(self, request, view):

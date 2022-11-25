@@ -27,8 +27,8 @@
 </head>
 
 <body>
-    <header>
-        <!-- <nav>
+   {% comment %} <header>
+       {% comment %} <nav>
             <img src={% static 'img/roda-logo.png' %} alt="" class="logo">
             <ul>
                 <li><a href="{% url 'homeinfo' %}">Inicio</a></li>
@@ -55,9 +55,9 @@
             <label id="icon">
                 <i class="fas fa-bars"></i>
             </label>
-        </nav> -->
+        </nav>  {% endcomment %}
 
-        <img src={% static 'img/roda-logo.png' %} alt="" class="logo">
+        {% comment %} <img src={% static 'img/roda-logo.png' %} alt="" class="logo">
 
         <input type="checkbox" id="menu-bar">
         <label for="menu-bar"><i class="fas fa-bars"></i></label>  
@@ -65,31 +65,90 @@
         <nav class="navbar">
             <ul>
                 <li><a href="{% url 'homeinfo' %}">Inicio</a></li>
-                <li><a class="boletas-info" href="{% url 'process' %}">Archivos a procesar</a></li>
-                <li><a href="{% url 'processed' %}">Procesados</a></li>
-                <li><a href="">Clientes +</a>
+                <li><a class="procesar" href="{% url 'process' %}">Archivos a procesar</a></li>
+                <li><a  href="{% url 'processed' %}">Procesados</a></li>
+                <li><a class="usuario" href="">Clientes +</a>
                     <ul>
                         <li><a href="{% url 'Cliente' %}">Registrar</a></li>
                         <li><a href="{% url 'modificarcliente' %}">Modificar</a></li>
                         <li><a href="{% url 'listarcliente' %}">Listar</a></li>
                     </ul>
                 </li>
-
-                <li><a href="">Usuarios +</a>
+                <li><a class="usuario" href="">Usuarios +</a>
                     <ul>
                         <li><a href="{% url 'Usuarios' %}">Registrar</a></li>
                         <li><a href="{% url 'modificarusuario' %}">Modificar</a></li>
                         <li><a href="{% url 'listarusuarios' %}">Listar</a></li>
                     </ul>
                 </li>
-                <li><a href="{% url 'cron' %}">cron</a></li>
+                <li><a class="cron" href="{% url 'cron' %}">cron</a></li>
+            
                 <li><a  id="cerrarsession" href="#">Cerrar sesion</a></li>
             </ul>
             
 
-        </nav>
+        </nav> 
 
-    </header>
+
+
+    </header>{% endcomment %}
+
+
+      <header class="header">
+     <div class="container-nav">
+        <div class="header-main">
+           <div class="logo">
+              <img src={% static 'img/roda-logo.png' %} alt="" class="logoa">
+           </div>
+           <div class="open-nav-menu">
+              <span></span>
+           </div>
+           <div class="menu-overlay">
+           </div>
+           <!-- navigation menu start -->
+           <nav class="nav-menu">
+             <div class="close-nav-menu">
+                <i class="fas fa-bars" class="close"></i>
+             </div>
+             <ul class="menu">
+                <li class="menu-item">
+                   <a href="{% url 'homeinfo' %}">Inicio</a>
+                </li>
+                <li class="menu-item menu-item-has-children proce">
+                   <a href="#" data-toggle="sub-menu">Extracción de datos <i class="plus"></i></a>
+                   <ul class="sub-menu">
+                       <li class="menu-item"><a href="{% url 'process' %}">Procesar Archivos</a></li>
+                       <li class="menu-item"><a href="{% url 'processed' %}">Archivos procesadas</a></li>
+                   </ul>
+                </li>
+                <li class="menu-item menu-item-has-children usuario">
+                   <a  href="#" data-toggle="sub-menu">Cliente <i class="plus"></i></a>
+                   <ul class="sub-menu">
+                       <li class="menu-item"><a href="{% url 'Cliente' %}">Registro</a></li>
+                       <li class="menu-item"><a href="{% url 'modificarcliente' %}">Modificación</a></li>
+                       <li class="menu-item"><a href="{% url 'listarcliente' %}">Listar</a></li>
+                   </ul>
+                </li>
+                <li  class="menu-item menu-item-has-children usuario">
+                   <a  href="#" data-toggle="sub-menu">Usuario <i class="plus"></i></a>
+                   <ul class="sub-menu">
+                       <li class="menu-item"><a href="{% url 'Usuarios' %}">Registro</a></li>
+                       <li class="menu-item"><a href="{% url 'modificarusuario' %}">Modificación</a></li>
+                       <li class="menu-item"><a href="{% url 'listarusuarios' %}">Listar</a></li>
+                   </ul>
+                </li>
+                <li class="menu-item cronn">
+                   <a href="{% url 'cron' %}">Cron</a>
+                </li>
+                <li class="menu-item">
+                   <a id="cerrarsession"  href="#">Cerrar sesión</a>
+                </li>
+             </ul>
+           </nav>
+           <!-- navigation menu end -->
+        </div>
+     </div>
+  </header>
 
   
         {% block contenido %}
@@ -125,7 +184,7 @@
             <small>&copy; <b>RODA ENERGIA</b> - Todos los Derechos Reservados.</small>
         </div>
     </footer>
-
+{% comment %} 
     <script>
         $(document).ready(function () {
             $('#menu-bar').click(function () {
@@ -133,7 +192,7 @@
 
             });
         });
-    </script>
+    </script> {% endcomment %}
 
     <script>
         $(window).on("load resize ", function () {
@@ -143,8 +202,10 @@
     </script>
 
     <script type="text/javascript" src="{% static 'js/session.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>  
+    <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
 </body>
 
 </html>
