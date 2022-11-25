@@ -3,52 +3,53 @@
 {% block contenido %}
 
 
+    <div class="bk">
 
-<div class="bk">
-    <div class="container-form">
-        <h1 class="centrado">mostrar arhivos procesados en cron </h1>
-        <div class="inputs-form-inicio">
-            <form action="">
-                <button  id="muestraproce" type="submit" class="btn-buscar">mostrar proceso completo</button>
-            </form>
 
-        </div>
-        <div class="container-table">
-            <div class="table-responsive">
-                <h2 class="centrado">Archivos procesados</h2>
-                <div class="tbl-header">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                      <thead>
-                        <tr>
-                            {% comment %} <th >#</th> {% endcomment %}
-                            <th class="centrado">id_doc </th>
-                            <th class="centrado">doc.docName</th>
-                            <th class="centrado">doc.folio</th>
-                            <th class="centrado">hora_actual</th>
-                            {% comment %} <th >Rut cliente</th> {% endcomment %}
-                        </tr>
-                      </thead>
-                    </table>
-                </div>
-                <div class="tbl-content">
-                    <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                        <tbody id = "tbodyProcessed">
-                            <!-- {% for cronf in cronfiltrados %} -->
-                           <!-- <tr> -->
-                           <!-- <th class="centrado"> {{ cronf.id_doc }}</th>-->
-                           <!-- <td> {{ cronf.doc.docName }}</td>-->
-                          <!--  <td> {{ cronf.doc.folio }}</td>-->
-                           <!-- <td> {{ cronf.hora_actual }}</td>-->
-                          <!--  </tr> -->
-                         <!--{% endfor %}-->
-                        </tbody>
-                    </table>
+        <div class="container-form">
+        
+            <h1 class="centrado">mostrar arhivos procesados en cron</h1>
+            <div class="inputs-form-inicio">
+
+                <form action="">
+
+                    <button  id="" type="submit" class="btn-buscar">Mostrar proceso completo</button>
+
+                </form>
+
+            
+            </div>
+
+            <div class="container-table">
+                <div class="table-responsive">
+                    <div class="tbl-header">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                          <thead>
+                            <tr>
+                                <th class="centrado">id_doc</th>
+                                <th class="centrado">dos.docName</th>
+                                <th class="centrado">doc.folio</th>
+                                <th class="centrado">hora_actual</th>
+                                
+
+
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+                    <div class="tbl-content">
+                        <table class="table table-striped" id = ""  cellpadding="0" cellspacing="0" border="0">
+                            <tbody id = "">
+    
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<!-- <script type="text/javascript" src="{% static 'js/cron.js' %}"></script> -->
+            
 
+        </div>
+
+    </div>
 
 {% endblock %}

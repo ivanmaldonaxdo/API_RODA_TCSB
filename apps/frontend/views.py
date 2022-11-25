@@ -23,6 +23,24 @@ def cron(request):
 def Cliente(request):
     return render(request, 'frontend/Cliente.html')
 
+def modificarcliente(request):
+    return render(request, 'frontend/modificarcliente.html')
+
+def listarcliente(request):
+    return render(request, 'frontend/listarcliente.html')
+
+def Usuarios(request):
+    return render(request, 'frontend/Usuarios.html')
+
+def modificarusuario(request):
+    return render(request, 'frontend/modificarusuario.html')
+
+def listarusuarios(request):
+    return render(request, 'frontend/listarusuarios.html')
+
+def cron(request):
+    return render(request, 'frontend/cron.html')
+
 
 def test(request):
     return render(request, 'frontend/test.html')

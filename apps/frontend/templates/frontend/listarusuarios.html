@@ -1,0 +1,61 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+
+    <div class="bk">
+        <div class="container-form">
+            <h1 class="centrado">Busqueda de Usuarios</h1>
+            <div class="inputs-form-inicio">
+
+                <form action="">
+                    <div class="input-wrapper">
+                        <input class="input" name="text" placeholder="Usuarios" type="text">
+                    </div>
+
+                    <button  id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
+                </form>
+
+            </div>
+
+            <div class="container-table">
+                <div class="table-responsive">
+                    
+                    <div class="tbl-header">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                          <thead>
+                            <tr>
+                                {% comment %} <th >#</th> {% endcomment %}
+                                <th class="centrado">Email</th>
+                                <th class="centrado">Nombre</th>
+                                <th class="centrado">Telefono</th>
+                                <th class="centrado">Rol</th>
+                                <th class="centrado">Estado</th>
+
+                                {% comment %} <th >Rut cliente</th> {% endcomment %}
+                            </tr>
+                          </thead>
+                        </table>
+                    </div>
+                    <div class="tbl-content">
+                        <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                            <tbody id = "tbodyProcessed">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <script type="text/javascript" src="{% static 'js/processedDocs.js' %}"></script>
+
+
+
+    
+{% endblock %}

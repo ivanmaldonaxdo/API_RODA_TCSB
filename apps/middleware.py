@@ -54,8 +54,10 @@ class LogRestMiddleware:
                     status_code=response.status_code,
                 )
                 if url_name == 'search_docs-process_docs' and data['status_code'] == 200:
-                    cliente = Documento.objects.get(id=response_body["DodcID"])
-                    data['cliente'] = cliente.sucursal.rut_sucursal
+                    document = Documento.objects.get(id=response_body["DocID"])
+                    sucursal = document.contrato_servicio.sucursal
+                    # sucursal = contrato.sucursal.rut_sucursal
+                    data['cliente'] = sucursal.rut_sucursal
 
                 # create instance of model
                 m = LogSistema(**data)

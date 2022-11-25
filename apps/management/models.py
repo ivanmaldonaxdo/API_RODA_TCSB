@@ -80,7 +80,7 @@ class Servicio(models.Model):
 
 class Proveedor(models.Model):
     nom_proveedor = models.CharField('Nombre Distribuidor', max_length=255, blank=False)
-    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True, validators=[validar_rut])
+    rut_proveedor = models.CharField('Rut Proveedor', max_length=255, blank=False, unique = True)
     contacto = models.CharField('Contacto', max_length=255, blank=True)
     is_active = models.BooleanField(default = True)
     servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, null=True, default=None)
@@ -169,21 +169,13 @@ class Sucursal(models.Model):
     class Meta:
         verbose_name_plural = "Sucursales"
 
-
+# def ruta_img_carousel(instance,filename):
+#     return 'images/carousel/{0}/{1}'.format(instance.categoria.nombre_categ, filename)
 #Boleta/Factura
-class Documento(models.Model):
-    nom_doc = models.CharField('Documento',max_length=255, default='Documento')
-    folio = models.CharField('Folio',max_length=255, blank=False)
-    fecha_procesado = models.DateTimeField(default=timezone.now)
-    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
-    procesado = models.BooleanField(default = False)
-    documento = models.FileField(validators=[
-        FileExtensionValidator(allowed_extensions=['json', 'pdf'])
-    ])
 
-    def __str__(self):
-        return self.nom_doc
 
+    # def ruta_docs(self,filename):
+    #     return 'procesados/{}'.format(self.nom_doc)
 class Contrato_servicio(models.Model):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE, default=None)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default=None)
@@ -194,6 +186,18 @@ class Contrato_servicio(models.Model):
 
         # return self.proveedor + ' - ' + str(self.num_cliente)
 
+class Documento(models.Model):
+    nom_doc = models.CharField('Documento',max_length=255, default='Documento')
+    folio = models.CharField('Folio',max_length=255, blank=False)
+    fecha_procesado = models.DateTimeField(default=timezone.now)
+    contrato_servicio = models.ForeignKey(Contrato_servicio,on_delete=models.SET_NULL,null=True)
+    procesado = models.BooleanField(default = False)
+    documento = models.FileField(upload_to ='procesados/' ,validators=[
+        FileExtensionValidator(allowed_extensions=['json', 'pdf'])
+    ])
+
+    def __str__(self):
+        return self.nom_doc
 
 class LogSistema(models.Model):
     api=models.CharField('URL',max_length=255, blank=False, default='URL')
@@ -209,4 +213,26 @@ class LogSistema(models.Model):
         return str(self.id)
 
 
+class ConfigCron(SingletonModel):
+    STATUS = (
+        ("1", 'En espera'),
+        ("2", 'Recopilando DATA'),
+        ("3", 'Procesando DATA'),
+        ("4", 'Finalizando'),
+        ("5", 'Detenido')
+        )
+    status = models.CharField('Status', choices=STATUS, max_length=100,blank=False, default='5')
+    singleton_instance_id = 1
+    cursor = models.IntegerField('Cursor', blank=False, default=0)
+    ESTADOS = (
+        (True, 'Activado'),
+        (False, 'Desactivado'),
+    )
+    is_active = models.BooleanField(default = True, choices=ESTADOS)
+    hora_exec = models.TimeField(default='5:00')
 
+    def __str__(self):
+        return "Cron"
+
+    class Meta:
+        verbose_name = "Configuracion de CRON"

@@ -8,7 +8,7 @@
             ]
         },
         {
-            "Text": "NRO CUENTA",
+            "Text": "Nro CUENTA",
             "Alias": "Nro CLIENTE",
             "Pages": [
                 "1"
@@ -36,13 +36,6 @@
             ]
         },
         {
-            "Text": "CONSUMO AGUA =",
-            "Alias": "CONSUMO AGUA PUNTA",
-            "Pages": [
-                "1"
-            ]
-        },
-        {
             "Text": "SOBRECONSUMO =",
             "Alias": "SOBRECONSUMO",
             "Pages": [
@@ -65,7 +58,7 @@
         },
         {
             "Text": "INTERES DEUDA",
-            "Alias": "INTERÉS DEUDA",
+            "Alias": "INTERES DEUDA",
             "Pages": [
                 "1"
             ]
@@ -192,20 +185,6 @@
         {
             "Text": "SALDO ANTERIOR",
             "Alias": "SALDO ANTERIOR",
-            "Pages": [
-                "1"
-            ]
-        },
-        {
-            "Text": "DESCUENTO LEY REDONDEO",
-            "Alias": "DESCUENTO LEY REDONDEO",
-            "Pages": [
-                "1"
-            ]
-        },
-        {
-            "Text": "VALOR A PAGAR",
-            "Alias": "VALOR A PAGAR",
             "Pages": [
                 "1"
             ]

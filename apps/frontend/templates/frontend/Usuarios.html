@@ -1,0 +1,48 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+    <div class="bk">
+
+        <div class="container-form1">
+            <div class="login-container">
+                <form action="" id="form-cliente" class="form-cont">
+                    <div class="form-reg">
+                        <h1>Registro Usuarios</h1>
+                        <div class="separadorcen"></div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="nomuser" id="nomuser" required><span class="barra"></span>
+                            <label class="label-registro" for="">Nombre usuario</label>
+                        </div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="emailuser" id="emailuser" required><span class="barra"></span>
+                            <label class="label-registro" for="">Correo</label>
+                        </div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="passuser" id="passuser" required><span class="barra"></span>
+                            <label class="label-registro" for="">Contraseña</label>
+                        </div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="celuser" id="celuser" required><span class="barra"></span>
+                            <label class="label-registro" for="">Telefono</label>
+                        </div>
+                        <div class="content-select">
+                            <select id="sucursal" name="rol">
+                                <option selected>Ingresar Rol...</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Operador</option>
+                                <option value="3">Usuario Roda</option>
+                            </select>
+                            <i></i>
+                        </div>
+                        <button id="btn-registrar" type="submit" class="btn-registrar">Registrar</button>
+                    </div>
+                </form>
+                <img class="image-container" src={% static 'img/registro.svg' %} alt="login">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/usuarios.js' %}"></script>  
+
+
+{% endblock %}

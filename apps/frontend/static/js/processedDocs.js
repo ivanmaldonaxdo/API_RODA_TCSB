@@ -16,6 +16,7 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 ////////
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
+
     Swal.fire({
         title: 'Buscando documentos procesados en cron ',
         timerProgressBar: true,
@@ -61,6 +62,17 @@ function getProcesedDocs() {
         else {
             response.json().then(docs => {
                 Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
+                // docs = new Array.isArray(docs) ? docs.sort((a,b)=>{
+                //     return new Date(b.fecha) - new Date(a.fecha);
+                // }) : docs;
+                // docs = new Array(docs).sort((a,b)=>{
+                //     return new Date(b.fecha) - new Date(a.fecha);
+                // }).reverse().map(e=> console.log(e))
+                // // docs = new Map(docs).a
+                
+                /////String(a[1]).localeCompare(b[1])
+                // docs = Array.isArray(docs) ? docs.sort((a,b) =>a.fecha.localcompare(b.fecha)) : docs;
+                
             })
             
         }
@@ -93,7 +105,7 @@ function createRowDoc(doc,event)
 
 
 
-    body += `<tr">${tdfolio}${tdSucur}${tdFechaProcess}${tdDownload}</tr>`;
+    body += `<tr">${tdfolio}${tdFechaProcess}${tdDownload}</tr>`;
     tbody.innerHTML += body;
     
 }

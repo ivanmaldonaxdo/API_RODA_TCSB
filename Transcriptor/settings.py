@@ -54,7 +54,10 @@ THIRD_APPS = [
     'drf_api_logger',
     'solo',
     "corsheaders",
+    'django_rest_passwordreset',
 ]
+
+CRON_CREDENCIAL= 'Nmi9IXfkKBUgyRk*pQ+1F9Xz@8OS7$1&E4^6eJTrdgKD$soC6'
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
@@ -69,7 +72,7 @@ REST_FRAMEWORK = {
     )
 }
 
-TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=60)
+TOKEN_EXPIRED_AFTER = datetime.timedelta(hours=10)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -112,37 +115,6 @@ WSGI_APPLICATION = 'Transcriptor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-#DATABASES = {
-#'default': {
-#    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#     'NAME': 'dfosmic3vq03p9',
-#      'USER': 'xvnkiwgepmxbmi',
-#       'PASSWORD':'0a8cfa127ba4dec9ccc58e39d6d990fa995cad63a47c2442130c3c1abe1e8f56',
-#        'HOST':'ec2-52-205-98-159.compute-1.amazonaws.com',
-#       'PORT':'5432'
-#   }
-#}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'API_DB',
-#         'USER': 'postgres',
-#         'PASSWORD':'API_DB_PASSWORD',
-#         'HOST':'54.160.201.59',
-#         'PORT':'5432'
-#     }
-# }
-
-#DB CARLOS HEROKU
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -204,13 +176,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Segundos que dura un token (establecido en 10 horas)
 
-DRF_API_LOGGER_DATABASE = True
-DRF_API_LOGGER_SIGNAL = True
-DRF_LOGGER_QUEUE_MAX_SIZE = 30
+
 #funcion para el proceso automatico 
 CRONJOBS = [
     ('* * * * *', 'apps.OCR.cron.dicehola')
 ]
+
+
+#ACA SE ESTABLECE EL CORREO QUE USARA EL SISTEMA PARA ENVIAR CORREOS, SE ESPECIFICÓ UNO DE EJEMPLOS PARA ENVIAR CORREOS DE TEST
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = "testrodaapi@gmail.com"
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'tqhtssgnowedlown'
+
 
 
 STATIC_URL = '/static/'
