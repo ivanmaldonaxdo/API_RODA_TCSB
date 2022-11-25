@@ -5,4 +5,4 @@ class LogSerializer(serializers.ModelSerializer):
     fecha = serializers.DateTimeField(source='fecha_hora',format="%Y-%m-%d %H:%M:%S")
     class Meta:
         model= LogSistema
-        fields= ('id', 'id_user', 'cliente', 'payload', 'method', 'response', 'status_code', 'fecha') 
+        fields= ('id', 'id_user','api', 'cliente', 'payload', 'method', 'response', 'status_code', 'fecha') 

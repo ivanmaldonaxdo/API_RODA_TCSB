@@ -15,46 +15,58 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 
-var RegForm = document.getElementById("form-cliente" )
-RegForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    console.log('form enviado')
-})
 
-document.getElementById("btn-registrar").addEventListener('click', function(e){
-    RegisterUser()
-})
 
-function RegisterUser() {
+
+document.querySelector('form.form-cont').addEventListener('submit', function (e) {
+
+    //prevent the normal submission of the form
+    e.preventDefault();
+    var correo = document.getElementById('emailuser');
+    var password = document.getElementById('passuser');
+    var nombre = document.getElementById('nomuser');
+    var telefono = document.getElementById('celuser');
+    var rol = document.getElementById('sucursal');
+    loginUser(correo.value, password.value, nombre.value, telefono.value, rol.value)
+});
+
+function loginUser(correo, password, nombre, telefono, rol) {
     // const url = 'http://3.80.228.126/auth-user/'
     const url = 'http://localhost:8000/usuarios/'
-    formulario = {
-        'email' : RegForm.email.value,
-        'password': RegForm.password.value,
-        'name': RegForm.nomuser.value,
-        'telefono':RegForm.celuser.value,
-         'role':RegForm.rol.value
-
-    }
-
-
-
+    console.log(correo, password, nombre, telefono, rol)
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({ 'email': formulario.email, 'password': formulario.password, 'name':formulario.nomuser, 'telefono':formulario.celuser, 'role':formulario.rol })
-
+        body: JSON.stringify({ 
+            'email': correo,
+            'password': password,
+            'name': nombre,
+            'telefono':telefono,
+            'role':rol 
+        })
+        
     })
+
     .then((response) => {
+        
         response.json().then(data => {
             if (response.status == 201) {
-                window.alert(data)
+                Swal.fire({
+                    title:'Usuario Registrado Correctamente',
+                    icon:'success',
+                    
+                })
             }
             else {
-                console.log(data)
+                
+                Swal.fire({
+                    title:data['message'],
+                    icon:'error',
+                    text:Object.values(data['errors'])[0],
+                })
             }
 
         })

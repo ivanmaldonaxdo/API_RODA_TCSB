@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.users.views import authUser, Logout, UserRol
+from apps.users.views import authUser, Logout, UserRol, ChangePasswordView
 
 from apps.OCR import cron
 from django.conf.urls.static import static
@@ -26,6 +26,8 @@ urlpatterns = [
     path('auth-user/', authUser.as_view(), name='auth-user'),
     path('logout/', Logout.as_view(), name='logout'),
     path('rol_usuario/', UserRol.as_view(), name='rol'),
+    path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),

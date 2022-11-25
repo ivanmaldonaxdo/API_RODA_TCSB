@@ -75,3 +75,28 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         self.email = self.email.lower()
         super(User, self).save(*args, **kwargs)
+
+
+
+
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail  
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+
+    email_plaintext_message ="Ingrese al link: http://localhost:8000/api/password_reset/confirm/ y pegue el siguiente codigo con su nueva contraseña token={}".format(reset_password_token.key)
+    
+
+    send_mail(
+        # title:
+        "Recuperar contraseña {title}".format(title="Transcriptor RODA"),
+        # message:
+        email_plaintext_message,
+        # from:
+        "noreply@somehost.local",
+        # to:
+        [reset_password_token.user.email]
+    )

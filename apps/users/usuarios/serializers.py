@@ -1,21 +1,19 @@
 from rest_framework import serializers
 from apps.users.models import User
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):#Clase definida por la libreria JWT
-    pass
-
-
+#Serializador custom en caso de necesitarse
 class CustomUserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'name')
 
+#serializador par el metodo que genera el token
 class UserTokenSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'name', 'last_name')
 
+#Serializador para la creacion de usuarios
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
@@ -28,6 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+#Serializador para metodo update del usuario
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
@@ -39,3 +38,13 @@ class UpdateSerializer(serializers.ModelSerializer):
         user.save()
         return user
     
+
+#Serializador de contraseñas
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    contraseña_actual = serializers.CharField(required=True)
+    nueva_contraseña = serializers.CharField(required=True)
