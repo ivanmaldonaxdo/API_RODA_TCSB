@@ -8,7 +8,9 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
-from django_filters import FilterSet
+# from django_filters import FilterSet
+from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter ,DateFromToRangeFilter
+
 # import django_filters
 
 # from django_filters import FilterSet
@@ -16,16 +18,13 @@ from django_filters import FilterSet
 class DocumentoFilter(FilterSet):
     class Meta:
         model = Documento
-        # fields = ['folio']
-        # fields = {
-        #     'contrato_servicio__num_cliente':['exact'],
-        #     # 'contrato_servicio_set':['contains']
-
-        # }
         fields = {
-                'folio':['exact'],
-                # 'contrato_servicio_set':['contains']
+                # 'folio':['exact'],
+                'contrato_servicio':['exact'],
+                # 'contrato_servicio__num_cliente':['exact'],
+                'contrato_servicio__sucursal':['exact'],
 
+                # 'contrato_servicio_set':['contains']
             }
 
 
@@ -39,7 +38,9 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
     # search_fields = (
     #     '^folio',
     # )
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['fecha_procesado']
+
 
 
     def get_queryset(self):
