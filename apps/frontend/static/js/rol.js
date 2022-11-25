@@ -15,13 +15,42 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 
-var lasCookies = getCookie('rol');
-tabla = document.getElementsByClassName("boletas-info")
+usuario = document.getElementsByClassName("usuario")
 
-if (lasCookies=='Administrador'){
-    //$(tabla).hide()
-    //console.log('tablita ocultada mi rei')
-    
-   
+proce = document.getElementsByClassName("proce")
+
+cron = document.getElementsByClassName("cron")
+
+function rol(){
+    const url = 'http://localhost:8000/rol_usuario/'
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+       
+
+    })
+    .then(response => response.json())
+    .then(data=>{
+        console.log(data.Rol)
+        
+        if(data.Rol==3){    
+            $(usuario).hide()
+            $(proce).hide()
+            $(cron).hide()
+
+            console.log("usuario");
+        }else if(data.Rol==2){
+            $(usuario).hide()
+            $(proce).show()
+            $(cron).show()
+            console.log("operador");
+
+        }
+        
+    })
+    .catch(err=>console.log(err))
 }
-
+var roles = rol();

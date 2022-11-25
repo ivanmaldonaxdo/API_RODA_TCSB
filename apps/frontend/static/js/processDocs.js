@@ -208,17 +208,7 @@ function btndetalleDocs(elem){
 
         });
         
-        window.addEventListener("click", function (e){
-            if(e.target == modalc){
-                modal.classList.toggle("modal-close");
-                
-                setTimeout(function() {
-                    modalc.style.opacity = "0";
-                    modalc.style.visibility = "hidden";
-                }, 600);
-            } 
-        })
-        
+ 
         async function  getDataClient (rutCliente) {
             const url = new URL("http://localhost:8000/clientes/");
             const params = {rut_cliente : rutCliente}
