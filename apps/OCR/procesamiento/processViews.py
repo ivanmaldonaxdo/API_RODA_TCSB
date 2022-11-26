@@ -105,8 +105,8 @@ class OpenKMViewSet(ViewSet):
                     queries_file,tables_file = plantilla[0][2],plantilla[0][3]
                     print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
                     queries_file_path = os.path.join('media',queries_file)
-                    query_doc = 'Transcriptor/media'+ '/' + queries_file
-                    table_doc = 'Transcriptor/media'+ '/' + tables_file
+                    query_doc = 'media'+ '/' + queries_file
+                    table_doc = 'media'+ '/' + tables_file
                     print(type(table_doc))
 
                     ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
@@ -228,7 +228,7 @@ class OpenKMViewSet(ViewSet):
         sistema = Sistema.objects.all().first()
         cantidad = Sistema.objects.count()
         sis = model_to_dict(sistema)
-        sistema_file ="Transcriptor/media/" + str(sistema.credencial)
+        sistema_file ="media/" + str(sistema.credencial)
         json_creds = dict()
 
         ######### LECTURA DE ARCHIVO ##########
