@@ -32,5 +32,5 @@ class DocumentosSerializers(serializers.ModelSerializer):
         model= Documento
         # fields='__all__'
 
-        fields=('nom_doc', 'folio', 'fecha', 'procesado', 'documento',)
+        fields=('id','nom_doc', 'folio', 'fecha', 'procesado', 'documento',)
 

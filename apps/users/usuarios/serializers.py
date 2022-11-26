@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.users.models import User
+from apps.users.models import User, Rol
 
 #Serializador custom en caso de necesitarse
 class CustomUserSerializers(serializers.ModelSerializer):
@@ -49,4 +49,17 @@ class ChangePasswordSerializer(serializers.Serializer):
     contraseña_actual = serializers.CharField(required=True)
     nueva_contraseña = serializers.CharField(required=True)
 
+
+class UserRolSerializer(serializers.ModelSerializer):
+    
+  
+    class Meta:
+        model = User
+        fields = ('email', 'role')
+    
+    def get_fields(self):
+            fields = super().get_fields()
+            if self.instance:
+                fields["email"].read_only = True
+            return fields
    

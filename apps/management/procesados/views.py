@@ -10,7 +10,6 @@ from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 # from django_filters import FilterSet
 from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter ,DateFromToRangeFilter
-
 # import django_filters
 
 # from django_filters import FilterSet
@@ -78,6 +77,13 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
         documento  = self.get_object(pk)
         serializer = self.serializer_class(documento)
         return Response(serializer.data, status= status.HTTP_200_OK)
+
+    def destroy(self, request, pk = None): 
+        documento  = self.get_object(pk)
+        folio = documento.folio
+        documento.delete()
+        
+        return Response({'message':'documento eliminado'}, status= status.HTTP_200_OK)
     
     # @action(methods=['get'], detail=True, renderer_classes=(PassthroughRenderer,))
     # def download(self, *args, **kwargs):

@@ -15,6 +15,16 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 
+
+function load(){
+    setUsuarios()
+    setClientes()
+    setSucursales()
+    setBoletas()
+}
+load()
+
+
 function setSucursales() {
     const url = new URL("http://localhost:8000/sucursales/");
     fetch(url, {
@@ -52,6 +62,93 @@ function setSucursales() {
 }
 
 
+function setUsuarios() {
+    const url = new URL("http://localhost:8000/usuarios/");
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    })
+    .then((response) => {
+        const status_code = response.status;
+        console.log("Codigo estado es: ", response.status);
+      
+    
+        if (status_code >= 400 ){
+            console.log( response.json().catch(err => console.error(err)));
+        }
+        else {
+            // let sucur_select = document.querySelector('#sucursal');
+            response.json().then(usuarios => {
+                // console.log(Array.from(sucursales).length);
+                document.getElementById("totalusuarios").textContent = Array.from(usuarios).length;
+                // Array.from(sucursales).length()
+            })
+        }
+     });
+}
+
+function setClientes() {
+    const url = new URL("http://localhost:8000/clientes/");
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    })
+    .then((response) => {
+        const status_code = response.status;
+        console.log("Codigo estado es: ", response.status);
+      
+    
+        if (status_code >= 400 ){
+            console.log( response.json().catch(err => console.error(err)));
+        }
+        else {
+            // let sucur_select = document.querySelector('#sucursal');
+            response.json().then(clientes => {
+                // console.log(Array.from(sucursales).length);
+                document.getElementById("totalclientes").textContent = Array.from(clientes).length;
+                // Array.from(sucursales).length()
+            })
+        }
+     });
+}
+
+function setBoletas() {
+    const url = new URL("http://localhost:8000/procesados/");
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    })
+    .then((response) => {
+        const status_code = response.status;
+        console.log("Codigo estado es: ", response.status);
+      
+    
+        if (status_code >= 400 ){
+            console.log( response.json().catch(err => console.error(err)));
+        }
+        else {
+            // let sucur_select = document.querySelector('#sucursal');
+            response.json().then(boletas => {
+                // console.log(Array.from(sucursales).length);
+                document.getElementById("totalboletas").textContent = Array.from(boletas).length;
+                // Array.from(sucursales).length()
+            })
+        }
+     });
+}
+
+
+
+
 
 function createRowSucur(sucur) 
 {
@@ -74,4 +171,3 @@ function createRowSucur(sucur)
     
 }
 
-setSucursales();
