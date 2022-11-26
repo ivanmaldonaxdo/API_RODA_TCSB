@@ -90,24 +90,24 @@
                         <h2>Detalle</h2>
                         
                         <form class="detalleform" action="" method="post">
-                            <div class="grupo">
+                            {% comment %} <div class="grupo">
                                 <label>Folio</label>
                                 
                                 <input id = "mdFolio"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 
-                            </div>
+                            </div> {% endcomment %}
                             <div class="grupo">
                                 <label>Nombre Cliente</label>
                                 
                                 <input id = "mdNomCli"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 
                             </div>
-                            <div class="grupo">
+                            {% comment %} <div class="grupo">
                                 <label>Nombre proveedor</label>
                                 
                                 <input id = "mdNomProv"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 
-                            </div>
+                            </div> {% endcomment %}
                             <div class="grupo">
                                 <label>Rut emisor</label>
                                 
@@ -121,7 +121,7 @@
                                 
                             </div>
                             <div class="grupo">
-                                <label>fecha emision</label>
+                                <label>fecha de emisión</label>
                                 
                                 <input id = "mdFechaEmi"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 

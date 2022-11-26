@@ -48,3 +48,5 @@ class ChangePasswordSerializer(serializers.Serializer):
     """
     contraseña_actual = serializers.CharField(required=True)
     nueva_contraseña = serializers.CharField(required=True)
+
+   
