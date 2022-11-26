@@ -22,14 +22,14 @@
             ]
         },
         {
-            "Text": "CONSUMO AGUA =",
+            "Text": "CONSUMO CONSUMO AGUA =",
             "Alias": "CONSUMO AGUA",
             "Pages": [
                 "1"
             ]
         },
         {
-            "Text": "AGUA NO PUNTA =",
+            "Text": "CONSUMO AGUA NO PUNTA =",
             "Alias": "CONSUMO AGUA NO PUNTA",
             "Pages": [
                 "1"
