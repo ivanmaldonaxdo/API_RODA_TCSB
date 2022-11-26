@@ -55,8 +55,10 @@ function setSucursales() {
 }
 // setSucursales();
 
-async function setDataSucur() {
+async function setDataSucur(idCli) {
     const url = new URL("http://localhost:8000/sucursales/");
+    const params = {cliente :idCli }
+    url.search = new URLSearchParams(params).toString();
     const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -69,17 +71,7 @@ async function setDataSucur() {
 }
 
 
-setDataSucur().then(sucursales => {
-    let sucur_select = document.querySelector('#sucursal');
-    Array.from(sucursales).map(s => 
-        {
-            let newOption = new Option(s.nom_sucursal,s.id);
-            sucur_select.add(newOption,undefined);
-            // console.log(s.id);
-        }                    
-    )
-    
-})
+
 
 async function setDataClientes() {
     const url = new URL("http://localhost:8000/clientes/");
@@ -103,11 +95,49 @@ setDataClientes().then(clientes => {
             clientes_select.add(newOption,undefined);
             // console.log(s.id);
         }                    
-    )
+    )    
+})
+
+
+document.getElementById('clientes').addEventListener("change",function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let cli_selected = document.getElementById('clientes').value;
+    
+    limpiaCBO();
+    console.log(cli_selected);
+    setDataSucur(cli_selected).then(sucursales => {
+        let sucur_select = document.querySelector('#sucursal');
+        // let index = document.getElementById('clientes').selectedIndex;
+        Array.from(sucursales).map(s => 
+            {
+                let newOption = new Option(s.nom_sucursal,s.id);
+                sucur_select.add(newOption,undefined);
+                // console.log(s.id);
+            }                    
+        )
+        // if (index > 0) {
+        // }
     
 })
 
 
+    
+})
+let limpiaCBO = ()=>{
+    let sucur_select = document.querySelector('#sucursal');  
+   
+    // while (sucur_select.options.length > 0) {
+    //     sucur_select.remove(1);
+    // }
+    // if sucur_select.selec
+    // for (let i = 1; i < sucur_select.options.length; i++) {
+    //     selected.remove(i);
+    //     // selected[i] = listbox.options[i].selected;
+    // }
+} 
+
+// chainSucurCli();
 ////////
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
     let sucursal = document.getElementById('sucursal').value,
