@@ -2131,3 +2131,180 @@ a{
 }
 
 
+
+.containercron1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15em;
+}
+
+.container-actu-cron{
+    width: 30em;
+    height: 35em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    padding-top: 25px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+}
+.container-tablacron2{
+    width: 50em;
+    height: 35em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+
+}
+
+.container-tablacron2 h2{
+    padding-top: 15px;
+    padding-bottom: 25px;
+}
+
+
+
+.bkcron {
+    height: 108vh;
+    display: block;
+    background: #f3f3f3;
+    padding-top: 7em;
+   
+    
+}
+
+
+
+@media screen and (max-width:1416px) {
+
+    .container-tablacron2{
+        width: 50em;
+        
+    }
+}
+
+@media screen and (max-width:1194px) {
+
+    .containercron1{
+        display: inline-block;
+        padding-left: 15em;
+
+    }
+
+    .bkcron{
+        height: 106em;
+        
+    }
+    .container-tablacron2{
+        width: 40em;
+        
+    }
+    .a{
+        padding-left: 5em;
+    }
+
+
+}
+
+@media screen and (max-width:1038px) {
+
+    .containercron1{
+        display: inline-block;
+        padding-left: 8em;
+
+    }
+
+    
+
+
+}
+
+
+@media screen and (max-width:866px) {
+
+    .containercron1{
+      
+        padding-left: 4em;
+
+    }
+
+}
+
+@media screen and (max-width:764px) {
+
+    .containercron1{
+      
+        padding-left: 2em;
+
+    }
+    .container-tablacron2{
+        width: 38em;
+        
+    }
+
+}
+
+@media screen and (max-width:706px) {
+
+    .containercron1{
+      
+        padding-left: 1em;
+
+    }
+    .container-tablacron2{
+        width: 35em;
+        
+    }
+    .container-actu-cron{
+        width: 25em;
+    }
+
+}
+/*responsivo de tabla*/
+@media screen and (max-width:640px) {
+
+
+    .container-tablacron2{
+        width: 30em;
+        
+    }
+    .container-actu-cron{
+        width: 25em;
+    }
+    .a{
+        padding-left: 3em;
+    }
+
+
+}
+
+@media screen and (max-width:560px) {
+
+
+    .container-tablacron2{
+        width: 30em;
+        
+    }
+    .container-actu-cron{
+        width: 25em;
+    }
+    .a{
+        padding-left: 2em;
+    }
+    .containercron1{
+      
+        padding-left: 0.1em;
+
+    }
+        
+
+}
