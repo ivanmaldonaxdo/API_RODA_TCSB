@@ -103,19 +103,29 @@ document.getElementById('clientes').addEventListener("change",function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     let cli_selected = document.getElementById('clientes').value;
-    
-    limpiaCBO();
     console.log(cli_selected);
     setDataSucur(cli_selected).then(sucursales => {
         let sucur_select = document.querySelector('#sucursal');
-        // let index = document.getElementById('clientes').selectedIndex;
-        Array.from(sucursales).map(s => 
-            {
-                let newOption = new Option(s.nom_sucursal,s.id);
-                sucur_select.add(newOption,undefined);
+        let index = document.getElementById('clientes').selectedIndex;
+
+
+        if (index == 0) {
                 // console.log(s.id);
-            }                    
-        )
+            sucur_select.innerHTML = '';
+            let newOption = new Option('Sucursal...',null);
+            sucur_select.add(newOption,undefined);
+        }
+        else{
+            sucur_select.innerHTML = '';
+            Array.from(sucursales).map(s => 
+                {
+                    let newOption = new Option(s.cod, s.id);
+                    sucur_select.add(newOption,undefined);
+                    // console.log(s.id);
+                }                    
+            )
+            
+        }
         // if (index > 0) {
         // }
     
@@ -124,21 +134,6 @@ document.getElementById('clientes').addEventListener("change",function (e) {
 
     
 })
-let limpiaCBO = ()=>{
-    let sucur_select = document.querySelector('#sucursal');  
-   
-    // while (sucur_select.options.length > 0) {
-    //     sucur_select.remove(1);
-    // }
-    // if sucur_select.selec
-    // for (let i = 1; i < sucur_select.options.length; i++) {
-    //     selected.remove(i);
-    //     // selected[i] = listbox.options[i].selected;
-    // }
-} 
-
-// chainSucurCli();
-////////
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
     let sucursal = document.getElementById('sucursal').value,
         cliente = document.getElementById('clientes').value;
@@ -156,8 +151,8 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
         didOpen: () => {
             Swal.showLoading()
             // getProcesedDocs();
-            // getProcesedDocs(paramsSearch);
-            getProcesedDocs();
+            getProcesedDocs(paramsSearch);
+            // getProcesedDocs();
 
 
         },
@@ -171,8 +166,8 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 function getProcesedDocs(paramsURL) {
     const url = new URL("http://localhost:8000/procesados/");
     // const params = { contrato_servicio: rutProveedor }
-    // const params = paramsURL;
-    // url.search = new URLSearchParams(params).toString();
+    const params = paramsURL;
+    url.search = new URLSearchParams(params).toString();
 
     // const url = 'http://3.80.228.126/procesados/
     // const url = 'http://localhost:8000/procesados/';
@@ -203,17 +198,7 @@ function getProcesedDocs(paramsURL) {
         else {
             response.json().then(docs => {
                 Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
-                // docs = new Array.isArray(docs) ? docs.sort((a,b)=>{
-                //     return new Date(b.fecha) - new Date(a.fecha);
-                // }) : docs;
-                // docs = new Array(docs).sort((a,b)=>{
-                //     return new Date(b.fecha) - new Date(a.fecha);
-                // }).reverse().map(e=> console.log(e))
-                // // docs = new Map(docs).a
-                
-                /////String(a[1]).localeCompare(b[1])
-                // docs = Array.isArray(docs) ? docs.sort((a,b) =>a.fecha.localcompare(b.fecha)) : docs;
-                
+
             })
             
         }

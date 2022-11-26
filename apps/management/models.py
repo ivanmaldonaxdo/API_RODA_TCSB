@@ -149,6 +149,8 @@ class Sucursal(models.Model):
     
     class Meta:
         verbose_name_plural = "Sucursales"
+        indexes = [models.Index(fields=['cod', ]),]
+
 
 # def ruta_img_carousel(instance,filename):
 #     return 'images/carousel/{0}/{1}'.format(instance.categoria.nombre_categ, filename)
