@@ -1,0 +1,207 @@
+{
+    "Queries": [
+        {
+            "Text": "N CLIENTE",
+            "Alias": "Nro CLIENTE",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA VENCIMIENTO",
+            "Alias": "FECHA VENCIMIENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "DIRECCION",
+            "Alias": "DIRECCION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TARIFA",
+            "Alias": "TARIFA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "ZONA TARIFARIA",
+            "Alias": "ZONA TARIFARIA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SUBESTACION",
+            "Alias": "SUBESTACION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "POTENCIA CONECTADA",
+            "Alias": "POTENCIA CONECTADA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "BLOQUE DE CORTE",
+            "Alias": "BLOQUE DE CORTE",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CONS. REFERENCIA",
+            "Alias": "CONS. REFERENCIA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA LIMITE CAMBIO TARIFA",
+            "Alias": "FECHA LIMITE CAMBIO TARIFA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA TERMINO",
+            "Alias": "FECHA TERMINO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Demanda Suministrada:",
+            "Alias": "Demanda Suministrada:",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Demanda H.P. :",
+            "Alias": "Demanda H.P.",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "LECTURAS DESDE",
+            "Alias": "PERIODO LECTURA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA PROX. LECTURA",
+            "Alias": "PROXIMA FECHA LECTURA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Total de interrupciones:",
+            "Alias": "Total de interrupciones:",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Tiempo total interrumpido(seg):",
+            "Alias": "Tiempo total interrumpido(seg)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Tiempo a compensar(seg):",
+            "Alias": "Tiempo a compensar(seg)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Consumo promedio(Kwh/Seg):",
+            "Alias": "Consumo promedio(Kwh/Seg)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Energía a compensar(Kwh):",
+            "Alias": "Energía a compensar(Kwh)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Costo de falla($/Kwh):",
+            "Alias": "Costo de falla($/Kwh)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "Monto a compensar($):",
+            "Alias": "Monto a compensar($)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "MONTO EXENTO",
+            "Alias": "MONTO EXENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "MONTO AFECTO",
+            "Alias": "MONTO AFECTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "I.V.A",
+            "Alias": "I.V.A",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TOTAL MES",
+            "Alias": "TOTAL MES",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SALDO ANTERIOR",
+            "Alias": "SALDO ANTERIOR",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "OTROS CARGOS",
+            "Alias": "OTROS CARGOS",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TOTAL A PAGAR",
+            "Alias": "TOTAL A PAGAR",
+            "Pages": [
+                "1"
+            ]
+        }
+    ]
+}
