@@ -1,17 +1,6 @@
-import logging
 import boto3
-from botocore.exceptions import ClientError
-import os
-import requests
 import io
-import csv
-import time
-#from tabulate import tabulate
 import json
-# from apps.OCR.APIS.textractByQueries import textract
-from apps.OCR.APIS.textractByTables import textractTB
-# from apps.OCR.APIS.textractByTablesExp import get_table_results
-from apps.OCR.APIS.textractByQueriesPages import textract
 from apps.OCR.APIS.textractByQueriesTables import textractQTB
 import re
 import sys

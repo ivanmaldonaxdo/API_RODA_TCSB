@@ -10,18 +10,25 @@
             <div class="inputs-form-inicio">
 
                 <form action="">
-                    <div class="input-wrapper">
+                    {% comment %} <div class="input-wrapper">
                         <input class="input" name="text" placeholder="Cliente" id = "numCliente" type="text">
+                    </div> {% endcomment %}
+                    <div class="content-select">
+                        <select id="clientes">
+                            <option value selected>Cliente...</option>
+                            {% comment %} <option value="1">1</option>
+                            <option value="2">2</option> {% endcomment %}
+                        </select>
+                        <i></i>
                     </div>
-                    
 
 
 
                     <div class="content-select">
                         <select id="sucursal">
-                            <option selected>Sucursal...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                            <option value selected>Sucursal...</option>
+                            {% comment %} <option value="1">1</option>
+                            <option value="2">2</option> {% endcomment %}
                         </select>
                         <i></i>
                     </div>
