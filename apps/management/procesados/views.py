@@ -20,9 +20,9 @@ class DocumentoFilter(FilterSet):
         model = Documento
         fields = {
                 # 'folio':['exact'],
-                'contrato_servicio':['exact'],
-                # 'contrato_servicio__num_cliente':['exact'],
+                # 'contrato_servicio':['exact'],
                 'contrato_servicio__sucursal':['exact'],
+                'contrato_servicio__sucursal__cliente':['exact'],
 
                 # 'contrato_servicio_set':['contains']
             }
