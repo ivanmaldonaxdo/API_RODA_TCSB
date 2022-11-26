@@ -228,7 +228,7 @@ class OpenKMViewSet(ViewSet):
         sistema = Sistema.objects.all().first()
         cantidad = Sistema.objects.count()
         sis = model_to_dict(sistema)
-        sistema_file ="Transcriptor/media/" + str(sistema.credencial)
+        sistema_file ="media/" + str(sistema.credencial)
         json_creds = dict()
 
         ######### LECTURA DE ARCHIVO ##########

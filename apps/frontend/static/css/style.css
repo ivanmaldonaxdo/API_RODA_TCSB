@@ -448,7 +448,7 @@ input~i {
     border: none;
     padding: 1rem;
     font-size: 1.1rem;
-    width: 13em;
+    width: 10em;
     border-radius: 1rem;
     color: #8e44ad;
     box-shadow: 0 0.4rem #dfd9d9;
@@ -720,10 +720,11 @@ tbody tr:hover{
     }
 
     .input-wrapper input {
-        width: 10em;
+        width: 8em;
     }
    
 }
+
 
 @media screen and (max-width:850px) {
     .container-form {
@@ -747,7 +748,7 @@ tbody tr:hover{
 
 
 }
-@media screen and (max-width:760px) {
+@media screen and (max-width:761px) {
     .container-form {
         width: 40em;
         height: 53em;
@@ -770,7 +771,8 @@ tbody tr:hover{
     }
 
     .input-wrapper input {
-        width: 9.8em;
+        width: 9.5em;
+    
     }
     .tbl-header{
         width: 87%;
@@ -780,6 +782,19 @@ tbody tr:hover{
         width: 87%;
         margin-left: 2.5em;
     }
+    .inputs-form-inicio form{
+        display: inline-block;
+    }
+    .input-wrapper{
+        margin-left: 6px;
+        
+    }
+    .btn-buscar-proce button{
+        padding: 1em 5em;
+        margin: 10px;
+        margin-left: 17em;
+    }
+ 
 
 }
 
@@ -795,6 +810,7 @@ tbody tr:hover{
     .inputs-form-manual form{
         width: 28em;
         height:6em;
+        margin-left: 1em;
     }
 
     .tbl-content{
@@ -837,7 +853,7 @@ tbody tr:hover{
 
     .inputs-form-inicio form {
         width: 18em;
-        height: 15em;
+        height: 20em;
         display: inline-block;  
         margin-left: 5em;
     }
@@ -845,12 +861,13 @@ tbody tr:hover{
         padding-right:0px;
     }
     .content-select {
-        width: 13.5em;
+        width: 13.8em;
         padding-left: 25px;
     }
     .inputs-form-inicio .btn-buscar{
         margin: auto;
-        margin-left: 7em;
+        margin-left: 5em;
+        margin-top: 2em;
     }
 
     .input-wrapper input {
@@ -869,59 +886,48 @@ tbody tr:hover{
         height: 80em;
     }
 }
-@media screen and (max-width:542px){
+@media screen and (max-width:570px){
     .inputs-form-manual form{
         width: 25em;
         height:6em;
     }
-    .inputs-form-inicio form {
 
-        margin-left: 4em;
-    }
 
     
 }
 
-@media screen and (max-width:480px){
-    .inputs-form-manual form{
-        width: 23em;
-        height:6em;
-    }
-    .inputs-form-inicio form {
 
-        margin-left: 3em;
-    }
-
-    
-}
-
-@media screen and (max-width:450px){
+@media screen and (max-width:505px){
     .inputs-form-manual form{
         width: 22em;
         height:6em;
     }
     .inputs-form-inicio form {
-
-        margin-left: 2em;
+        margin-left: 3em;
     }
-
-    
+    .inputs-form-inicio .btn-buscar{
+        margin: auto;
+        margin-left: 5em;
+        margin-top: 2em;
+    }
 }
+
+
 
 @media screen and (max-width:412px){
     .inputs-form-manual form{
-        width: 19em;
-        height:10em;
+        width: 15em;
+        
         display: inline-block;
     }
-    .inputs-form-inicio form {
 
-        margin-left: 1em;
-    }
     .btn-buscar-pro {
         margin: auto;
-        margin-top: 15px;
-        margin-left: 7em;
+        margin-top: 20px;
+        margin-left: 5em;
+    }
+    .inputs-form-inicio form {
+        margin-left: -0.1em;
     }
 }
 
@@ -967,13 +973,7 @@ tbody tr:hover{
         padding: 5px 30px;
     }
 
-    .inputs-form-inicio form {
-        width: 18em;
-        height: 15em;
-        display: inline-block;
-        
-        
-    }
+
 
     .content-select {
         width: 14em;
@@ -983,7 +983,8 @@ tbody tr:hover{
     }
     .inputs-form-inicio .btn-buscar{
         margin: auto;
-        margin-left: 7em;
+        margin-left: 5em;
+        margin-top: 2em;
     }
 
     .input-wrapper input {
@@ -1048,8 +1049,7 @@ tbody tr:hover{
 
     .inputs-form-manual form{
         width: 17em;
-        height:10em;
-        display: inline-block;
+        margin-left: 0.2em;
     }
     .inputs-form-inicio form {
         width: 17em;
@@ -1372,8 +1372,8 @@ tbody tr:hover{
 }
 
 .amodal{
-    width: 50%;
-    height: 60%;
+    width: 45em;
+    height: 31em;
     background: #fff;
     text-align: center;
     /*display: flex;*/
@@ -1449,39 +1449,7 @@ form label{
 }
 
 .detalleform{
-    margin-top: 30px;
-}
-
-
-
-@media screen and (max-width:1600px) {
-    .amodal{
-        width: 50%;
-    }
-
-}
-
-
-@media screen and (max-width:1283px) {
-    .amodal{
-        width: 60%;
-    }
-}
-
-
-@media screen and (max-width:1080px) {
-    .amodal{
-        width: 70%;
-    }
-
-}
-
-@media screen and (max-width:916px) {
-
-    .inputdetalle{
-        width: 20em;
-        font-size: 15px;
-    }
+    margin-top: 50px;
 }
 
 @media screen and (max-width:790px) {
@@ -1495,16 +1463,30 @@ form label{
     form label{
         font-size: 15px;
     }
-
-
-}
-@media screen and (max-width:717px){
     .amodal{
-        height: 69%;
+        width: 35em;
+        height: 25em;
     }
 }
 
+@media screen and (max-width:604px) {
+    .amodal{
+        width: 30em;
+        height: 28em;
+    }
+}
 
+@media screen and (max-width:504px) {
+    .amodal{
+        width: 25em;    
+    }
+}
+
+@media screen and (max-width:436px) {
+    .amodal{
+        width: 22em;   
+    }
+}
 
 
 
@@ -1543,113 +1525,6 @@ form label{
 
 /*---------------------------------------------------------------*/
 
-.comentario{
-    display:flex;
-    background-color:rgba(0, 0, 0, 0.3) ;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    pointer-events: none;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-}
-.show{
-    pointer-events: auto;
-    opacity: 1;
-}
-
-.com{
-    background-color: #fff;
-    width: 600px;
-    max-width: 100%;
-    padding: 30px 50px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgb(0,0,0,0.2);
-    text-align: center;
-}
-
-.comentario h2{
-    color: #674baf;
-}
-.com .btn{
-    background-color: #674baf;
-    border: 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgb(0,0,0,0.2);
-    color: #fff;
-    font-size: 14px;
-    padding: 10px 25px;
-}
-
-
-
-.contenedor-2{
-    width: 500px;
-    height: auto;
-    background-color: rgba(131, 131, 131, 0.7);
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 30px 20px 30px 20px;
-    gap: 20px;
-    text-transform: capitalize;
-    border-radius: 20px;
-    opacity: 0;
-}
-
-.comentarioa{
-    background-color: rgb(255, 255, 255, 0.7);
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 0 0 20px;
-    border-radius: 20px;
-    color: black;
-
-}
-.input-com{
-    width: 500px;
-    height: 100px;
-    background: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: baseline;
-    gap: 5px;
-
-}
-
-#nuevoComentario{
-    /*outline: none;*/
-    border: 0;
-    width: 100%;
-    height: 50px;
-    padding: 0px 10px 0px 10px;
-    font-size: 15px;
-
-}
-
-#nuevoComentario::placeholder{
-    color: #000000;
-
-}
-
-.borra{
-    font-size: 12px;
-    position: absolute;
-    right: 780px;
-    width: 20px;
-    z-index: 20;
-    transition-duration: 200ms;
-    display: block;
-    cursor: pointer;
-    color: red;
-}
 
 /*--------------------------------------------------registro Cliente----------------------------*/
 
