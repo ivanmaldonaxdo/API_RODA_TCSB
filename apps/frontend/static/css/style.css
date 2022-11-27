@@ -213,8 +213,9 @@ input~i {
 .pie-pagina{
     width: 100%;
     background-color: #202020;
-  
     position: absolute;
+    
+    
 }
 .pie-pagina .grupo-1{
     width: 100%;
@@ -1574,7 +1575,7 @@ form label{
 
 .input-registro{
     background: none;
-    color: #c6c6c6;
+    color: #6d6d6d;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
@@ -2182,4 +2183,66 @@ a{
     }
         
 
+}
+
+
+
+/*Listar*/
+
+
+
+
+.container-form-listar {
+    width: 59em;
+    margin: auto;
+    height: 70em;
+    padding-top: 28px;
+
+    background: #EDEDED;
+    border-radius: 30px;
+    
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+
+
+.bk-listar {
+    height: 150vh;
+    display: block;
+    background: #f3f3f3;
+    padding-top: 7em;
+    
+    
+}
+
+
+/*Modificar la responso de container-form-listar y bk-listar*/
+
+
+
+
+/*--------------------------LOG-------------------------------*/
+
+
+.bk-log {
+    height: 110vh;
+    display: block;
+    background: #f3f3f3;
+    padding-top: 7em;
+}
+
+
+.container-filtros-log{
+    width: 30em;
+    height: 35em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    padding-top: 25px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
 }
