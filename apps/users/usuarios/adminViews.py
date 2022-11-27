@@ -113,7 +113,7 @@ class UserViewSet(viewsets.GenericViewSet):
             user.save()
             return Response({
                 'message': 'Usuario activado'
-            }, status=status.HTTP_200_OK)
+            }, status=status.HTTP_202_ACCEPTED)
         return Response({
             'message':'La ID ingresada no coincide con ningun usuario'
         }, status= status.HTTP_404_NOT_FOUND)

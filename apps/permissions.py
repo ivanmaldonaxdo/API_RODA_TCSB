@@ -48,6 +48,13 @@ class SucursalPermission(BasePermission):
         else:
             return False
 
+class ContractPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['create_contract', 'destroy']:
+            return request.user.is_staff == True or request.user.role.id == 1 or request.user.role.id == 2
+        else:
+            return False
+
 
 class ProveedoresPermission(BasePermission):
     def has_permission(self, request, view):
