@@ -34,8 +34,7 @@ class OpenKm():
             ('dia_doc',dia),
         ]
         # print(list_params)
-        # filtros = { 'folio': _folio,'tipo_servicio': _serv ,'rut_receptor':_rutReceptor}
-        # print(filtros)
+        ######### generador de filtros para busqueda de documentos
         properties = self.get_list_params(list_params)
         # print("")
         print("Propiedades => {}" .format(properties))

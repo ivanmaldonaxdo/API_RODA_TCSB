@@ -174,9 +174,6 @@ function btndetalleDocs(elem){
     //     prov =>  prov.map(prv=> console.log(prv.nom_proveedor))
     //              // prov => Array.isArray(prov) ? setValueByID("mdNomProv",prov.map(prv=> prv.nom_proveedor)) : prov.nom_proveedor
     // )
-    // console.log(client);
-    // console.log("Cliente is ", cliente);
-    // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
     modalc.style.opacity = "1";
     modalc.style.visibility = "visible";
     modal.classList.toggle("modal-close");

@@ -27,13 +27,12 @@ class OpenKMViewSet(ViewSet):
 
 
     docs = None
-    openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):
         for k,v in filtros.items():
             if k not in ['dia_doc','anio_doc','mes_doc']:
                 if v == "":
                     filtros[k] = None
-        print("Filtros {} -".format(filtros))
+        # print("Filtros {} -".format(filtros))
         return filtros
 
     @action(detail=False,methods = ['POST'],url_name="search_docs")
@@ -44,13 +43,13 @@ class OpenKMViewSet(ViewSet):
         openkm = self.openkm_creds()
         # print("OPKM OBJECT ", openkm.auth_creds.password)
         filtros = self.format_filtros(filtros)
-        print("Filtros Search Docs")
-        print(filtros)
+        # print("Filtros Search Docs")
+        # print(filtros)
         anio = None
         mes = None
         dia = None
         try:
-            print(str(filtros.get("fecha")).split("-"))
+            # print(str(filtros.get("fecha")).split("-"))
             anio,mes,dia = str(filtros.get("fecha")).split("-")
         except:
             print("No Fechita")
@@ -179,21 +178,6 @@ class OpenKMViewSet(ViewSet):
             }, status= status.HTTP_404_NOT_FOUND)
 
 #region Description
-    @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
-    def probar_creds(self,request):
-        credenciales = self.credenciales()
-        # openkm_cred = credenciales.
-        print("")
-        print("credenciales  ",credenciales)
-
-        # print("openkm ",openkm_cred)
-        # print()
-        # sis.get("")
-        return Response({
-                'message':'Creds'
-            }, status=status.HTTP_200_OK,headers=None)
-
-
 
     @action(detail=False,methods = ['POST'],url_name="process_by_servicio")
     def process_by_servicio (self,request):

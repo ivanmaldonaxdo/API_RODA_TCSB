@@ -11,7 +11,7 @@ def startJob(s3BucketName, objectName,_queries_file):
     ################# LECTURA DEL ARCHIVO JSON DE LAS QUERIES
     f = open (queries_file, "r")
     queries = json.loads(f.read())
-    print(queries)
+    # print(queries)
     global client
     response = None
     response = client.start_document_analysis(
@@ -254,62 +254,3 @@ def textractQTB (s3BucketName, documentName,_queries_file,_tables = None):
     print(response)
     return response
     
-# queries_config = {
-#     "Queries": [{
-#         "Text": "NUMBER BELOW FACTURA ELECTRONICA",
-#         "Alias": "FOLIO/N FACTURA",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "WHAT IS R.U.T.: IN TOP OF FACTURA ELECTRONICA?",
-#         "Alias": "RUT_EMISOR",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "R.U.T.:",
-#         "Alias": "RUT_CLIENTE",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "FECHA EMISION",
-#         "Alias": "FECHA EMISION",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "DATE TO PAY",
-#         "Alias": "FECHA DE VENCIMIENTO",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "SERVICIO CLIENTE",
-#         "Alias": "Nro CLIENTE",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "DEMANDA HORAS PUNTA",
-#         "Alias": "DEMANDA LEIDA HORAS PUNTA",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "DEMANDA HORAS SUMINISTRADA",
-#         "Alias": "DEMANDA MAXIMA LEIDA",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "FACTOR DE POTENCIA",
-#         "Alias": "FACTOR DE POTENCIA",
-#         "Pages":["1"]
-#     },
-#     {
-#         "Text": "CONSUMO TOTAL",
-#         "Alias": "CONSUMO",
-#         "Pages":["1"]
-#     }
-#     ]
-# }
-
-# s3BucketName = 'bucket-ocr'
-# documentName = 'media/Clinica Santiago_271715_202203_7352.pdf'
-# resultado = textractQTB(s3BucketName, documentName, _queries_file = queries_config)
-# print(json.dumps(resultado,indent = 4))
-# print(resultado)
