@@ -30,13 +30,28 @@ class ClientesPermission(BasePermission):
         else:
             return False
 
+class ProcessPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['search_docs','process_docs']:
+            return request.user.is_staff == True or request.user.role.id == 1 or request.user.role.id ==2
+        else:
+            return False
+
+
 
 class SucursalPermission(BasePermission):
     def has_permission(self, request, view):
         if view.action in ['list', 'retrieve']:
             return True
         elif view.action in ['create', 'update', 'destroy']:
-            return request.user.is_staff == True or request.user.role.id == 1
+            return request.user.is_staff == True or request.user.role.id == 1 
+        else:
+            return False
+
+class ContractPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['create_contract', 'destroy']:
+            return request.user.is_staff == True or request.user.role.id == 1 or request.user.role.id == 2
         else:
             return False
 

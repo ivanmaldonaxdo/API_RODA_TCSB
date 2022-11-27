@@ -11,29 +11,34 @@
                         <h1>Modificar Usuarios</h1>
                         <div class="separadorcen"></div>
                         <div class="form-cli">
-                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <input class="input-registro" type="text" name="" id="nom" required><span class="barra"></span>
                             <label class="label-registro" for="">Nombre usuario</label>
                         </div>
                         <div class="form-cli">
-                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <input class="input-registro" type="text" name="" id="email" required><span class="barra"></span>
                             <label class="label-registro" for="">Correo</label>
                         </div>
                         <div class="form-cli">
-                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
-                            <label class="label-registro" for="">Contraseña</label>
-                        </div>
-                        <div class="form-cli">
-                            <input class="input-registro" type="text" name="" id="" required><span class="barra"></span>
+                            <input class="input-registro" type="text" name="" id="tef" required><span class="barra"></span>
                             <label class="label-registro" for="">Telefono</label>
                         </div>
-                        <button class="btn-registrar">Modificar</button>
+                        <div class="content-select">
+                            <select id="rol" name="rol">
+                                <option value="0">Ingresar Rol...</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Operador</option>
+                                <option value="3">Usuario Roda</option>
+                            </select>
+                            <i></i>
+                        </div>
+                        <button id = "btn-modificar" type="submit" class="btn-registrar" >Modificar</button>
                     </div>
                 </form>
                 <img class="image-container" src={% static 'img/registro.svg' %} alt="login">
             </div>
         </div>
     </div>
-
+    <script type="text/javascript" src="{% static 'js/modificaruser.js' %}"></script>
 
 
 {% endblock %}

@@ -12,16 +12,19 @@
                 
                 <div class="cont-cliente">
                     <div class="infocliente">
-                        <a class="ctaclie" href="{% url 'listarcliente' %}">Clientes<span class="borde0">0</span></a>
+                        <a class="ctaclie" href="{% url 'listarusuarios' %}">Usuarios<span id="totalusuarios" class="borde0">0</span></a>
+                    </div>
+                    <div class="infocliente">
+                        <a class="ctaclie" href="{% url 'listarcliente' %}">Clientes<span id="totalclientes" class="borde0">0</span></a>
                     </div>
                     <div class="infocliente">
 
-                        <a class="ctacli">Sucursales<span class="borde0">0</span></a>
+                        <a class="ctacli">Sucursales<span class="borde0" id ="totalSucur">0</span></a>
 
                     </div>
                     <div class="infocliente">
 
-                        <a class="ctaclie" href="{% url 'processed' %}">Boletas<span class="borde0">0</span></a>
+                        <a class="ctaclie" href="{% url 'processed' %}">Boletas<span id="totalboletas" class="borde0">0</span></a>
 
                     </div>
 
@@ -68,7 +71,7 @@
                             </div>
                             <div class="tbl-content">
                                 <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                                    <tbody id = "tbodyProcessed">
+                                    <tbody id = "tbodySucursales">
                                         {% comment %} <tr>
                                             <td>AAC</td>
                                             <td>AUSTRALIAN COMPANY </td>
@@ -94,5 +97,7 @@
 
 <!--Modal para realizar los comentarios-->   
     <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/inicio.js' %}"></script>
+
 
 {% endblock %}

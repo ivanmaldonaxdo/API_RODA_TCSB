@@ -23,7 +23,9 @@ from apps.permissions import  *
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
-    permission_classes = (IsAdministrador,IsOperador,)
+    permission_classes = (ProcessPermission,)
+
+
     docs = None
     openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):
@@ -93,7 +95,7 @@ class OpenKMViewSet(ViewSet):
                 cliente = Cliente.objects.get(rut_cliente=data.get('rut_client'))
                 if cliente.is_active:
                     ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
-                    resultado = subir_archivo(contenido,'rodatest-bucket', nomDoc = data.get('nomDoc'))
+                    resultado = subir_archivo(contenido,'bucket-ocr', nomDoc = data.get('nomDoc'))
 
                     ######################## CONSULTA DE PLANTILLAS EN BD #############################
                     print(data.get('rut_emisor'))
@@ -108,7 +110,7 @@ class OpenKMViewSet(ViewSet):
                     print(type(table_doc))
 
                     ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
-                    extracted_data = extraccionOCR('rodatest-bucket',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                    extracted_data = extraccionOCR('bucket-ocr',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
                     metadata = openkm.get_metadata(data.get("uuid"))
 
                     docName = str(data.get('nomDoc')).replace('.pdf', '')
@@ -226,11 +228,7 @@ class OpenKMViewSet(ViewSet):
         sistema = Sistema.objects.all().first()
         cantidad = Sistema.objects.count()
         sis = model_to_dict(sistema)
-        sistema_file ="media" + "/" + str(sis.get("credencial"))
-        # print(sistema_file)
-        # sistema = 
-        # print("",cantidad, " - " ,sis)
-        # Opening JSON file
+        sistema_file ="media/" + str(sistema.credencial)
         json_creds = dict()
 
         ######### LECTURA DE ARCHIVO ##########

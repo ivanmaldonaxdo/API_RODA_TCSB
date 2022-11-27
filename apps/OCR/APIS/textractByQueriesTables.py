@@ -308,7 +308,7 @@ def textractQTB (s3BucketName, documentName,_queries_file,_tables = None):
 #     ]
 # }
 
-# s3BucketName = 'rodatest-bucket'
+# s3BucketName = 'bucket-ocr'
 # documentName = 'media/Clinica Santiago_271715_202203_7352.pdf'
 # resultado = textractQTB(s3BucketName, documentName, _queries_file = queries_config)
 # print(json.dumps(resultado,indent = 4))

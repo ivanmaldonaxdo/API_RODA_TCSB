@@ -27,11 +27,11 @@
                           <thead>
                             <tr>
                                 {% comment %} <th >#</th> {% endcomment %}
+                                <th class="centrado">Id usuario</th>
                                 <th class="centrado">Email</th>
-                                <th class="centrado">Nombre</th>
-                                <th class="centrado">Telefono</th>
-                                <th class="centrado">Rol</th>
-                                <th class="centrado">Estado</th>
+                                <th class="centrado">¿Activo?</th>
+                                <th class="centrado">Modificar Info</th>
+                                <th class="centrado">Modificar Estado</th>
 
                                 {% comment %} <th >Rut cliente</th> {% endcomment %}
                             </tr>
@@ -41,7 +41,7 @@
                     <div class="tbl-content">
                         <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
                             <tbody id = "tbodyProcessed">
-
+                                
                             </tbody>
                         </table>
                     </div>
@@ -53,7 +53,7 @@
         </div>
 
     </div>
-    <script type="text/javascript" src="{% static 'js/processedDocs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/listuser.js' %}"></script>
 
 
 
