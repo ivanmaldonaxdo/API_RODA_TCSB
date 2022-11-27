@@ -44,27 +44,27 @@ class MyCronJob(CronJobBase):
                             }
                             search = requests.post(url=url, json=body, cookies={'jwt':cookie})
                             data = search.json()
-                            if search.status_code==200:
-                                for bol in data:
-                                    ConfigCron.objects.filter(id=1).update(status = "Procesando DATA")
-                                    url2 =  'http://localhost:8000/cron/verificar_status/'
-                                    cookie = settings.CRON_CREDENCIAL
-                                    estado = requests.get(url=url2, cookies={'jwt':cookie})
-                                    con = estado.json()
-                                    if con['status'] == True:
-                                        uidd= bol['uuid']
-                                        nomDoc = bol['nomDoc']
-                                        rut_emisor = bol['rut_emisor']
-                                        rut_cliente = bol['rut_client']
-                                        url3 =  'http://localhost:8000/documentos/process_docs/'
-                                        body_proc= {'uuid' :uidd , "nomDoc" : nomDoc, "rut_emisor": rut_emisor, "rut_client":rut_cliente}
-                                        proc = requests.post(url=url3, json=body_proc, cookies={'jwt':cookie})
-                                        time.sleep(5)
-                                    else:
-                                        ConfigCron.objects.filter(id=1).update(status = "Detenido")
-                                        return 'Proceso Detenido'
+                            # if search.status_code==200:
+                            #     for bol in data:
+                            #         ConfigCron.objects.filter(id=1).update(status = "Procesando DATA")
+                            #         url2 =  'http://localhost:8000/cron/verificar_status/'
+                            #         cookie = settings.CRON_CREDENCIAL
+                            #         estado = requests.get(url=url2, cookies={'jwt':cookie})
+                            #         con = estado.json()
+                            #         if con['status'] == True:
+                            #             uidd= bol['uuid']
+                            #             nomDoc = bol['nomDoc']
+                            #             rut_emisor = bol['rut_emisor']
+                            #             rut_cliente = bol['rut_client']
+                            #             url3 =  'http://localhost:8000/documentos/process_docs/'
+                            #             body_proc= {'uuid' :uidd , "nomDoc" : nomDoc, "rut_emisor": rut_emisor, "rut_client":rut_cliente}
+                            #             proc = requests.post(url=url3, json=body_proc, cookies={'jwt':cookie})
+                            #             time.sleep(5)
+                            #         else:
+                            #             ConfigCron.objects.filter(id=1).update(status = "Detenido")
+                            #             return 'Proceso Detenido'
                         else: 
-                            ConfigCron.objects.filter(id=1).update(status = "5")
+                            ConfigCron.objects.filter(id=1).update(status = "Detenido")
                             return 'Proceso Detenido'
                 ConfigCron.objects.filter(id=1).update(status = 'En espera')
                 return 'Proceso Finalizado'

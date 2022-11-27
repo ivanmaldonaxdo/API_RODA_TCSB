@@ -39,8 +39,8 @@ class ProcessPermission(BasePermission):
 
 class CronPermission(BasePermission):
     def has_permission(self, request, view):
-        if view.action in ['actualizar_parametros_cron','info_cron', 'estado_cron', 'verificar_status']:
-            return request.user.is_staff == True or request.user.role.id == 1 or request.user.role.id ==2
+        if view.action in ['actualizar_parametros_cron', 'info_cron', 'estado_cron', 'verificar_status']:
+            return bool(request.user.is_staff or request.user.role == 1 or request.user.role == 2)
         else:
             return False
 
