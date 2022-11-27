@@ -30,13 +30,14 @@ class UserSerializer(serializers.ModelSerializer):
 class UpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
-        fields = ('email', 'password','name','telefono', 'role', 'master')
+        fields = ('email', 'name','telefono', 'role',)
+
     
     def update(self, instance, validated_data):
-        user = super().update(instance, validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+        usuario = super().update(instance, validated_data)
+        usuario.save()
+        return usuario
+    
     
 
 #Serializador de contraseñas
