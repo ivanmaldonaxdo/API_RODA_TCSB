@@ -15,38 +15,38 @@
                             
                             <div class="form-log">
                                 <label for="">Metodo</label>
-                                <input class="input-log" type="text" name="" id="" required><span class="barra"></span>
+                                <input class="input-log" type="text" name="" id=""><span class="barra"></span>
                                 
                             </div>
                             <div class="form-log">
                                 <label for="">ID log</label>
-                                <input class="input-log" type="text" name="" id="" required><span class="barra"></span>
+                                <input class="input-log" type="text" name="" id=""><span class="barra"></span>
                                 
                             </div>
                             <div class="form-log">
                                 <label for="">ID usuario</label>
-                                <input class="input-log" type="text" name="" id="" required><span class="barra"></span>
+                                <input class="input-log" type="text" name="" id=""><span class="barra"></span>
                                 
                             </div>
                             <div class="form-log">
                                 <label for="">Cliente</label>
-                                <input class="input-log" type="text" name="" id="" required><span class="barra"></span>
+                                <input class="input-log" type="text" name="" id=""><span class="barra"></span>
                                 
                             </div>
 
                             <div class="form-log">
                                 <label for="">Cod estado</label>
-                                <input class="input-log" type="text" name="" id="" required><span class="barra"></span>
+                                <input class="input-log" type="text" name="" id=""><span class="barra"></span>
                                 
                             </div>
                             
                             <div class="form-log">
                                 <label for="">fecha</label>
-                                <input class="input-log" type="date" name="" id="" required><span class="barra"></span>
+                                <input class="input-log" type="date" name="" id=""><span class="barra"></span>
                                 
                             </div>
                             <div class="form-log">
-                                <button class="btn-log">Buscar</button>
+                                <button id= "buscarDocs" class="btn-log">Buscar</button>
                                 
                             </div>
                             
@@ -81,7 +81,7 @@
                         </div>
                         <div class="tbl-content">
                             <table class="table table-striped" id = ""  cellpadding="0" cellspacing="0" border="0">
-                                <tbody class="tbl-content" id = "">
+                                <tbody class="tbl-content" id = "tbl-content">
                                     
                                 </tbody>
                             </table>
@@ -91,5 +91,7 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="{% static 'js/log.js' %}"></script>
 
 {% endblock %}
