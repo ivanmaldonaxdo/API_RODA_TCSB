@@ -46,12 +46,12 @@ class MyCronJob(CronJobBase):
                             data = search.json()
                             if search.status_code==200:
                                 for bol in data:
-                                    ConfigCron.objects.filter(id=1).update(status = "Procesando DATA")
                                     url2 =  'http://localhost:8000/cron/verificar_status/'
                                     cookie = settings.CRON_CREDENCIAL
                                     estado = requests.get(url=url2, cookies={'jwt':cookie})
                                     con = estado.json()
                                     if con['status'] == True:
+                                        ConfigCron.objects.filter(id=1).update(status = "Procesando DATA")
                                         uidd= bol['uuid']
                                         nomDoc = bol['nomDoc']
                                         rut_emisor = bol['rut_emisor']
@@ -64,7 +64,7 @@ class MyCronJob(CronJobBase):
                                         ConfigCron.objects.filter(id=1).update(status = "Detenido")
                                         return 'Proceso Detenido'
                         else: 
-                            ConfigCron.objects.filter(id=1).update(status = "5")
+                            ConfigCron.objects.filter(id=1).update(status = "Detenido")
                             return 'Proceso Detenido'
                 ConfigCron.objects.filter(id=1).update(status = 'En espera')
                 return 'Proceso Finalizado'

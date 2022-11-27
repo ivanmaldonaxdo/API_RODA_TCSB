@@ -31,7 +31,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class LogViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdministrador]
+    permission_classes = [IsAdministrador|IsOperador]
     serializer_class = LogSerializer
     
     model = LogSistema

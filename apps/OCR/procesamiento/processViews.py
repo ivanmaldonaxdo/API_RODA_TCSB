@@ -22,9 +22,8 @@ import sys
 from apps.permissions import  *
 from datetime import datetime
 
-# from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
-    permission_classes = (ProcessPermission,)
+    permission_classes = [IsAdministrador|IsOperador|IsCron]
 
 
     docs = None

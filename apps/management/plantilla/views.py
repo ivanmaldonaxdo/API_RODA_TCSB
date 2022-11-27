@@ -17,7 +17,7 @@ class PlantillaViewSet(viewsets.GenericViewSet):
     update_serializer_class = UpdateSerializer
     model = Plantilla
     serializer_class = UpdateSerializer
-    permission_classes = (IsAdministrador,IsOperador,)
+    permission_classes = (IsAdministrador, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Plantilla.objects.all())
