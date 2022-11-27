@@ -285,7 +285,7 @@ function processDocs(indexRow, documento) {
             const status_code = response.status;
 
             if(!processGlobal){
-                swal.close()
+                // swal.close()
                 if (status_code >= 400) {
                     // console.log( response.json().catch(err => console.error(err)));
                     Swal.fire({
@@ -303,10 +303,11 @@ function processDocs(indexRow, documento) {
                         showConfirmButton: false,
                         timer: 3000
                     })
-                    deleteRow(indexRow);
+                    // deleteRow(indexRow);
                 }
 
             }
+
             console.log("Contenido adquirido");
             return content;
         })
@@ -314,6 +315,8 @@ function processDocs(indexRow, documento) {
             console.log('caught it!', err);
         });
     });
+    swal.close()
+
 }
 
 
@@ -367,64 +370,64 @@ function deleteRow(indexRow) {
     document.getElementById("tableProcesados").deleteRow(indexRow);
     console.log("FILA ELIMINADA GG");
 }
-// function processAllTable() {
-//     $('table > tbody > tr').each(function(indexRow, tr) {
-
-//         const documento = {
-//             uuid: getValueElement('uuid', indexRow),
-//             nomDoc: getValueElement('nomDoc', indexRow),
-//             rut_emisor: getValueElement('RutEmi', indexRow),
-//             rut_client: getTextElement('tdRutCli', indexRow)
-//         };
-//         Swal.fire({
-//             title: 'Procesando documento....',
-//             timerProgressBar: true,
-//             didOpen: () => {
-//                 Swal.showLoading()
-//                 // console.log(documento);
-//                 contenido = processDocs(indexRow, documento);
-//                 // console.log(contenido);            
-//             },
-    
-//         })
-//         // swal.close()
-
-//         // console. log(index);
-//         // console. log(tr);
-//     });
-// }
 function processAllTable() {
-    Swal.fire({
-        title: 'Procesando documentos....',
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            // console.log(documento);
-            let i = 0
-            $('table > tbody > tr').each(function(indexRow, tr) {
-                i++;
-                console.log(i);
-                // const documento = {
-                //     uuid: getValueElement('uuid', indexRow),
-                //     nomDoc: getValueElement('nomDoc', indexRow),
-                //     rut_emisor: getValueElement('RutEmi', indexRow),
-                //     rut_client: getTextElement('tdRutCli', indexRow)
-                // };
+    $('table > tbody > tr').each(function(indexRow, tr) {
+
+        const documento = {
+            uuid: getValueElement('uuid', indexRow),
+            nomDoc: getValueElement('nomDoc', indexRow),
+            rut_emisor: getValueElement('RutEmi', indexRow),
+            rut_client: getTextElement('tdRutCli', indexRow)
+        };
+        Swal.fire({
+            title: 'Procesando documento....',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
                 // console.log(documento);
-                // // contenido = processDocs(indexRow, documento);
-               
-                
-                // console. log(index);
-                // console. log(tr);
-            });
-            
-            // console.log(contenido);            
-        },
-        
-    })
-    const tbody = document.querySelector("#tablaJS");
-    tbody.innerHTML += ``;
+                contenido = processDocs(indexRow, documento);
+                // console.log(contenido);            
+            },
+    
+        })
+        // swal.close()
+
+        // console. log(index);
+        // console. log(tr);
+    });
 }
+// function processAllTable() {
+//     Swal.fire({
+//         title: 'Procesando documentos....',
+//         timerProgressBar: true,
+//         didOpen: () => {
+//             Swal.showLoading()
+//             console.log(documento);
+//             let i = 0
+//             $('table > tbody > tr').each(function(indexRow, tr) {
+//                 i++;
+      
+//                 const documento = {
+//                     uuid: getValueElement('uuid', indexRow),
+//                     nomDoc: getValueElement('nomDoc', indexRow),
+//                     rut_emisor: getValueElement('RutEmi', indexRow),
+//                     rut_client: getTextElement('tdRutCli', indexRow)
+//                 };
+//                 console.log(documento);
+//                 contenido = processDocs(indexRow, documento);
+//                 console.log(i);
+                
+//                 console. log(index);
+//                 console. log(tr);
+//             });
+            
+//             console.log(contenido);            
+//         },
+        
+//     })
+
+   
+// }
 document.getElementById('processAllDocs').addEventListener("click",
     function (e) {
         processGlobal = true;
