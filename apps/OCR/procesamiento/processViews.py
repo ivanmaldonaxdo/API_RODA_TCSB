@@ -64,8 +64,6 @@ class OpenKMViewSet(ViewSet):
             # dia = filtros.get('dia'),
             # mes = filtros.get('mes'),
             # anio = filtros.get('anio')
-
-            
         )
         # {"message: Data encontrada"},
         if docs:
@@ -178,25 +176,6 @@ class OpenKMViewSet(ViewSet):
             }, status= status.HTTP_404_NOT_FOUND)
 
 #region Description
-
-    @action(detail=False,methods = ['POST'],url_name="process_by_servicio")
-    def process_by_servicio (self,request):
-        filtros = dict(request.data)
-        # diction = {}
-        openkm = self.openkm_creds()
-        # print("OPKM OBJECT ", openkm.auth_creds.password)
-        docs = openkm.search_docs(
-            _serv = filtros.get('tipo_servicio')
-        )
-        # {"message: Data encontrada"},
-        if docs:
-            print("HAY ARCHIVOS")
-            return Response(data = docs, status=status.HTTP_200_OK)
-        else:   
-            return Response({
-                'message':'La busqueda no coincide con ningun documento',
-            }, status= status.HTTP_404_NOT_FOUND)
-
     ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA CLASE APIOpenKM   
     def openkm_creds(self):
         creds = self.credenciales()
