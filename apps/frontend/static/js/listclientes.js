@@ -97,26 +97,45 @@ function desactivarClient(id, estado){
 }
 
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-    Swal.fire({
-        title: 'Buscando Clientes....',
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            // getProcesedDocs();
-            getClientes();
-            // getProcesedDocs();
+    let nom_cli = document.getElementById("clientes").value
 
+    if(nom_cli == ""){
+            Swal.fire({
+            title: 'Buscando Clientes....1',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                // getProcesedDocs();
+                getClientes();
+                // getProcesedDocs();
+            },
+    
+        })
+    }
+    else {
+        Swal.fire({
+            title: 'Buscando clientes....2',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                
+                getClientes(nom_cli);
+            },
 
-        },
-  
-    })
+        })
+
+    }
+    
     e.preventDefault();
     e.stopImmediatePropagation();
 
 })
 
-function getClientes() {
-    const url = 'http://localhost:8000/clientes/';
+
+function getClientes(nom_cli) {
+    const url = new URL ('http://localhost:8000/clientes/');
+    const params = {nom_cli :nom_cli }
+    url.search = new URLSearchParams(params).toString();
     fetch(url, {
         method: 'GET',
         headers: {
@@ -134,7 +153,7 @@ function getClientes() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'No se han encontrado documentos..',
+                    text: 'No se han encontrado clientes..',
                     showConfirmButton: false,
                     timer: 2000
                 })

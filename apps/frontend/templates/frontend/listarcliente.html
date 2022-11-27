@@ -10,7 +10,7 @@
 
                 <form action="">
                     <div class="input-wrapper">
-                        <input class="input" name="text" placeholder="Cliente" type="text">
+                        <input class="input" id="clientes" name="text" placeholder="Cliente" type="text">
                     </div>
                         
                     <button  id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
@@ -26,7 +26,7 @@
                           <thead>
                             <tr>
                                 {% comment %} <th >#</th> {% endcomment %}
-                                <th class="centrado">Id usuario</th>
+                                <th class="centrado">Id Cliente</th>
                                 <th class="centrado">Nombre</th>
                                 <th class="centrado">Rut Cliente</th>
                                 <th class="centrado">Razon social</th>
@@ -142,11 +142,6 @@
 
 <!--Modal para realizar los comentarios-->   
     <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
-
-
-
-    <script type="text/javascript" src="{% static 'js/processedDocs.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/inicio.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/listclientes.js' %}"></script>
 
 
