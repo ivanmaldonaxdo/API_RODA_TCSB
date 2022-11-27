@@ -24,7 +24,7 @@ class LogRestMiddleware:
                 return self.get_response(request)
         if url_name == 'cron-verificar-status':
                 return self.get_response(request)
-        if namespace == 'rol':
+        if url_name == 'rol':
                 return self.get_response(request)
         
         
