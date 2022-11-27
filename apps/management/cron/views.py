@@ -26,6 +26,13 @@ class StatusForCron(viewsets.GenericViewSet):
         except self.model.DoesNotExist:
             raise Http404
 
+    
+    @action(detail=False, methods=['get'])
+    def get_cron_params(self, request): #Detalle de un usuario
+        cron = self.get_object(1)
+        cron_serializer = self.serializer_class(cron)
+        return Response(cron_serializer.data, status=status.HTTP_200_OK)
+
     #http://localhost:8000/cron/actualizar_parametros_cron/
     @action(detail=False, methods=['post'])
     def actualizar_parametros_cron(self, request):

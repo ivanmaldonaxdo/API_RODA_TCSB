@@ -34,7 +34,7 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
     # filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = DocumentoFilter.Meta.fields
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    search_fields = ['fecha_procesado']
+    search_fields = ['folio']
     permission_classes = (ProcesadosPermission,)
 
 
