@@ -2006,7 +2006,7 @@ a{
 	}
 }
 
-
+/*-----------------CRON--------------------*/
 
 .containercron1{
     display: flex;
@@ -2346,11 +2346,16 @@ a{
     background: #f3f3f3;
     padding-top: 7em;
 }
-
+.container-form-log{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15em;
+}
 
 .container-filtros-log{
     width: 30em;
-    height: 35em;
+    height: 43em;
     background: #ebe9e9;
     margin-top: 49px;
     padding-top: 25px;
@@ -2360,4 +2365,72 @@ a{
     /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+}
+.form-log{
+    position: relative;
+    margin: auto;
+    width: 15em;
+    padding-top: 15px;
+   
+}
+
+
+.input-log{
+    background: none;
+    color: #6d6d6d;
+    font-size: 18px;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #674baf;
+}
+
+.input-log:focus{
+    outline: none;
+    color: #5e5d5d;
+}
+.btn-log{
+    border-radius: 5px ;
+    border: none;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: #fff;
+    height: 40px;
+    font-size: 16px;
+    background: #8e44ad;
+   
+}
+
+.container-tablalog{
+    width: 66em;
+    height: 40em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+
+}
+.container-tablalog h1{
+    width: 66em;
+    height: 40em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+
+}
+
+.pad-log{
+    padding-top: 25px;
+    padding-bottom: 30px;
 }
