@@ -18,6 +18,6 @@ urlpatterns = [
     path('registrar-usuarios/', Usuarios, name="Usuarios"),
     path('Modificarusuario/', modificarusuario, name="modificarusuario"),
     path('listarusuarios/', listarusuarios, name="listarusuarios"),
-    path('cron/', cron, name="cron"),
+    path('cronn/', cron, name="cron"),
     path('test/', test, name='test')
 ]

@@ -4,19 +4,20 @@ from django.db import models
 from apps.management.models import Sistema
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from rest_framework.authtoken.models import Token
+from rest_framework import serializers
 # Create your models here.
-
 
 
 #USUARIOS
 class UserManager(BaseUserManager):
-    def _create_user(self, email, name, telefono, role, sistema, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, name, telefono, role, sistema, master, password, is_staff, is_superuser, **extra_fields):
         user = self.model(
             email = email,
             name = name,
             telefono = telefono,
             role = role,
             sistema = sistema,
+            master = master,
             is_staff = is_staff,
             is_superuser = is_superuser,
             **extra_fields
@@ -25,11 +26,11 @@ class UserManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
-    def create_user(self, email, name, telefono, role, sistema, password=None, **extra_fields):
-        return self._create_user(email, name, telefono, role, sistema,  password, False, False, **extra_fields)
+    def create_user(self, email, name, telefono, role, sistema, master, password=None, **extra_fields):
+        return self._create_user(email, name, telefono, role, sistema,  master, password, False, False, **extra_fields)
 
-    def create_superuser(self, email, name, telefono, role=None, sistema=None, password=None, **extra_fields):
-        return self._create_user(email, name, telefono, role, sistema, password, True, True, **extra_fields)
+    def create_superuser(self, email, name, telefono, role=None, master = None, sistema=None, password=None, **extra_fields):
+        return self._create_user(email, name, telefono, role, master, sistema, password, True, True, **extra_fields)
 
 
 #ROLES

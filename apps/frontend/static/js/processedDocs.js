@@ -16,13 +16,17 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 ////////
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-
+    num_cliente = document.getElementById('numCliente').value;
+    // console.log('XD ' ,num_cliente,' XD');
+    const paramsSearch =  { contrato_servicio: num_cliente }
     Swal.fire({
         title: 'Buscando documentos procesados en cron ',
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
-            getProcesedDocs();
+            // getProcesedDocs();
+            getProcesedDocs(paramsSearch);
+
         },
   
     })
@@ -32,9 +36,14 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 })
 
 
-function getProcesedDocs() {
+function getProcesedDocs(paramsURL) {
+    const url = new URL("http://localhost:8000/procesados/");
+    // const params = { contrato_servicio: rutProveedor }
+    const params = paramsURL;
+    url.search = new URLSearchParams(params).toString();
+
     // const url = 'http://3.80.228.126/procesados/
-    const url = 'http://localhost:8000/procesados/';
+    // const url = 'http://localhost:8000/procesados/';
     fetch(url, {
         method: 'GET',
         headers: {

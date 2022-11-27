@@ -166,6 +166,24 @@ function btndetalleDocs(elem) {
     // console.log(getTextElement('tdRutCli',indexRow));
     console.log(getTextElement('tdFolio', indexRow));
 
+};
+        
+ 
+        async function  getDataClient (rutCliente) {
+            const url = new URL("http://localhost:8000/clientes/");
+            const params = {rut_cliente : rutCliente}
+            url.search = new URLSearchParams(params).toString();
+            const res = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+            obj = await res.json();
+            
+            return obj
+
     //////////SETEO DE PROPIEDADES DEL MODAL EN JS
     setValueByID("mdFolio", getTextElement('tdFolio', indexRow));
     setValueByID("mdNomDoc", getValueElement('nomDoc', indexRow));
@@ -245,6 +263,10 @@ async function getDataProv(rutProveedor) {
     obj = await res.json();
     return obj
 }
+///////////////////////////////////////////////////////////////////
+
+
+///////////PROCESAR DOCUMENT0S
 function btnProcessDocs(elem) {
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
