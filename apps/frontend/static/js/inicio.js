@@ -48,14 +48,14 @@ function setSucursales() {
                 // console.log(Array.from(sucursales).length);
                 document.getElementById("totalSucur").textContent = Array.from(sucursales).length;
                 // Array.from(sucursales).length()
-                Array.from(sucursales).map(sucur => 
-                    {
-                        createRowSucur(sucur);
-                        // let newOption = new Option(s.nom_sucursal,s.id);
-                        // sucur_select.add(newOption,undefined);
-                        // console.log(s.id);
-                    }                    
-                )
+                // Array.from(sucursales).map(sucur => 
+                //     {
+                //         createRowSucur(sucur);
+                //         // let newOption = new Option(s.nom_sucursal,s.id);
+                //         // sucur_select.add(newOption,undefined);
+                //         // console.log(s.id);
+                //     }                    
+                // )
             })
         }
      });

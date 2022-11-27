@@ -251,6 +251,6 @@ def textractQTB (s3BucketName, documentName,_queries_file,_tables = None):
     else:
         print("Error 404")
     
-    print(response)
+    # print(response)
     return response
     

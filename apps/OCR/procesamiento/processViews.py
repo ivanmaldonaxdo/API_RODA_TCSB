@@ -20,6 +20,7 @@ from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 import sys
 from apps.permissions import  *
+from datetime import datetime
 
 # from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
@@ -48,9 +49,16 @@ class OpenKMViewSet(ViewSet):
         anio = None
         mes = None
         dia = None
+        fecha = str(filtros.get("fecha"))
+        print(fecha)
+
         try:
+            # fecha = str(filtros.get("fecha"))
+            # fecha = str(datetime.strptime(fecha,  '%m/%d/%y'))
+            # print(fecha)
             # print(str(filtros.get("fecha")).split("-"))
             anio,mes,dia = str(filtros.get("fecha")).split("-")
+            anio,mes,dia = anio,int(mes),int(dia)
         except:
             print("No Fechita")
         docs = openkm.search_docs(
