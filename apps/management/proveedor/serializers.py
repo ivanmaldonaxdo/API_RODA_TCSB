@@ -6,7 +6,7 @@ class ProveedorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Proveedor
-        fields = '__all__'
+        fields = ('nom_proveedor', 'rut_proveedor', 'contacto', 'servicio')
 
     def create(self, validated_data):
         proveedor = Proveedor(**validated_data)
