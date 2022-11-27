@@ -142,8 +142,8 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
     // console.log(cliente ?? null);
     // console.log('XD ' ,num_cliente,' XD');
     const paramsSearch =  { 
-        contrato_servicio__sucursal: sucursal,
-        contrato_servicio__sucursal__cliente:cliente
+        contrato_servicio__sucursal: sucursal??'',
+        contrato_servicio__sucursal__cliente:cliente??''
         }
     Swal.fire({
         title: 'Buscando documentos procesados....',
