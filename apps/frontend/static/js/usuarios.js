@@ -26,12 +26,11 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
     var password = document.getElementById('passuser');
     var nombre = document.getElementById('nomuser');
     var telefono = document.getElementById('celuser');
-    var rol = document.getElementById('sucursal');
-    loginUser(correo.value, password.value, nombre.value, telefono.value, rol.value)
+    var rol = document.getElementById('rol');
+    createUser(correo.value, password.value, nombre.value, telefono.value, rol.value)
 });
 
-function loginUser(correo, password, nombre, telefono, rol) {
-    // const url = 'http://3.80.228.126/auth-user/'
+function createUser(correo, password, nombre, telefono, rol) {
     const url = 'http://localhost:8000/usuarios/'
     console.log(correo, password, nombre, telefono, rol)
     fetch(url, {

@@ -241,6 +241,7 @@ async function getDataProv(rutProv,nomProv = "") {
     obj = await res.json();
     return obj
 }
+
 function btnProcessDocs(elem) {
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
