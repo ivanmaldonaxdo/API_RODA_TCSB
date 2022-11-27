@@ -10,7 +10,7 @@ class SucursalSerializers(serializers.ModelSerializer):
 
     class Meta:
         model=Sucursal
-        fields = '__all__'
+        fields = ('nom_sucursal', 'cod', 'rut_sucursal', 'direccion', 'comuna', 'cliente')
     
     def create(self, validated_data):
         sucursal = Sucursal(**validated_data)

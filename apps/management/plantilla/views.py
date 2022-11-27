@@ -17,7 +17,7 @@ class PlantillaViewSet(viewsets.GenericViewSet):
     update_serializer_class = UpdateSerializer
     model = Plantilla
     serializer_class = UpdateSerializer
-    permission_classes = (IsAdministrador,IsOperador,)
+    permission_classes = (IsAdministrador, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Plantilla.objects.all())
@@ -42,6 +42,16 @@ class PlantillaViewSet(viewsets.GenericViewSet):
         plantilla  = self.get_object(pk)
         prov_serializer = self.serializer_class(plantilla)
         return Response(prov_serializer.data, status= status.HTTP_200_OK)
+
+    def list(self, request): #Listado de usuario
+        query = self.get_queryset()
+        if query:
+            serializer = PlantillaSerializer(query, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:   
+            return Response({
+                'message':'La busqueda no coincide con ninguna plantilla',
+            }, status= status.HTTP_404_NOT_FOUND)
     
     def update(self, request, pk = None):
         plantilla  = self.get_object(pk)

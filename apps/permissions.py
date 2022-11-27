@@ -19,6 +19,10 @@ class IsRodaUser(BasePermission):
         if request.user.id is not None:#Validacion que el usuario no es un usuario anonimo
             return request.user.is_staff == True or request.user.role.id == 3
         
+class IsCron(BasePermission):
+    def has_permission(self, request, view):
+        if request.user.id is not None:#Validacion que el usuario no es un usuario anonimo
+            return request.user.is_staff == True or request.user.email == "usuariocron@gmail.com"
         
 
 class ClientesPermission(BasePermission):
@@ -30,12 +34,30 @@ class ClientesPermission(BasePermission):
         else:
             return False
 
+class ProcesadosPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['list', 'retrieve']:
+            return True
+        elif view.action in ['create', 'update', 'destroy']:
+            return request.user.is_staff == True or request.user.role.id == 1
+        else:
+            return False
+
+
 class ProcessPermission(BasePermission):
     def has_permission(self, request, view):
         if view.action in ['search_docs','process_docs']:
             return request.user.is_staff == True or request.user.role.id == 1 or request.user.role.id ==2
         else:
             return False
+
+class CronPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['actualizar_parametros_cron', 'info_cron', 'estado_cron', 'verificar_status']:
+            return bool(request.user.is_staff or request.user.role == 1 or request.user.role == 2)
+        else:
+            return False
+
 
 
 

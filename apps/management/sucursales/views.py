@@ -23,7 +23,6 @@ class SucursalFilter(FilterSet):
         fields = {
             'nom_sucursal':['contains'],
             'cod':['exact'],
-            'is_active':['exact'],
             'direccion':['contains'],
             'comuna':['exact'],
             'cliente':['exact'] 
@@ -93,28 +92,18 @@ class SucursalesViewSets(viewsets.GenericViewSet):
     #endpoint = localhost:8000/clientes/<pk>/
     def destroy(self, request, pk=None):
         sucursal = self.get_object(pk)
-        if sucursal.is_active == True:
-            sucursal.is_active=False
-            sucursal.save()
-            return Response({
-                'message': 'Sucursal desactivada'
-            }, status=status.HTTP_200_OK)
-        elif sucursal.is_active == False:
-            sucursal.is_active=True
-            sucursal.save()
-            return Response({
-                'message': 'Sucursal activado'
-            }, status=status.HTTP_200_OK)
+        sucursal.delete()        
         return Response({
-            'message':'La ID ingresada no coincide con ninguna Sucursal'
-        }, status= status.HTTP_404_NOT_FOUND)
+            'message': 'Sucursal Eliminada'
+        }, status=status.HTTP_200_OK)
+        
 
  
 
 class Contrato(viewsets.GenericViewSet):
     serializer_class = ContratoServiciosSerializer
     model = Contrato_servicio
-    #permission_classes = (ContractPermission,)
+    permission_classes = (IsAdministrador, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Sucursal.objects.all())
@@ -129,7 +118,6 @@ class Contrato(viewsets.GenericViewSet):
 
     @action(detail=False, methods=['post'])
     def create_contract(self, request):
-        print(action)
         contrato_serializer = self.serializer_class(data=request.data)
         if contrato_serializer.is_valid():
             contrato_serializer.save()
