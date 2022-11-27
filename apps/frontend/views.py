@@ -39,6 +39,9 @@ def cron(request):
     return render(request, 'frontend/cron.html')
 
 
+def log(request):
+    return render(request, 'frontend/log.html')
+
 def test(request):
     return render(request, 'frontend/test.html')
 

@@ -213,8 +213,9 @@ input~i {
 .pie-pagina{
     width: 100%;
     background-color: #202020;
-  
     position: absolute;
+    
+    
 }
 .pie-pagina .grupo-1{
     width: 100%;
@@ -1574,7 +1575,7 @@ form label{
 
 .input-registro{
     background: none;
-    color: #c6c6c6;
+    color: #6d6d6d;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
@@ -2005,7 +2006,7 @@ a{
 	}
 }
 
-
+/*-----------------CRON--------------------*/
 
 .containercron1{
     display: flex;
@@ -2182,4 +2183,317 @@ a{
     }
         
 
+}
+
+
+
+/*Listar*/
+
+
+
+
+.container-form-listar {
+    width: 59em;
+    margin: auto;
+    height: 70em;
+    padding-top: 28px;
+
+    background: #EDEDED;
+    border-radius: 30px;
+    
+    background: rgb(236, 236, 236);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+
+}
+
+
+.bk-listar {
+    height: 150vh;
+    display: block;
+    background: #f3f3f3;
+    padding-top: 7em;
+    
+    
+}
+
+
+/*Modificar la responso de container-form-listar y bk-listar*/
+
+/*--------------------------CREDENCIALES------------------*/
+
+
+
+/*---------------------------------------------------------------*/
+
+.comentario{
+    display:flex;
+    background-color:rgba(0, 0, 0, 0.3) ;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.com{
+    background-color: #fff;
+    width: 600px;
+    max-width: 100%;
+    padding: 30px 50px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgb(0,0,0,0.2);
+    text-align: center;
+}
+
+.comentario h2{
+    color: #674baf;
+}
+.com .btn{
+    background-color: #674baf;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgb(0,0,0,0.2);
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 25px;
+}
+
+
+
+.contenedor-2{
+    width: 500px;
+    height: auto;
+    background-color: rgba(131, 131, 131, 0.7);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 30px 20px 30px 20px;
+    gap: 20px;
+    text-transform: capitalize;
+    border-radius: 20px;
+    opacity: 0;
+}
+
+.comentarioa{
+    background-color: rgb(255, 255, 255, 0.7);
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0 0 20px;
+    border-radius: 20px;
+    color: black;
+
+}
+.input-com{
+    width: 500px;
+    height: 100px;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    gap: 5px;
+
+}
+
+#nuevoComentario{
+    /*outline: none;*/
+    border: 0;
+    width: 100%;
+    height: 50px;
+    padding: 0px 10px 0px 10px;
+    font-size: 15px;
+
+}
+
+#nuevoComentario::placeholder{
+    color: #000000;
+
+}
+
+.borra{
+    font-size: 12px;
+    position: absolute;
+    right: 780px;
+    width: 20px;
+    z-index: 20;
+    transition-duration: 200ms;
+    display: block;
+    cursor: pointer;
+    color: red;
+}
+
+.cre-form{
+    padding-top: 30px;
+}
+
+/*--------------------------LOG-------------------------------*/
+
+
+.bk-log {
+    height: 110vh;
+    display: block;
+    background: #f3f3f3;
+    padding-top: 7em;
+}
+.container-form-log{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15em;
+}
+
+.container-filtros-log{
+    width: 30em;
+    height: 43em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    padding-top: 25px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+}
+.form-log{
+    position: relative;
+    margin: auto;
+    width: 15em;
+    padding-top: 15px;
+   
+}
+
+
+.input-log{
+    background: none;
+    color: #6d6d6d;
+    font-size: 18px;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #674baf;
+}
+
+.input-log:focus{
+    outline: none;
+    color: #5e5d5d;
+}
+.btn-log{
+    border-radius: 5px ;
+    border: none;
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    color: #fff;
+    height: 40px;
+    font-size: 16px;
+    background: #8e44ad;
+   
+}
+
+.container-tablalog{
+    width: 66em;
+    height: 40em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+
+}
+.container-tablalog h1{
+    width: 66em;
+    height: 40em;
+    background: #ebe9e9;
+    margin-top: 49px;
+    border-radius:30px;
+    float: left;
+    margin-left: 3em;
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;  */
+
+}
+
+.pad-log{
+    padding-top: 25px;
+    padding-bottom: 30px;
+}
+
+.content-select-proce select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+
+.content-select-proce select::-ms-expand {
+    display: none;
+}
+
+.content-select-proce {
+    width: 14em;
+    position: relative;
+    float: left;
+    padding-left: 15px;
+    margin: 20px;
+}
+
+.content-select-proce select {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 7px 10px;
+    height: 48px;
+    outline: 0;
+    border: 0;
+    border-radius: 0;
+    background: #f0f0f0;
+    color: #8e44ad;
+    font-size: 1.1em;
+    box-shadow: 0 0.4rem #dfd9d9;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.content-select-proce select:hover {
+    border: 2px solid #8e44ad;
+    border-radius: 12px;
+}
+
+.content-select-proce i {
+    padding-top: 15px;
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 13px);
+    width: 16px;
+    height: 16px;
+    display: block;
+    border-left: 4px solid #8e44ad;
+    border-bottom: 4px solid #8e44ad;
+    transform: rotate(-45deg);
+    /* Giramos el cuadrado */
+    transition: all 0.25s ease;
+}
+
+.content-select-proce:hover i {
+    margin-top: 3px;
 }
