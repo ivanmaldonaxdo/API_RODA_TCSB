@@ -2048,6 +2048,13 @@ a{
 }
 
 
+.textareacron{
+    border: 2px solid var(--button-bg);
+    border-radius: 10px;
+    outline: none;
+    margin: auto;
+    display: flex;
+}
 
 .bkcron {
     height: 108vh;
@@ -2450,9 +2457,10 @@ a{
 .content-select-proce {
     width: 14em;
     position: relative;
-    float: left;
-    padding-left: 15px;
-    margin: 20px;
+    /* float: left;
+    padding-left: 15px; */
+    margin: 0px auto;
+    padding-top: 25px;
 }
 
 .content-select-proce select {
