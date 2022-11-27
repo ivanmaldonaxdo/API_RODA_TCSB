@@ -66,11 +66,11 @@
                             <thead>
                                 <tr>
                                     {% comment %} <th >#</th> {% endcomment %}
-                                    <th class="centrado">Nombre sucursal</th>
+                                    <th id = "nom_sucursal" class="centrado">Nombre sucursal</th>
                                     {% comment %} <th class="centrado">Sucursal</th> {% endcomment %}
-                                    <th class="centrado">Direccion</th>
-                                    <th class="centrado">Comuna</th>
-                                    <th class="centrado">Contrato</th>
+                                    <th id = "Direccion" class="centrado">Direccion</th>
+                                    <th id= "comuna" class="centrado">Comuna</th>
+                                    <th id= "cliente" class="centrado">Cliente</th>
 
                                     {% comment %} <th >Rut cliente</th> {% endcomment %}
                                 </tr>
@@ -143,7 +143,6 @@
 <!--Modal para realizar los comentarios-->   
     <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/listclientes.js' %}"></script>
-
 
     
 {% endblock %}

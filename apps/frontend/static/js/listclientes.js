@@ -97,29 +97,34 @@ function desactivarClient(id, estado){
 }
 
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-    let nom_cli = document.getElementById("clientes").value
-
+    let nom_cli = document.getElementById('clientes').value,
+        id_cli = document.getElementById('cliente').value;
     if(nom_cli == ""){
             Swal.fire({
-            title: 'Buscando Clientes....1',
+            title: 'Buscando Clientes....',
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
                 // getProcesedDocs();
                 getClientes();
+                getSucursal();
                 // getProcesedDocs();
             },
     
         })
     }
     else {
+        const paramsSearch =  { 
+            nom_cli__contains:nom_cli
+            }
+        
         Swal.fire({
-            title: 'Buscando clientes....2',
+            title: 'Buscando clientes....',
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
                 
-                getClientes(nom_cli);
+                getClientes(paramsSearch);
             },
 
         })
@@ -131,10 +136,9 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 })
 
-
-function getClientes(nom_cli) {
-    const url = new URL ('http://localhost:8000/clientes/');
-    const params = {nom_cli :nom_cli }
+function getSucursal(paramsURL) {
+    const url = new URL('http://localhost:8000/sucursales/');
+    const params = paramsURL;
     url.search = new URLSearchParams(params).toString();
     fetch(url, {
         method: 'GET',
@@ -148,12 +152,50 @@ function getClientes(nom_cli) {
 
 
             swal.close()
-            clearTable()
+            const table = document.querySelector("#tbodySucursales");
+            table.innerHTML = '';
             if (status_code >= 400) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'No se han encontrado clientes..',
+                    text: 'No se han encontrado sucursales..',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+            else {
+                response.json().then(docs => {
+                    Array.isArray(docs) ? docs.map(doc => createRowDocSuc(doc)) : createRowDocSuc(docs);
+                })
+
+            }
+        });
+
+}
+
+function getClientes(paramsURL) {
+    const url = new URL('http://localhost:8000/clientes/');
+    const params = paramsURL;
+    url.search = new URLSearchParams(params).toString();
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    }).then((response) => {
+            const status_code = response.status;
+            console.log("Codigo estado es: ", response.status);
+
+
+            swal.close()
+            const table = document.querySelector("#tbodyProcessed");
+            table.innerHTML = '';
+            if (status_code >= 400) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No se han encontrado sucursales..',
                     showConfirmButton: false,
                     timer: 2000
                 })
@@ -202,8 +244,33 @@ function createRowDoc(doc)
 
     body += `<tr">${tdId}${tdNom}${tdRut}${tdRazon}${tdActivo}${tdmodificar}${tdeliminar}</tr>`;
     tbody.innerHTML += body;
+    const paramsSearch =  { 
+        cliente:doc.id
+        }
+
+    getSucursal(paramsSearch);
     
 }
+
+function createRowDocSuc(doc) 
+{
+    // console.log(doc.uuid);
+    const tbody = document.querySelector("#tbodySucursales");
+    let body = '';
+    let clase = "centrado";
+
+    let tdNom_suc = `<td class = "${clase}" name = "nom_sucursal" data-label="nomcli">${doc.nom_sucursal}</td>`,
+        tdDir = `<td class = "${clase}"  data-label="Direccion">${doc.direccion}</td>`,
+        tdCom = `<td class = "${clase}" data-label="comuna">${doc.comuna}`,
+        tdCon = `<td class = "${clase}" name="cliente" data-label="cliente">${doc.cliente}</td>`;
+
+    body += `<tr">${tdNom_suc}${tdDir}${tdCom}${tdCon}</tr>`;
+    tbody.innerHTML += body;
+     
+    
+}
+
+
 function clearTable(){
     const table = document.querySelector("#tbodyProcessed");
     table.innerHTML = '';
