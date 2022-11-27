@@ -9,21 +9,22 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 # from django_filters import FilterSet
-from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter ,DateFromToRangeFilter
+from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter ,DateFromToRangeFilter,ChoiceFilter
 # import django_filters
 from apps.permissions import  *
 # from django_filters import FilterSet
 
 class DocumentoFilter(FilterSet):
+    # sucursal = ChoiceFilter(field_name = 'contrato_servicio__sucursal')
     class Meta:
         model = Documento
         fields = {
                 # 'folio':['exact'],
-                # 'contrato_servicio':['exact'],
+                'contrato_servicio__proveedor':['exact'],
                 'contrato_servicio__sucursal':['exact'],
                 'contrato_servicio__sucursal__cliente':['exact'],
+                'fecha_procesado':['date']
 
-                # 'contrato_servicio_set':['contains']
             }
 
 
@@ -32,13 +33,8 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
     model = Documento
     # filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = DocumentoFilter.Meta.fields
-    # filterset_fields = Contrato_servicioFilter.Meta.fields
-    # filter_class = DocumentoFilter
-    # search_fields = (
-    #     '^folio',
-    # )
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    search_fields = ['fecha_procesado']
+    search_fields = ['folio']
     permission_classes = (ProcesadosPermission,)
 
 
