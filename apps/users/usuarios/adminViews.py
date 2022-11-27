@@ -120,7 +120,7 @@ class UserViewSet(viewsets.GenericViewSet):
     
 
 class Roles(viewsets.GenericViewSet):
-    permission_classes = [IsAdministrador]
+    permission_classes = (IsAdministrador, )
     serializer_class = UserRolSerializer
 
     def get_queryset(self):
