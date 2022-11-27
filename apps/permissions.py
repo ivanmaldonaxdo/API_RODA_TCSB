@@ -34,6 +34,16 @@ class ClientesPermission(BasePermission):
         else:
             return False
 
+class ProcesadosPermission(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ['list', 'retrieve']:
+            return True
+        elif view.action in ['create', 'update', 'destroy']:
+            return request.user.is_staff == True or request.user.role.id == 1
+        else:
+            return False
+
+
 class ProcessPermission(BasePermission):
     def has_permission(self, request, view):
         if view.action in ['search_docs','process_docs']:

@@ -103,7 +103,7 @@ class SucursalesViewSets(viewsets.GenericViewSet):
 class Contrato(viewsets.GenericViewSet):
     serializer_class = ContratoServiciosSerializer
     model = Contrato_servicio
-    #permission_classes = (ContractPermission,)
+    permission_classes = (IsAdministrador, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Sucursal.objects.all())
@@ -118,7 +118,6 @@ class Contrato(viewsets.GenericViewSet):
 
     @action(detail=False, methods=['post'])
     def create_contract(self, request):
-        print(action)
         contrato_serializer = self.serializer_class(data=request.data)
         if contrato_serializer.is_valid():
             contrato_serializer.save()

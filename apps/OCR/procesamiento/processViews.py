@@ -22,7 +22,7 @@ import sys
 from apps.permissions import  *
 
 class OpenKMViewSet(ViewSet):
-    #permission_classes = (ProcessPermission,)
+    permission_classes = [IsAdministrador|IsOperador|IsCron]
 
 
     docs = None

@@ -11,7 +11,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 # from django_filters import FilterSet
 from django_filters import FilterSet, AllValuesFilter, DateTimeFilter, NumberFilter ,DateFromToRangeFilter
 # import django_filters
-
+from apps.permissions import  *
 # from django_filters import FilterSet
 
 class DocumentoFilter(FilterSet):
@@ -39,7 +39,7 @@ class ProcesadosViewSet(viewsets.GenericViewSet):
     # )
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['fecha_procesado']
-
+    permission_classes = (ProcesadosPermission,)
 
 
     def get_queryset(self):
