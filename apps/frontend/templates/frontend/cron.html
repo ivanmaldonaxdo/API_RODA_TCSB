@@ -3,80 +3,53 @@
 {% block contenido %}
 
 
-    <div class="bk">
+    <div class="bkcron">
 
-        <div class="containercentrado">
-            <div class="container1">
+        <div class="containercron1">
+            <div class="a">
+                <div class="container-actu-cron">
                 
-                <h1 class="centrado">Modificación de parametros</h1>
-                <div class="separadorcen"></div>
-
-
-
                 
-            </div>
-
-            <div class="container2">
-                <h1 class="centrado">Información de proceso automatico</h1>
-
-                <div class="container-table">
-                <div class="table-responsive">
-                    <div class="tbl-header">
-                        <table cellpadding="0" cellspacing="0" border="0">
-                          <thead>
-                            <tr>
-                                <th class="centrado">Hora luz</th>
-                                <th class="centrado">Hora agua</th>
-                                <th class="centrado">Hora gas</th>
-                            </tr>
-                          </thead>
-                        </table>
-                    </div>
-                    <div class="tbl-content">
-                        <table class="table table-striped" id = ""  cellpadding="0" cellspacing="0" border="0">
-                            <tbody id = "">
+                    <h2 class="centrado">Actualización de parametros</h2>
+                    <div class="separadorcen"></div>  
+                            
+                        <form action="" class="crondata">
+                            
+                            <div class="form-cli">
+                                <label for="">Fecha</label>
+                                <input class="input-registro" type="date" name="" id="fechacron" required><span class="barra"></span>
+                                
+                            </div>
+                            <div class="form-cli">
+                                <label for="">Hora</label>
+                                <input class="input-registro" type="time" name="" id="horacron" required><span class="barra"></span>
+                                
+                            </div>
+                            <div class="content-select">
+                                <select id="estado" name="rol">
+                                    <option value=false>Desactivado</option>
+                                    <option value=true>Activado</option>
+                                </select>
+                                <i></i>
+                            </div>
+                            <button class="btn-registrar">Actualizar</button>
+                        </form>
     
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-            </div>
-        
+
             </div>
 
-        </div>
 
-
-        <div class="container-form">
-        
-            <h1 class="centrado">mostrar arhivos procesados en cron</h1>
-
-            <div class="container-table">
-                <div class="table-responsive">
-                    <div class="tbl-header">
-                        <table cellpadding="0" cellspacing="0" border="0">
-                          <thead>
-                            <tr>
-                                <th class="centrado">Hora luz</th>
-                                <th class="centrado">Hora agua</th>
-                                <th class="centrado">Hora gas</th>
-                            </tr>
-                          </thead>
-                        </table>
-                    </div>
-                    <div class="tbl-content">
-                        <table class="table table-striped" id = ""  cellpadding="0" cellspacing="0" border="0">
-                            <tbody id = "">
-    
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="container-tablacron2">
+                <h2 class="centrado">Información de proceso automatico</h2>
+                
+                <textarea id="infoCron" class="textareacron" name="comentario" rows="10" cols="50" readonly></textarea>
             </div>
             
 
         </div>
 
     </div>
+    <script type="text/javascript" src="{% static 'js/cron.js' %}"></script>
 
 {% endblock %}

@@ -1,65 +1,96 @@
-{% extends 'frontend/base.html' %}
-{% load static %}
-{% block contenido %}
+{% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
 
 
+<div class="bk-log">
 
-    <div class="bk">
-        <div class="container-form">
-            <h1 class="centrado">Busqueda de archivos </h1>
-            <div class="inputs-form-inicio">
+    <div class="container-form-log">
+        <div class="a">
+            <div class="container-filtros-log">
 
+
+                <h2 class="centrado">Filtros Procesados</h2>
+                <div class="separadorcen"></div>
                 <form action="">
-                    <div class="input-wrapper">
-                        <input class="input" name="text" placeholder="Cliente" id = "numCliente" type="text">
+
+                    <div class="form-log">
+                        <input class="input" name="" id="folio" placeholder="Folio" type="search">
                     </div>
-                    
+
+                    <div class="form-log">
+                        <input class="input" name="" id="fecha" placeholder="fecha" type="date">
+                    </div>
 
 
-
-                    <div class="content-select">
-                        <select id="sucursal">
-                            <option selected>Sucursal...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
+                    <div class="content-select-proce">
+                        <select id="clientes">
+                                <option value selected>Cliente...</option>
+                                {% comment %} <option value="1">1</option>
+                                <option value="2">2</option> {% endcomment %}
+                            </select>
                         <i></i>
                     </div>
-                    <button  id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
+                    <div class="content-select-proce">
+                        <select id="">
+                                <option value selected>Proveedor...</option>
+                                {% comment %} <option value="1">1</option>
+                                <option value="2">2</option> {% endcomment %}
+                            </select>
+                        <i></i>
+                    </div>
+
+
+                    <div class="content-select-proce">
+                        <select id="sucursal">
+                                <option value selected>Sucursal...</option>
+                                {% comment %} <option value="1">1</option>
+                                <option value="2">2</option> {% endcomment %}
+                            </select>
+                        <i></i>
+                    </div>
+                    <button id="buscarDocs" type="submit" class="btn-registrar">Buscar</button>
                 </form>
 
             </div>
 
+        </div>
+
+        <div class="container-tablacron2">
             <div class="container-table">
                 <div class="table-responsive">
                     <h2 class="centrado">Archivos procesados</h2>
                     <div class="tbl-header">
                         <table cellpadding="0" cellspacing="0" border="0">
-                          <thead>
-                            <tr>
-                                {% comment %} <th >#</th> {% endcomment %}
-                                <th class="centrado">Folio</th>
-                                {% comment %} <th class="centrado">Sucursal</th> {% endcomment %}
-                                <th class="centrado">Fecha Procesado</th>
-                                <th class="centrado">Documento</th>
+                            <thead>
+                                <tr>
+                                    {% comment %}
+                                    <th>#</th> {% endcomment %}
+                                    <th class="centrado">Folio</th>
+                                    {% comment %}
+                                    <th class="centrado">Sucursal</th> {% endcomment %}
+                                    <th class="centrado">Fecha Procesado</th>
+                                    <th class="centrado">Documento</th>
 
-                                {% comment %} <th >Rut cliente</th> {% endcomment %}
-                            </tr>
-                          </thead>
+                                    {% comment %}
+                                    <th>Rut cliente</th> {% endcomment %}
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                     <div class="tbl-content">
                         <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                            <tbody id = "tbodyProcessed">
-                                {% comment %} <tr>
+                            <tbody id="tbodyProcessed">
+                                {% comment %}
+                                <tr>
                                     <td>AAC</td>
                                     <td>AUSTRALIAN COMPANY </td>
                                     <td>$1.38</td>
                                     <td>+2.01</td>
                                     <td>-0.36%</td>
-                                </tr> {% endcomment %}
-                                                          
-                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+                                </tr> {% endcomment %} {% comment %}
+                                <td class="centrado"> 1 </td> {% endcomment %}
+
+
+
                             </tbody>
                         </table>
                     </div>
@@ -67,7 +98,8 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{% static 'js/processedDocs.js' %}"></script>
+</div>
+<script type="text/javascript" src="{% static 'js/processedDocs.js' %}"></script>
 
 
 {% endblock %}

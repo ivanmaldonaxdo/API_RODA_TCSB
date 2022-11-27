@@ -1,17 +1,6 @@
-import logging
 import boto3
-from botocore.exceptions import ClientError
-import os
-import requests
 import io
-import csv
-import time
-#from tabulate import tabulate
 import json
-# from apps.OCR.APIS.textractByQueries import textract
-from apps.OCR.APIS.textractByTables import textractTB
-# from apps.OCR.APIS.textractByTablesExp import get_table_results
-from apps.OCR.APIS.textractByQueriesPages import textract
 from apps.OCR.APIS.textractByQueriesTables import textractQTB
 import re
 import sys
@@ -52,7 +41,7 @@ def extraccionOCR(_bucket,query,tables = None,carpeta = 'media',nomDoc = None):
     print("Largo Tablas", len(list_tablas))
     list_tablas = (list_tablas if len(list_tablas) > 0 else None)
     try:
-        print(list_tablas)
+        # print(list_tablas)
         json_procesado = textractQTB(bucket, archivo, queries,list_tablas)
         print(json.dumps(json_procesado, indent = 4))
         return json_procesado

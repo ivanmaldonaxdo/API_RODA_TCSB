@@ -2,7 +2,7 @@ from apps.management.sucursales.serializers import SucursalSerializers, UpdateSe
 from apps.management.models import Sucursal, Contrato_servicio
 from rest_framework import filters
 from rest_framework.response import Response
-from apps.permissions import IsOperador, IsAdministrador, SucursalPermission
+from apps.permissions import IsOperador, IsAdministrador, SucursalPermission, ContractPermission
 from rest_framework.decorators import action
 from django.http import Http404
 
@@ -23,7 +23,6 @@ class SucursalFilter(FilterSet):
         fields = {
             'nom_sucursal':['contains'],
             'cod':['exact'],
-            'is_active':['exact'],
             'direccion':['contains'],
             'comuna':['exact'],
             'cliente':['exact'] 
@@ -93,27 +92,18 @@ class SucursalesViewSets(viewsets.GenericViewSet):
     #endpoint = localhost:8000/clientes/<pk>/
     def destroy(self, request, pk=None):
         sucursal = self.get_object(pk)
-        if sucursal.is_active == True:
-            sucursal.is_active=False
-            sucursal.save()
-            return Response({
-                'message': 'Sucursal desactivada'
-            }, status=status.HTTP_200_OK)
-        elif sucursal.is_active == False:
-            sucursal.is_active=True
-            sucursal.save()
-            return Response({
-                'message': 'Sucursal activado'
-            }, status=status.HTTP_200_OK)
+        sucursal.delete()        
         return Response({
-            'message':'La ID ingresada no coincide con ninguna Sucursal'
-        }, status= status.HTTP_404_NOT_FOUND)
+            'message': 'Sucursal Eliminada'
+        }, status=status.HTTP_200_OK)
+        
 
  
 
 class Contrato(viewsets.GenericViewSet):
     serializer_class = ContratoServiciosSerializer
     model = Contrato_servicio
+    permission_classes = (IsAdministrador, )
 
     def get_queryset(self):
         queryset= self.filter_queryset(Sucursal.objects.all())

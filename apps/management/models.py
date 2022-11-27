@@ -10,6 +10,13 @@ from django.core.files.storage import FileSystemStorage
 from apps.management.storage import OverwriteStorage
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 from rest_framework import serializers
+from django.dispatch import receiver
+import os
+from django.db.models.signals import post_delete
+
+
+
+
 
 def validar_rut(value):
     rut_validado = is_valid_rut(value)
@@ -34,18 +41,6 @@ class Sistema(SingletonModel):
 
     class Meta:
         verbose_name = "Configuracion del sistema"
-
-
-class cron(models.Model):
-    #modificar por servicio en variable 
-    #asi se ejecurada un dia de agua otro de luz etc
-    #por parametro
-    ESTADO=((True,'Acticado'),(False,'Desactivado'))
-    is_active=models.BooleanField(default=True,choices=ESTADO)
-    sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
-    def __str__(self):
-        return str(self.id)
-
 
 class Cliente(models.Model):
     nom_cli = models.CharField('Nombre cliente', max_length=255, blank=True, null=True)
@@ -168,6 +163,8 @@ class Sucursal(models.Model):
     
     class Meta:
         verbose_name_plural = "Sucursales"
+        indexes = [models.Index(fields=['cod', ]),]
+
 
 # def ruta_img_carousel(instance,filename):
 #     return 'images/carousel/{0}/{1}'.format(instance.categoria.nombre_categ, filename)
@@ -198,6 +195,15 @@ class Documento(models.Model):
 
     def __str__(self):
         return self.nom_doc
+    
+
+@receiver(post_delete, sender=Documento)
+def doc_post_delete_handler(sender, **kwargs):
+    doc = kwargs['instance']
+    if doc.documento:
+        
+        storage, path = doc.documento.storage, doc.documento.path
+        storage.delete(path)
 
 class LogSistema(models.Model):
     api=models.CharField('URL',max_length=255, blank=False, default='URL')

@@ -14,18 +14,154 @@ function getCookie(cname) {
     return "";
 }
 var csrftoken = getCookie('csrftoken');
-////////
+
+function setSucursales() {
+    const url = new URL("http://localhost:8000/sucursales/");
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+    })
+    .then((response) => {
+        const status_code = response.status;
+        console.log("Codigo estado es: ", response.status);
+      
+    
+        if (status_code >= 400 ){
+            console.log( response.json().catch(err => console.error(err)));
+        }
+        else {
+            // console.log(response.json());
+            // let newOption = new Option('Option Text','Option Value');
+            let sucur_select = document.querySelector('#sucursal');
+           
+            // sucur_select.add(newOption,undefined);
+            // console.log(sucur_select);
+            response.json().then(sucursales => {
+                Array.from(sucursales).map(s => 
+                    {
+                        let newOption = new Option(s.nom_sucursal,s.id);
+                        sucur_select.add(newOption,undefined);
+                        console.log(s.id);
+                    }                    
+                )
+                
+            })
+            
+        }
+     });
+}
+// setSucursales();
+
+async function setDataSucur(idCli) {
+    const url = new URL("http://localhost:8000/sucursales/");
+    const params = {cliente :idCli }
+    url.search = new URLSearchParams(params).toString();
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    obj = await res.json();
+    return obj
+}
+
+
+
+
+async function setDataClientes() {
+    const url = new URL("http://localhost:8000/clientes/");
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    obj = await res.json();
+    return obj
+}
+
+
+setDataClientes().then(clientes => {
+    let clientes_select = document.querySelector('#clientes');
+    Array.from(clientes).map(cli => 
+        {
+            let newOption = new Option(cli.nom_cli,cli.id);
+            clientes_select.add(newOption,undefined);
+            // console.log(s.id);
+        }                    
+    )    
+})
+
+
+document.getElementById('clientes').addEventListener("change",function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let cli_selected = document.getElementById('clientes').value;
+    console.log(cli_selected);
+    setDataSucur(cli_selected).then(sucursales => {
+        let sucur_select = document.querySelector('#sucursal');
+        let index = document.getElementById('clientes').selectedIndex;
+
+
+        if (index == 0) {
+                // console.log(s.id);
+            sucur_select.innerHTML = '';
+            let newOption = new Option('Sucursal...','');
+            sucur_select.add(newOption,undefined);
+        }
+        else{
+            sucur_select.innerHTML = '';
+            Array.from(sucursales).map(s => 
+                {
+                    let newOption = new Option(s.cod, s.id);
+                    sucur_select.add(newOption,undefined);
+                    // console.log(s.id);
+                }                    
+            )
+         
+        }
+     
+        
+    })
+
+
+    
+})
+/////////////////////////BUSQUEDA DE DOCUMENTOS
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-    num_cliente = document.getElementById('numCliente').value;
+    let sucursal = document.getElementById('sucursal').value,
+        cliente = document.getElementById('clientes').value
+        folio = document.getElementById('folio').value,
+        fecha = document.querySelector('#fecha').value;
+    // fecha = String(fecha);
+    console.log(fecha);
+    // console.log(sucursal);
+    // console.log(sucursal ?? null);
+    // console.log(cliente ?? null);
     // console.log('XD ' ,num_cliente,' XD');
-    const paramsSearch =  { contrato_servicio: num_cliente }
+    const paramsSearch =  { 
+        contrato_servicio__sucursal: sucursal,
+        contrato_servicio__sucursal__cliente:cliente,
+        search : folio,
+        fecha_procesado__date:fecha
+        }
+    
     Swal.fire({
         title: 'Buscando documentos procesados en cron ',
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
             // getProcesedDocs();
+            console.log(paramsSearch);
             getProcesedDocs(paramsSearch);
+            // getProcesedDocs();
+
 
         },
   
@@ -35,12 +171,17 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 })
 
-
 function getProcesedDocs(paramsURL) {
     const url = new URL("http://localhost:8000/procesados/");
     // const params = { contrato_servicio: rutProveedor }
     const params = paramsURL;
+    // [...params.entries()].forEach(([key, value]) => {
+    //     if (!value) {
+    //       params.delete(key);
+    //     }
+    //   });
     url.search = new URLSearchParams(params).toString();
+    console.log(url.search);
 
     // const url = 'http://3.80.228.126/procesados/
     // const url = 'http://localhost:8000/procesados/';
@@ -71,17 +212,7 @@ function getProcesedDocs(paramsURL) {
         else {
             response.json().then(docs => {
                 Array.isArray(docs) ? docs.map(doc =>  createRowDoc(doc)) : createRowDoc(docs);
-                // docs = new Array.isArray(docs) ? docs.sort((a,b)=>{
-                //     return new Date(b.fecha) - new Date(a.fecha);
-                // }) : docs;
-                // docs = new Array(docs).sort((a,b)=>{
-                //     return new Date(b.fecha) - new Date(a.fecha);
-                // }).reverse().map(e=> console.log(e))
-                // // docs = new Map(docs).a
-                
-                /////String(a[1]).localeCompare(b[1])
-                // docs = Array.isArray(docs) ? docs.sort((a,b) =>a.fecha.localcompare(b.fecha)) : docs;
-                
+
             })
             
         }

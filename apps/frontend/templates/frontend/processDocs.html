@@ -17,15 +17,23 @@
                     <div class="content-select">
                         <select id="tipo_servicio" name = "cbotipo_servicio">
                             <option selected>Tipo de servicio</option>
-                            <option value="AGU">Agua</option>
+                            {% comment %} <option value="AGU">Agua</option>
                             <option value="ELE">Electricidad</option>
-                            <option value="GAS">Gas</option>
+                            <option value="GAS">Gas</option> {% endcomment %}
+                            <option value="Agua">Agua</option>
+                            <option value="Electricidad">Electricidad</option>
+                            <option value="Gas">Gas</option>
                         </select>
                         <i></i>
                     </div>
+                    <div class="input-wrapper">
+                        <input class="input" name ="sdate" id="fechaBusqueda"  type="date">
+                    </div>
+                    <div class="btn-buscar-proce">
+                        <button  id="searchDocs" type="submit" class="btn-buscar">Buscar</button>
 
-                    <button  id="searchDocs" type="submit" class="btn-buscar">Buscar</button>
-
+                    </div>
+                    
                 </form>
             </div>
             <h2 class="centrado pad-top">Ejecución Manual</h2>
@@ -33,9 +41,7 @@
                     
             <div class="inputs-form-manual">
                 <form action="">
-                    <div class="input-wrapper">
-                        <input class="input" name ="sdate" id="fechaBusqueda"  type="date">
-                    </div>
+  
                     <button  id="processAllDocs" type="submit" class="btn-buscar-pro">Procesar</button>
                 </form>
             </div>
@@ -88,24 +94,24 @@
                         <h2>Detalle</h2>
                         
                         <form class="detalleform" action="" method="post">
-                            <div class="grupo">
+                            {% comment %} <div class="grupo">
                                 <label>Folio</label>
                                 
                                 <input id = "mdFolio"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 
-                            </div>
+                            </div> {% endcomment %}
                             <div class="grupo">
-                                <label>Nombre Cliente</label>
+                                <label>TAG</label>
                                 
-                                <input id = "mdNomCli"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
+                                <input id = "mdProcesoOCR"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 
                             </div>
-                            <div class="grupo">
+                            {% comment %} <div class="grupo">
                                 <label>Nombre proveedor</label>
                                 
                                 <input id = "mdNomProv"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 
-                            </div>
+                            </div> {% endcomment %}
                             <div class="grupo">
                                 <label>Rut emisor</label>
                                 
@@ -119,7 +125,7 @@
                                 
                             </div>
                             <div class="grupo">
-                                <label>fecha emision</label>
+                                <label>fecha de emisión</label>
                                 
                                 <input id = "mdFechaEmi"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
                                 

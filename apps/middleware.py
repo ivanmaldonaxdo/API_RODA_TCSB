@@ -24,6 +24,8 @@ class LogRestMiddleware:
                 return self.get_response(request)
         if url_name == 'cron-verificar-status':
                 return self.get_response(request)
+        if url_name == 'rol':
+                return self.get_response(request)
         
         
         request_data = ''
@@ -60,9 +62,9 @@ class LogRestMiddleware:
                 )
                 if url_name == 'search_docs-process_docs' and data['status_code'] == 200:
                     document = Documento.objects.get(id=response_body["DocID"])
-                    sucursal = document.contrato_servicio.sucursal
+                    sucursal = document.contrato_servicio
                     # sucursal = contrato.sucursal.rut_sucursal
-                    data['cliente'] = sucursal.rut_sucursal
+                    data['cliente'] = sucursal.num_cliente
 
                 # create instance of model
                 m = LogSistema(**data)

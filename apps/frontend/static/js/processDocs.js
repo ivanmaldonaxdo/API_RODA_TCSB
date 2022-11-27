@@ -15,8 +15,7 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 ////////
-
-
+let processGlobal = false;
 document.getElementById("searchDocs").addEventListener('click', function (e) {
 
     let folio = document.getElementById("folio").value,
@@ -35,6 +34,8 @@ document.getElementById("searchDocs").addEventListener('click', function (e) {
     //     mes = isVacio ? null : list_fecha[1],
     //     anio = isVacio  ? null: list_fecha[2];
     // console.log(dia," ",mes," ",anio);
+    // if (servicio == "Tipo de servicio" && folio == "" && isVacio)  {
+
     if (servicio == "Tipo de servicio" && folio == "" && isVacio)  {
         console.log("NADA DE INFO");
         Swal.fire({
@@ -55,11 +56,6 @@ document.getElementById("searchDocs").addEventListener('click', function (e) {
 
             servicio = null;
         }
-        // Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'info',
-        // })
         Swal.fire({
             title: 'Buscando documentos a procesar....',
             timerProgressBar: true,
@@ -76,6 +72,8 @@ document.getElementById("searchDocs").addEventListener('click', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 })
+
+
 
 function numberRange(start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
@@ -120,7 +118,7 @@ function getDocs(folio, tpServicio,rut_client, rut_receptor,fecha = null) {
             else {
                 response.json().then(docs => {
                     Array.isArray(docs) ? docs.map(doc => createRowDoc(doc)) : createRowDoc(docs);
-                    console.log(docs);
+                    // console.log(docs);
                 })
 
             }
@@ -153,179 +151,44 @@ function EditRecordForEditDemo(element) {
     var rowjQuery = $(element).closest("tr");
     alert("JavaScript Row Index : " + (rowJavascript.rowIndex - 1) + "\njQuery Row Index : " + (rowjQuery[0].rowIndex - 1));
 }
-//boton para abrir y cerrar detalle
-function btndetalleDocs(elem) {
-    let fila = elem.parentNode.parentNode.parentNode;
-    let indexRow = fila.rowIndex
-    console.log(indexRow);
-    console.log(getValueByID("mdFolio"));
-    let rut_cli = getTextElement('tdRutCli', indexRow),
-        rut_proveedor = getTextElement('RutEmi', indexRow);
 
-    console.log(rut_cli);
-    // console.log(getTextElement('tdRutCli',indexRow));
-    console.log(getTextElement('tdFolio', indexRow));
-
-};
-        
- 
-        async function  getDataClient (rutCliente) {
-            const url = new URL("http://localhost:8000/clientes/");
-            const params = {rut_cliente : rutCliente}
-            url.search = new URLSearchParams(params).toString();
-            const res = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrftoken,
-                }
-            })
-            obj = await res.json();
-            
-            return obj
-
-    //////////SETEO DE PROPIEDADES DEL MODAL EN JS
-    setValueByID("mdFolio", getTextElement('tdFolio', indexRow));
-    setValueByID("mdNomDoc", getValueElement('nomDoc', indexRow));
-    setValueByID("mdFechaEmi", getValueElement('fechaEmi', indexRow));
-    setValueByID("mdRutEmi", rut_proveedor);
-    // tdRutReceptor
-    // console.log(client);
-    // console.log("Cliente is ", cliente);
-    // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
-
-    let cerrar = document.querySelectorAll(".close")[0];
-    let modal = document.querySelectorAll(".amodal")[0];
-    let modalc = document.querySelectorAll(".modal-container")[0];
-
-    modalc.style.opacity = "1";
-    modalc.style.visibility = "visible";
-    modal.classList.toggle("modal-close");
-
-    getDataClient(rut_cli).then(
-        client => Array.isArray(client) ? setValueByID("mdNomCli", client.map(cli => cli.nom_cli)) : client.nom_cli
-    )
-    getDataProv(rut_proveedor).then(
-        prov => Array.isArray(prov) ? setValueByID("mdNomProv", prov.map(prv => prv.nom_proveedor)) : prov.nom_proveedor
-    )
-}
-let cerrar = document.querySelectorAll(".close")[0];
-let modal = document.querySelectorAll(".amodal")[0];
-let modalc = document.querySelectorAll(".modal-container")[0];
-
-cerrar.addEventListener("click", function () {
-    modal.classList.toggle("modal-close");
-
-    setTimeout(function () {
-        modalc.style.opacity = "0";
-        modalc.style.visibility = "hidden";
-    }, 600);
-
-});
-
-window.addEventListener("click", function (e) {
-    if (e.target == modalc) {
-        modal.classList.toggle("modal-close");
-        setTimeout(function () {
-            modalc.style.opacity = "0";
-            modalc.style.visibility = "hidden";
-        }, 600);
-    }
-})
-
-async function getDataClient(rutCliente) {
-    const url = new URL("http://localhost:8000/clientes/");
-    const params = { rut_cliente: rutCliente }
-    url.search = new URLSearchParams(params).toString();
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        }
-    })
-    obj = await res.json();
-
-    return obj
-}
-
-async function getDataProv(rutProveedor) {
-    const url = new URL("http://localhost:8000/proveedores/");
-    const params = { rut_proveedor: rutProveedor }
-    url.search = new URLSearchParams(params).toString();
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        }
-    })
-    obj = await res.json();
-    return obj
-}
-///////////////////////////////////////////////////////////////////
-
-
-///////////PROCESAR DOCUMENT0S
-function btnProcessDocs(elem) {
-    let fila = elem.parentNode.parentNode.parentNode;
-    let indexRow = fila.rowIndex
-    const documento = {
-        uuid: getValueElement('uuid', indexRow),
-        nomDoc: getValueElement('nomDoc', indexRow),
-        rut_emisor: getValueElement('RutEmi', indexRow),
-        rut_client: getTextElement('tdRutCli', indexRow)
-    };
-    Swal.fire({
-        title: 'Procesando documento....',
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            console.log(documento);
-            contenido = processDocs(indexRow, documento);
-            // console.log(contenido);            
-        },
-
-    })
-}
 //boton para abrir y cerrar detalle
 function btndetalleDocs(elem){
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
     console.log(indexRow);
-    console.log(getValueByID("mdFolio"));
+    // console.log(getValueByID("mdFolio"));
     let rut_cli = getTextElement('tdRutCli',indexRow),
-        rut_proveedor = getTextElement('RutEmi',indexRow);
+        rut_prov = getValueElement('RutEmi',indexRow);
         
-    console.log(rut_cli);
+    // console.log(rut_cli);
     // console.log(getTextElement('tdRutCli',indexRow));
     console.log(getTextElement('tdFolio',indexRow));
 
     //////////SETEO DE PROPIEDADES DEL MODAL EN JS
-    setValueByID("mdFolio",getTextElement('tdFolio',indexRow));
+    // setValueByID("mdFolio",getTextElement('tdFolio',indexRow));
     setValueByID("mdNomDoc",getValueElement('nomDoc',indexRow));
     setValueByID("mdFechaEmi",getValueElement('fechaEmi',indexRow));
-    setValueByID("mdRutEmi",rut_proveedor);
-    // tdRutReceptor
-    getDataClient(rut_cli).then(
-        client => Array.isArray(client) ? setValueByID( "mdNomCli", client.map(cli=> cli.nom_cli)) : client.nom_cli
-    )
-    getDataProv(rut_proveedor).then(
-        prov => Array.isArray(prov) ? setValueByID("mdNomProv",prov.map(prv=> prv.nom_proveedor)) : prov.nom_proveedor
-    )
-    // console.log(client);
-    // console.log("Cliente is ", cliente);
-    // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
-
-    let cerrar =document.querySelectorAll(".close")[0];
-    let modal =document.querySelectorAll(".amodal")[0];
-    let modalc =document.querySelectorAll(".modal-container")[0];
-
+    setValueByID("mdRutEmi",rut_prov);
+    // tdRutReceptor mdProcesoOCR
+    setValueByID("mdProcesoOCR", getValueElement('procOCR',indexRow) )
+    // getDataClient(rut_cli).then(
+    //     client => Array.isArray(client) ? setValueByID( "mdNomCli", client.map(cli=> cli.nom_cli)) : client.nom_cli
+    // )
+    // getDataProv(rut_prov).then(
+    //     prov =>  prov.map(prv=> console.log(prv.nom_proveedor))
+    //              // prov => Array.isArray(prov) ? setValueByID("mdNomProv",prov.map(prv=> prv.nom_proveedor)) : prov.nom_proveedor
+    // )
     modalc.style.opacity = "1";
     modalc.style.visibility = "visible";
     modal.classList.toggle("modal-close");
 
+    
 }
+let cerrar = document.querySelectorAll(".close")[0];
+let modal =document.querySelectorAll(".amodal")[0];
+let modalc =document.querySelectorAll(".modal-container")[0];
+
 
 
 cerrar.addEventListener("click", function(){
@@ -349,7 +212,7 @@ window.addEventListener("click", function (e){
     } 
 })
 
-async function  getDataClient (rutCliente) {
+async function getDataClient (rutCliente) {
     const url = new URL("http://localhost:8000/clientes/");
     const params = {rut_cliente : rutCliente}
     url.search = new URLSearchParams(params).toString();
@@ -365,10 +228,11 @@ async function  getDataClient (rutCliente) {
     return obj
 }
 
-async function  getDataProv(rutProveedor) {
+async function getDataProv(rutProv,nomProv = "") {
     const url = new URL("http://localhost:8000/proveedores/");
-    const params = {rut_proveedor : rutProveedor}
+    const params = {rut_proveedor : rutProv,nom_proveedor__contains: nomProv}
     url.search = new URLSearchParams(params).toString();
+    console.log(url);
     const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -380,6 +244,27 @@ async function  getDataProv(rutProveedor) {
     return obj
 }
 
+function btnProcessDocs(elem) {
+    let fila = elem.parentNode.parentNode.parentNode;
+    let indexRow = fila.rowIndex
+    const documento = {
+        uuid: getValueElement('uuid', indexRow),
+        nomDoc: getValueElement('nomDoc', indexRow),
+        rut_emisor: getValueElement('RutEmi', indexRow),
+        rut_client: getTextElement('tdRutCli', indexRow)
+    };
+    Swal.fire({
+        title: 'Procesando documento....',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading()
+            console.log(documento);
+            contenido = processDocs(indexRow, documento);
+            // console.log(contenido);            
+        },
+
+    })
+}
 function processDocs(indexRow, documento) {
     // console.log("Index :", indexRow);
     // console.log("Objeto", documento.uuid);
@@ -398,34 +283,31 @@ function processDocs(indexRow, documento) {
     .then((response) => {
         response.json().then(content => {
             const status_code = response.status;
-            swal.close()
-            if (status_code >= 400) {
-                // console.log( response.json().catch(err => console.error(err)));
-                Swal.fire({
-                    // position: 'top-end',
-                    icon: 'error',
-                    title: 'Tuvimos problemas para procesar este archivo',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
 
-                // Swal.fire({
-                //     icon: 'error',
-                //     title: 'Oops...',
-                //     text: 'No se han encontrado documentos..',
-                //     // footer: '<a href="">Why do I have this issue?</a>'
-                // })
-            } else {
-                Swal.fire({
-                    // position: 'top-end',
-                    icon: 'success',
-                    title: 'Documento procesado con éxito',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
-                deleteRow(indexRow);
+            if(!processGlobal){
+                // swal.close()
+                if (status_code >= 400) {
+                    // console.log( response.json().catch(err => console.error(err)));
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'error',
+                        title: 'Tuvimos problemas para procesar este archivo',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                } else {
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'success',
+                        title: 'Documento procesado con éxito',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    // deleteRow(indexRow);
+                }
 
             }
+
             console.log("Contenido adquirido");
             return content;
         })
@@ -433,6 +315,8 @@ function processDocs(indexRow, documento) {
             console.log('caught it!', err);
         });
     });
+    swal.close()
+
 }
 
 
@@ -451,18 +335,19 @@ function createRowDoc(doc, event) {
     let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
         btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`,
         btnFechaEmi = `<input type="hidden" id = "fechaEmi" name="fechaEmi" value="${fechaEmi}"/>`,
-        btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
+        btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`,
+        btn_procOCR = `<input type="hidden" id = "procOCR" name="procOCR" value="${doc.proceso_ocr}"/>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
     //////////// FORMS PARA BOTONES
-    let form_detalle = `<form action="">${btnDetalle}${btnFechaEmi}${btn_RutEmi}</form>`;
+    let form_detalle = `<form action="">${btnDetalle}${btnFechaEmi}${btn_RutEmi}${btn_procOCR}</form>`;
     let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutRecep}${btnProcesar}</form>`;
 
 
-    let tdfolio = `<td class = "${clase}" data-label="Folio" name ="tdFolio"> ${doc.folio}</td>`,
+    let tdfolio = `<td class = "${clase}" data-label="Folio" name ="tdFolio">${doc.folio}</td>`,
         tdRutClient = `<td class = "${clase}" data-label="Rut cliente" name ="tdRutCli">${doc.rut_client}</td>`,
-        tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio"> ${doc.tipo_servicio}</td>`,
-        tdProcesar = `<td class = "${clase}" data-label="Procesar"> ${form_procesar}</td>`,
+        tdTpServicio = `<td class = "${clase}" data-label="Tipo Servicio">${doc.tipo_servicio}</td>`,
+        tdProcesar = `<td class = "${clase}" data-label="Procesar">${form_procesar}</td>`,
         tdDetalle = crearTd(clase, "Detalle", form_detalle);
 
     // tdDetalle = `<td class = "${clase}" data-label="Detalle"> ${form_detalle}</td>`;
@@ -485,7 +370,76 @@ function deleteRow(indexRow) {
     document.getElementById("tableProcesados").deleteRow(indexRow);
     console.log("FILA ELIMINADA GG");
 }
+function processAllTable() {
+    $('table > tbody > tr').each(function(indexRow, tr) {
 
+        const documento = {
+            uuid: getValueElement('uuid', indexRow),
+            nomDoc: getValueElement('nomDoc', indexRow),
+            rut_emisor: getValueElement('RutEmi', indexRow),
+            rut_client: getTextElement('tdRutCli', indexRow)
+        };
+        Swal.fire({
+            title: 'Procesando documento....',
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                // console.log(documento);
+                contenido = processDocs(indexRow, documento);
+                // console.log(contenido);            
+            },
+    
+        })
+        // swal.close()
+
+        // console. log(index);
+        // console. log(tr);
+    });
+}
+// function processAllTable() {
+//     Swal.fire({
+//         title: 'Procesando documentos....',
+//         timerProgressBar: true,
+//         didOpen: () => {
+//             Swal.showLoading()
+//             console.log(documento);
+//             let i = 0
+//             $('table > tbody > tr').each(function(indexRow, tr) {
+//                 i++;
+      
+//                 const documento = {
+//                     uuid: getValueElement('uuid', indexRow),
+//                     nomDoc: getValueElement('nomDoc', indexRow),
+//                     rut_emisor: getValueElement('RutEmi', indexRow),
+//                     rut_client: getTextElement('tdRutCli', indexRow)
+//                 };
+//                 console.log(documento);
+//                 contenido = processDocs(indexRow, documento);
+//                 console.log(i);
+                
+//                 console. log(index);
+//                 console. log(tr);
+//             });
+            
+//             console.log(contenido);            
+//         },
+        
+//     })
+
+   
+// }
+document.getElementById('processAllDocs').addEventListener("click",
+    function (e) {
+        processGlobal = true;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        processAllTable();
+        // swal.close();
+
+    }
+
+
+);
 //referencias js
 //https://stackoverflow.com/questions/68933909/how-to-pass-hidden-field-in-table-and-return-the-value-in-jquery-on-tr-click
 //https://bobbyhadz.com/blog/javascript-map-is-not-a-function#:~:text=The%20"TypeError%3A%20map%20is%20not,of%20how%20the%20error%20occurs.

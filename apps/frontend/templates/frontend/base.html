@@ -118,14 +118,13 @@
                    <a href="#" data-toggle="sub-menu">Extracción de datos <i class="plus"></i></a>
                    <ul class="sub-menu">
                        <li class="menu-item"><a href="{% url 'process' %}">Procesar Archivos</a></li>
-                       <li class="menu-item"><a href="{% url 'processed' %}">Archivos procesadas</a></li>
+                       <li class="menu-item"><a href="{% url 'processed' %}">Archivos procesados</a></li>
                    </ul>
                 </li>
                 <li class="menu-item menu-item-has-children usuario">
                    <a  href="#" data-toggle="sub-menu">Cliente <i class="plus"></i></a>
                    <ul class="sub-menu">
                        <li class="menu-item"><a href="{% url 'Cliente' %}">Registro</a></li>
-                       <li class="menu-item"><a href="{% url 'modificarcliente' %}">Modificación</a></li>
                        <li class="menu-item"><a href="{% url 'listarcliente' %}">Listar</a></li>
                    </ul>
                 </li>
@@ -133,12 +132,17 @@
                    <a  href="#" data-toggle="sub-menu">Usuario <i class="plus"></i></a>
                    <ul class="sub-menu">
                        <li class="menu-item"><a href="{% url 'Usuarios' %}">Registro</a></li>
-                       <li class="menu-item"><a href="{% url 'modificarusuario' %}">Modificación</a></li>
                        <li class="menu-item"><a href="{% url 'listarusuarios' %}">Listar</a></li>
                    </ul>
                 </li>
                 <li class="menu-item cronn">
                    <a href="{% url 'cron' %}">Cron</a>
+                </li>
+                <li class="menu-item">
+                   <a href="{% url 'log' %}">Log</a>
+                </li>
+                <li class="menu-item">
+                   <a class="cre" href="">Credenciales</a>
                 </li>
                 <li class="menu-item">
                    <a id="cerrarsession"  href="#">Cerrar sesión</a>
@@ -155,8 +159,24 @@
         {% endblock %}
    
         <!--FOOTER-->
+        <div class="modal-container">
+                
+            <div class="amodal modal-close">
+                <p class="close">X</p>
+                <div class="modal-texto">
+                    <h2>Registro de credenciales </h2>
+                    <form action="" class="cre-form">
+                        <label for="">Crendenciales</label>
+                        <input type="file" id="cred">
+                        <button id="registrarCred" class="btn-registrar">Actualizar credenciales</button>
+                    </form>
 
-    <footer class="pie-pagina">
+                </div>
+            </div>
+        </div>
+
+
+    <footer class="pie-pagina  ">
         <div class="grupo-1">
             <div class="box">
                 <figure>
@@ -194,6 +214,9 @@
         });
     </script> {% endcomment %}
 
+
+
+
     <script>
         $(window).on("load resize ", function () {
             var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -201,11 +224,13 @@
         }).resize();
     </script>
 
+
+
     <script type="text/javascript" src="{% static 'js/session.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-
+    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
 </body>
 
 </html>

@@ -9,7 +9,20 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from django_filters import FilterSet
 
+
+class LogFilter(FilterSet):
+    class Meta:
+        model = LogSistema
+        fields = {
+            'id':['exact'],
+            'id_user': ['exact'],
+            'cliente': ['exact'],
+            'method': ['exact'],
+            'status_code':['exact'],
+            'fecha_hora':['date']
+        }
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 20
@@ -18,10 +31,13 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class LogViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdministrador]
+    permission_classes = [IsAdministrador|IsOperador]
     serializer_class = LogSerializer
+    
     model = LogSistema
     http_method_names = ['get']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = LogFilter.Meta.fields
     pagination_class = StandardResultsSetPagination
     permission_classes = (IsAdministrador,IsOperador,)
 
