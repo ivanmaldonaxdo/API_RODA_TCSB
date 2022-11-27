@@ -112,7 +112,7 @@ document.getElementById('clientes').addEventListener("change",function (e) {
         if (index == 0) {
                 // console.log(s.id);
             sucur_select.innerHTML = '';
-            let newOption = new Option('Sucursal...',null);
+            let newOption = new Option('Sucursal...','');
             sucur_select.add(newOption,undefined);
         }
         else{
@@ -124,33 +124,41 @@ document.getElementById('clientes').addEventListener("change",function (e) {
                     // console.log(s.id);
                 }                    
             )
-            
+         
         }
-        // if (index > 0) {
-        // }
-    
-})
+     
+        
+    })
 
 
     
 })
+/////////////////////////BUSQUEDA DE DOCUMENTOS
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
     let sucursal = document.getElementById('sucursal').value,
-        cliente = document.getElementById('clientes').value;
-
+        cliente = document.getElementById('clientes').value
+        folio = document.getElementById('folio').value,
+        fecha = document.querySelector('#fecha').value;
+    // fecha = String(fecha);
+    console.log(fecha);
+    // console.log(sucursal);
     // console.log(sucursal ?? null);
     // console.log(cliente ?? null);
     // console.log('XD ' ,num_cliente,' XD');
     const paramsSearch =  { 
-        contrato_servicio__sucursal: sucursal??'',
-        contrato_servicio__sucursal__cliente:cliente??''
+        contrato_servicio__sucursal: sucursal,
+        contrato_servicio__sucursal__cliente:cliente,
+        search : folio,
+        fecha_procesado__date:fecha
         }
+    
     Swal.fire({
         title: 'Buscando documentos procesados....',
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
             // getProcesedDocs();
+            console.log(paramsSearch);
             getProcesedDocs(paramsSearch);
             // getProcesedDocs();
 
@@ -167,7 +175,13 @@ function getProcesedDocs(paramsURL) {
     const url = new URL("http://localhost:8000/procesados/");
     // const params = { contrato_servicio: rutProveedor }
     const params = paramsURL;
+    // [...params.entries()].forEach(([key, value]) => {
+    //     if (!value) {
+    //       params.delete(key);
+    //     }
+    //   });
     url.search = new URLSearchParams(params).toString();
+    console.log(url.search);
 
     // const url = 'http://3.80.228.126/procesados/
     // const url = 'http://localhost:8000/procesados/';

@@ -20,7 +20,7 @@ class DocumentoFilter(FilterSet):
         model = Documento
         fields = {
                 # 'folio':['exact'],
-                'contrato_servicio__proveedor':['exact'],
+                'contrato_servicio__proveedor__rut_proveedor':['exact'],
                 'contrato_servicio__sucursal':['exact'],
                 'contrato_servicio__sucursal__cliente':['exact'],
                 'fecha_procesado':['date']
