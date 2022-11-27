@@ -97,8 +97,7 @@ function desactivarClient(id, estado){
 }
 
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-    let nom_cli = document.getElementById('clientes').value,
-        id_cli = document.getElementById('cliente').value;
+    let nom_cli = document.getElementById('clientes').value;
     if(nom_cli == ""){
             Swal.fire({
             title: 'Buscando Clientes....',
@@ -107,7 +106,6 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
                 Swal.showLoading()
                 // getProcesedDocs();
                 getClientes();
-                getSucursal();
                 // getProcesedDocs();
             },
     
@@ -150,10 +148,9 @@ function getSucursal(paramsURL) {
             const status_code = response.status;
             console.log("Codigo estado es: ", response.status);
 
-
+            
             swal.close()
-            const table = document.querySelector("#tbodySucursales");
-            table.innerHTML = '';
+
             if (status_code >= 400) {
                 Swal.fire({
                     icon: 'error',
