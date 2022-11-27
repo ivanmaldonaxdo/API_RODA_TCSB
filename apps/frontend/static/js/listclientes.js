@@ -150,7 +150,8 @@ function getSucursal(paramsURL) {
 
             
             swal.close()
-
+            const table = document.querySelector("#tbodyProcessed");
+            table.innerHTML = '';
             if (status_code >= 400) {
                 Swal.fire({
                     icon: 'error',
