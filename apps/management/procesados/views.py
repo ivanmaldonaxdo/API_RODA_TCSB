@@ -19,7 +19,7 @@ class DocumentoFilter(FilterSet):
     class Meta:
         model = Documento
         fields = {
-                'folio':['exact'],
+                # 'folio':['exact'],
                 'contrato_servicio__proveedor':['exact'],
                 'contrato_servicio__sucursal':['exact'],
                 'contrato_servicio__sucursal__cliente':['exact'],
