@@ -19,6 +19,10 @@ class IsRodaUser(BasePermission):
         if request.user.id is not None:#Validacion que el usuario no es un usuario anonimo
             return request.user.is_staff == True or request.user.role.id == 3
         
+class IsCron(BasePermission):
+    def has_permission(self, request, view):
+        if request.user.id is not None:#Validacion que el usuario no es un usuario anonimo
+            return request.user.is_staff == True or request.user.email == "usuariocron@gmail.com"
         
 
 class ClientesPermission(BasePermission):

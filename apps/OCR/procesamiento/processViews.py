@@ -21,9 +21,8 @@ from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 import sys
 from apps.permissions import  *
 
-# from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
-    permission_classes = (ProcessPermission,)
+    #permission_classes = (ProcessPermission,)
 
 
     docs = None
