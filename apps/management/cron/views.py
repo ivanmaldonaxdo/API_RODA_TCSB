@@ -14,7 +14,7 @@ from apps.permissions import *
 class StatusForCron(viewsets.GenericViewSet):
     serializer_class = CronSerializer
     model = ConfigCron
-    permission_classes = (CronPermission,)
+    #permission_classes = (CronPermission,)
 
     def get_queryset(self):
         queryset=ConfigCron.objects.all().first()
