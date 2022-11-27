@@ -2434,3 +2434,66 @@ a{
     padding-top: 25px;
     padding-bottom: 30px;
 }
+
+.content-select-proce select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+
+.content-select-proce select::-ms-expand {
+    display: none;
+}
+
+.content-select-proce {
+    width: 14em;
+    position: relative;
+    float: left;
+    padding-left: 15px;
+    margin: 20px;
+}
+
+.content-select-proce select {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 7px 10px;
+    height: 48px;
+    outline: 0;
+    border: 0;
+    border-radius: 0;
+    background: #f0f0f0;
+    color: #8e44ad;
+    font-size: 1.1em;
+    box-shadow: 0 0.4rem #dfd9d9;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.content-select-proce select:hover {
+    border: 2px solid #8e44ad;
+    border-radius: 12px;
+}
+
+.content-select-proce i {
+    padding-top: 15px;
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 13px);
+    width: 16px;
+    height: 16px;
+    display: block;
+    border-left: 4px solid #8e44ad;
+    border-bottom: 4px solid #8e44ad;
+    transform: rotate(-45deg);
+    /* Giramos el cuadrado */
+    transition: all 0.25s ease;
+}
+
+.content-select-proce:hover i {
+    margin-top: 3px;
+}
