@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from apps.management.models import Sucursal, Proveedor
 # Create your views here.
 
 @login_required
@@ -35,13 +36,14 @@ def modificarusuario(request):
 def listarusuarios(request):
     return render(request, 'frontend/listarusuarios.html')
 
+def servicio_cliente(request):
+    sucursales = Sucursal.objects.all()
+    proveedor = Proveedor.objects.all()
+    context = {'sucu': sucursales, 'prov':proveedor}
+    return render(request, 'frontend/contrato_servicio.html', context)
+
 def cron(request):
     return render(request, 'frontend/cron.html')
 
-
 def log(request):
     return render(request, 'frontend/log.html')
-
-def test(request):
-    return render(request, 'frontend/test.html')
-

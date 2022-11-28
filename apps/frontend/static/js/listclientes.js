@@ -194,7 +194,7 @@ function createRowDoc(doc)
         }
     }
 
-    let tdId = `<td class = "${clase}" name = "idclient" data-label="Idcliente">${doc.id}</td>`,
+    let tdId = `<td hidden class = "${clase}" name = "idclient" data-label="Idcliente">${doc.id}</td>`,
         tdNom = `<td class = "${clase}" name = "nomcli" data-label="nomcli">${doc.nom_cli}</td>`,
         tdRut = `<td class = "${clase}"  data-label="Email">${doc.rut_cliente}</td>`,
         tdRazon = `<td class = "${clase}" data-label="Razon">${doc.razon_social}`,
