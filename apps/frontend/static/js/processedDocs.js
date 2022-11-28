@@ -27,8 +27,6 @@ function setSucursales() {
     .then((response) => {
         const status_code = response.status;
         console.log("Codigo estado es: ", response.status);
-      
-    
         if (status_code >= 400 ){
             console.log( response.json().catch(err => console.error(err)));
         }
