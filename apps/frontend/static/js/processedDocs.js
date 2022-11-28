@@ -138,7 +138,8 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
     let sucursal = document.getElementById('sucursal').value,
         cliente = document.getElementById('clientes').value
         folio = document.getElementById('folio').value,
-        fecha = document.querySelector('#fecha').value;
+        fecha = document.querySelector('#fecha').value,
+        rut_emisor = document.getElementById("rut").value;
     // fecha = String(fecha);
     console.log(fecha);
     // console.log(sucursal);
@@ -149,7 +150,9 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
         contrato_servicio__sucursal: sucursal,
         contrato_servicio__sucursal__cliente:cliente,
         search : folio,
-        fecha_procesado__date:fecha
+        fecha_procesado__date:fecha,
+        contrato_servicio__proveedor__rut_proveedor :rut_emisor
+
         }
     
     Swal.fire({
