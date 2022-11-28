@@ -10,7 +10,7 @@ from apps.OCR.APIS.APIOpenKM import OpenKm
 from apps.OCR.APIS.AWS import subir_archivo,extraccionOCR
 from rest_framework import filters
 from django.db import connections
-from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema, cron
+from apps.management.models import Plantilla,Cliente,Sucursal,Documento,Sistema
 from django.db.models import Q
 import json
 import os

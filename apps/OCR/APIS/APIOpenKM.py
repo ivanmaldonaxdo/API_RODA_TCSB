@@ -125,7 +125,7 @@ class OpenKm():
         try:
             proceso_ocr = metadata.get('proceso_ocr')
             is_processed = (False if proceso_ocr == "" or str(proceso_ocr).endswith("TAG ERROR") else True)
-            print("tag error  ? ", str(proceso_ocr).endswith("TAG ERROR"))
+            # print("tag error  ? ", str(proceso_ocr).endswith("TAG ERROR"))
         except:
             print("PROBLEMAS PARA ACCEDER A ESA PROPIEDAD")
         return is_processed
