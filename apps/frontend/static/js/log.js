@@ -59,7 +59,8 @@ function getLogs() {
             }
             else {
                 response.json().then(docs => {
-                    Array.isArray(docs) ? docs.map(doc =>Array.from(doc.results).map(d=>createRowDoc(d))) : createRowDoc(docs);
+                    logs = docs.results
+                    Array.isArray(logs) ? logs.map(doc => createRowDoc(doc)) : createRowDoc(logs);                
                 })
 
             }

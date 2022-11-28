@@ -139,7 +139,7 @@ function getUsuarios() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'No se han encontrado documentos..',
+                    text: 'No se han encontrado usuarios..',
                     showConfirmButton: false,
                     timer: 2000
                 })
@@ -163,6 +163,7 @@ function createRowDoc(doc)
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
+    console.log(doc)
 
     let btnModificar = `<button id = "idmodificar" class="${cssButton}" type="button" onclick = "btngetid(this)"> Modificar</button>`;
     let hrefModificar = `<a href = "http://localhost:8000/Modificarusuario/">${btnModificar}</a>`;
