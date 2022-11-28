@@ -178,11 +178,6 @@ function getProcesedDocs(paramsURL) {
     const url = new URL("http://localhost:8000/procesados/");
     // const params = { contrato_servicio: rutProveedor }
     const params = paramsURL;
-    // [...params.entries()].forEach(([key, value]) => {
-    //     if (!value) {
-    //       params.delete(key);
-    //     }
-    //   });
     url.search = new URLSearchParams(params).toString();
     console.log(url.search);
 
