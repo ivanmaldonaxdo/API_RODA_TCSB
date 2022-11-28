@@ -283,30 +283,31 @@ function processDocs(indexRow, documento) {
     .then((response) => {
         response.json().then(content => {
             const status_code = response.status;
+            // if(!processGlobal){
+               
 
-            if(!processGlobal){
-                // swal.close()
-                if (status_code >= 400) {
-                    // console.log( response.json().catch(err => console.error(err)));
-                    Swal.fire({
-                        // position: 'top-end',
-                        icon: 'error',
-                        title: 'Tuvimos problemas para procesar este archivo',
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                } else {
-                    Swal.fire({
-                        // position: 'top-end',
-                        icon: 'success',
-                        title: 'Documento procesado con éxito',
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                    // deleteRow(indexRow);
-                }
-
+                // }
+            swal.close()
+            if (status_code >= 400) {
+                // console.log( response.json().catch(err => console.error(err)));
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'error',
+                    title: 'Tuvimos problemas para procesar este archivo',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            } else {
+                Swal.fire({
+                    // position: 'top-end',
+                    icon: 'success',
+                    title: 'Documento procesado con éxito',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                deleteRow(indexRow);
             }
+            
 
             console.log("Contenido adquirido");
             return content;
@@ -315,7 +316,7 @@ function processDocs(indexRow, documento) {
             console.log('caught it!', err);
         });
     });
-    swal.close()
+    // swal.close()
 
 }
 
@@ -370,6 +371,12 @@ function deleteRow(indexRow) {
     document.getElementById("tableProcesados").deleteRow(indexRow);
     console.log("FILA ELIMINADA GG");
 }
+
+function lockButon(indexRow) {
+    const btn = document.getElementsByName("process-doc").item(indexRow);
+    btn.disabled = true
+    
+}
 function processAllTable() {
     $('table > tbody > tr').each(function(indexRow, tr) {
 
@@ -395,6 +402,8 @@ function processAllTable() {
         // console. log(index);
         // console. log(tr);
     });
+    // clearTable();
+
 }
 // function processAllTable() {
 //     Swal.fire({
@@ -434,6 +443,7 @@ document.getElementById('processAllDocs').addEventListener("click",
         e.preventDefault();
         e.stopImmediatePropagation();
         processAllTable();
+        
         // swal.close();
 
     }
