@@ -1,0 +1,68 @@
+{% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
+
+
+<div class="bk-listar">
+    <div class="container-form-listar">
+        <h1 class="centrado">Listar sucursales</h1>
+        <div class="inputs-form-inicio">
+
+            <form action="">
+                <div class="input-wrapper">
+                    <input class="input" id="clientes" name="text" placeholder="sucursales" type="text">
+                </div>
+
+                <button id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
+            </form>
+
+        </div>
+
+        <div class="container-table">
+            <div class="table-responsive">
+
+                <div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                            <tr>
+                                {% comment %}
+                                <th>#</th> {% endcomment %}
+                                <th class="centrado">Id Cliente</th>
+                                <th class="centrado">Nombre</th>
+                                <th class="centrado">Rut Cliente</th>
+                                <th class="centrado">Razon social</th>
+                                <th class="centrado">Estado</th>
+                                <th class="centrado">Modificar Info</th>
+                                <th class="centrado">Modificar Estado</th>
+
+                                {% comment %}
+                                <th>Rut cliente</th> {% endcomment %}
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tbl-content">
+                    <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                        <tbody id="tbodyProcessed">
+                            {% comment %}
+                            <tr>
+                                <td>AAC</td>
+                                <td>AUSTRALIAN COMPANY </td>
+                                <td>$1.38</td>
+                                <td>+2.01</td>
+                                <td>-0.36%</td>
+                            </tr> {% endcomment %} {% comment %}
+                            <td class="centrado"> 1 </td> {% endcomment %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Modal para realizar los comentarios-->
+        <!--<script type="text/javascript" src="{% static 'js/modal.js' %}"></script> -->
+        <script type="text/javascript" src="{% static 'js/sucursales.js' %}"></script>
+
+
+
+
+        {% endblock %}

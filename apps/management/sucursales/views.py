@@ -83,8 +83,8 @@ class SucursalesViewSets(viewsets.GenericViewSet):
                 'message': 'Sucursal actualizada correctamente'
             }, status=status.HTTP_201_CREATED)
         return Response({
-             'message':'Error en la actualizacion',
-             'errors': serializer.errors
+                'message':'Error en la actualizacion',
+                'errors': serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
 
 
@@ -97,8 +97,6 @@ class SucursalesViewSets(viewsets.GenericViewSet):
             'message': 'Sucursal Eliminada'
         }, status=status.HTTP_200_OK)
         
-
- 
 
 class Contrato(viewsets.GenericViewSet):
     serializer_class = ContratoServiciosSerializer
