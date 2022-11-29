@@ -23,4 +23,5 @@ urlpatterns = [
     path('listarSucursales/', listarSucursales , name="listarSucursales"),
     path('registro-Sucursales/', Sucursales , name="Sucursales"),
     # path('test/', test, name='test')
+    path('get_client/', get_client , name="get_client"),
 ]
