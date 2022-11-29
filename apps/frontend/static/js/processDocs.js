@@ -73,6 +73,8 @@ document.getElementById("searchDocs").addEventListener('click', function (e) {
     e.stopImmediatePropagation();
 })
 
+
+
 function numberRange(start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
 }

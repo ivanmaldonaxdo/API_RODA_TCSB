@@ -10,7 +10,7 @@
 
                 <form action="">
                     <div class="input-wrapper">
-                        <input class="input" name="text" placeholder="Cliente" type="text">
+                        <input class="input" id="clientes" name="text" placeholder="Cliente" type="text">
                     </div>
                         
                     <button  id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
@@ -26,11 +26,13 @@
                           <thead>
                             <tr>
                                 {% comment %} <th >#</th> {% endcomment %}
-                                
+                                <th hidden class="centrado">Id Cliente</th>
                                 <th class="centrado">Nombre</th>
                                 <th class="centrado">Rut Cliente</th>
                                 <th class="centrado">Razon social</th>
                                 <th class="centrado">Estado</th>
+                                <th class="centrado">Modificar Info</th>
+                                <th class="centrado">Modificar Estado</th>
 
                                 {% comment %} <th >Rut cliente</th> {% endcomment %}
                             </tr>
@@ -55,97 +57,9 @@
             </div>
 
 
-            <h2 class="centrado pad-top">Visualización de Sucursales </h2>
-            <div class="container-table">
-                <div class="table-responsive">
-                            
-                    <div class="tbl-header">
-                        <table cellpadding="0" cellspacing="0" border="0">
-                            <thead>
-                                <tr>
-                                    {% comment %} <th >#</th> {% endcomment %}
-                                    <th class="centrado">Nombre sucursal</th>
-                                    {% comment %} <th class="centrado">Sucursal</th> {% endcomment %}
-                                    <th class="centrado">Direccion</th>
-                                    <th class="centrado">Comuna</th>
-                                    <th class="centrado">Contrato</th>
-
-                                    {% comment %} <th >Rut cliente</th> {% endcomment %}
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="tbl-content">
-                        <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                            <tbody id = "tbodySucursales">
-                                {% comment %} <tr>
-                                            <td>AAC</td>
-                                            <td>AUSTRALIAN COMPANY </td>
-                                            <td>$1.38</td>
-                                            <td>+2.01</td>
-                                            <td>-0.36%</td>
-                                </tr> {% endcomment %}
-                                                                
-                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
-        
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-        <div class="modal-container">
-                
-            <div class="amodal modal-close">
-                <p class="close">X</p>
-                <div class="modal-texto">
-                    <h2>Registrar contrato de servicio </h2>
-                    <form class="detalleform" action="" method="post">
-
-                        <div class="grupo">
-                            <label>Sucursal</label>
-                                
-                            <input id = ""class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                        </div>
-
-                        <div class="grupo">
-                            <label>Proveedor</label>
-                                
-                            <input id = ""class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                        </div>
-                        <div class="grupo">
-                            <label>Numero Cliente</label>
-                                
-                            <input id = ""class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                        </div>
-                        <button>Registrar</button>
-                            
-                    </form> 
-
-                </div>
-            </div>
-            
-        </div>
-
 <!--Modal para realizar los comentarios-->   
     <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
-
-
-
-    <script type="text/javascript" src="{% static 'js/processedDocs.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/inicio.js' %}"></script>
-
+    <script type="text/javascript" src="{% static 'js/listclientes.js' %}"></script>
 
     
 {% endblock %}

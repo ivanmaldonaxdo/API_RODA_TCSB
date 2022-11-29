@@ -50,7 +50,7 @@ class UserViewSet(viewsets.GenericViewSet):
     #http://localhost:8000/usuarios/?is_active=True
 
     def list(self, request): #Listado de usuario
-        query = self.get_queryset()
+        query = self.get_queryset().order_by('-id')
         if query:
             serializer = UserSerializer(query, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
