@@ -56,3 +56,8 @@ def proveedores(request):
     context = {'serv': servicio}
     return render(request, 'frontend/proveedores.html', context)
 
+def Sucursales(request):
+    return render(request, 'frontend/sucursales.html')
+
+def listarSucursales(request):
+    return render(request, 'frontend/listarSucursales.html')

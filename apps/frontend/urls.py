@@ -2,7 +2,7 @@
 from django.urls import path
 from .views import *
 
-from .views import login,homeinfo,processDocs,test
+# from .views import login,homeinfo,processDocs
 
 urlpatterns = [
     path('process/', processDocs, name="process"),
@@ -22,5 +22,5 @@ urlpatterns = [
     path('log/',log, name="log"),
     path('listarSucursales/', listarSucursales , name="listarSucursales"),
     path('registro-Sucursales/', Sucursales , name="Sucursales"),
-    path('test/', test, name='test')
+    # path('test/', test, name='test')
 ]
