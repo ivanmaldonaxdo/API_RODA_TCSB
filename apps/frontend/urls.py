@@ -29,6 +29,9 @@ urlpatterns = [
     path('listarplantillas/', listarplantillas , name="listarlistarplantillas"),
     path('registrarplantilla/', plantillas , name="registrarplantilla"),
     path('modificarplantilla/', modificarplantilla , name="modificarplantilla"),
+    
+    path('listarproveedores/', listarproveedores , name="listarproveedores"),
+    path('registrarproveedores/', registrarproveedores , name="registrarproveedores"),
     path('test/', test, name='test'),
     path('get_client/', get_client , name="get_client"),
 ]

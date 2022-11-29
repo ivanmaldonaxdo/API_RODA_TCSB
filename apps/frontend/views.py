@@ -81,6 +81,12 @@ def plantillas(request):
 def modificarplantilla(request):
     return render(request,'frontend/modificarplantilla.html')
 
+def listarproveedores(request):
+    return render(request,'frontend/listarproveedores.html')
+
+def registrarproveedores(request):
+    return render(request,'frontend/registrarproveedores.html')
+
 def get_client(request):
     q_cliente = request.GET.get('id_cli',None)
     print(q_cliente)
