@@ -102,6 +102,7 @@ document.getElementById('clientes').addEventListener("change",function (e) {
     e.stopImmediatePropagation();
     let cli_selected = document.getElementById('clientes').value;
     console.log(cli_selected);
+
     setDataSucur(cli_selected).then(sucursales => {
         let sucur_select = document.querySelector('#sucursal');
         let index = document.getElementById('clientes').selectedIndex;
@@ -154,7 +155,7 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
         }
     
     Swal.fire({
-        title: 'Buscando documentos procesados en cron ',
+        title: 'Buscando documentos procesados....',
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
@@ -250,6 +251,27 @@ function clearTable(){
     table.innerHTML = '';
 }
 
+function pasarIdCli(idCli) {
+    $.ajax({
+        type: "GET",
+        url: '/get_client',
+        data: {
+            "id_cli": idCli,
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            // any process in data
+            // alert("successfull")
+        },
+        failure: function () {
+            console.log("fallo");
+            // alert("failure");
+        }
+    });
+    
+}
 //referencias js
 //https://stackoverflow.com/questions/68933909/how-to-pass-hidden-field-in-table-and-return-the-value-in-jquery-on-tr-click
 //https://bobbyhadz.com/blog/javascript-map-is-not-a-function#:~:text=The%20"TypeError%3A%20map%20is%20not,of%20how%20the%20error%20occurs.
+

@@ -122,8 +122,7 @@ DATABASES = {
         'NAME': 'dfosmic3vq03p9',
         'USER': 'xvnkiwgepmxbmi',
         'PASSWORD':'0a8cfa127ba4dec9ccc58e39d6d990fa995cad63a47c2442130c3c1abe1e8f56',
-        'HOST':'ec2-52-205-98-159.compute-1.amazonaws.com',
-        'PORT':'5432'
+        'HOST':'ec2-52-205-98-159.compute-1.amazonaws.com'
     }
 }
 

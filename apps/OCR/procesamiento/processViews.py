@@ -169,7 +169,7 @@ class OpenKMViewSet(ViewSet):
                     error = "No hay plantillas relacionadas a proveedor con rut {}" .format(rut_proveedor)
                 elif str(e) =="Cliente matching query does not exist.":
                     error = "No exite algun cliente relacionado al rut {}" .format(rut_client)
-                elif str(e) ==" 'NoneType' object has no attribute 'get' ":
+                elif str(e) =="'NoneType' object has no attribute 'get'":
                     error = "No exiten plantilla de Queries o Nro Cliente no encontrado" 
                 else:
                     error = str(e)

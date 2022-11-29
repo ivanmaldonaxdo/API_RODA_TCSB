@@ -2,8 +2,9 @@
 from django.urls import path
 from .views import Sucursales, listarSucursales, listarplantillas, login,homeinfo, modificarSucursales, plantillas,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log
 from .views import Sucursales, listarSucursales, login,homeinfo,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log, servicio_cliente
+from .views import *
 
-from .views import login,homeinfo,processDocs,test
+# from .views import login,homeinfo,processDocs
 
 urlpatterns = [
     path('process/', processDocs, name="process"),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('registrar-usuarios/', Usuarios, name="Usuarios"),
     path('Modificarusuario/', modificarusuario, name="modificarusuario"),
     path('registrarcontrato/', servicio_cliente, name="registrarcontrato"),
+    path('registrarproveedor/', proveedores, name="proveedores"),
     path('listarusuarios/', listarusuarios, name="listarusuarios"),
     path('cronn/', cron, name="cron"),
     path('log/',log, name="log"),
@@ -27,4 +29,6 @@ urlpatterns = [
     path('registrarplantilla/', plantillas , name="registrarplantilla"),
     #path('modificarplantilla/', registrarplantilla , name="plantilla"),
     path('test/', test, name='test')
+    # path('test/', test, name='test')
+    path('get_client/', get_client , name="get_client"),
 ]
