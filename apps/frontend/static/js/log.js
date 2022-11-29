@@ -77,16 +77,13 @@ function createRowDoc(doc)
     let body = '';
     let clase = "centrado";
 
-    let tdId = `<td class = "${clase}" name = "idlog" data-label="idlog">${doc.id}</td>`,
-        tdIdUsu = `<td class = "${clase}"  data-label="iduser">${doc.id_user}</td>`,
-        tdApi = `<td class = "${clase}" data-label="api">${doc.api}`,
-        tdCli = `<td class = "${clase}" name="cliente" data-label="cliente">${doc.cliente}</td>`,
-        tdPay = `<td class = "${clase}" name="payload" data-label="payload">${doc.payload}</td>`,
-        tdSta = `<td class = "${clase}" name="status" data-label="status">${doc.status_code}</td>`,
-        tdFch = `<td class = "${clase}" name="fechahora" data-label="fechahora">${doc.fecha_hora}</td>`,
-        tdRes = `<td class = "${clase}" name="response" data-label="response">${doc.response}</td>`;
+    let tdId = `<td class = "${clase}" name = "idlog" data-label="ID log">${doc.id}</td>`,
+        tdIdUsu = `<td class = "${clase}"  data-label="ID usuario">${doc.id_user}</td>`,
+        tdCli = `<td class = "${clase}" data-label="Cliente">${doc.cliente}</td>`,
+        tdSta = `<td class = "${clase}" data-label="Status code">${doc.status_code}</td>`,
+        tdFch = `<td class = "${clase}" data-label="Fecha">${doc.fecha}</td>`;
 
-    body += `<tr">${tdId}${tdIdUsu}${tdApi}${tdCli}${tdPay}${tdSta}${tdFch}${tdRes}</tr>`;
+    body += `<tr">${tdId}${tdIdUsu}${tdCli}${tdSta}${tdFch}</tr>`;
     tbody.innerHTML += body;
      
 }
