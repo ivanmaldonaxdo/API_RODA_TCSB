@@ -51,19 +51,8 @@ def cron(request):
 def log(request):
     return render(request, 'frontend/log.html')
 
-<<<<<<< HEAD
 def proveedores(request):
     servicio = Servicio.objects.all()
     context = {'serv': servicio}
     return render(request, 'frontend/proveedores.html', context)
 
-=======
-def test(request):
-    return render(request, 'frontend/test.html')
-
-def listarSucursales(request):
-    return render(request, 'frontend/listarSucursales.html')
-
-def Sucursales(request):
-    return render(request, 'frontend/Sucursales.html')
->>>>>>> 4a83e8ef60581ee4b555a8df556f7ca9c97b4dae

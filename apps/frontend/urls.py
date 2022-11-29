@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import Sucursales, listarSucursales, login,homeinfo,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log, servicio_cliente
+from .views import *
 
 from .views import login,homeinfo,processDocs,test
 
