@@ -14,7 +14,7 @@ from apps.permissions import *
 class StatusForCron(viewsets.GenericViewSet):
     serializer_class = CronSerializer
     model = ConfigCron
-    #permission_classes = (CronPermission,)
+    permission_classes = [CronPermission|IsAdministrador|IsOperador]
 
     def get_queryset(self):
         queryset=ConfigCron.objects.all().first()
@@ -25,6 +25,13 @@ class StatusForCron(viewsets.GenericViewSet):
             return get_object_or_404(self.serializer_class.Meta.model, pk=pk)
         except self.model.DoesNotExist:
             raise Http404
+
+    
+    @action(detail=False, methods=['get'])
+    def get_cron_params(self, request): #Detalle de un usuario
+        cron = self.get_object(1)
+        cron_serializer = self.serializer_class(cron)
+        return Response(cron_serializer.data, status=status.HTTP_200_OK)
 
     #http://localhost:8000/cron/actualizar_parametros_cron/
     @action(detail=False, methods=['post'])

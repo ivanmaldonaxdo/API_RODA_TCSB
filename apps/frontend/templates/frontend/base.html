@@ -125,7 +125,6 @@
                    <a  href="#" data-toggle="sub-menu">Cliente <i class="plus"></i></a>
                    <ul class="sub-menu">
                        <li class="menu-item"><a href="{% url 'Cliente' %}">Registro</a></li>
-                       <li class="menu-item"><a href="{% url 'modificarcliente' %}">Modificación</a></li>
                        <li class="menu-item"><a href="{% url 'listarcliente' %}">Listar</a></li>
                    </ul>
                 </li>
@@ -168,8 +167,8 @@
                     <h2>Registro de credenciales </h2>
                     <form action="" class="cre-form">
                         <label for="">Crendenciales</label>
-                        <input type="file">
-                        <button class="btn-registrar">Registrar</button>
+                        <input type="file" id="cred">
+                        <button id="registrarCred" class="btn-registrar">Actualizar credenciales</button>
                     </form>
 
                 </div>

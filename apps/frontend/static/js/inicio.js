@@ -19,7 +19,7 @@ var csrftoken = getCookie('csrftoken');
 function load(){
     setUsuarios()
     setClientes()
-    setSucursales()
+    // setSucursales()
     setBoletas()
 }
 load()
@@ -43,19 +43,18 @@ function setSucursales() {
             console.log( response.json().catch(err => console.error(err)));
         }
         else {
-            // let sucur_select = document.querySelector('#sucursal');
             response.json().then(sucursales => {
-                // console.log(Array.from(sucursales).length);
                 document.getElementById("totalSucur").textContent = Array.from(sucursales).length;
                 // Array.from(sucursales).length()
-                Array.from(sucursales).map(sucur => 
-                    {
-                        createRowSucur(sucur);
-                        // let newOption = new Option(s.nom_sucursal,s.id);
-                        // sucur_select.add(newOption,undefined);
-                        // console.log(s.id);
-                    }                    
-                )
+                // Array.from(sucursales).map(sucur => 
+                //     {
+                //         createRowSucur(sucur);
+                //         // let newOption = new Option(s.nom_sucursal,s.id);
+                //         // sucur_select.add(newOption,undefined);
+                //         // console.log(s.id);
+                //     }                    
+                
+                // )
             })
         }
      });

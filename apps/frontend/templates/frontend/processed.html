@@ -15,14 +15,16 @@
                     <form action="">
 
                         <div class="form-log">
-                            <input class="input" name ="" id="" placeholder="Folio" type="search">
+                            <input class="input" name ="" id="folio" placeholder="Folio" type="search">
                         </div>
 
                         <div class="form-log">
-                            <input class="input" name ="" id="" placeholder="fecha" type="date">
+                            <input class="input" name ="" id="fecha" placeholder="fecha" type="date">
                         </div>
-
-
+                        
+                        <div class="form-log">
+                            <input class="input" name ="" id="rut" placeholder="Rut Emisor" type="search">
+                        </div>
                         <div class="content-select-proce">
                             <select id="clientes">
                                 <option value selected>Cliente...</option>
@@ -31,14 +33,15 @@
                             </select>
                             <i></i>
                         </div>
-                        <div class="content-select-proce">
+
+                        {% comment %} <div class="content-select-proce">
                             <select id="">
                                 <option value selected>Proveedor...</option>
-                                {% comment %} <option value="1">1</option>
-                                <option value="2">2</option> {% endcomment %}
+                                
+                    
                             </select>
                             <i></i>
-                        </div>
+                        </div> {% endcomment %}
 
 
                         <div class="content-select-proce">
@@ -49,6 +52,8 @@
                             </select>
                             <i></i>
                         </div>
+
+                        <br>
                         <button  id="buscarDocs" type="submit" class="btn-registrar">Buscar</button>
                     </form>
     

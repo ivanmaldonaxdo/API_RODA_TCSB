@@ -20,20 +20,19 @@ from django.forms.models import model_to_dict
 from rut_chile.rut_chile import is_valid_rut, format_rut_without_dots
 import sys
 from apps.permissions import  *
+from datetime import datetime
 
-# from apps.users.authentication import ExpiringTokenAuthentication
 class OpenKMViewSet(ViewSet):
-    permission_classes = (ProcessPermission,)
+    permission_classes = [IsAdministrador|IsOperador|IsCron]
 
 
     docs = None
-    openkm = OpenKm('usrocr', 'j2X7^1IwI^cn','http://65.21.188.116:8080/OpenKM/services/rest/')
     def format_filtros(self,filtros):
         for k,v in filtros.items():
             if k not in ['dia_doc','anio_doc','mes_doc']:
                 if v == "":
                     filtros[k] = None
-        print("Filtros {} -".format(filtros))
+        # print("Filtros {} -".format(filtros))
         return filtros
 
     @action(detail=False,methods = ['POST'],url_name="search_docs")
@@ -44,14 +43,21 @@ class OpenKMViewSet(ViewSet):
         openkm = self.openkm_creds()
         # print("OPKM OBJECT ", openkm.auth_creds.password)
         filtros = self.format_filtros(filtros)
-        print("Filtros Search Docs")
-        print(filtros)
+        # print("Filtros Search Docs")
+        # print(filtros)
         anio = None
         mes = None
         dia = None
+        fecha = str(filtros.get("fecha"))
+        print(fecha)
+
         try:
-            print(str(filtros.get("fecha")).split("-"))
+            # fecha = str(filtros.get("fecha"))
+            # fecha = str(datetime.strptime(fecha,  '%m/%d/%y'))
+            # print(fecha)
+            # print(str(filtros.get("fecha")).split("-"))
             anio,mes,dia = str(filtros.get("fecha")).split("-")
+            anio,mes,dia = anio,int(mes),int(dia)
         except:
             print("No Fechita")
         docs = openkm.search_docs(
@@ -65,8 +71,6 @@ class OpenKMViewSet(ViewSet):
             # dia = filtros.get('dia'),
             # mes = filtros.get('mes'),
             # anio = filtros.get('anio')
-
-            
         )
         # {"message: Data encontrada"},
         if docs:
@@ -179,40 +183,6 @@ class OpenKMViewSet(ViewSet):
             }, status= status.HTTP_404_NOT_FOUND)
 
 #region Description
-    @action(detail=False,methods = ['GET'],url_name = "probar_creds") 
-    def probar_creds(self,request):
-        credenciales = self.credenciales()
-        # openkm_cred = credenciales.
-        print("")
-        print("credenciales  ",credenciales)
-
-        # print("openkm ",openkm_cred)
-        # print()
-        # sis.get("")
-        return Response({
-                'message':'Creds'
-            }, status=status.HTTP_200_OK,headers=None)
-
-
-
-    @action(detail=False,methods = ['POST'],url_name="process_by_servicio")
-    def process_by_servicio (self,request):
-        filtros = dict(request.data)
-        # diction = {}
-        openkm = self.openkm_creds()
-        # print("OPKM OBJECT ", openkm.auth_creds.password)
-        docs = openkm.search_docs(
-            _serv = filtros.get('tipo_servicio')
-        )
-        # {"message: Data encontrada"},
-        if docs:
-            print("HAY ARCHIVOS")
-            return Response(data = docs, status=status.HTTP_200_OK)
-        else:   
-            return Response({
-                'message':'La busqueda no coincide con ningun documento',
-            }, status= status.HTTP_404_NOT_FOUND)
-
     ######## ESTA FUNCION EXTRAE LAS CREDENCIALES DE OPENKM Y ADEMAS INSTANCIA A LA CLASE APIOpenKM   
     def openkm_creds(self):
         creds = self.credenciales()

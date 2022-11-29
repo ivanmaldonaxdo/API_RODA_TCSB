@@ -15,7 +15,7 @@ function getCookie(cname) {
 }
 var csrftoken = getCookie('csrftoken');
 ////////
-
+let processGlobal = false;
 document.getElementById("searchDocs").addEventListener('click', function (e) {
 
     let folio = document.getElementById("folio").value,
@@ -34,6 +34,8 @@ document.getElementById("searchDocs").addEventListener('click', function (e) {
     //     mes = isVacio ? null : list_fecha[1],
     //     anio = isVacio  ? null: list_fecha[2];
     // console.log(dia," ",mes," ",anio);
+    // if (servicio == "Tipo de servicio" && folio == "" && isVacio)  {
+
     if (servicio == "Tipo de servicio" && folio == "" && isVacio)  {
         console.log("NADA DE INFO");
         Swal.fire({
@@ -70,6 +72,8 @@ document.getElementById("searchDocs").addEventListener('click', function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 })
+
+
 
 function numberRange(start, end) {
     return new Array(end - start).fill().map((d, i) => i + start);
@@ -166,17 +170,15 @@ function btndetalleDocs(elem){
     setValueByID("mdNomDoc",getValueElement('nomDoc',indexRow));
     setValueByID("mdFechaEmi",getValueElement('fechaEmi',indexRow));
     setValueByID("mdRutEmi",rut_prov);
-    // tdRutReceptor
-    getDataClient(rut_cli).then(
-        client => Array.isArray(client) ? setValueByID( "mdNomCli", client.map(cli=> cli.nom_cli)) : client.nom_cli
-    )
+    // tdRutReceptor mdProcesoOCR
+    setValueByID("mdProcesoOCR", getValueElement('procOCR',indexRow) )
+    // getDataClient(rut_cli).then(
+    //     client => Array.isArray(client) ? setValueByID( "mdNomCli", client.map(cli=> cli.nom_cli)) : client.nom_cli
+    // )
     // getDataProv(rut_prov).then(
     //     prov =>  prov.map(prv=> console.log(prv.nom_proveedor))
     //              // prov => Array.isArray(prov) ? setValueByID("mdNomProv",prov.map(prv=> prv.nom_proveedor)) : prov.nom_proveedor
     // )
-    // console.log(client);
-    // console.log("Cliente is ", cliente);
-    // setValueID("mdFolio",getValueElement("tdFolio",indexRow));
     modalc.style.opacity = "1";
     modalc.style.visibility = "visible";
     modal.classList.toggle("modal-close");
@@ -281,6 +283,10 @@ function processDocs(indexRow, documento) {
     .then((response) => {
         response.json().then(content => {
             const status_code = response.status;
+            // if(!processGlobal){
+               
+
+                // }
             swal.close()
             if (status_code >= 400) {
                 // console.log( response.json().catch(err => console.error(err)));
@@ -289,7 +295,7 @@ function processDocs(indexRow, documento) {
                     icon: 'error',
                     title: 'Tuvimos problemas para procesar este archivo',
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 1000
                 })
             } else {
                 Swal.fire({
@@ -297,11 +303,12 @@ function processDocs(indexRow, documento) {
                     icon: 'success',
                     title: 'Documento procesado con éxito',
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 1000
                 })
                 deleteRow(indexRow);
-
             }
+            
+
             console.log("Contenido adquirido");
             return content;
         })
@@ -309,6 +316,8 @@ function processDocs(indexRow, documento) {
             console.log('caught it!', err);
         });
     });
+    // swal.close()
+
 }
 
 
@@ -327,11 +336,12 @@ function createRowDoc(doc, event) {
     let btnProcesar = `<button id = 'process-doc' class="${cssButton}" type = 'button' name="process-doc" onclick = "btnProcessDocs(this)">Procesar</button>`,
         btnDetalle = `<button id = 'detalleDoc' class="${cssButton}" type = 'button' name="detalleDoc" onclick = "btndetalleDocs(this)">Detalle</button>`,
         btnFechaEmi = `<input type="hidden" id = "fechaEmi" name="fechaEmi" value="${fechaEmi}"/>`,
-        btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`;
+        btn_RutEmi = `<input type="hidden" id = "RutEmi" name="RutEmi" value="${doc.rut_emisor}"/>`,
+        btn_procOCR = `<input type="hidden" id = "procOCR" name="procOCR" value="${doc.proceso_ocr}"/>`;
 
     // let button = `<button id = 'process-doc' class="${cssButton}" type = 'button' onclick ="downloadDocs(this)">Procesar</button>`;
     //////////// FORMS PARA BOTONES
-    let form_detalle = `<form action="">${btnDetalle}${btnFechaEmi}${btn_RutEmi}</form>`;
+    let form_detalle = `<form action="">${btnDetalle}${btnFechaEmi}${btn_RutEmi}${btn_procOCR}</form>`;
     let form_procesar = `<form action="">${btn_uuid}${btn_nomDoc}${btn_RutRecep}${btnProcesar}</form>`;
 
 
@@ -361,6 +371,12 @@ function deleteRow(indexRow) {
     document.getElementById("tableProcesados").deleteRow(indexRow);
     console.log("FILA ELIMINADA GG");
 }
+
+function lockButon(indexRow) {
+    const btn = document.getElementsByName("process-doc").item(indexRow);
+    btn.disabled = true
+    
+}
 function processAllTable() {
     $('table > tbody > tr').each(function(indexRow, tr) {
 
@@ -375,24 +391,61 @@ function processAllTable() {
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading()
-                console.log(documento);
-                // contenido = processDocs(indexRow, documento);
+                // console.log(documento);
+                contenido = processDocs(indexRow, documento);
                 // console.log(contenido);            
             },
     
         })
-        swal.close()
+        // swal.close()
 
         // console. log(index);
         // console. log(tr);
     });
-}
+    // clearTable();
 
+}
+// function processAllTable() {
+//     Swal.fire({
+//         title: 'Procesando documentos....',
+//         timerProgressBar: true,
+//         didOpen: () => {
+//             Swal.showLoading()
+//             console.log(documento);
+//             let i = 0
+//             $('table > tbody > tr').each(function(indexRow, tr) {
+//                 i++;
+      
+//                 const documento = {
+//                     uuid: getValueElement('uuid', indexRow),
+//                     nomDoc: getValueElement('nomDoc', indexRow),
+//                     rut_emisor: getValueElement('RutEmi', indexRow),
+//                     rut_client: getTextElement('tdRutCli', indexRow)
+//                 };
+//                 console.log(documento);
+//                 contenido = processDocs(indexRow, documento);
+//                 console.log(i);
+                
+//                 console. log(index);
+//                 console. log(tr);
+//             });
+            
+//             console.log(contenido);            
+//         },
+        
+//     })
+
+   
+// }
 document.getElementById('processAllDocs').addEventListener("click",
     function (e) {
+        processGlobal = true;
         e.preventDefault();
         e.stopImmediatePropagation();
         processAllTable();
+        
+        // swal.close();
+
     }
 
 

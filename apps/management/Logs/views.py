@@ -25,13 +25,13 @@ class LogFilter(FilterSet):
         }
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 20
+    page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 10000
 
 
 class LogViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdministrador]
+    permission_classes = [IsAdministrador|IsOperador]
     serializer_class = LogSerializer
     
     model = LogSistema
@@ -39,7 +39,6 @@ class LogViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = LogFilter.Meta.fields
     pagination_class = StandardResultsSetPagination
-    permission_classes = (IsAdministrador,IsOperador,)
 
     def get_queryset(self):
         return LogSistema.objects.all().order_by('-id')

@@ -62,9 +62,9 @@ class LogRestMiddleware:
                 )
                 if url_name == 'search_docs-process_docs' and data['status_code'] == 200:
                     document = Documento.objects.get(id=response_body["DocID"])
-                    sucursal = document.contrato_servicio.sucursal
+                    sucursal = document.contrato_servicio
                     # sucursal = contrato.sucursal.rut_sucursal
-                    data['cliente'] = sucursal.rut_sucursal
+                    data['cliente'] = sucursal.num_cliente
 
                 # create instance of model
                 m = LogSistema(**data)
@@ -79,8 +79,6 @@ class LogRestMiddleware:
                 if url_name == 'search_docs-process_docs' and m.status_code != 200:
                     openkm = procesamiento.openkm_creds()
                     uuid= response_body["uuid"]
-                    codigo = str(m.id) + " TAG ERROR"
-                    openkm.set_metadata_processed(uuid,codigo)
         else:
             return response
 
