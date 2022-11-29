@@ -2248,21 +2248,74 @@ a{
         width: 30em;
         
     }
-    .container-actu-cron{
+    /* .container-actu-cron{
         width: 25em;
-    }
-    .a{
+    } */
+    /* .a{
         padding-left: 2em;
-    }
-    .containercron1{
+    } */
+    /* .containercron1{
       
         padding-left: 0.1em;
 
+    } */
+        
+
+}
+
+
+@media screen and (max-width:501px) {
+
+
+    .container-tablacron2{
+        width: 25em;
+       margin-left: 45px;
+        
+    }
+    /* .container-actu-cron{
+        width: 10em;
+    } */
+    /* .a{
+        margin-left: -25px;
+    }
+    */
+    
+    .container-tablacron2 textarea{
+        width: 25em;
+    
+        
     }
         
 
 }
 
+@media screen and (max-width:461px) {
+
+
+    .container-tablacron2{
+        width: 20em;
+       margin-left: 25px;
+        
+    }
+    /* .container-actu-cron{
+        width: 20em;
+    }
+    .a{
+        margin-left: -80px;
+    } */
+    .containercron1{
+      
+       margin-left: -15px;
+
+    }
+    .container-tablacron2 textarea{
+        width: 20em;
+    
+        
+    }
+        
+
+}
 
 
 /*Listar*/
@@ -2728,6 +2781,18 @@ a{
 
 }
 
+
+@media screen and (max-width:1115px) {
+
+    .container-form-log{
+      
+        padding-left: 10em;
+
+    }
+
+
+}
+
 @media screen and (max-width:1038px) {
 
     .container-form-log{
@@ -2761,6 +2826,22 @@ a{
 
 }
 
+@media screen and (max-width:829px) {
+
+    .container-form-log{
+      
+        padding-left: 4em;
+
+    }
+
+    .container-tablalog{
+        width: 40em;
+        margin-left: 2em;
+        
+    }
+    
+
+}
 @media screen and (max-width:764px) {
 
     .container-form-log{
@@ -2830,8 +2911,45 @@ a{
 }
 
 
+@media screen and (max-width:523px) {
 
 
+    .container-tablalog{
+        width: 24em;
+        
+    }
+    .container-filtros-log{
+        width: 17em;
+    }
+    .a{
+        padding-left: 2em;
+    }
+    .container-form-log{
+      
+        padding-left: 0.1em;
+
+    }
+        
+
+}
+
+@media screen and (max-width:431px) {
+
+
+    .container-tablalog{
+        width: 21em;
+        
+    }
+    .a{
+        margin-left: -25px;
+    }
+        
+    .container-form-log{
+      
+        margin-left: -20px;
+
+    }
+}
 
 
 /*ni idea*/
