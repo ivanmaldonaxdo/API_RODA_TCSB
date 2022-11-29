@@ -16,7 +16,6 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 
-
 document.querySelector('form.form-cont').addEventListener('submit', function(e) {
 
     //prevent the normal submission of the form

@@ -186,7 +186,7 @@ function createRowDoc(doc) {
         cssButton = "buttonDownload";
 
     let btnModificar = `<button id = "idmodificar" class="${cssButton}" type="button" onclick = "btngetid(this)"> Modificar</button>`;
-    let hrefModificar = `<a href = "http://localhost:8000/Modificarcliente/">${btnModificar}</a>`;
+    let hrefModificar = `<a href = "http://localhost:8000/modificarplantilla/">${btnModificar}</a>`;
     //let btnEliminar = `<button id = "ideliminar" class="${cssButton}" type="button" onclick = "btnDesactivar(this)"> Modificar</button>`;
     //let hrefEliminar = `<a href = "#">${btnEliminar}</a>`;
 
@@ -203,7 +203,7 @@ function createRowDoc(doc) {
 
     let tdid = `<td class = "${clase}" name = "idplant" data-label="Idplantilla" hidden >${doc.id}</td>`,
         tdnom_doc = `<td class = "${clase}" name = "nomcli" data-label="nom_doc">${doc.nom_doc}</td>`,
-        tdfecha_creacion = `<td class = "${clase}" data-label="fecha_creacion">${doc.fecha_creacion}`,
+        tdfecha_creacion = `<td class = "${clase}" datetime="fecha_creacion">${doc.fecha_creacion}`,
         tdproveedor = `<td class = "${clase}" data-label="proveedor">${doc.proveedor}`,
         tdmodificar = `<td class = "${clase}" data-label="Modificar">${hrefModificar}</td>`;
 

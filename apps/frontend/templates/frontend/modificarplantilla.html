@@ -1,0 +1,42 @@
+{% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
+
+<div class="bk">
+
+    <div class="container-form1">
+        <div class="login-container">
+            <form action="" id="form-cliente" class="form-cont">
+                <div class="form-reg">
+                    <h1>Modificar Sucursal</h1>
+                    <div class="separadorcen"></div>
+                    <div class="form-cli">
+                        <input class="input-registro" type="text" name="" id="nom_doc" required><span class="barra"></span>
+                        <label class="label-registro" for="">Nombre documento</label>
+                    </div>
+                    <div class="form-cli">
+                        <input class="input-registro" type="datetime" name="" id="fecha_creacion" required><span class="barra"></span>
+                        <label class="label-registro" for="">fecha creacion</label>
+                    </div>
+                    <div class="form-cli">
+                        <input class="input-registro" type="text" name="" id="proveedor" required><span class="barra"></span>
+                        <label class="label-registro" for="">proveedor </label>
+                    </div>
+                    <!--<div class="form-cli">
+                        <input class="input-registro" type="file" name="" id="queries_config" required><span class="barra"></span>
+                        <label class="label-registro" for="">Queries</label>
+                    </div>
+                    <div class="form-cli">
+                        <input class="input-registro" type="file" name="" id="tablas_config" required><span class="barra"></span>
+                        <label class="label-registro" for="">tablas</label>
+                    </div>-->
+
+                    <button class="btn-registrar">Modificar</button>
+                </div>
+            </form>
+            <img class="image-container" src={% static 'img/registro.svg' %} alt="login">
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/modifiplantilla.js' %}"></script>
+
+
+{% endblock %}

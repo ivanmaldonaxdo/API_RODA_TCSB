@@ -28,7 +28,7 @@ urlpatterns = [
     path('modificarSucursales/', modificarSucursales , name="modificarSucursales"),
     path('listarplantillas/', listarplantillas , name="listarlistarplantillas"),
     path('registrarplantilla/', plantillas , name="registrarplantilla"),
-    #path('modificarplantilla/', registrarplantilla , name="plantilla"),
+    path('modificarplantilla/', modificarplantilla , name="modificarplantilla"),
     path('test/', test, name='test'),
     path('get_client/', get_client , name="get_client"),
 ]

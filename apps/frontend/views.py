@@ -77,6 +77,10 @@ def listarplantillas(request):
 
 def plantillas(request):
     return render(request, 'frontend/registrarplantilla.html')
+
+def modificarplantilla(request):
+    return render(request,'frontend/modificarplantilla.html')
+
 def get_client(request):
     q_cliente = request.GET.get('id_cli',None)
     print(q_cliente)
