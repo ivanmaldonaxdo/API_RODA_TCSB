@@ -198,15 +198,16 @@ function createRowDoc(doc) {
         }
     }
 
+    //tdqueries_config = `<td class = "${clase}"  data-label="queries_config">${doc.queries_config}</td>`${tdqueries_config} ,
+    // tdtablas_config = `<td class = "${clase}" data-label="tablas_config">${doc.tablas_config}`    ${tdtablas_config},
+
     let tdid = `<td class = "${clase}" name = "idplant" data-label="Idplantilla" hidden >${doc.id}</td>`,
         tdnom_doc = `<td class = "${clase}" name = "nomcli" data-label="nom_doc">${doc.nom_doc}</td>`,
-        tdqueries_config = `<td class = "${clase}"  data-label="queries_config">${doc.queries_config}</td>`,
-        tdtablas_config = `<td class = "${clase}" data-label="tablas_config">${doc.tablas_config}`,
         tdfecha_creacion = `<td class = "${clase}" data-label="fecha_creacion">${doc.fecha_creacion}`,
         tdproveedor = `<td class = "${clase}" data-label="proveedor">${doc.proveedor}`,
         tdmodificar = `<td class = "${clase}" data-label="Modificar">${hrefModificar}</td>`;
 
-    body += `<tr>${tdid}${tdnom_doc}${tdqueries_config}${tdtablas_config}${tdfecha_creacion}${tdproveedor}${tdmodificar}</tr>`;
+    body += `<tr>${tdid}${tdnom_doc}${tdfecha_creacion}${tdproveedor}${tdmodificar}</tr>`;
 
     tbody.innerHTML += body;
 

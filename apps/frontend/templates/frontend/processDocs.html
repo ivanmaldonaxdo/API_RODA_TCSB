@@ -1,21 +1,19 @@
-{% extends 'frontend/base.html' %}
-{% load static %}
-{% block contenido %}
+{% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
 
 
-    <div class="bk">
-        <div class="container-form">
-        
-            <h1 class="centrado">Búsqueda de archivos a procesar</h1>
-            <div class="inputs-form-inicio">
+<div class="bk">
+    <div class="container-form">
 
-                <form action="">
-                    <div class="input-wrapper">
-                        <input class="input" name ="sfolio" id="folio" placeholder="Folio" type="search">
-                    </div>
+        <h1 class="centrado">Búsqueda de archivos a procesar</h1>
+        <div class="inputs-form-inicio">
 
-                    <div class="content-select">
-                        <select id="tipo_servicio" name = "cbotipo_servicio">
+            <form action="">
+                <div class="input-wrapper">
+                    <input class="input" name="sfolio" id="folio" placeholder="Folio" type="search">
+                </div>
+
+                <div class="content-select">
+                    <select id="tipo_servicio" name="cbotipo_servicio">
                             <option selected>Tipo de servicio</option>
                             <option value="AGU">Agua</option>
                             <option value="ELE">Electricidad</option>
@@ -24,35 +22,36 @@
                             <option value="Electricidad">Electricidad</option>
                             <option value="Gas">Gas</option>{% endcomment %}
                         </select>
-                        <i></i>
-                    </div>
-                    <div class="input-wrapper">
-                        <input class="input" name ="sdate" id="fechaBusqueda"  type="date">
-                    </div>
-                    <div class="btn-buscar-proce">
-                        <button  id="searchDocs" type="submit" class="btn-buscar">Buscar</button>
+                    <i></i>
+                </div>
+                <div class="input-wrapper">
+                    <input class="input" name="sdate" id="fechaBusqueda" type="date">
+                </div>
+                <div class="btn-buscar-proce">
+                    <button id="searchDocs" type="submit" class="btn-buscar">Buscar</button>
 
-                    </div>
-                    
-                </form>
-            </div>
-            <h2 class="centrado pad-top">Ejecución Manual</h2>
-                
-                    
-            {% comment %} <div class="inputs-form-manual">
-                <form action="">
-  
-                    <button  id="processAllDocs" type="submit" class="btn-buscar-pro">Procesar</button>
-                </form>
-            </div> {% endcomment %}
-                
-            
+                </div>
 
-            <div class="container-table">
-                <div class="table-responsive">
-                    <div class="tbl-header">
-                        <table cellpadding="0" cellspacing="0" border="0">
-                          <thead>
+            </form>
+        </div>
+        <h2 class="centrado pad-top">Ejecución Manual</h2>
+
+
+        {% comment %}
+        <div class="inputs-form-manual">
+            <form action="">
+
+                <button id="processAllDocs" type="submit" class="btn-buscar-pro">Procesar</button>
+            </form>
+        </div> {% endcomment %}
+
+
+
+        <div class="container-table">
+            <div class="table-responsive">
+                <div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
                             <tr>
                                 <th class="centrado">Folio</th>
                                 <th class="centrado">Rut cliente</th>
@@ -62,83 +61,86 @@
 
 
                             </tr>
-                          </thead>
-                        </table>
-                    </div>
-                    <div class="tbl-content">
-                        <table class="table table-striped" id = "tableProcesados"  cellpadding="0" cellspacing="0" border="0">
-                            <tbody id = "tablaJS">
-                             {% for p in procesados %}
+                        </thead>
+                    </table>
+                </div>
+                <div class="tbl-content">
+                    <table class="table table-striped" id="tableProcesados" cellpadding="0" cellspacing="0" border="0">
+                        <tbody id="tablaJS">
+                            {% for p in procesados %}
                             <tr>
-                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+                                {% comment %}
+                                <td class="centrado"> 1 </td> {% endcomment %}
                                 <td class="centrado"> {{p.folio}} </td>
                                 <td class="centrado">{{p.rut_receptor}}</th>
-                                <td class="centrado"> {{p.tipo_servicio}} </td>
-                                <td class="centrado"><button class="buttonDownload">Procesar</button> </td>
-                                <td class="centrado"><button class="buttonDownload">Detalle</button> </td>
+                                    <td class="centrado"> {{p.tipo_servicio}} </td>
+                                    <td class="centrado"><button class="buttonDownload">Procesar</button> </td>
+                                    <td class="centrado"><button class="buttonDownload">Detalle</button> </td>
 
                             </tr>
                             {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-
-            <div class="modal-container">
-                
-                <div class="amodal modal-close">
-                    <p class="close">X</p>
-                    <div class="modal-texto">
-                        <h2>Detalle</h2>
-                        
-                        <form class="detalleform" action="" method="post">
-                            {% comment %} <div class="grupo">
-                                <label>Folio</label>
-                                
-                                <input id = "mdFolio"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                            </div> {% endcomment %}
-                            <div class="grupo">
-                                <label>TAG</label>
-                                
-                                <input id = "mdProcesoOCR"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                            </div>
-                            {% comment %} <div class="grupo">
-                                <label>Nombre proveedor</label>
-                                
-                                <input id = "mdNomProv"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                            </div> {% endcomment %}
-                            <div class="grupo">
-                                <label>Rut emisor</label>
-                                
-                                <input id = "mdRutEmi"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                            </div>
-                            <div class="grupo">
-                                <label>Nombre archivo</label>
-                                
-                                <input id = "mdNomDoc"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                            </div>
-                            <div class="grupo">
-                                <label>fecha de emisión</label>
-                                
-                                <input id = "mdFechaEmi"class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
-                                
-                            </div>
-                            
-                        </form> 
-
-                    </div>
-
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
+
+        <div class="modal-container">
+
+            <div class="amodal modal-close">
+                <p class="close">X</p>
+                <div class="modal-texto">
+                    <h2>Detalle</h2>
+
+                    <form class="detalleform" action="" method="post">
+                        {% comment %}
+                        <div class="grupo">
+                            <label>Folio</label>
+
+                            <input id="mdFolio" class="inputdetalle" readonly onmousedown="return false;" value="" type="txt">
+
+                        </div> {% endcomment %}
+                        <div class="grupo">
+                            <label>TAG</label>
+
+                            <input id="mdProcesoOCR" class="inputdetalle" readonly onmousedown="return false;" value="" type="txt">
+
+                        </div>
+                        {% comment %}
+                        <div class="grupo">
+                            <label>Nombre proveedor</label>
+
+                            <input id="mdNomProv" class="inputdetalle" readonly onmousedown="return false;" value="" type="txt">
+
+                        </div> {% endcomment %}
+                        <div class="grupo">
+                            <label>Rut emisor</label>
+
+                            <input id="mdRutEmi" class="inputdetalle" readonly onmousedown="return false;" value="" type="txt">
+
+                        </div>
+                        <div class="grupo">
+                            <label>Nombre archivo</label>
+
+                            <input id="mdNomDoc" class="inputdetalle" readonly onmousedown="return false;" value="" type="txt">
+
+                        </div>
+                        <div class="grupo">
+                            <label>fecha de emisión</label>
+
+                            <input id="mdFechaEmi" class="inputdetalle" readonly onmousedown="return false;" value="" type="txt">
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
     </div>
+</div>
 
 
 
@@ -146,12 +148,7 @@
 
 
 
-    <script type="text/javascript" src="{% static 'js/processDocs.js' %}"></script>
-    {% comment %} <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> {% endcomment %}
-    {% comment %} <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script> {% endcomment %}
-
-
-
-{% endblock %}
-
-
+<script type="text/javascript" src="{% static 'js/processDocs.js' %}"></script>
+{% comment %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> {% endcomment %} {% comment %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script> {% endcomment %} {% endblock %}
