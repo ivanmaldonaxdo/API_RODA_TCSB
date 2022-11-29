@@ -48,5 +48,8 @@ def log(request):
 def test(request):
     return render(request, 'frontend/test.html')
 
-def sucursales(request):
-    return render(request, 'frontend/sucursales.html')
+def listarSucursales(request):
+    return render(request, 'frontend/listarSucursales.html')
+
+def Sucursales(request):
+    return render(request, 'frontend/Sucursales.html')
