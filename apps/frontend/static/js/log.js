@@ -16,6 +16,7 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
+    
     Swal.fire({
         title: 'Buscando Logs....',
         timerProgressBar: true,
@@ -35,7 +36,8 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 })
 
 function getLogs() {
-    const url ='http://localhost:8000/logs/';
+    const url = new URL('http://localhost:8000/logs/');
+    url.search = new URLSearchParams(params).toString(); 
     fetch(url, {
         method: 'GET',
         headers: {
@@ -59,7 +61,8 @@ function getLogs() {
             }
             else {
                 response.json().then(docs => {
-                    Array.isArray(docs) ? docs.map(doc =>Array.from(doc.results).map(d=>createRowDoc(d))) : createRowDoc(docs);
+                    logs = docs.results
+                    Array.isArray(logs) ? logs.map(doc => createRowDoc(doc)) : createRowDoc(logs);                
                 })
 
             }
@@ -76,16 +79,13 @@ function createRowDoc(doc)
     let body = '';
     let clase = "centrado";
 
-    let tdId = `<td class = "${clase}" name = "idlog" data-label="idlog">${doc.id}</td>`,
-        tdIdUsu = `<td class = "${clase}"  data-label="iduser">${doc.id_user}</td>`,
-        tdApi = `<td class = "${clase}" data-label="api">${doc.api}`,
-        tdCli = `<td class = "${clase}" name="cliente" data-label="cliente">${doc.cliente}</td>`,
-        tdPay = `<td class = "${clase}" name="payload" data-label="payload">${doc.payload}</td>`,
-        tdSta = `<td class = "${clase}" name="status" data-label="status">${doc.status_code}</td>`,
-        tdFch = `<td class = "${clase}" name="fechahora" data-label="fechahora">${doc.fecha_hora}</td>`,
-        tdRes = `<td class = "${clase}" name="response" data-label="response">${doc.response}</td>`;
+    let tdId = `<td class = "${clase}" name = "idlog" data-label="ID log">${doc.id}</td>`,
+        tdIdUsu = `<td class = "${clase}"  data-label="ID usuario">${doc.id_user}</td>`,
+        tdCli = `<td class = "${clase}" data-label="Cliente">${doc.cliente}</td>`,
+        tdSta = `<td class = "${clase}" data-label="Status code">${doc.status_code}</td>`,
+        tdFch = `<td class = "${clase}" data-label="Fecha">${doc.fecha}</td>`;
 
-    body += `<tr">${tdId}${tdIdUsu}${tdApi}${tdCli}${tdPay}${tdSta}${tdFch}${tdRes}</tr>`;
+    body += `<tr">${tdId}${tdIdUsu}${tdCli}${tdSta}${tdFch}</tr>`;
     tbody.innerHTML += body;
      
 }

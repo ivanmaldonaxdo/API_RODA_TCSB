@@ -1,0 +1,47 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block contenido %}
+
+    <div class="bk">
+
+        <div class="container-form1">
+            <div class="login-container">
+                <form action="" id="form-cliente" class="form-cont">
+                    <div class="form-reg">
+                        <h1>Registro servicio-contrato</h1>
+                        <div class="separadorcen"></div>
+                        <div class="form-cli">
+                            <input class="input-registro" type="text" name="" id="cli" required><span class="barra"></span>
+                            <label class="label-registro" for="">Número del cliente</label>
+                        </div>
+                            <div class="content-select">
+                                <h5>Sucursal</h5>
+                                <select id="sucu" name="sucu">
+                                    <option value="">Seleccionar sucursal</option>
+                                    {% for s in sucu %}
+                                    <option value="{{ s.id }}">{{ s.nom_sucursal }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i></i>
+                        </div>
+                            <div class="content-select">
+                                <h5>Proveedor</h5>
+                                <select id="prov" name="prov">
+                                    <option value="">Seleccionar proveedor</option>
+                                    {% for p in prov %}
+                                    <option value="{{ p.id }}">{{ p.nom_proveedor }}</option>
+                                    {% endfor %}
+                                </select>
+                                <i></i>
+                            </div>
+                        <button class="btn-registrar">Registrar</button>
+                    </div>
+                </form>
+                <img class="image-container" src={% static 'img/registro.svg' %} alt="login">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/modificarcontrato.js' %}"></script>  
+
+{% endblock %}

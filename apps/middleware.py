@@ -79,8 +79,6 @@ class LogRestMiddleware:
                 if url_name == 'search_docs-process_docs' and m.status_code != 200:
                     openkm = procesamiento.openkm_creds()
                     uuid= response_body["uuid"]
-                    codigo = str(m.id) + " TAG ERROR"
-                    openkm.set_metadata_processed(uuid,codigo)
         else:
             return response
 
