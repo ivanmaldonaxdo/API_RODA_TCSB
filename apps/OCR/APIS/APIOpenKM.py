@@ -63,6 +63,7 @@ class OpenKm():
                 else:
                     print("**********TEST UNA BOLETA*********")
                     boleta = self.get_q_result_formatted(data['queryResult'])
+                    print(json.dumps(boleta,indent=4))
                     # print(json.dumps(boleta,indent=4))
                     return boleta
             except Exception as e:
