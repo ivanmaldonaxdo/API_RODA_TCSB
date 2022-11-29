@@ -174,7 +174,7 @@ function createRowDoc(doc) {
     let clase = "centrado",
         cssButton = "buttonDownload";
 
-    let tdid = `<td class = "${clase}" name = "idclient" data-label="id">${doc.id}</td>`,
+    let tdid = `<td class = "${clase}" name = "idclient" data-label="id" hidden>${doc.id}</td>`,
         tdnom_sucursal = `<td class = "${clase}" name = "nomcli" data-label="nom_sucursal">${doc.nom_sucursal}</td>`,
         tdcod = `<td class = "${clase}"  data-label="Email">${doc.cod}</td>`,
         tddireccion = `<td class = "${clase}" data-label="Razon">${doc.direccion}`,
