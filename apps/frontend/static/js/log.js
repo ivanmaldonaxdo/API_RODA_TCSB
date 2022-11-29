@@ -16,6 +16,7 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
+    
     Swal.fire({
         title: 'Buscando Logs....',
         timerProgressBar: true,
@@ -35,7 +36,8 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 })
 
 function getLogs() {
-    const url ='http://localhost:8000/logs/';
+    const url = new URL('http://localhost:8000/logs/');
+    url.search = new URLSearchParams(params).toString(); 
     fetch(url, {
         method: 'GET',
         headers: {
