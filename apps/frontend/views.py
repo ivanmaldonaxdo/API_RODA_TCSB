@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from apps.management import sucursales
 from apps.management.models import Sucursal, Proveedor, Servicio
 from django.http import request,JsonResponse
 # Create your views here.
