@@ -914,7 +914,13 @@ tbody tr:hover{
 }
 
 
+@media screen and (max-width:420px){
 
+    .inputs-form-inicio form {
+        margin-left: 1em;
+    }
+
+}
 @media screen and (max-width:412px){
     .inputs-form-manual form{
         width: 15em;
@@ -1073,7 +1079,24 @@ tbody tr:hover{
 
     
 }
+@media screen and (max-width:341px){
+    .inputs-form-inicio form {
+        
+        margin-left: -15px;
+        
+    }
 
+    
+}
+@media screen and (max-width:324px){
+    .inputs-form-inicio form {
+        
+        margin-left: -20px;
+        
+    }
+
+    
+}
 /*----------------------------------------fin procesos------------------------------------------*/
 
 /*------------------------------------------------ pagina homeinfo-----------------------------------------------------------------------------------------------*/
@@ -1325,7 +1348,7 @@ tbody tr:hover{
 
 @media screen and (max-width:500px) {
     .containercentrado{
-        padding-left: 1em;
+        padding-left: 5em;
        
 
     }
@@ -1350,8 +1373,30 @@ tbody tr:hover{
 
 
 }
+@media screen and (max-width:420px) {
+    .containercentrado{
+        padding-left: 3em;
+       
 
+    }
 
+}
+@media screen and (max-width:383px) {
+    .containercentrado{
+        padding-left: 2em;
+       
+
+    }
+
+}
+@media screen and (max-width:358px) {
+    .containercentrado{
+        padding-left: 1em;
+       
+
+    }
+
+}
 
 /*-----------------------------------------------------MODAL----------------------*/
 
@@ -3473,6 +3518,17 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 }
 
 
+@media screen and (max-width:540px) {
+
+
+
+
+    .a{
+        padding-left: 1.5em;
+    }
+        
+
+}
 /*Listar usuarios--------------------------------------------*/
 
 
