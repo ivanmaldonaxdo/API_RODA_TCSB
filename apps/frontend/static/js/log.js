@@ -16,7 +16,20 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 document.getElementById("buscarDocs").addEventListener('click', function (e) {
-    
+    let metodo = document.getElementById("fl_Metodo").value,
+        idLog = document.getElementById("fl_IDlog").value,
+        IDUser = document.getElementById("fl_IDUser").value,
+        IDCli = document.getElementById("fl_IDUser").value,
+        status = document.getElementById("fl_StatusCode").value,
+        fecha = document.getElementById("fl_fecha").value;
+    const params  = {
+        method: metodo,
+        id:idLog,IDUser,
+        cliente:IDCli,
+        status_code:status,
+        fecha_hora__date:fecha
+}
+    //?id=&id_user=&cliente=&method=&status_code=&fecha_hora__date=
     Swal.fire({
         title: 'Buscando Logs....',
         timerProgressBar: true,

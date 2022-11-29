@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from apps.management.models import Sucursal, Proveedor, Servicio
+from django.http import request,JsonResponse
 # Create your views here.
+from django.forms.models import model_to_dict
+from django.db import connections #https://docs.djangoproject.com/en/4.1/topics/db/sql/
 
 @login_required
 def processDocs(request):
@@ -61,3 +64,15 @@ def Sucursales(request):
 
 def listarSucursales(request):
     return render(request, 'frontend/listarSucursales.html')
+
+def get_client(request):
+    q_cliente = request.GET.get('id_cli',None)
+    print(q_cliente)
+    # sucursales = list( Sucursal.objects.raw(
+    #     '''SELECT "nom_cli" from public.fn_select_sucur(%s)''',[q_cliente])
+    # ) 
+    print(sucursales)
+    data = { 
+        "Dataso":1
+    }
+    return JsonResponse(data)
