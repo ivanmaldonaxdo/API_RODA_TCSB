@@ -35,8 +35,8 @@ function getplantilla() {
                 document.getElementById("nom_doc").value = data.nom_doc
                 document.getElementById("fecha_creacion").value = data.fecha_creacion
                 document.getElementById("proveedor").value = data.proveedor
-                    //document.getElementById("queries_config").value = data.queries_config
-                    //document.getElementById("tablas_config").value = data.tablas_config
+                document.getElementById("queries_config").value = data.queries_config
+                document.getElementById("tablas_config").value = data.tablas_config
             })
         });
 }
@@ -49,16 +49,16 @@ document.querySelector('form.form-cont').addEventListener('submit', function(e) 
     var nom_doc = document.getElementById('nom_doc');
     var fecha_creacion = document.getElementById('fecha_creacion');
     var proveedor = document.getElementById('proveedor');
-    //var tablas_config = document.getElementById('tablas_config');
-    //var queries_config = document.getElementById('queries_config');  tablas_config.value, queries_config.value
-    modifyplantilla(nom_doc.value, fecha_creacion.value, proveedor.value, )
+    var queries_config = document.getElementById('queries_config');
+    var tablas_config = document.getElementById('tablas_config');
+    modifyplantilla(nom_doc.value, fecha_creacion.value, proveedor.value, queries_config.value, tablas_config.value)
 });
 
 // , tablas_config, queries_config
-function modifyplantilla(nom_doc, fecha_creacion, proveedor) {
+function modifyplantilla(nom_doc, fecha_creacion, proveedor, queries_config, tablas_config) {
     const url = 'http://localhost:8000/plantillas/' + user + '/'
     console.log(url)
-    console.log(nom_doc, fecha_creacion, proveedor)
+    console.log(nom_doc, fecha_creacion, proveedor, queries_config, tablas_config)
     fetch(url, {
             method: 'PUT',
             headers: {
@@ -68,9 +68,9 @@ function modifyplantilla(nom_doc, fecha_creacion, proveedor) {
             body: JSON.stringify({
                 'nom_doc': nom_doc,
                 'fecha_creacion': fecha_creacion,
-                'proveedor': proveedor
-                    //'tablas_config': tablas_config,
-                    //'queries_config': queries_config
+                'proveedor': proveedor,
+                'tablas_config': tablas_config,
+                'queries_config': queries_config
             })
         })
         .then((response) => {
