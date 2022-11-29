@@ -51,8 +51,8 @@ THIRD_APPS = [
     'rest_framework',
     'django_filters',
     'rut_chile',
+    'drf_api_logger',
     'solo',
-    'django_cron',
     "corsheaders",
     'django_rest_passwordreset',
 ]
@@ -179,8 +179,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #funcion para el proceso automatico 
-CRON_CLASSES = [
-    "apps.tasks.MyCronJob"
+CRONJOBS = [
+    ('* * * * *', 'apps.OCR.cron.dicehola')
 ]
 
 

@@ -1,12 +1,15 @@
 
 from django.urls import path
-from .views import *
+from .views import Sucursales, listarSucursales, login,homeinfo,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log
+
+from .views import login,homeinfo,processDocs,test
 
 urlpatterns = [
     path('process/', processDocs, name="process"),
     path('', login, name="login"),
     path('inicio/', homeinfo, name="homeinfo"),
     path('processedDocs/', processed, name="processed"),
+    path('automatizacion/', cron, name="cron"),
     path('Cliente/', Cliente, name="Cliente"),
     path('Modificarcliente/', modificarcliente, name="modificarcliente"),
     path('listarcliente/', listarcliente, name="listarcliente"),
@@ -15,5 +18,11 @@ urlpatterns = [
     path('registrarcontrato/', servicio_cliente, name="registrarcontrato"),
     path('listarusuarios/', listarusuarios, name="listarusuarios"),
     path('cronn/', cron, name="cron"),
+<<<<<<< HEAD
     path('log/',log, name="log"),
+=======
+    path('listarSucursales/', listarSucursales , name="listarSucursales"),
+    path('registro-Sucursales/', Sucursales , name="Sucursales"),
+    path('test/', test, name='test')
+>>>>>>> origin/juan
 ]

@@ -1,11 +1,11 @@
-let cerrar =document.querySelectorAll(".close")[0];
-let modal =document.querySelectorAll(".amodal")[0];
-let modalc =document.querySelectorAll(".modal-container")[0];
-let abrir =document.querySelectorAll(".cre")[0];
+let cerrar = document.querySelectorAll(".close")[0];
+let modal = document.querySelectorAll(".amodal")[0];
+let modalc = document.querySelectorAll(".modal-container")[0];
+let abrir = document.querySelectorAll(".cre")[0];
 
 
 
-abrir.addEventListener("click", function(e){
+abrir.addEventListener("click", function(e) {
     e.preventDefault();
 
     modalc.style.opacity = "1";
@@ -16,7 +16,7 @@ abrir.addEventListener("click", function(e){
 
 
 
-cerrar.addEventListener("click", function(){
+cerrar.addEventListener("click", function() {
     modal.classList.toggle("modal-close");
 
     setTimeout(function() {
@@ -26,8 +26,8 @@ cerrar.addEventListener("click", function(){
 
 });
 
-window.addEventListener("click", function (e){
-    if(e.target == modalc){
+window.addEventListener("click", function(e) {
+    if (e.target == modalc) {
         modal.classList.toggle("modal-close");
 
         setTimeout(function() {
@@ -36,18 +36,3 @@ window.addEventListener("click", function (e){
         }, 600);
     }
 })
-
-
-// const open = document.getElementById('open');
-// const comentario_ = document.getElementById('comentario_');
-// const close = document.getElementById('close');
-
-// open.addEventListener('click',() =>{
-//     comentario_.classList.add('show');
-    
-// });
-
-// close.addEventListener('click',() =>{
-//     comentario_.classList.remove('show');
-// });
-

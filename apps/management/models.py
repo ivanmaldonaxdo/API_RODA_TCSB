@@ -1,3 +1,6 @@
+from datetime import datetime
+from email.policy import default
+from xml.etree.ElementInclude import default_loader
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from solo.models import SingletonModel
@@ -45,6 +48,10 @@ class Cliente(models.Model):
     razon_social = models.CharField('Razon social', max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default = True)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE, default=1)
+    
+    def __str__(self):
+        return bool(self.is_active)
+
 
     def __str__(self):
         return self.nom_cli
@@ -55,6 +62,7 @@ class Cliente(models.Model):
     
     class Meta:
         verbose_name_plural = "Clientes"
+
 
 class Servicio(models.Model):
     servicio= models.CharField('Servicio', max_length=255, blank=False, null=True)
