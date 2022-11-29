@@ -13,6 +13,7 @@ urlpatterns = [
     path('registrar-usuarios/', Usuarios, name="Usuarios"),
     path('Modificarusuario/', modificarusuario, name="modificarusuario"),
     path('registrarcontrato/', servicio_cliente, name="registrarcontrato"),
+    path('registrarproveedor/', proveedores, name="proveedores"),
     path('listarusuarios/', listarusuarios, name="listarusuarios"),
     path('cronn/', cron, name="cron"),
     path('log/',log, name="log"),
