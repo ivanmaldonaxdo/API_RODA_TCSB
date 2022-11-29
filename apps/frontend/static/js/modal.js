@@ -50,4 +50,3 @@ window.addEventListener("click", function (e){
 // close.addEventListener('click',() =>{
 //     comentario_.classList.remove('show');
 // });
-

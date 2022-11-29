@@ -6,10 +6,10 @@
     <div class="bk-listar">
         <div class="container-form-listar">
             <h1 class="centrado">Listar Clientes</h1>
-            <div class="inputs-form-inicio">
+            <div class="inputs-form-listar">
 
                 <form action="">
-                    <div class="input-wrapper">
+                    <div class="input-wrapper-listar">
                         <input class="input" name="text" placeholder="Cliente" type="text">
                     </div>
                         
@@ -95,18 +95,18 @@
                     </div>
                 </div>
             </div>
-
+            
 
         </div>
 
     </div>
 
 
-        <div class="modal-container">
+        <div class="contrato-container">
                 
-            <div class="amodal modal-close">
-                <p class="close">X</p>
-                <div class="modal-texto">
+            <div class="contratomodal contratomodal-close">
+                <p class="contratoclose">X</p>
+                <div class="contratomodal-texto">
                     <h2>Registrar contrato de servicio </h2>
                     <form class="detalleform" action="" method="post">
 
@@ -139,7 +139,36 @@
         </div>
 
 <!--Modal para realizar los comentarios-->   
-    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+    <script >
+        let contratocerrar =document.querySelectorAll(".contratoclose")[0];
+        let modalcontra =document.querySelectorAll(".contratomodal")[0];
+        let contramodalc =document.querySelectorAll(".contrato-container")[0];
+        let abrirmodal =document.querySelectorAll(".contra")[0];
+
+
+
+        abrirmodal.addEventListener("click", function(e){
+            e.preventDefault();
+
+            contramodalc.style.opacity = "1";
+            contramodalc.style.visibility = "visible";
+            modalcontra.classList.toggle("contratomodal-close");
+
+        });
+
+
+
+        contratocerrar.addEventListener("click", function(){
+            modalcontra.classList.toggle("contratomodal-close");
+
+            setTimeout(function() {
+                contramodalc.style.opacity = "0";
+                contramodalc.style.visibility = "hidden";
+            }, 600);
+
+        });
+
+    </script>
 
 
 
