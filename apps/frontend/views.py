@@ -55,11 +55,6 @@ def cron(request):
 def log(request):
     return render(request, 'frontend/log.html')
 
-def proveedores(request):
-    servicio = Servicio.objects.all()
-    context = {'serv': servicio}
-    return render(request, 'frontend/proveedores.html', context)
-
 def Sucursales(request):
     return render(request, 'frontend/sucursales.html')
 
@@ -84,8 +79,10 @@ def modificarplantilla(request):
 def listarproveedores(request):
     return render(request,'frontend/listarproveedores.html')
 
-def registrarproveedores(request):
-    return render(request,'frontend/registrarproveedores.html')
+def proveedores(request):
+    servicio = Servicio.objects.all()
+    context = {'serv': servicio}
+    return render(request, 'frontend/Proveedores.html', context)
 
 def get_client(request):
     q_cliente = request.GET.get('id_cli',None)

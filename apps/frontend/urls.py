@@ -19,7 +19,6 @@ urlpatterns = [
     path('registrar-usuarios/', Usuarios, name="Usuarios"),
     path('Modificarusuario/', modificarusuario, name="modificarusuario"),
     path('registrarcontrato/', servicio_cliente, name="registrarcontrato"),
-    path('registrarproveedor/', proveedores, name="proveedores"),
     path('listarusuarios/', listarusuarios, name="listarusuarios"),
     path('cronn/', cron, name="cron"),
     path('log/',log, name="log"),
@@ -29,9 +28,8 @@ urlpatterns = [
     path('listarplantillas/', listarplantillas , name="listarlistarplantillas"),
     path('registrarplantilla/', plantillas , name="registrarplantilla"),
     path('modificarplantilla/', modificarplantilla , name="modificarplantilla"),
-    
     path('listarproveedores/', listarproveedores , name="listarproveedores"),
-    path('registrarproveedores/', registrarproveedores , name="registrarproveedores"),
+    path('registroproveedores/', proveedores, name="registroproveedores"),
     path('test/', test, name='test'),
     path('get_client/', get_client , name="get_client"),
 ]
