@@ -1,4 +1,5 @@
-{% extends 'frontend/base.html' %} {% load static %} {% block contenido %} {% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
+{% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
+
 
 <div class="bk">
 
@@ -30,13 +31,8 @@
                         <label class="label-registro" for="">fecha creacion</label>
                     </div>
                     <!--para el proveedor consultamos a los proveedores-->
-                    <div class="form-cli">
-                        <input class="input-registro" type="text" name="celuser" id="proveedor" required><span class="barra"></span>
-                        <label class="label-registro" for="">proveedor</label>
-                    </div>
-
                     <div class="content-select">
-                        <select id="rol" name="rol">
+                        <select id="proveedor" name="proveedor">
                                 <option value="0">Ingresar Cliente</option>
                                 <option value="1">CLINICA BUPA</option>
                                 <option value="3">BANCO DEL ESTADO</option>
@@ -53,4 +49,4 @@
 </div>
 
 <script type="text/javascript" src="{% static 'js/registroplantillas.js' %}"></script>
-{% endblock %} {% endblock %}
+{% endblock %}

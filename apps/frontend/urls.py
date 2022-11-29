@@ -22,7 +22,7 @@ urlpatterns = [
     path('registro-Sucursales/', Sucursales , name="Sucursales"),
     path('modificarSucursales/', modificarSucursales , name="modificarSucursales"),
     path('listarplantillas/', listarplantillas , name="listarlistarplantillas"),
-    path('registro-plantillas/', plantillas , name="plantilla"),
+    path('registrarplantilla/', plantillas , name="registrarplantilla"),
     #path('modificarplantilla/', registrarplantilla , name="plantilla"),
     path('test/', test, name='test')
 ]
