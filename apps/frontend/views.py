@@ -18,6 +18,9 @@ def homeinfo(request):
 def processed(request):
     return render(request, 'frontend/processed.html')
 
+def cron(request):
+    return render(request,'frontend/cron.html')
+    
 def Cliente(request):
     return render(request, 'frontend/Cliente.html')
 
@@ -47,3 +50,12 @@ def cron(request):
 
 def log(request):
     return render(request, 'frontend/log.html')
+
+def test(request):
+    return render(request, 'frontend/test.html')
+
+def listarSucursales(request):
+    return render(request, 'frontend/listarSucursales.html')
+
+def Sucursales(request):
+    return render(request, 'frontend/Sucursales.html')

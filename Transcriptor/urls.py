@@ -21,6 +21,7 @@ from apps.OCR import cron
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth-user/', authUser.as_view(), name='auth-user'),
@@ -31,15 +32,16 @@ urlpatterns = [
     path('usuarios/', include('apps.users.usuarios.routers')),
     path('clientes/', include('apps.management.clientes.routers')),
     path('proveedores/', include('apps.management.proveedor.routers')),
+    path('procesoauto/', include('apps.OCR.automatico.routers')),
     path('sucursales/', include('apps.management.sucursales.routers')),
     path('plantillas/', include('apps.management.plantilla.routers')),
     path('documentos/',include('apps.OCR.procesamiento.routers')),
     path('sistema/',include('apps.management.sistema.routers')),
     path('procesados/',include('apps.management.procesados.routers')),
+    path('logs',include('apps.management.Logs.routers')),
     path('logs/',include('apps.management.Logs.routers')),
     path('cron/',include('apps.management.cron.routers')),
     path('', include('apps.frontend.urls'))
-
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
