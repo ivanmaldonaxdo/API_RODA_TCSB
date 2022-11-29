@@ -171,21 +171,21 @@
     {% block contenido %} {% endblock %}
 
     <!--FOOTER-->
-    <div class="modal-container">
+        <div class="creden-container">
+                
+            <div class="credenmodal credenmodal-close">
+                <p class="credenclose">X</p>
+                <div class="credenmodal-texto">
+                    <h2>Registro de credenciales </h2>
+                    <form action="" class="cre-form">
+                        <label for="">Crendenciales</label>
+                        <input type="file" id="cred">
+                        <button id="registrarCred" class="btn-registrar">Actualizar credenciales</button>
+                    </form>
 
-        <div class="amodal modal-close">
-            <p class="close">X</p>
-            <div class="modal-texto">
-                <h2>Registro de credenciales </h2>
-                <form action="" class="cre-form">
-                    <label for="">Crendenciales</label>
-                    <input type="file" id="cred">
-                    <button id="registrarCred" class="btn-registrar">Actualizar credenciales</button>
-                </form>
-
+                </div>
             </div>
         </div>
-    </div>
 
 
     <footer class="pie-pagina  ">
@@ -238,13 +238,43 @@
         }).resize();
     </script>
 
+    <script>
+                
+        let modalcerrar =document.querySelectorAll(".credenclose")[0];
+        let modalcreden =document.querySelectorAll(".credenmodal")[0];
+        let credenmodalc =document.querySelectorAll(".creden-container")[0];
+        let abrirmodal =document.querySelectorAll(".cre")[0];
 
+
+
+        abrirmodal.addEventListener("click", function(e){
+            e.preventDefault();
+
+            credenmodalc.style.opacity = "1";
+            credenmodalc.style.visibility = "visible";
+            modalcreden.classList.toggle("credenmodal-close");
+
+        });
+
+
+
+        modalcerrar.addEventListener("click", function(){
+            modalcreden.classList.toggle("credenmodal-close");
+
+            setTimeout(function() {
+                credenmodalc.style.opacity = "0";
+                credenmodalc.style.visibility = "hidden";
+            }, 600);
+
+        });
+
+    </script>
 
     <script type="text/javascript" src="{% static 'js/session.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+    
 </body>
 
 </html>
