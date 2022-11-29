@@ -30,20 +30,19 @@ function btngetid(elem) {
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
     const user = {
-        id: getTextElement('idclient', indexRow),
+        id: getTextElement('idsucu', indexRow),
     };
-    localStorage.setItem('Idcliente', user.id);
+    localStorage.setItem('Idsucursal', user.id);
 }
 
 function btnDesactivar(elem) {
-
     let fila = elem.parentNode.parentNode.parentNode;
     let indexRow = fila.rowIndex
     const user = {
-        id: getTextElement('idclient', indexRow),
+        id: getTextElement('idsucu', indexRow),
         estado: getTextElement('stateclient', indexRow)
     };
-    desactivarClient(user.id, user.estado)
+    desactivarsucu(user.id, user.estado)
 }
 
 function format(value) {
@@ -54,9 +53,9 @@ function format(value) {
     }
 }
 
-function desactivarClient(id, estado) {
+function desactivarsucu(id, estado) {
     Swal.fire({
-        title: format(estado) + ' Cliente?',
+        title: format(estado) + ' sucursal ?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -66,7 +65,7 @@ function desactivarClient(id, estado) {
         closeOnCancel: true
     }).then((result) => {
         if (result.value == true) {
-            const url = 'http://localhost:8000/clientes/' + id + '/'
+            const url = 'http://localhost:8000/sucursales/' + id + '/'
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -77,12 +76,12 @@ function desactivarClient(id, estado) {
                 response.json().then(data => {
                     if (response.status == 200) {
                         Swal.fire({
-                            title: 'Cliente Desactivado correctamente',
+                            title: 'Sucursal Desactivada correctamente',
                             icon: 'success',
                         })
                     } else if (response.status == 202) {
                         Swal.fire({
-                            title: 'Cliente Activado correctamente',
+                            title: 'Sucursal Desactivada correctamente',
                             icon: 'success',
                         })
 
@@ -168,20 +167,37 @@ function getsucursales(paramsURL) {
 }
 
 function createRowDoc(doc) {
-    // console.log(doc.uuid);
+
     const tbody = document.querySelector("#tbodyProcessed");
     let body = '';
     let clase = "centrado",
         cssButton = "buttonDownload";
 
-    let tdid = `<td class = "${clase}" name = "idclient" data-label="id" hidden>${doc.id}</td>`,
+    let btnModificar = `<button id = "idmodificar" class="${cssButton}" type="button" onclick = "btngetid(this)"> Modificar</button>`;
+    let hrefModificar = `<a href = "http://localhost:8000/modificarSucursales/">${btnModificar}</a>`;
+    let btnEliminar = `<button id = "ideliminar" class="${cssButton}" type="button" onclick = "btnDesactivar(this)"> Modificar</button>`;
+    let hrefEliminar = `<a href = "#">${btnEliminar}</a>`;
+
+
+    function validate_state(value) {
+        if (value) {
+            return 'Activo'
+        } else {
+            return 'Desactivado'
+        }
+    }
+
+    let tdid = `<td class = "${clase}" name = "idsucu" data-label="Idsucursal" hidden>${doc.id}</td>`,
         tdnom_sucursal = `<td class = "${clase}" name = "nomcli" data-label="nom_sucursal">${doc.nom_sucursal}</td>`,
         tdcod = `<td class = "${clase}"  data-label="Email">${doc.cod}</td>`,
         tddireccion = `<td class = "${clase}" data-label="Razon">${doc.direccion}`,
         tdcomuna = `<td class = "${clase}" data-label="Razon">${doc.comuna}`,
-        tdcliente = `<td class = "${clase}" name="" data-label="Estado">${(doc.cliente)}</td>`;
+        tdcliente = `<td class = "${clase}" name="" data-label="cliente">${(doc.cliente)}</td>`,
+        tdmodificar = `<td class = "${clase}" data-label="Modificar">${hrefModificar}</td>`,
+        tdeliminar = `<td class = "${clase}" data-label="Modificar">${hrefEliminar} </td>`,
+        tdActivo = `<td class = "${clase}" name="stateclient" data-label="Estado">${validate_state(doc.is_active)}</td>`;
 
-    body += `<tr>${tdid}${tdnom_sucursal}${tdcod}${tddireccion}${tdcomuna}${tdcliente} </tr>`;
+    body += `<tr>${tdid}${tdnom_sucursal}${tdcod}${tddireccion}${tdcomuna}${tdcliente}${tdActivo}${tdmodificar}${tdeliminar} </tr>`;
     tbody.innerHTML += body;
 
 }

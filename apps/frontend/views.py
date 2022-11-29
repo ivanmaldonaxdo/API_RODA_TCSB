@@ -53,3 +53,6 @@ def listarSucursales(request):
 
 def Sucursales(request):
     return render(request, 'frontend/Sucursales.html')
+
+def modificarSucursales(request):
+    return render(request, 'frontend/modificarSucursales.html')
