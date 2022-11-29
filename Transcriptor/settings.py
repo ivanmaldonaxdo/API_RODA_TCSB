@@ -117,13 +117,12 @@ WSGI_APPLICATION = 'Transcriptor.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'API_DB',
-        'USER': 'postgres',
-        'PASSWORD':'password',
-        'HOST':'44.203.224.51',
-        'PORT':'5432'
+        'NAME': 'dfosmic3vq03p9',
+        'USER': 'xvnkiwgepmxbmi',
+        'PASSWORD':'0a8cfa127ba4dec9ccc58e39d6d990fa995cad63a47c2442130c3c1abe1e8f56',
+        'HOST':'ec2-52-205-98-159.compute-1.amazonaws.com'
     }
 }
 
