@@ -3286,11 +3286,6 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
    
 }
 
-@media screen and (max-width:850px) {
-
- 
-
-}
 
 
 @media screen and (max-width:650px) {
@@ -3332,24 +3327,18 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 
 @media screen and (max-width:480px){
     .container-form1-usuario{
-        width: 79%;
-        height: 35em;
+        width: 20em;
+        height: 43em;
      
     }
-    .form-cli{
-        position: relative;
-        margin: 0;
-        margin-top: 30px;
 
+    
+}
+@media screen and (max-width:350px){
+    .content-select-usuario{
+        margin-left: -10px;
     }
 
-    .btn-registrar{
-        margin-top: 30px;
-       
-    }
-    .bk-cliente{
-        height: 50em;
-    }
     
 }
 
@@ -3518,17 +3507,99 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 }
 
 
-@media screen and (max-width:540px) {
+@media screen and (max-width:534px) {
 
+    .container-form-processed{
+      
+        margin-left: -20px;
 
-
-
-    .a{
-        padding-left: 1.5em;
     }
+    
         
 
 }
+
+@media screen and (max-width:472px) {
+
+    .container-form-processed{
+      
+        margin-left: -10px;
+
+    }
+    
+        
+    .container-tablaprocessed{
+        width: 24em;
+        
+    }
+    .container-filtros-processed{
+        width: 20em;
+    }
+}
+@media screen and (max-width:430px) {
+
+    .container-form-processed{
+      
+        margin-left: -15px;
+
+    }
+    
+        
+    .container-tablaprocessed{
+        width: 22em;
+        
+    }
+    .a{
+        margin-left: -25px;
+    }
+
+}
+
+
+
+@media screen and (max-width:403px) {
+
+    .container-form-processed{
+      
+        margin-left: -20px;
+
+    }
+    
+        
+
+
+}
+
+
+
+@media screen and (max-width:371px) {
+
+  
+        
+    .container-tablaprocessed{
+        width: 20em;
+        
+    }
+    .container-filtros-processed{
+        width: 18em;
+    }
+
+
+}
+
+@media screen and (max-width:348px) {
+
+  
+        
+    .container-tablaprocessed{
+        width: 19em;
+        
+    }
+ 
+
+
+}
+
 /*Listar usuarios--------------------------------------------*/
 
 
