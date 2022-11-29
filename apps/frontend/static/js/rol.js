@@ -19,7 +19,9 @@ usuario = document.getElementsByClassName("usuario")
 
 proce = document.getElementsByClassName("proce")
 
-cron = document.getElementsByClassName("cron")
+cron = document.getElementsByClassName("cronn")
+log = document.getElementsByClassName("logg")
+suc = document.getElementsByClassName("suc")
 
 function rol(){
     const url = 'http://localhost:8000/rol_usuario/'
@@ -40,10 +42,12 @@ function rol(){
             $(usuario).hide()
             $(proce).hide()
             $(cron).hide()
-
+            $(log).hide()
+            $(suc).hide()
             console.log("usuario");
         }else if(data.Rol==2){
             $(usuario).hide()
+            $(suc).hide()
             $(proce).show()
             $(cron).show()
             console.log("operador");
