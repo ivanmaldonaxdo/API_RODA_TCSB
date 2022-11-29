@@ -29,7 +29,7 @@ def validar_rut(value):
 class Sistema(SingletonModel):
     singleton_instance_id = 1
     name_sis = models.CharField('Nombre de Sistema',max_length=255,unique = True, blank = True)
-    credencial = models.FileField(validators=[
+    credencial = models.FileField(storage=OverwriteStorage(), validators=[
         FileExtensionValidator(allowed_extensions=['json'])
     ])
 
