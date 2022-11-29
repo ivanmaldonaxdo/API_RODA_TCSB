@@ -179,15 +179,15 @@
                         <li class="menu-item cronn">
                             <a href="{% url 'cron' %}">Cron</a>
                         </li>
-                        <li class="menu-item">
+                        <li class="menu-item logg">
                             <a href="{% url 'log' %}">Log</a>
-                        </li>
+                            <!-- </li>
                         <li class="menu-item">
                             <a class="cre" href="">Credenciales</a>
-                        </li>
-                        <li class="menu-item">
-                            <a id="cerrarsession" href="#">Cerrar sesión</a>
-                        </li>
+                        </li> -->
+                            <li class="menu-item">
+                                <a id="cerrarsession" href="#">Cerrar sesión</a>
+                            </li>
                     </ul>
                 </nav>
                 <!-- navigation menu end -->
@@ -199,21 +199,6 @@
     {% block contenido %} {% endblock %}
 
     <!--FOOTER-->
-    <div class="creden-container">
-
-        <div class="credenmodal credenmodal-close">
-            <p class="credenclose">X</p>
-            <div class="credenmodal-texto">
-                <h2>Registro de credenciales </h2>
-                <form action="" class="cre-form">
-                    <label for="">Crendenciales</label>
-                    <input type="file" id="cred">
-                    <button id="registrarCred" class="btn-registrar">Actualizar credenciales</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
 
 
     <footer class="pie-pagina  ">
@@ -266,35 +251,7 @@
         }).resize();
     </script>
 
-    <script>
-        let modalcerrar = document.querySelectorAll(".credenclose")[0];
-        let modalcreden = document.querySelectorAll(".credenmodal")[0];
-        let credenmodalc = document.querySelectorAll(".creden-container")[0];
-        let abrirmodal = document.querySelectorAll(".cre")[0];
 
-
-
-        abrirmodal.addEventListener("click", function(e) {
-            e.preventDefault();
-
-            credenmodalc.style.opacity = "1";
-            credenmodalc.style.visibility = "visible";
-            modalcreden.classList.toggle("credenmodal-close");
-
-        });
-
-
-
-        modalcerrar.addEventListener("click", function() {
-            modalcreden.classList.toggle("credenmodal-close");
-
-            setTimeout(function() {
-                credenmodalc.style.opacity = "0";
-                credenmodalc.style.visibility = "hidden";
-            }, 600);
-
-        });
-    </script>
 
     <script type="text/javascript" src="{% static 'js/session.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/rol.js' %}"></script>

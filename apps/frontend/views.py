@@ -90,7 +90,7 @@ def get_client(request):
     # sucursales = list( Sucursal.objects.raw(
     #     '''SELECT "nom_cli" from public.fn_select_sucur(%s)''',[q_cliente])
     # ) 
-    print(sucursales)
+    #print(sucursales)
     data = { 
         "Dataso":1
     }
