@@ -10,13 +10,8 @@
                 <div class="input-wrapper">
                     <input class="input" id="sucursales" name="text" placeholder="sucursales" type="text">
                 </div>
-
                 <button id="buscarsucu" type="submit" class="btn-buscar">Buscar</button>
             </form>
-
-            <button id="buscarsucu" type="submit" class="btn-buscar">Buscar</button>
-            </form>
-
         </div>
         <div class="container-table">
             <div class="table-responsive">
@@ -42,48 +37,38 @@
                         </thead>
                     </table>
                 </div>
-                <div class="container-table">
-                    <div class="table-responsive">
 
-                        <!-- <th class="centrado">Modificar Info</th>-->
-                        <!-- <th class="centrado">Modificar Estado</th>-->
-                        {% comment %}
-                        <th>Rut cliente</th> {% endcomment %}
-                        </tr>
-                        </thead>
-                        </table>
-                    </div>
-                </div>
             </div>
-            <div class="container-table">
-                <div class="table-responsive">
-
-                    <div class="tbl-content">
-                        <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                            <tbody id="tbodyProcessed">
-                                {% comment %}
-                                <tr>
-                                    <td>AAC</td>
-                                    <td>AUSTRALIAN COMPANY </td>
-                                    <td>$1.38</td>
-                                    <td>+2.01</td>
-                                    <td>-0.36%</td>
-                                </tr> {% endcomment %} {% comment %}
-                                <td class="centrado"> 1 </td> {% endcomment %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
         </div>
+        <div class="container-table">
+            <div class="table-responsive">
+
+                <div class="tbl-content">
+                    <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                        <tbody id="tbodyProcessed">
+                            {% comment %}
+                            <tr>
+                                <td>AAC</td>
+                                <td>AUSTRALIAN COMPANY </td>
+                                <td>$1.38</td>
+                                <td>+2.01</td>
+                                <td>-0.36%</td>
+                            </tr> {% endcomment %} {% comment %}
+                            <td class="centrado"> 1 </td> {% endcomment %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <!--Modal para realizar los comentarios-->
-    <!--<script type="text/javascript" src="{% static 'js/modal.js' %}"></script> -->
-    <script type="text/javascript" src="{% static 'js/sucursales.js' %}"></script>
+<!--Modal para realizar los comentarios-->
+<!--<script type="text/javascript" src="{% static 'js/modal.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'js/sucursales.js' %}"></script>
 
 
 
 
-    {% endblock %}
+{% endblock %}
