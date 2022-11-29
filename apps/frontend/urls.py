@@ -1,4 +1,5 @@
 
+from cgi import test
 from django.urls import path
 from .views import Sucursales, listarSucursales, listarplantillas, login,homeinfo, modificarSucursales, plantillas,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log
 from .views import Sucursales, listarSucursales, login,homeinfo,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log, servicio_cliente
@@ -28,7 +29,6 @@ urlpatterns = [
     path('listarplantillas/', listarplantillas , name="listarlistarplantillas"),
     path('registrarplantilla/', plantillas , name="registrarplantilla"),
     #path('modificarplantilla/', registrarplantilla , name="plantilla"),
-    path('test/', test, name='test')
-    # path('test/', test, name='test')
+    path('test/', test, name='test'),
     path('get_client/', get_client , name="get_client"),
 ]
