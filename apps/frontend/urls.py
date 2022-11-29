@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import Sucursales, listarSucursales, login,homeinfo, modificarSucursales,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log
+from .views import Sucursales, listarSucursales, listarplantillas, login,homeinfo, modificarSucursales, plantillas,processDocs,processed,Cliente,Usuarios,modificarcliente,modificarusuario,listarcliente,listarusuarios, cron,log
 
 from .views import login,homeinfo,processDocs,test
 
@@ -21,6 +21,8 @@ urlpatterns = [
     path('listarSucursales/', listarSucursales , name="listarSucursales"),
     path('registro-Sucursales/', Sucursales , name="Sucursales"),
     path('modificarSucursales/', modificarSucursales , name="modificarSucursales"),
-
+    path('listarplantillas/', listarplantillas , name="listarlistarplantillas"),
+    path('registro-plantillas/', plantillas , name="plantilla"),
+    #path('modificarplantilla/', registrarplantilla , name="plantilla"),
     path('test/', test, name='test')
 ]

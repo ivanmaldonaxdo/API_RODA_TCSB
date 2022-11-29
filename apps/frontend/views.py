@@ -56,3 +56,9 @@ def Sucursales(request):
 
 def modificarSucursales(request):
     return render(request, 'frontend/modificarSucursales.html')
+
+def listarplantillas(request):
+    return render(request, 'frontend/listarplantilla.html')
+
+def plantillas(request):
+    return render(request, 'frontend/registrarplantilla.html')

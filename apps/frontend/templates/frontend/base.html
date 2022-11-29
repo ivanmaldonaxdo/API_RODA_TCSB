@@ -82,9 +82,9 @@
                 </li>
                 <li><a class="usuario" href="">Sucursales+</a>
                     <ul>
-                        <li><a href="{% url '' %}">Registrar</a></li>
-                        <li><a href="{% url '' %}">Modificar</a></li>
-                        <li><a href="{% url 'listarusuarios' %}">Listar</a></li>
+                        <li><a href="{% url 'sucursales' %}">Registrar</a></li>
+                        <li><a href="{% url 'modificarSucursales' %}">Modificar</a></li>
+                        <li><a href="{% url 'listarSucursales' %}">Listar</a></li>
                     </ul>
                 </li>
 
@@ -146,6 +146,13 @@
                             <ul class="sub-menu">
                                 <li class="menu-item"><a href="{% url 'Sucursales' %}">Registro</a></li>
                                 <li class="menu-item"><a href="{% url 'listarSucursales' %}">Listar</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-item-has-children usuario">
+                            <a href="#" data-toggle="sub-menu">plantillas <i class="plus"></i></a>
+                            <ul class="sub-menu">
+                                <li class="menu-item"><a href="{% url 'plantilla' %}">Registro</a></li>
+                                <li class="menu-item"><a href="{% url 'listarlistarplantillas' %}">Listar</a></li>
                             </ul>
                         </li>
                         <li class="menu-item cronn">
