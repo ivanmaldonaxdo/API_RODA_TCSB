@@ -1,66 +1,176 @@
 {% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
 
 
-<div class="bk-listar">
-    <div class="container-form-listar">
-        <h1 class="centrado">Listar Clientes</h1>
-        <div class="inputs-form-inicio">
+    <div class="bk-listar">
+        <div class="container-form-listar">
+            <h1 class="centrado">Listar Clientes</h1>
+            <div class="inputs-form-listar">
 
-            <form action="">
-                <div class="input-wrapper">
-                    <input class="input" id="clientes" name="text" placeholder="Cliente" type="text">
-                </div>
+                <form action="">
+                    <div class="input-wrapper-listar">
+                        <input class="input" id="clientes" name="text" placeholder="Cliente" type="text">
+                    </div>
 
-                <button id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
-            </form>
+                    <button id="buscarDocs" type="submit" class="btn-buscar">Buscar</button>
+                </form>
 
-        </div>
+            </div>
 
-        <div class="container-table">
-            <div class="table-responsive">
+            <div class="container-table">
+                <div class="table-responsive">
 
-                <div class="tbl-header">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <thead>
-                            <tr>
+                    <div class="tbl-header">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    {% comment %}
+                                    <th>#</th> {% endcomment %}
+                                    <th hidden class="centrado">Id Cliente</th>
+                                    <th class="centrado">Nombre</th>
+                                    <th class="centrado">Rut Cliente</th>
+                                    <th class="centrado">Razon social</th>
+                                    <th class="centrado">Estado</th>
+                                    <th class="centrado">Modificar Info</th>
+                                    <th class="centrado">Modificar Estado</th>
+
+                                    {% comment %}
+                                    <th>Rut cliente</th> {% endcomment %}
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="tbl-content">
+                        <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                            <tbody id="tbodyProcessed">
                                 {% comment %}
-                                <th>#</th> {% endcomment %}
-                                <th class="centrado">Id Cliente</th>
-                                <th class="centrado">Nombre</th>
-                                <th class="centrado">Rut Cliente</th>
-                                <th class="centrado">Razon social</th>
-                                <th class="centrado">Estado</th>
-                                <th class="centrado">Modificar Info</th>
-                                <th class="centrado">Modificar Estado</th>
-
-                                {% comment %}
-                                <th>Rut cliente</th> {% endcomment %}
-                            </tr>
-                        </thead>
-                    </table>
+                                <tr>
+                                    <td>AAC</td>
+                                    <td>AUSTRALIAN COMPANY </td>
+                                    <td>$1.38</td>
+                                    <td>+2.01</td>
+                                    <td>-0.36%</td>
+                                </tr> {% endcomment %} {% comment %}
+                                <td class="centrado"> 1 </td> {% endcomment %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="tbl-content">
-                    <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                        <tbody id="tbodyProcessed">
-                            {% comment %}
-                            <tr>
-                                <td>AAC</td>
-                                <td>AUSTRALIAN COMPANY </td>
-                                <td>$1.38</td>
-                                <td>+2.01</td>
-                                <td>-0.36%</td>
-                            </tr> {% endcomment %} {% comment %}
-                            <td class="centrado"> 1 </td> {% endcomment %}
-                        </tbody>
-                    </table>
+            </div>
+
+            <h2 class="centrado pad-top">Visualización de Sucursales </h2>
+            <div class="container-table">
+                <div class="table-responsive">
+                            
+                    <div class="tbl-header">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    {% comment %} <th >#</th> {% endcomment %}
+                                    <th class="centrado">Nombre sucursal</th>
+                                    {% comment %} <th class="centrado">Sucursal</th> {% endcomment %}
+                                    <th class="centrado">Direccion</th>
+                                    <th class="centrado">Comuna</th>
+                                    <th class="centrado">Contrato</th>
+
+                                    {% comment %} <th >Rut cliente</th> {% endcomment %}
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="tbl-content">
+                        <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                            <tbody id = "tbodySucursales">
+                                {% comment %} <tr>
+                                            <td>AAC</td>
+                                            <td>AUSTRALIAN COMPANY </td>
+                                            <td>$1.38</td>
+                                            <td>+2.01</td>
+                                            <td>-0.36%</td>
+                                </tr> {% endcomment %}
+                                                                
+                                {% comment %} <td class="centrado"> 1 </td> {% endcomment %}
+        
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="contrato-container">
+                
+            <div class="contratomodal contratomodal-close">
+                <p class="contratoclose">X</p>
+                <div class="contratomodal-texto">
+                    <h2>Registrar contrato de servicio </h2>
+                    <form class="detalleform" action="" method="post">
+
+                        <div class="grupo">
+                            <label>Sucursal</label>
+                                
+                            <input id = ""class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
+                                
+                        </div>
+
+                        <div class="grupo">
+                            <label>Proveedor</label>
+                                
+                            <input id = ""class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
+                                
+                        </div>
+                        <div class="grupo">
+                            <label>Numero Cliente</label>
+                                
+                            <input id = ""class="inputdetalle" readonly onmousedown="return false;" value= "" type="txt">
+                                
+                        </div>
+                        <button>Registrar</button>
+                            
+                    </form> 
+
+                </div>
+            </div>
+            
+        </div>
+
+        <script >
+        let contratocerrar =document.querySelectorAll(".contratoclose")[0];
+        let modalcontra =document.querySelectorAll(".contratomodal")[0];
+        let contramodalc =document.querySelectorAll(".contrato-container")[0];
+        let abrirmodal =document.querySelectorAll(".contra")[0];
 
 
-        <!--Modal para realizar los comentarios-->
-        <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/listclientes.js' %}"></script>
+
+        abrirmodal.addEventListener("click", function(e){
+            e.preventDefault();
+
+            contramodalc.style.opacity = "1";
+            contramodalc.style.visibility = "visible";
+            modalcontra.classList.toggle("contratomodal-close");
+
+        });
 
 
-        {% endblock %}
+
+        contratocerrar.addEventListener("click", function(){
+            modalcontra.classList.toggle("contratomodal-close");
+
+            setTimeout(function() {
+                contramodalc.style.opacity = "0";
+                contramodalc.style.visibility = "hidden";
+            }, 600);
+
+        });
+
+    </script>
+
+
+    <!--Modal para realizar los comentarios-->
+    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/listclientes.js' %}"></script>
+
+
+{% endblock %}

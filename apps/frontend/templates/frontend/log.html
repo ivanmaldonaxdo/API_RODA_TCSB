@@ -96,6 +96,55 @@
         </div>
     </div>
 
+
+    <div class="creden-container">
+                
+        <div class="credenmodal credenmodal-close">
+            <p class="credenclose">X</p>
+            <div class="credenmodal-texto">
+                <h2>Registro de credenciales </h2>
+                <form action="" class="cre-form">
+                    <label for="">Crendenciales</label>
+                    <input type="file" id="cred">
+                    <button id="registrarCred" class="btn-registrar">Actualizar credenciales</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+                
+        let modalcerrar =document.querySelectorAll(".credenclose")[0];
+        let modalcreden =document.querySelectorAll(".credenmodal")[0];
+        let credenmodalc =document.querySelectorAll(".creden-container")[0];
+        let abrirmodal =document.querySelectorAll(".cre")[0];
+
+
+
+        abrirmodal.addEventListener("click", function(e){
+            e.preventDefault();
+
+            credenmodalc.style.opacity = "1";
+            credenmodalc.style.visibility = "visible";
+            modalcreden.classList.toggle("credenmodal-close");
+
+        });
+
+
+
+        modalcerrar.addEventListener("click", function(){
+            modalcreden.classList.toggle("credenmodal-close");
+
+            setTimeout(function() {
+                credenmodalc.style.opacity = "0";
+                credenmodalc.style.visibility = "hidden";
+            }, 600);
+
+        });
+
+    </script>
+
     <script type="text/javascript" src="{% static 'js/log.js' %}"></script>
 
 {% endblock %}
