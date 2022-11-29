@@ -1,10 +1,10 @@
 {% extends 'frontend/base.html' %} {% load static %} {% block contenido %}
 
 
-    <div class="bk-listar">
-        <div class="container-form-listar">
+    <div class="bk-listarusuario">
+        <div class="container-form-listarusuario">
             <h1 class="centrado">Listar sucursales</h1>
-            <div class="inputs-form-inicio">
+            <div class="inputs-form-listar">
 
                 <form action="">
                     <div class="input-wrapper">
@@ -39,22 +39,32 @@
                             </thead>
                         </table>
                     </div>
-                    <div class="container-table">
-                        <div class="table-responsive">
+                </div>
+            </div>
+                <div class="container-table">
+                    <div class="table-responsive">
 
-                            <div class="tbl-content">
-                                <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
-                                    <tbody id="tbodyProcessed">
-  
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="tbl-content">
+                        <table class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+                            <tbody id="tbodyProcessed">
+                                {% comment %}
+                                <tr>
+                                    <td>AAC</td>
+                                    <td>AUSTRALIAN COMPANY </td>
+                                    <td>$1.38</td>
+                                    <td>+2.01</td>
+                                    <td>-0.36%</td>
+                                </tr> {% endcomment %} {% comment %}
+                                <td class="centrado"> 1 </td> {% endcomment %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        
         </div>
     </div>
+
                 <!--Modal para realizar los comentarios-->
                 <!--<script type="text/javascript" src="{% static 'js/modal.js' %}"></script> -->
                 <script type="text/javascript" src="{% static 'js/sucursales.js' %}"></script>
