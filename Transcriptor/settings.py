@@ -122,7 +122,7 @@ DATABASES = {
         'NAME': 'API_DB',
         'USER': 'postgres',
         'PASSWORD':'password',
-        'HOST':'44.203.224.51',
+        'HOST':'100.26.4.115',
         'PORT':'5432'
     }
 }

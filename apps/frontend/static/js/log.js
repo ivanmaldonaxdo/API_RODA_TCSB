@@ -96,7 +96,7 @@ function createRowDoc(doc)
         tdIdUsu = `<td class = "${clase}"  data-label="ID usuario">${doc.id_user}</td>`,
         tdCli = `<td class = "${clase}" data-label="Cliente">${doc.cliente}</td>`,
         tdSta = `<td class = "${clase}" data-label="Status code">${doc.status_code}</td>`,
-        tdFch = `<td class = "${clase}" data-label="Fecha">${doc.fecha}</td>`;
+        tdFch = `<td class = "${clase}" data-label="Fecha" hidden>${doc.fecha}</td>`;
 
     body += `<tr">${tdId}${tdIdUsu}${tdCli}${tdSta}${tdFch}</tr>`;
     tbody.innerHTML += body;

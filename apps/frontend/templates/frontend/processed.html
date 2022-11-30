@@ -26,7 +26,8 @@
                             <input class="input" name ="" id="rut" placeholder="Rut Emisor" type="search">
                         </div>
                         <div class="content-select-proce">
-                            <select id="clientes">
+                            <label for="cboClientes" id="lbl_cli" hidden>Cliente: </label>
+                            <select id="clientes" name = "cboClientes">
                                 <option value selected>Cliente...</option>
                                 {% comment %} <option value="1">1</option>
                                 <option value="2">2</option> {% endcomment %}
