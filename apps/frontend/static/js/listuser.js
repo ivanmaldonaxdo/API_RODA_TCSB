@@ -64,7 +64,7 @@ function desactivarUser(id, estado){
         closeOnCancel: true
     }).then((result) => {
         if (result.value==true) {
-            const url = 'http://100.27.17.66/usuarios/'+id+'/'
+            const url = 'http://3.219.56.115/usuarios/'+id+'/'
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -121,7 +121,7 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 
 function getUsuarios() {
-    const url = 'http://100.27.17.66/usuarios/';
+    const url = 'http://3.219.56.115/usuarios/';
     fetch(url, {
         method: 'GET',
         headers: {
@@ -166,7 +166,7 @@ function createRowDoc(doc)
     console.log(doc)
 
     let btnModificar = `<button id = "idmodificar" class="${cssButton}" type="button" onclick = "btngetid(this)"> Modificar</button>`;
-    let hrefModificar = `<a href = "http://100.27.17.66/Modificarusuario/">${btnModificar}</a>`;
+    let hrefModificar = `<a href = "http://3.219.56.115/Modificarusuario/">${btnModificar}</a>`;
     let btnEliminar = `<button id = "ideliminar" class="${cssButton}" type="button" onclick = "btnDesactivar(this)"> Modificar</button>`;
     let hrefEliminar = `<a href = "#">${btnEliminar}</a>`;
 

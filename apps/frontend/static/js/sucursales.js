@@ -66,7 +66,7 @@ function desactivarClient(id, estado) {
         closeOnCancel: true
     }).then((result) => {
         if (result.value == true) {
-            const url = 'http://100.27.17.66/clientes/' + id + '/'
+            const url = 'http://3.219.56.115/clientes/' + id + '/'
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -134,7 +134,7 @@ document.getElementById("buscarsucu").addEventListener('click', function(e) {
 })
 
 function getsucursales(paramsURL) {
-    const url = new URL('http://100.27.17.66/sucursales/');
+    const url = new URL('http://3.219.56.115/sucursales/');
     const params = paramsURL;
     url.search = new URLSearchParams(params).toString();
     fetch(url, {

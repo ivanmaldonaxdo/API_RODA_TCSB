@@ -87,7 +87,7 @@ class ClienteViewSets(viewsets.GenericViewSet):
 
 
     #Metodo para desactivar o activar clientes, valida el estado en que se encuentra
-    #endpoint = 100.27.17.66/clientes/7/
+    #endpoint = 3.219.56.115/clientes/7/
     def destroy(self, request, pk=None):
         cliente = self.get_object(pk)
         if cliente.is_active == True:

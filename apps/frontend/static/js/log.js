@@ -49,7 +49,7 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 })
 
 function getLogs(params) {
-    const url = new URL('http://100.27.17.66/logs/');
+    const url = new URL('http://3.219.56.115/logs/');
     url.search = new URLSearchParams(params).toString(); 
     fetch(url, {
         method: 'GET',

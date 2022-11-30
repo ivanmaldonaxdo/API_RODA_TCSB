@@ -26,7 +26,7 @@ load()
 
 
 function setSucursales() {
-    const url = new URL("http://100.27.17.66/sucursales/");
+    const url = new URL("http://3.219.56.115/sucursales/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -62,7 +62,7 @@ function setSucursales() {
 
 
 function setUsuarios() {
-    const url = new URL("http://100.27.17.66/usuarios/");
+    const url = new URL("http://3.219.56.115/usuarios/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -90,7 +90,7 @@ function setUsuarios() {
 }
 
 function setClientes() {
-    const url = new URL("http://100.27.17.66/clientes/");
+    const url = new URL("http://3.219.56.115/clientes/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -118,7 +118,7 @@ function setClientes() {
 }
 
 function setBoletas() {
-    const url = new URL("http://100.27.17.66/procesados/");
+    const url = new URL("http://3.219.56.115/procesados/");
     fetch(url, {
         method: 'GET',
         headers: {

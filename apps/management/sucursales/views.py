@@ -89,7 +89,7 @@ class SucursalesViewSets(viewsets.GenericViewSet):
 
 
     #Metodo para desactivar o activar clientes, valida el estado en que se encuentra
-    #endpoint = 100.27.17.66/clientes/<pk>/
+    #endpoint = 3.219.56.115/clientes/<pk>/
     def destroy(self, request, pk=None):
         sucursal = self.get_object(pk)
         sucursal.delete()        
