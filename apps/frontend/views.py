@@ -15,7 +15,11 @@ def login(request):
 
 @login_required
 def homeinfo(request):
-    return render(request, 'frontend/homeinfo.html')
+    sucur_count = Sucursal.objects.count()
+    context = {
+        'sucur_count': sucur_count
+    }
+    return render(request, 'frontend/homeinfo.html',context)
 
 @login_required
 def processed(request):
@@ -71,7 +75,7 @@ def get_client(request):
     # sucursales = list( Sucursal.objects.raw(
     #     '''SELECT "nom_cli" from public.fn_select_sucur(%s)''',[q_cliente])
     # ) 
-    print(sucursales)
+    # print(sucursales)
     data = { 
         "Dataso":1
     }
