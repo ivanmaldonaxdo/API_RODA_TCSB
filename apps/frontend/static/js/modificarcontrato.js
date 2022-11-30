@@ -19,7 +19,7 @@ var csrftoken = getCookie('csrftoken');
 let user = localStorage.getItem('Idcliente')
 
 function getContract() {
-    const url = "http://localhost:8000/sucursales/contratos/create_contract/"+user
+    const url = "http://3.239.33.153/sucursales/contratos/create_contract/"+user
     fetch(url, {
         method: 'GET',
         headers: {
@@ -51,7 +51,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 });
 
 function modifyContract(num_cli, sucu, prov) {
-    const url = 'http://localhost:8000/sucursales/contratos/create_contract/'+user+'/'
+    const url = 'http://3.239.33.153/sucursales/contratos/create_contract/'+user+'/'
     console.log(url)
     console.log(nom_cli, rut_cli, razon_cli)
     fetch(url, {

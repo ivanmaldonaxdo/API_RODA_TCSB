@@ -26,8 +26,8 @@ document.getElementById('btnLogin').addEventListener('click', function (e) {
 
 function loginUser() {
     // const url = 'http://3.80.228.126/auth-user/'
-    const url = 'http://localhost:8000/auth-user/'
-    const inicio = "http://localhost:8000/inicio/"
+    const url = 'http://3.239.33.153/auth-user/'
+    const inicio = "http://3.239.33.153/inicio/"
     fetch(url, {
         method: 'POST',
         headers: {

@@ -66,7 +66,7 @@ function desactivarClient(id, estado) {
         closeOnCancel: true
     }).then((result) => {
         if (result.value == true) {
-            const url = 'http://localhost:8000/clientes/' + id + '/'
+            const url = 'http://3.239.33.153/clientes/' + id + '/'
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -134,7 +134,7 @@ document.getElementById("buscarsucu").addEventListener('click', function(e) {
 })
 
 function getsucursales(paramsURL) {
-    const url = new URL('http://localhost:8000/sucursales/');
+    const url = new URL('http://3.239.33.153/sucursales/');
     const params = paramsURL;
     url.search = new URLSearchParams(params).toString();
     fetch(url, {
