@@ -83,7 +83,7 @@ class ProveedorViewSets(viewsets.GenericViewSet):
 
 
     #Metodo para desactivar o activar clientes, valida el estado en que se encuentra
-    #endpoint = 3.239.229.60/proveedores/<pk>/
+    #endpoint = 100.27.17.66/proveedores/<pk>/
     def destroy(self, request, pk=None):
         proveedor = self.get_object(pk)
         if proveedor.is_active == True:

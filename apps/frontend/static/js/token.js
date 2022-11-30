@@ -26,8 +26,8 @@ document.getElementById('btnLogin').addEventListener('click', function (e) {
 
 function loginUser() {
     // const url = 'http://3.80.228.126/auth-user/'
-    const url = 'http://3.239.229.60/auth-user/'
-    const inicio = "http://3.239.229.60/inicio/"
+    const url = 'http://100.27.17.66/auth-user/'
+    const inicio = "http://100.27.17.66/inicio/"
     fetch(url, {
         method: 'POST',
         headers: {

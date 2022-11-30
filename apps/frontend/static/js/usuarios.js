@@ -31,7 +31,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 });
 
 function createUser(correo, password, nombre, telefono, rol) {
-    const url = 'http://3.239.229.60/usuarios/'
+    const url = 'http://100.27.17.66/usuarios/'
     console.log(correo, password, nombre, telefono, rol)
     fetch(url, {
         method: 'POST',
