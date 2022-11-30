@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-82e32v=_md3-ydr+ic4@f=pbi4yxe@zf@p_$4by5npv+w@3(41
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['3.80.228.126']
+ALLOWED_HOSTS = ['3.239.33.153']
 
 # Application definition
 
@@ -55,6 +55,7 @@ THIRD_APPS = [
     'solo',
     "corsheaders",
     'django_rest_passwordreset',
+    'django_cron',
 ]
 
 CRON_CREDENCIAL= 'Nmi9IXfkKBUgyRk*pQ+1F9Xz@8OS7$1&E4^6eJTrdgKD$soC6'
@@ -179,8 +180,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #funcion para el proceso automatico 
-CRONJOBS = [
-    ('* * * * *', 'apps.OCR.cron.dicehola')
+CRON_CLASSES = [
+    "apps.tasks.MyCronJob"
 ]
 
 
@@ -202,4 +203,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'login'
 
-STATIC_ROOT = '/var/www/Trans-site/assets/'
+STATIC_ROOT = '/var/www/APISite/assets/'
