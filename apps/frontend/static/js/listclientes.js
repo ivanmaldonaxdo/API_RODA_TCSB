@@ -63,7 +63,7 @@ function desactivarClient(id, estado){
         closeOnCancel: true
     }).then((result) => {
         if (result.value==true) {
-            const url = 'http://3.239.33.153/clientes/'+id+'/'
+            const url = 'http://3.239.229.60/clientes/'+id+'/'
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -136,7 +136,7 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 
 function getClientes(paramsURL) {
-    const url = new URL('http://3.239.33.153/clientes/');
+    const url = new URL('http://3.239.229.60/clientes/');
     const params = paramsURL;
     url.search = new URLSearchParams(params).toString();
     fetch(url, {
@@ -157,7 +157,7 @@ function getClientes(paramsURL) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'No se han encontrado sucursales..',
+                    text: 'No se han encontrado clientes..',
                     showConfirmButton: false,
                     timer: 2000
                 })
@@ -181,7 +181,7 @@ function createRowDoc(doc)
         cssButton = "buttonDownload";
 
     let btnModificar = `<button id = "idmodificar" class="${cssButton}" type="button" onclick = "btngetid(this)"> Modificar</button>`;
-    let hrefModificar = `<a href = "http://3.239.33.153/Modificarcliente/">${btnModificar}</a>`;
+    let hrefModificar = `<a href = "http://3.239.229.60/Modificarcliente/">${btnModificar}</a>`;
     let btnEliminar = `<button id = "ideliminar" class="${cssButton}" type="button" onclick = "btnDesactivar(this)"> Modificar</button>`;
     let hrefEliminar = `<a href = "#">${btnEliminar}</a>`;
 

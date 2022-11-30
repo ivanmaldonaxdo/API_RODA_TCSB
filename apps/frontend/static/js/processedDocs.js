@@ -16,7 +16,7 @@ function getCookie(cname) {
 var csrftoken = getCookie('csrftoken');
 
 function setSucursales() {
-    const url = new URL("http://3.239.33.153/sucursales/");
+    const url = new URL("http://3.239.229.60/sucursales/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -54,7 +54,7 @@ function setSucursales() {
 // setSucursales();
 
 async function setDataSucur(idCli) {
-    const url = new URL("http://3.239.33.153/sucursales/");
+    const url = new URL("http://3.239.229.60/sucursales/");
     const params = {cliente :idCli }
     url.search = new URLSearchParams(params).toString();
     const res = await fetch(url, {
@@ -72,7 +72,7 @@ async function setDataSucur(idCli) {
 
 
 async function setDataClientes() {
-    const url = new URL("http://3.239.33.153/clientes/");
+    const url = new URL("http://3.239.229.60/clientes/");
     const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -174,14 +174,14 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 })
 
 function getProcesedDocs(paramsURL) {
-    const url = new URL("http://3.239.33.153/procesados/");
+    const url = new URL("http://3.239.229.60/procesados/");
     // const params = { contrato_servicio: rutProveedor }
     const params = paramsURL;
     url.search = new URLSearchParams(params).toString();
     console.log(url.search);
 
     // const url = 'http://3.80.228.126/procesados/
-    // const url = 'http://3.239.33.153/procesados/';
+    // const url = 'http://3.239.229.60/procesados/';
     fetch(url, {
         method: 'GET',
         headers: {
@@ -227,7 +227,7 @@ function createRowDoc(doc,event)
         cssButton = "buttonDownload";
     
     //LOCAL
-    var urlBase = 'http://3.239.33.153';
+    var urlBase = 'http://3.239.229.60';
     //server
     // var urlBase = 'http://localhost'
     var urlDownload = urlBase + doc.documento

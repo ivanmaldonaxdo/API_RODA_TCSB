@@ -26,7 +26,7 @@ load()
 
 
 function setSucursales() {
-    const url = new URL("http://3.239.33.153/sucursales/");
+    const url = new URL("http://3.239.229.60/sucursales/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -62,7 +62,7 @@ function setSucursales() {
 
 
 function setUsuarios() {
-    const url = new URL("http://3.239.33.153/usuarios/");
+    const url = new URL("http://3.239.229.60/usuarios/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -90,7 +90,7 @@ function setUsuarios() {
 }
 
 function setClientes() {
-    const url = new URL("http://3.239.33.153/clientes/");
+    const url = new URL("http://3.239.229.60/clientes/");
     fetch(url, {
         method: 'GET',
         headers: {
@@ -118,7 +118,7 @@ function setClientes() {
 }
 
 function setBoletas() {
-    const url = new URL("http://3.239.33.153/procesados/");
+    const url = new URL("http://3.239.229.60/procesados/");
     fetch(url, {
         method: 'GET',
         headers: {

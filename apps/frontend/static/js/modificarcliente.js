@@ -19,7 +19,7 @@ var csrftoken = getCookie('csrftoken');
 let user = localStorage.getItem('Idcliente')
 
 function getClient() {
-    const url = "http://3.239.33.153/clientes/"+user
+    const url = "http://3.239.229.60/clientes/"+user
     fetch(url, {
         method: 'GET',
         headers: {
@@ -51,7 +51,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 
 
 function modifyClient(nom_cli, rut_cli, razon_cli) {
-    const url = 'http://3.239.33.153/clientes/'+user+'/'
+    const url = 'http://3.239.229.60/clientes/'+user+'/'
     console.log(url)
     console.log(nom_cli, rut_cli, razon_cli)
     fetch(url, {

@@ -34,7 +34,7 @@ class procesoautomatico(ViewSet):
 
     @action(detail=False,methods = ['POST'],url_name="pruebausu")
     def pruebausu(self,request):
-        url = 'http://3.239.33.153/clientes/'
+        url = 'http://3.239.229.60/clientes/'
         x = request.get(url)
         
 
@@ -54,9 +54,9 @@ class procesoautomatico(ViewSet):
 
         #filtramos por cron activo , es decir todo el proceso automatico
         
-        #http://3.239.33.153/documentos/process_docs/' procesa archivos
-        #http://3.239.33.153/documentos/search_docs/'; los busca
-        #const url = 'http://3.239.33.153/procesados/' busca procesados
+        #http://3.239.229.60/documentos/process_docs/' procesa archivos
+        #http://3.239.229.60/documentos/search_docs/'; los busca
+        #const url = 'http://3.239.229.60/procesados/' busca procesados
         
         cron_activo = cron.objects.get(id=2)
 

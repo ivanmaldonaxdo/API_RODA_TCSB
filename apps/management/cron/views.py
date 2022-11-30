@@ -33,7 +33,7 @@ class StatusForCron(viewsets.GenericViewSet):
         cron_serializer = self.serializer_class(cron)
         return Response(cron_serializer.data, status=status.HTTP_200_OK)
 
-    #http://3.239.33.153/cron/actualizar_parametros_cron/
+    #http://3.239.229.60/cron/actualizar_parametros_cron/
     @action(detail=False, methods=['post'])
     def actualizar_parametros_cron(self, request):
         cron = self.get_queryset()
@@ -49,7 +49,7 @@ class StatusForCron(viewsets.GenericViewSet):
              'errors': serializer.errors
         }, status= status.HTTP_400_BAD_REQUEST)
 
-    #http://3.239.33.153/cron/info_cron/
+    #http://3.239.229.60/cron/info_cron/
     @action(detail=False, methods=['get'])
     def info_cron(self, request): #Detalle de un usuario
         cron = self.get_object(1)
@@ -72,7 +72,7 @@ class StatusForCron(viewsets.GenericViewSet):
         return response
 
 
-    #http://3.239.33.153/cron/estado_cron/
+    #http://3.239.229.60/cron/estado_cron/
     @action(detail=False, methods=['get'])
     def estado_cron(self, request):
         cron  = self.get_object(1)
@@ -94,7 +94,7 @@ class StatusForCron(viewsets.GenericViewSet):
             'message':'HUBO UN ERROR AL ACTUALIZAR EL ESTADO DE CRON'
         }, status= status.HTTP_400_BAD_REQUEST)
 
-    #http://3.239.33.153/cron/verificar_status/
+    #http://3.239.229.60/cron/verificar_status/
     @action(detail=False, methods=['get'])
     def verificar_status(self, request):
         cron = self.get_object(1)

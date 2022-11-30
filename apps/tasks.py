@@ -28,12 +28,12 @@ class MyCronJob(CronJobBase):
                 ConfigCron.objects.filter(id=1).update(status = 'Recopilando DATA')
                 for cli in self.clientes:
                     for ser in self.servicios:
-                        url4 =  'http://3.239.33.153/cron/verificar_status/'
+                        url4 =  'http://3.239.229.60/cron/verificar_status/'
                         cookie = settings.CRON_CREDENCIAL
                         estado = requests.get(url=url4, cookies={'jwt':cookie})
                         con = estado.json()
                         if con['status'] == True:
-                            url =  'http://3.239.33.153/documentos/search_docs/'
+                            url =  'http://3.239.229.60/documentos/search_docs/'
                             cookie = settings.CRON_CREDENCIAL
                             body={
                                 'folio': '', 
@@ -46,7 +46,7 @@ class MyCronJob(CronJobBase):
                             data = search.json()
                             if search.status_code==200:
                                 for bol in data:
-                                    url2 =  'http://3.239.33.153/cron/verificar_status/'
+                                    url2 =  'http://3.239.229.60/cron/verificar_status/'
                                     cookie = settings.CRON_CREDENCIAL
                                     estado = requests.get(url=url2, cookies={'jwt':cookie})
                                     con = estado.json()
@@ -56,7 +56,7 @@ class MyCronJob(CronJobBase):
                                         nomDoc = bol['nomDoc']
                                         rut_emisor = bol['rut_emisor']
                                         rut_cliente = bol['rut_client']
-                                        url3 =  'http://3.239.33.153/documentos/process_docs/'
+                                        url3 =  'http://3.239.229.60/documentos/process_docs/'
                                         body_proc= {'uuid' :uidd , "nomDoc" : nomDoc, "rut_emisor": rut_emisor, "rut_client":rut_cliente}
                                         proc = requests.post(url=url3, json=body_proc, cookies={'jwt':cookie})
                                         time.sleep(5)

@@ -26,7 +26,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 });
 
 function createClient(nom_cli, rut_cli, razon) {
-    const url = 'http://3.239.33.153/clientes/'
+    const url = 'http://3.239.229.60/clientes/'
     console.log(nom_cli, rut_cli, razon)
     fetch(url, {
         method: 'POST',

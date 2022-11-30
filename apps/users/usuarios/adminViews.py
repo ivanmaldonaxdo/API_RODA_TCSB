@@ -46,8 +46,8 @@ class UserViewSet(viewsets.GenericViewSet):
     
 
 
-    #http://3.239.33.153/usuarios/?search=Carlos
-    #http://3.239.33.153/usuarios/?is_active=True
+    #http://3.239.229.60/usuarios/?search=Carlos
+    #http://3.239.229.60/usuarios/?is_active=True
 
     def list(self, request): #Listado de usuario
         query = self.get_queryset().order_by('-id')
