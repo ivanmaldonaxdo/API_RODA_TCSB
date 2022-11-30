@@ -63,7 +63,7 @@ function desactivarClient(id, estado){
         closeOnCancel: true
     }).then((result) => {
         if (result.value==true) {
-            const url = 'http://localhost:8000/clientes/'+id+'/'
+            const url = 'http://100.26.4.115/clientes/'+id+'/'
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -136,7 +136,7 @@ document.getElementById("buscarDocs").addEventListener('click', function (e) {
 
 
 function getClientes(paramsURL) {
-    const url = new URL('http://localhost:8000/clientes/');
+    const url = new URL('http://100.26.4.115/clientes/');
     const params = paramsURL;
     url.search = new URLSearchParams(params).toString();
     fetch(url, {
@@ -181,7 +181,7 @@ function createRowDoc(doc)
         cssButton = "buttonDownload";
 
     let btnModificar = `<button id = "idmodificar" class="${cssButton}" type="button" onclick = "btngetid(this)"> Modificar</button>`;
-    let hrefModificar = `<a href = "http://localhost:8000/Modificarcliente/">${btnModificar}</a>`;
+    let hrefModificar = `<a href = "http://100.26.4.115/Modificarcliente/">${btnModificar}</a>`;
     let btnEliminar = `<button id = "ideliminar" class="${cssButton}" type="button" onclick = "btnDesactivar(this)"> Modificar</button>`;
     let hrefEliminar = `<a href = "#">${btnEliminar}</a>`;
 

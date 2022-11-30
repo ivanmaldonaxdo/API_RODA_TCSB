@@ -27,7 +27,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 });
 
 function createProv(nom_dis, rut_prov, contacto, serv) {
-    const url = 'http://localhost:8000/proveedores/'
+    const url = 'http://100.26.4.115/proveedores/'
     console.log(nom_dis, rut_prov, contacto, serv)
     fetch(url, {
         method: 'POST',

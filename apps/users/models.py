@@ -88,7 +88,7 @@ from django.core.mail import send_mail
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
 
-    email_plaintext_message ="Ingrese al link: http://localhost:8000/api/password_reset/confirm/ y pegue el siguiente codigo con su nueva contraseña token={}".format(reset_password_token.key)
+    email_plaintext_message ="Ingrese al link: http://100.26.4.115/api/password_reset/confirm/ y pegue el siguiente codigo con su nueva contraseña token={}".format(reset_password_token.key)
     
 
     send_mail(

@@ -26,7 +26,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 });
 
 function createContract(num_cli, sucu, prov) {
-    const url = 'http://localhost:8000/sucursales/contratos/create_contract/'
+    const url = 'http://100.26.4.115/sucursales/contratos/create_contract/'
     console.log(num_cli, sucu, prov)
     fetch(url, {
         method: 'POST',

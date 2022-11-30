@@ -31,7 +31,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function(e) 
 });
 
 function createsucursal(id, nom_sucursal, cod, direccion, comuna, cliente) {
-    const url = 'http://localhost:8000/sucursales/'
+    const url = 'http://100.26.4.115/sucursales/'
     console.log(id, nom_sucursal, cod, direccion, comuna, cliente)
     fetch(url, {
         method: 'POST',

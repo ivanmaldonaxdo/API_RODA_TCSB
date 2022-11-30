@@ -24,7 +24,7 @@ log = document.getElementsByClassName("logg")
 suc = document.getElementsByClassName("suc")
 
 function rol(){
-    const url = 'http://localhost:8000/rol_usuario/'
+    const url = 'http://100.26.4.115/rol_usuario/'
     fetch(url, {
         method: 'GET',
         headers: {

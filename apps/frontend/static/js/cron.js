@@ -33,7 +33,7 @@ document.querySelector('form.crondata').addEventListener('submit', function(e) {
 });
 
 function actCron(hora, fecha, estado) {
-    const url = "http://localhost:8000/cron/actualizar_parametros_cron/"
+    const url = "http://100.26.4.115/cron/actualizar_parametros_cron/"
     fetch(url, {
             method: 'POST',
             headers: {
@@ -66,7 +66,7 @@ function actCron(hora, fecha, estado) {
 }
 
 function getCron() {
-    const url = "http://localhost:8000/cron/info_cron/"
+    const url = "http://100.26.4.115/cron/info_cron/"
     fetch(url, {
             method: 'GET',
             headers: {
@@ -88,7 +88,7 @@ function getCron() {
 }
 
 function getcronparams() {
-    const url = "http://localhost:8000/cron/get_cron_params/"
+    const url = "http://100.26.4.115/cron/get_cron_params/"
     fetch(url, {
             method: 'GET',
             headers: {

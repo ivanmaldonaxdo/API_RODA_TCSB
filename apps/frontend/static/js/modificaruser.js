@@ -20,7 +20,7 @@ var csrftoken = getCookie('csrftoken');
 let user = localStorage.getItem('idusuario')
 
 function getUser() {
-    const url = "http://localhost:8000/usuarios/"+user
+    const url = "http://100.26.4.115/usuarios/"+user
     fetch(url, {
         method: 'GET',
         headers: {
@@ -54,7 +54,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 
 
 function modifyUser(correo, nombre, telefono, rol) {
-    const url = 'http://localhost:8000/usuarios/'+user+'/'
+    const url = 'http://100.26.4.115/usuarios/'+user+'/'
     console.log(url)
     console.log(correo, nombre, telefono, rol)
     fetch(url, {
