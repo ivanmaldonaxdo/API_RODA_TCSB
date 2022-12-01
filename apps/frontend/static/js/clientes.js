@@ -26,7 +26,7 @@ document.querySelector('form.form-cont').addEventListener('submit', function (e)
 });
 
 function createClient(nom_cli, rut_cli, razon) {
-    const url = 'http://100.27.17.66/clientes/'
+    const url = 'http://localhost:8000/clientes/'
     console.log(nom_cli, rut_cli, razon)
     fetch(url, {
         method: 'POST',

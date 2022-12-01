@@ -18,7 +18,7 @@ from apps.users.usuarios.serializers import ChangePasswordSerializer
 #Funcion que autentica al usuario al momento de iniciar sesion, debe recibir un correo y contraseña
 #al autenticarse correctamente setea una cookie con el token generado en el cliente o navegador que se este utilizando.
 #Endpoint:
-#http://100.27.17.66/auth-user/
+#http://localhost:8000/auth-user/
 class authUser(APIView):
 
     authentication_classes = [] #disables authentication
@@ -72,7 +72,7 @@ class authUser(APIView):
         return response
 
 #Funcion para desloguear al usuario, elimina el token y la sesion de usuario
-#http://100.27.17.66/logout/
+#http://localhost:8000/logout/
 class Logout(APIView): 
     def get(self, request, *args, **kgwars):
         response = Response()
@@ -86,7 +86,7 @@ class Logout(APIView):
         return response
 
 #Funcion para verificar el rol de usuario, importante si se quiere hacer validaciones en el front end VER ROLES DEFINIDOS EN LA BD
-#http://100.27.17.66/rol_usuario/
+#http://localhost:8000/rol_usuario/
 class UserRol(APIView):
     def get(self,request):
         rol = request.user.role.id 
@@ -97,7 +97,7 @@ class UserRol(APIView):
 
 
 #Funcion para cambiar la contraseña de un usuario, este debe estar autenticado antes de realizar la accion
-#http://100.27.17.66/api/change-password/
+#http://localhost:8000/api/change-password/
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     model = User
@@ -134,13 +134,13 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 #Reset Password, se debe ingresar el email para que se valide que corresponda a un usuario, el sistema envia un correo al usuario con el token
 #de validacion
-#http://100.27.17.66/api/password_reset/
+#http://localhost:8000/api/password_reset/
 
 
 #En esta URL se ingresa el token de confirmacion que se envio por correo, mas especificando la nueva contraseña
-#http://100.27.17.66/api/password_reset/confirm/
+#http://localhost:8000/api/password_reset/confirm/
 
 
 #Cambio de contraseñas
 #Endpoint:
-#http://100.27.17.66/api/change-password/
+#http://localhost:8000/api/change-password/

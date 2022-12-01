@@ -30,7 +30,7 @@ class ContratoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model= Contrato_servicio
-        fields=('num_cliente', 'sucursal_name', 'proveedor_name')
+        fields=('id','num_cliente', 'sucursal_name', 'proveedor_name')
 
 class SucursalModelSerializer(serializers.ModelSerializer):
     contrato_servicio = ContratoSerializer(many=True, source="contrato_servicio_set")

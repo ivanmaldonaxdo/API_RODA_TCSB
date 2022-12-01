@@ -1,6 +1,6 @@
 {
     "VENCIMIENTO": "825.280",
-    "Nro CLIENTE": "0010779286",
+    "Nro CLIENTE": "501257",
     "CARGO FIJO": "573",
     "CONSUMO AGUA": "1.563.099",
     "CONSUMO AGUA NO PUNTA": "1.563.099",
@@ -25,24 +25,5 @@
     "IVA 19%": "712.01",
     "TOTAL VENTA": "4.459,47",
     "monto no facturado": "$ :",
-    "SALDO ANTERIOR": "$ : 1.703.72",
-    "FECHA DE VENCIMIENTO": "",
-    "FECHA EMISION": "",
-    "RUT_EMISOR": "91.806.000-6",
-    "NFOLIO": "11419127",
-    "RUT_CLIENTE": ": 76.242.774-5",
-    "GIRO": ": CONST EDIF USO RESID",
-    "CODIGO": "IG",
-    "ITEM/DETALLE": "L Gas Normal",
-    "CANTIDAD": "3.603,000000",
-    "PUNITARIO": "368,689100",
-    "VALOR PARCIAL": "1.580.780",
-    "N DESPACHO": "1.580.780",
-    "ORDEN DE COMPRA": "1",
-    "FECHA ORDEN DE COMPRA": "2019-09-23",
-    "GUIA DE DESPACHO": "2234850",
-    "FECHA GUIA DE DESPACHO": "2021-02-03",
-    "TOTAL AFECTO": "1.580.780",
-    "19 % IVA": "$ : 252.393",
-    "MONTO TOTAL": "$ : 1.580.780"
+    "SALDO ANTERIOR": "$ : 1.703.72"
 }

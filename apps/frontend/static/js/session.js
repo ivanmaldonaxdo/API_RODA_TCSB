@@ -37,7 +37,7 @@ document.getElementById('cerrarsession').addEventListener('click', function(){
 
 function logoutUser(){
     // const url = 'http://3.80.228.126/logout/'
-    const url = 'http://100.27.17.66/logout/'
+    const url = 'http://localhost:8000/logout/'
 
     fetch(url,{
     method:'GET',
@@ -51,7 +51,7 @@ function logoutUser(){
         Swal.fire({
             title: "Sesion cerrada correctamente"
         }).then(() => {
-            window.location.replace("http://100.27.17.66/");
+            window.location.replace("http://localhost:8000/");
         })
         } 
     else{
