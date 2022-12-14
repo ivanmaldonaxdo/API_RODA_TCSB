@@ -15,7 +15,7 @@ class SistemaSerializers(serializers.ModelSerializer):
         fields = ('name_sis', 'credencial')
 
     def update(self, instance, validated_data):
-        delete_old_file(instance.credencial.path)
+        # delete_old_file(instance.credencial.path)
         return super().update(instance, validated_data)
         
         
