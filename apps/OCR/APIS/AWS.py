@@ -40,6 +40,7 @@ def extraccionOCR(_bucket,query,tables = None,carpeta = 'media',nomDoc = None):
     print(type(list_tablas))
     print("Largo Tablas", len(list_tablas))
     list_tablas = (list_tablas if len(list_tablas) > 0 else None)
+    print(list_tablas)
     try:
         # print(list_tablas)
         json_procesado = textractQTB(bucket, archivo, queries,list_tablas)

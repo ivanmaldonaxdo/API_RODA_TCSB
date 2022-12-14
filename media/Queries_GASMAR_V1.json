@@ -1,0 +1,88 @@
+﻿{
+    "Queries": [
+        {
+            "Text": "COD CLIENTE",
+            "Alias": "NRO CLIENTE",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "R.U.T.: IN TOP OF GUIA DESPACHO?",
+            "Alias": "R.U.T (EMISOR)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "R.U.T.:",
+            "Alias": "R.U.T (CLIENTE)",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "WHAT IS N OF DOCUMENT BELOW FACTURA ELECTRONICA?",
+            "Alias": "FOLIO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA VENCIMIENTO",
+            "Alias": "FECHA VENCIMIENTO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "FECHA EMISION",
+            "Alias": "FECHA EMISION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "CANTIDAD",
+            "Alias": "CANTIDAD",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "UNIDAD MEDIDA",
+            "Alias": "UNIDAD MEDIDA",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "DESCRIPCION",
+            "Alias": "DESCRIPCION",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "SUBTOTAL",
+            "Alias": "SUBTOTAL",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "PRECIO UNITARIO",
+            "Alias": "PRECIO UNITARIO",
+            "Pages": [
+                "1"
+            ]
+        },
+        {
+            "Text": "TOTAL",
+            "Alias": "TOTAL",
+            "Pages": [
+                "1"
+            ]
+        }
+    ]
+}
