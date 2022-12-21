@@ -242,6 +242,8 @@ def format_key_value(text):
 
 # FUNCION GENERAL PARA EXTRAER LA DATA
 def textractQTB (s3BucketName, documentName,_queries_file,_tables = None):
+    print("Tablas")
+    print(_tables)
     jobId = startJob(s3BucketName, documentName,_queries_file)
     # json_documento = dict()
 
