@@ -37,10 +37,9 @@ def extraccionOCR(_bucket,query,tables = None,carpeta = 'media',nomDoc = None):
     json_tablas.update(data)
     list_tablas = json_tablas.get("TABLES")
     ################ VERIFICA EL LARGO DE ELEMENTOS EN LA LISTA DE LA TABLA 
-    print(type(list_tablas))
+    # print(type(list_tablas))
     print("Largo Tablas", len(list_tablas))
     list_tablas = (list_tablas if len(list_tablas) > 0 else None)
-    print(list_tablas)
     try:
         # print(list_tablas)
         json_procesado = textractQTB(bucket, archivo, queries,list_tablas)
@@ -50,11 +49,17 @@ def extraccionOCR(_bucket,query,tables = None,carpeta = 'media',nomDoc = None):
         exception_type, exception_object, exception_traceback = sys.exc_info()
         filename = exception_traceback.tb_frame.f_code.co_filename
         line_number = exception_traceback.tb_lineno
-
+        print("")
         print("Exception type: ", exception_type)
         print("File name: ", filename)
         print("Line number: ", line_number)
         print(e)
+        # tablas_json = dict()
+        # with open(tables) as json_file:
+        #     data = json.load(json_file)
+        # # print(data[0])
+        # tablas_json.update(data[0])
+        #     # json_creds.update(data)
         return None
 
     ###EXTRACCION APARTE

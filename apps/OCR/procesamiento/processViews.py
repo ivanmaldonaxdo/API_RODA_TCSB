@@ -93,66 +93,66 @@ class OpenKMViewSet(ViewSet):
             ).content
             print(type(openkm.get_content_doc(data.get("uuid")).content))
             try:
-                rut_client = data.get('rut_client')
-
                 # rut_client = data.get('rut_client')
-                # cliente = Cliente.objects.get(rut_cliente=data.get('rut_client'))
-                # if cliente.is_active:
+
+                rut_client = data.get('rut_client')
+                cliente = Cliente.objects.get(rut_cliente=data.get('rut_client'))
+                if cliente.is_active:
                     ######################## SUBIDA DE ARCHIVO EN S3 AWS ##############################
-                resultado = subir_archivo(contenido,'bucket-ocr', nomDoc = data.get('nomDoc'))
+                    resultado = subir_archivo(contenido,'bucket-ocr', nomDoc = data.get('nomDoc'))
 
-                ######################## CONSULTA DE PLANTILLAS EN BD #############################
-                print("Rut Emisor",data.get('rut_emisor'))
-                with connections['default'].cursor() as cursor:##conexion default a la bd
-                    cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
-                    plantilla = cursor.fetchall()
-                queries_file,tables_file = plantilla[0][2],plantilla[0][3]
-                # print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
-                queries_file_path = os.path.join('media',queries_file)
-                query_doc = 'media'+ '/' + queries_file
-                table_doc = 'media'+ '/' + tables_file
-                # print(type(table_doc))
+                    ######################## CONSULTA DE PLANTILLAS EN BD #############################
+                    print("Rut Emisor",data.get('rut_emisor'))
+                    with connections['default'].cursor() as cursor:##conexion default a la bd
+                        cursor.execute('''select * from v_plantillas where rut_proveedor = %s''',[data.get('rut_emisor')])
+                        plantilla = cursor.fetchall()
+                    queries_file,tables_file = plantilla[0][2],plantilla[0][3]
+                    # print("Queries file: ", queries_file, " - Tables_config: ", tables_file ) 
+                    queries_file_path = os.path.join('media',queries_file)
+                    query_doc = 'media'+ '/' + queries_file
+                    table_doc = 'media'+ '/' + tables_file
+                    # print(type(table_doc))
 
-                ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
-                extracted_data = extraccionOCR('bucket-ocr',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
-                metadata = openkm.get_metadata(data.get("uuid"))
-                print("Data ", extracted_data)
-                docName = str(data.get('nomDoc')).replace('.pdf', '')
-                archivo  = ( docName + '.json')
+                    ######################## EXTRACCION DE DATA EN BOTO 3 ##############################
+                    extracted_data = extraccionOCR('bucket-ocr',query=query_doc,tables = table_doc, nomDoc = data.get('nomDoc'))
+                    metadata = openkm.get_metadata(data.get("uuid"))
+                    # print("Data ", extracted_data)
+                    docName = str(data.get('nomDoc')).replace('.pdf', '')
+                    archivo  = ( docName + '.json')
 
-                ######## RUT DE CLIENTE
-                # rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
-                # rut_cliente = format_rut_without_dots(rut_cliente)
-                numero_cli = extracted_data.get("Nro CLIENTE")
+                    ######## RUT DE CLIENTE
+                    # rut_cliente = str(extracted_data.get('RUT_CLIENTE')).replace(":", "").strip()
+                    # rut_cliente = format_rut_without_dots(rut_cliente)
+                    numero_cli = extracted_data.get("Nro CLIENTE")
 
-                ######################## OBTENCION DE CONTENIDO JSON PARA SUBIDA ###################
-                read = json.dumps(extracted_data, indent = 4)
-                contenido = ContentFile(read.encode('utf-8'))
-                contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
-                # id_contrat = contrato_serv.sucursal.id
-                # print(id_contrat)
-                ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
-                doc = Documento.objects.create(
-                    nom_doc = docName,
-                    folio =  metadata.get('folio'),
-                    contrato_servicio = contrato_serv,
-                    procesado = True                     
-                )
-                subido = doc.documento.save(archivo,contenido)
-                id_doc = doc.id
-                # print(id_doc)
-                # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
-                return Response({
-                    'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DocID":id_doc
+                    ######################## OBTENCION DE CONTENIDO JSON PARA SUBIDA ###################
+                    read = json.dumps(extracted_data, indent = 4)
+                    contenido = ContentFile(read.encode('utf-8'))
+                    contrato_serv = Contrato_servicio.objects.get(num_cliente = numero_cli)
+                    # id_contrat = contrato_serv.sucursal.id
+                    # print(id_contrat)
+                    ######################## SUBIDA DE JSON ESTRUCTURADOS EN BD ########################
+                    doc = Documento.objects.create(
+                        nom_doc = docName,
+                        folio =  metadata.get('folio'),
+                        contrato_servicio = contrato_serv,
+                        procesado = True                     
+                    )
+                    subido = doc.documento.save(archivo,contenido)
+                    id_doc = doc.id
+                    # print(id_doc)
+                    # self.openkm.set_metadata_processed(data.get("uuid"), extracted_data.get('JOB_ID'))
+                    return Response({
+                        'message':'Documento Procesado','numCli':numero_cli,'uuid':data.get("uuid"),"DocID":id_doc
 
-                    }, status=status.HTTP_200_OK,headers=None)
-                    
-                    # folio,rutCli = metadata.get("folio"), metadata.get("rut")
-                # else:
-                #     return Response({
+                        }, status=status.HTTP_200_OK,headers=None)
+                        
+                        # folio,rutCli = metadata.get("folio"), metadata.get("rut")
+                else:
+                    return Response({
 
-                #         'message':'Documento No Procesado, cliente con rut {} se encuentra desactivado en el sistema' .format(rut_client)
-                #     }, status=status.HTTP_401_UNAUTHORIZED,headers=None)
+                        'message':'Documento No Procesado, cliente con rut {} se encuentra desactivado en el sistema' .format(rut_client)
+                    }, status=status.HTTP_401_UNAUTHORIZED,headers=None)
                     
             except Exception as e:
                 exception_type, exception_object, exception_traceback = sys.exc_info()
